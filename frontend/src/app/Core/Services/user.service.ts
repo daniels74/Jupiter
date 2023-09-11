@@ -35,7 +35,7 @@ export class UserService implements OnInit {
     };
     console.log('REST op user', updatedUserObject);
     return this.http.put(
-      this.origin + 'user/' + this.userBehaviorSubject$.value.id,
+      this.origin + '/user/' + this.userBehaviorSubject$.value.id,
       updatedUserObject,
     );
     // .pipe(
