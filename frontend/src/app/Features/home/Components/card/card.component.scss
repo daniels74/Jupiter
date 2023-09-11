@@ -1,0 +1,51 @@
+.card {
+  margin-left: 3rem;
+  margin-right: 3rem;
+  height: 25vh;
+  width: 15vw;
+  background-color: rgb(7, 25, 75);
+  color: rgb(202, 213, 216);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 1rem;
+  border-style: solid;
+  border-width: thin;
+  border-color: lightblue;
+}
+
+.coin-img-container {
+  height: 45%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  border-bottom: 0;
+}
+
+.coin-info-container {
+  height: 65%;
+  width: 100%;
+  background-color: rgb(43, 58, 91);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.coin-info {
+  height: 90%;
+  width: 90%;
+//   background-color: yellow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}

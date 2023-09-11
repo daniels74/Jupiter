@@ -1,0 +1,15 @@
+<div class="crypto-page">
+    <button gloww class="home-btn" routerLink="/">Home</button>
+    <div class="listt-container">
+        <div *ngFor="let coin of crypto$ | async">
+            <app-card [dataImage]="coin.item.small" [dataName]="coin.item.name"
+                [dataMarketCapRank]="coin.item.market_cap_rank" />
+        </div>
+    </div>
+
+    <div class="listt-container">
+        <div *ngFor="let nft of nfts$ | async">
+            <app-card [dataImage]="nft.thumb" [dataName]="nft.name" />
+        </div>
+    </div>
+</div>

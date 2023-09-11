@@ -1,0 +1,33 @@
+<div class="user-profile-page">
+    <div class="left-section">
+        <div class="img-container">
+            <h4>Img feature coming soon... 🔮</h4>
+        </div>
+        <div class="user-info-container">
+            <div class="info-settings">
+                <button (click)="toggleSettings()">Update</button>
+            </div>
+            <div *ngIf="!settingState" class="user-info-wrapper">
+                <div class="user-info-box">
+                    <div>Username: {{ user.username }}</div>
+                    <div> Name: {{user.name}}</div>
+                </div>
+            </div>
+            <div *ngIf="settingState" class="settings-wrapper">
+                <form [formGroup]="updateUserForm" action="" class="form-container" (ngSubmit)="updateUser()">
+                    <input [formControl]="usernameControl" placeholder="Username" type="text">
+                    <input [formControl]="nameControl" placeholder="Name" type="text">
+                    <input placeholder="Email" type="text">
+                    <button type="submit">Update</button>
+                </form>
+                {{ usernameControl.value }} {{ nameControl.value }}
+            </div>
+        </div>
+    </div>
+    <div class="vertical-line"></div>
+    <div class="right-section">
+        <div class="crypto-list-container">
+
+        </div>
+    </div>
+</div>

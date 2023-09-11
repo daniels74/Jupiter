@@ -1,0 +1,108 @@
+.user-profile-page {
+  height: 90vh;
+  width: 100%;
+  background-color: rgb(21, 21, 31);
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.vertical-line {
+  border-left: 1px solid lightblue;
+  height: 80%;
+}
+
+.left-section {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.img-container {
+  height: 25%;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-style: solid;
+  border-color:lightblue;
+  border-width: thin;
+}
+
+.info-settings{
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.user-info-wrapper {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-info-box {
+  height: 50%;
+  width: 75%;
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.user-info-container {
+  height: 45%;
+  width: 75%;
+  border-style: solid;
+  border-color:lightblue;
+  border-width: thin;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.settings-wrapper {
+  height: 90%;
+  width: 100%;
+}
+
+.form-container {
+  height: 100%;
+  width: 100%;
+  background-color: rgb(50, 50, 88);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.right-section {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.crypto-list-container {
+    height: 75%;
+    width: 75%;
+    border-style: solid;
+    border-width: thin;
+    border-color: lightblue;
+}

@@ -1,0 +1,90 @@
+.register-page {
+    height: 90vh;
+    width: 100%;
+    background-color: rgb(65, 75, 86);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .register-form {
+    height: 50%;
+    width: 50%;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 1rem;
+    border-style: solid;
+    border-width: thin;
+    border-color: blue;
+  }
+  
+  .form-input-container {
+    height: 20%;
+    width: 50%;
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .form-input {
+    height: 80%;
+    width: 90%;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .input-label {
+    /* background-color: yellow; */
+    height: 100%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .input-errors {
+    height: 20%;
+    width: 90%;
+    /* background-color: cadetblue; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .input-box {
+    height: 50%;
+    width: 75%;
+  }
+  
+  .btn-container {
+    height: 20%;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .submit-btn {
+    height: 2rem;
+    width: 5rem;
+    background-color: rgb(12, 12, 44);
+    color: lightblue;
+    border-radius: 1rem;
+    border-style: solid;
+    border-width: thin;
+    border-color: blue;
+  }
+  

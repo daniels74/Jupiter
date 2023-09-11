@@ -1,0 +1,37 @@
+.crypto-page {
+  height: 90vh;
+  width: 100%;
+  background-color: rgb(25, 25, 57);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.listt-container {
+  height: 40%;
+  width: 70%;
+  color: black;
+  background-color: rgb(3, 3, 36);
+  border-radius: 1rem;
+  border-style: solid;
+  border-width: thin;
+  border-color: lightblue;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: scroll;
+  gap: 8rem;
+}
+
+.home-btn {
+  height: 2rem;
+  width: 4rem;
+  border-radius: 1rem;
+  background-color: darkblue;
+  color: lightblue;
+  border-style: solid;
+  border-width: thin;
+  border-color: light blue;
+}

@@ -1,0 +1,14 @@
+<div class="nav-page">
+    <div class="logo-container">
+        <div routerLink="" class="logo">
+            Logo
+        </div>
+    </div>
+    <div class="menu">
+        <h3 routerLink="home">Home</h3>
+        <h3 *ngIf="authState" routerLink="user/{{ id }}">{{userName}}</h3>
+        <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3>
+        <h3 *ngIf="!authState" routerLink="login">Login</h3>
+        <h3 *ngIf="!authState" routerLink="register">Register</h3>
+    </div>
+</div>
