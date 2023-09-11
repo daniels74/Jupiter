@@ -4,7 +4,7 @@ import { User } from '../Interfaces/User.interface';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from './auth.service';
-import { WINDOW } from 'src/app/window-token';
+import { WINDOW } from '../../../app/window-token';
 
 @Injectable({
   providedIn: 'root',
