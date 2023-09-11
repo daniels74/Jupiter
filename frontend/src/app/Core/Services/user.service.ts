@@ -1,9 +1,10 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Inject, Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, mergeMap, of, switchMap } from 'rxjs';
 import { User } from '../Interfaces/User.interface';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from './auth.service';
+import { WINDOW } from 'src/app/window-token';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,13 @@ export class UserService implements OnInit {
   user!: User;
   userBehaviorSubject$ = new BehaviorSubject<User>(this.user);
   User$ = this.userBehaviorSubject$.asObservable();
+  origin = this.window.location.origin; //'http://localhost:3000';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(
+    @Inject(WINDOW) private window: Window,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+  ) {}
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
@@ -29,7 +35,7 @@ export class UserService implements OnInit {
     };
     console.log('REST op user', updatedUserObject);
     return this.http.put(
-      'http://localhost:3000/user/' + this.userBehaviorSubject$.value.id,
+      this.origin + 'user/' + this.userBehaviorSubject$.value.id,
       updatedUserObject,
     );
     // .pipe(

@@ -21,7 +21,7 @@ export class AuthService {
   authStateBehaviorSubject$ = new BehaviorSubject<boolean>(false);
   authState$ = this.authStateBehaviorSubject$.asObservable();
 
-  origin = 'http://localhost:3000'; //this.window.location.origin;
+  origin = this.window.location.origin; //'http://localhost:3000';
 
   register(email: string, password: string) {
     return this.http.post(this.origin + '/user/register', {
