@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +10,8 @@ import { StoreModule } from '@ngrx/store';
 import { cryptoReducer } from '../Shared/State/Reducers/cryptoList.reducer';
 import { nftReducer } from '../Shared/State/Reducers/nftList.reducer';
 import { userProfileGuard } from '../Shared/guards/user-profile.guard';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,8 +21,11 @@ import { userProfileGuard } from '../Shared/guards/user-profile.guard';
     AppRoutingModule,
     NavbarModule,
     HttpClientModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule,
   ],
   providers: [WINDOW_PROVIDERS],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

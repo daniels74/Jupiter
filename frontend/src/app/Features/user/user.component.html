@@ -5,20 +5,30 @@
         </div>
         <div class="user-info-container">
             <div class="info-settings">
-                <button (click)="toggleSettings()">Update</button>
+                <!-- <button (click)="toggleSettings()">Update</button> -->
+                <button class="settings-btn" (click)="toggleSettings()" mat-raised-button
+                    color="primary">Update</button>
             </div>
             <div *ngIf="!settingState" class="user-info-wrapper">
                 <div class="user-info-box">
-                    <div>Username: {{ user.username }}</div>
-                    <div> Name: {{user.name}}</div>
+                    <div class="user-info-line">
+                        <h4>Username: </h4>
+                        <h4>{{ user.username }}</h4>
+                    </div>
+                    <div class="user-info-line">
+                        <h4>Name: </h4>
+                        <h4>{{user.name}}</h4>
+                    </div>
                 </div>
             </div>
             <div *ngIf="settingState" class="settings-wrapper">
                 <form [formGroup]="updateUserForm" action="" class="form-container" (ngSubmit)="updateUser()">
-                    <input [formControl]="usernameControl" placeholder="Username" type="text">
-                    <input [formControl]="nameControl" placeholder="Name" type="text">
-                    <input placeholder="Email" type="text">
-                    <button type="submit">Update</button>
+                    <div class="form-inner-container">
+                        <input [formControl]="usernameControl" placeholder="Username" type="text">
+                        <input [formControl]="nameControl" placeholder="Name" type="text">
+                        <input placeholder="Email" type="text">
+                        <button type="submit" mat-raised-button color="primary">Submit</button>
+                    </div>
                 </form>
                 {{ usernameControl.value }} {{ nameControl.value }}
             </div>

@@ -19,6 +19,8 @@ import {
   Pagination,
   IPaginationOptions,
 } from 'nestjs-typeorm-paginate';
+import { JwtObj } from './model/jwt-obj.interface';
+import { error } from 'console';
 
 @Injectable()
 export class UserService {
@@ -131,12 +133,12 @@ export class UserService {
     return from(this.userRepository.delete(id));
   }
 
-  updateOne(id: number, user: any): Observable<object> {
+  updateOne(id: number, user: any): Observable<JwtObj> {
     // return from(this.userRepository.update(id, user));
     delete user.email;
     delete user.password;
     console.log('USer update', user);
-    return from(this.userRepository.update(id, user)).pipe(
+    return from(this.userRepository.update(id, user)).pipe<JwtObj>(
       switchMap(() => {
         return this.AuthServ.generateJWT(user).pipe(
           map((jwt: string) => {
@@ -180,6 +182,9 @@ export class UserService {
           }),
         ),
       ),
+      catchError((err) => {
+        return throwError(() => new Error('ErrorBro' + err));
+      }),
     );
   }
 

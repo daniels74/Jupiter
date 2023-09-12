@@ -1,5 +1,5 @@
 <div class="register-page">
-    <form action="" [formGroup]="registerForm" class="register-form" (ngSubmit)="registerUser()">
+    <form *ngIf="!loadingState" action="" [formGroup]="registerForm" class="register-form" (ngSubmit)="registerUser()">
         <div>
             <h1>
                 Register
@@ -31,4 +31,13 @@
             <button class="submit-btn" type="submit">Register</button>
         </div>
     </form>
+    <div class="register-form" *ngIf="loadingState">
+        <ngx-spinner 
+            class="spinner"
+            size="medium" 
+            template="<img src='../../../assets/805.gif' />" 
+            [fullScreen] = "false"
+            bdColor="rgba(1, 1, 1, 1)"
+        ></ngx-spinner>
+    </div>
 </div>

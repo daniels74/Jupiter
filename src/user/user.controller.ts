@@ -16,6 +16,7 @@ import { hasRoles } from 'src/auth/decorator/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles-guard';
 import { Pagination } from 'nestjs-typeorm-paginate';
+import { JwtObj } from './model/jwt-obj.interface';
 
 @Controller('user')
 export class UserController {
@@ -34,7 +35,7 @@ export class UserController {
     return this.userService.login(user).pipe(
       map((jwt) => {
         return {
-          access_token: jwt,
+          jwt: jwt,
         };
       }),
     );
@@ -83,7 +84,7 @@ export class UserController {
   }
 
   @Put(':id')
-  updateOne(@Param('id') id: string, @Body() user: any) {
+  updateOne(@Param('id') id: string, @Body() user: any): Observable<JwtObj> {
     return this.userService.updateOne(Number(id), user);
   }
 

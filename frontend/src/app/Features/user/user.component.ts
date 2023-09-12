@@ -66,7 +66,6 @@ export class UserComponent implements OnInit {
     };
     //// Update user data
     this.userServ.updateUser(user).subscribe((res) => {
-      console.log('User change res: ', res);
       this.authServ.setPermissions(res.jwt);
     });
     return;
