@@ -4,9 +4,16 @@ import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [UserComponent],
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, UserRoutingModule],
+  imports: [
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    UserRoutingModule,
+  ],
 })
 export class UserModule {}

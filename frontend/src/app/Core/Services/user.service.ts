@@ -13,7 +13,7 @@ export class UserService {
   user!: User;
   userBehaviorSubject$ = new BehaviorSubject<User>(this.user);
   User$ = this.userBehaviorSubject$.asObservable();
-  origin = 'http://localhost:3000'; //this.window.location.origin;
+  origin = this.window.location.origin; //'http://localhost:3000';
 
   constructor(
     @Inject(WINDOW) private window: Window,
@@ -21,16 +21,17 @@ export class UserService {
     private http: HttpClient,
   ) {}
 
-  // setUserData(user: User) {
-  //   this.userBehaviorSubject$.next(user);
-  // }
+  deleteUser() {
+    return this.http.delete(
+      this.origin + '/user/' + this.userBehaviorSubject$.value.id,
+    );
+  }
 
   updateUser(userUpdate: any): Observable<JwtObj> {
     const updatedUserObject = {
       ...this.userBehaviorSubject$.value,
       ...userUpdate,
     };
-    console.log('REST op user', updatedUserObject);
     return this.http.put<JwtObj>(
       this.origin + '/user/' + this.userBehaviorSubject$.value.id,
       updatedUserObject,

@@ -6,6 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../Core/Services/auth.service';
+import { switchMap } from 'rxjs';
+import { JwtObj } from '../../Core/Interfaces/jwt-obj';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +16,10 @@ import { AuthService } from '../../Core/Services/auth.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
+  loadingState = false;
+
   constructor(
+    public spinner: NgxSpinnerService,
     private authServ: AuthService,
     private formBuilder: FormBuilder,
   ) {}
@@ -32,10 +38,25 @@ export class RegisterComponent {
   }
 
   registerUser() {
+    this.spinner.show('primary');
+    this.loadingState = true;
     this.authServ
       .register(this.emailControl.value, this.passwordControl.value)
-      .subscribe((user) => {
-        console.log('USer created: ', user);
+      .pipe<JwtObj>(
+        switchMap((user) => {
+          console.log('Usercreated', user);
+          return this.authServ.login(
+            this.emailControl.value,
+            this.passwordControl.value,
+          );
+        }),
+      )
+      .subscribe((jwt: JwtObj) => {
+        setTimeout(() => {
+          this.spinner.hide();
+          this.loadingState = false;
+          this.authServ.setPermissions(jwt.jwt);
+        }, 3000);
       });
   }
 }

@@ -21,7 +21,7 @@ export class AuthService {
   authStateBehaviorSubject$ = new BehaviorSubject<boolean>(false);
   authState$ = this.authStateBehaviorSubject$.asObservable();
 
-  origin = 'http://localhost:3000'; //this.window.location.origin;
+  origin = this.window.location.origin; //'http://localhost:3000';
 
   logout() {
     localStorage.removeItem('blog-token');
@@ -43,7 +43,7 @@ export class AuthService {
     });
   }
 
-  setPermissions(token: string) {
+  setPermissions(token: string): void {
     localStorage.setItem('blog-token', token);
 
     const user: any = jwtDecode(token);

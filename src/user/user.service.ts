@@ -20,6 +20,7 @@ import {
   IPaginationOptions,
 } from 'nestjs-typeorm-paginate';
 import { JwtObj } from './model/jwt-obj.interface';
+import { error } from 'console';
 
 @Injectable()
 export class UserService {
@@ -181,6 +182,9 @@ export class UserService {
           }),
         ),
       ),
+      catchError((err) => {
+        return throwError(() => new Error('ErrorBro' + err));
+      }),
     );
   }
 
