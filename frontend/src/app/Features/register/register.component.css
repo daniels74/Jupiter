@@ -9,6 +9,7 @@
   }
   
   .register-form {
+    position: relative;
     height: 50%;
     width: 50%;
     background-color: black;
@@ -88,3 +89,9 @@
     border-color: blue;
   }
   
+  .spinner {
+    height: 50%;
+    width: 50%;
+    position: absolute;
+    border-radius: 1rem;
+  }

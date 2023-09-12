@@ -1,12 +1,15 @@
 <div class="login-page">
-    <form action="" [formGroup]="loginForm" class="login-form" (ngSubmit)="loginUser()">
-        <div><h1>
-            Login
-        </h1></div>
+    <form *ngIf="!loadingState" action="" [formGroup]="loginForm" class="login-form" (ngSubmit)="loginUser()">
+        <div>
+            <h1>
+                Login
+            </h1>
+        </div>
         <div class="form-input-container">
             <div class="form-input">
                 <label class="input-label" for="email">Email</label>
-                <input id="email" class="input-box" placeholder="Email" name="email" [formControl]="emailInput" type="text" required>
+                <input id="email" class="input-box" placeholder="Email" name="email" [formControl]="emailInput"
+                    type="text" required>
             </div>
             <div class="input-errors">
                 <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">Email is required</div>
@@ -18,7 +21,8 @@
                 <input class="input-box" placeholder="Password" [formControl]="passwordInput" type="text" required>
             </div>
             <div class="input-errors">
-                <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">Password is required
+                <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">Password is
+                    required
                 </div>
             </div>
         </div>
@@ -26,6 +30,14 @@
             <button class="submit-btn" type="submit">Login</button>
         </div>
     </form>
-
+    <div class="login-form" *ngIf="loadingState">
+        <ngx-spinner 
+            class="spinner"
+            size="medium" 
+            template="<img src='../../../assets/805.gif' />" 
+            [fullScreen] = "false"
+            bdColor="rgba(1, 1, 1, 1)"
+        ></ngx-spinner>
+    </div>
     {{emailInput.value}}
 </div>

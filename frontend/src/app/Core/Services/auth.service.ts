@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
-import { LoginResponse } from '../Interfaces/loginRes.interface';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { JwtObj } from '../Interfaces/jwt-obj';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
@@ -23,6 +23,12 @@ export class AuthService {
 
   origin = this.window.location.origin; //'http://localhost:3000';
 
+  logout() {
+    localStorage.removeItem('blog-token');
+    this.authStateBehaviorSubject$.next(false);
+    this.router.navigate(['']);
+  }
+
   register(email: string, password: string) {
     return this.http.post(this.origin + '/user/register', {
       email,
@@ -30,42 +36,30 @@ export class AuthService {
     });
   }
 
-  login(email: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(this.origin + '/user/login', {
+  login(email: string, password: string): Observable<JwtObj> {
+    return this.http.post<JwtObj>(this.origin + '/user/login', {
       email,
       password,
     });
-    // .pipe(
-    //   map((token: LoginResponse) => {
-    //     localStorage.setItem('blog-token', token.access_token);
-    //     return token;
-    //   }),
-    // );
   }
 
-  setPermissions(token: string) {
+  setPermissions(token: string): void {
     localStorage.setItem('blog-token', token);
 
     const user: any = jwtDecode(token);
 
-    console.log('User decoded: ', user);
-
     const timer = 60000 * 60;
     setTimeout(() => {
-      localStorage.removeItem('blog-token');
+      this.logout();
     }, timer);
 
     //! Set auth state
     this.authStateBehaviorSubject$.next(true);
 
-    this.userServ.setUserData(user.user);
+    this.userServ.setUserObservable(user.user);
 
     this.router.navigate(['/user', user.user.id]);
     // this.router.navigate(['home']);
-  }
-
-  logout() {
-    localStorage.removeItem('blog-token');
   }
 
   liveSessionCheck() {

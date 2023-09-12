@@ -13,12 +13,14 @@ export class NavbarComponent implements OnDestroy, OnInit {
   authState: any = false;
   id!: number;
   userName = 'Profile';
+  settingsToggle = false;
 
   constructor(
     private authServic: AuthService,
     private userService: UserService,
   ) {}
   ngOnInit(): void {
+    this.settingsToggle = false;
     this.userService.User$.subscribe((user) => {
       this.id = user.id;
       if (user.username) {
@@ -34,7 +36,19 @@ export class NavbarComponent implements OnDestroy, OnInit {
     this.authSub.unsubscribe();
   }
 
+  toggleSettings() {
+    this.settingsToggle = !this.settingsToggle;
+  }
+
+  deleteAccount() {
+    this.userService.deleteUser().subscribe((res) => {
+      console.log('Delete res: ', res);
+      this.logout();
+    });
+  }
+
   logout() {
+    this.settingsToggle = false;
     this.authServic.logout();
     this.authState = false;
   }
