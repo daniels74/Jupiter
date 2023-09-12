@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -7,14 +7,18 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../Core/Services/auth.service';
 import { take } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  loadingState = false;
+
   constructor(
+    public spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
     private authServ: AuthService,
   ) {}
@@ -32,12 +36,23 @@ export class LoginComponent {
     return this.loginForm.get('password') as FormControl;
   }
 
+  ngOnInit(): void {
+    // this.spinner.show('primary');
+    // this.loadingState = true;
+  }
+
   loginUser() {
+    this.spinner.show('primary');
+    this.loadingState = true;
     this.authServ
       .login(this.emailInput.value, this.passwordInput.value)
       .pipe(take(1))
       .subscribe((ele) => {
-        this.authServ.setPermissions(ele.access_token);
+        setTimeout(() => {
+          this.spinner.hide();
+          this.loadingState = false;
+          this.authServ.setPermissions(ele.jwt);
+        }, 3000);
       });
   }
 }

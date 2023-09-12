@@ -9,6 +9,7 @@
 }
 
 .login-form {
+  position: relative;
   height: 50%;
   width: 50%;
   background-color: black;
@@ -86,4 +87,11 @@
   border-style: solid;
   border-width: thin;
   border-color: blue;
+}
+
+.spinner {
+  height: 50%;
+  width: 50%;
+  position: absolute;
+  border-radius: 1rem;
 }
