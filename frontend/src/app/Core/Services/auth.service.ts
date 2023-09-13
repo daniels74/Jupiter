@@ -21,7 +21,7 @@ export class AuthService {
   authStateBehaviorSubject$ = new BehaviorSubject<boolean>(false);
   authState$ = this.authStateBehaviorSubject$.asObservable();
 
-  origin = this.window.location.origin; //'http://localhost:3000';
+  origin = 'http://localhost:3000'; //this.window.location.origin;
 
   logout() {
     localStorage.removeItem('blog-token');
@@ -70,5 +70,9 @@ export class AuthService {
     } else {
       return;
     }
+  }
+
+  currentAuthState(): boolean {
+    return this.authStateBehaviorSubject$.value;
   }
 }

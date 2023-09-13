@@ -88,13 +88,13 @@ export class UserController {
     return this.userService.updateOne(Number(id), user);
   }
 
-  @hasRoles('admin')
+  @hasRoles('user', 'admin')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Put(':id/role')
+  @Put('updaterole/:id')
   updateRoleOfUser(
     @Param('id') id: string,
-    @Body() user: User,
-  ): Observable<User> {
+    @Body() user: any,
+  ): Observable<any> {
     return this.userService.updateRoleOfUser(Number(id), user);
   }
 }

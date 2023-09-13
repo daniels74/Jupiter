@@ -10,9 +10,9 @@ import { join } from 'path';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../', 'front'),
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '../../', 'front'),
+    // }),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',

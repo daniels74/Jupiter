@@ -70,4 +70,22 @@ export class UserComponent implements OnInit {
     });
     return;
   }
+
+  roleForm: FormGroup = this.formBuilder.group({
+    role: new FormControl('', [Validators.required]),
+  });
+
+  get roleControl() {
+    return this.roleForm.get('role') as FormControl;
+  }
+
+  changeRole() {
+    const role: any = {
+      role: this.roleControl.value,
+    };
+
+    return this.userServ.changeRole(role).subscribe((res) => {
+      console.log('Role change res; ', res);
+    });
+  }
 }

@@ -13,7 +13,7 @@ export class UserService {
   user!: User;
   userBehaviorSubject$ = new BehaviorSubject<User>(this.user);
   User$ = this.userBehaviorSubject$.asObservable();
-  origin = this.window.location.origin; //'http://localhost:3000';
+  origin = 'http://localhost:3000'; // this.window.location.origin;
 
   constructor(
     @Inject(WINDOW) private window: Window,
@@ -35,6 +35,13 @@ export class UserService {
     return this.http.put<JwtObj>(
       this.origin + '/user/' + this.userBehaviorSubject$.value.id,
       updatedUserObject,
+    );
+  }
+
+  changeRole(newRole: any): Observable<any> {
+    return this.http.put(
+      this.origin + '/user/updaterole/' + this.userBehaviorSubject$.value.id,
+      newRole,
     );
   }
 

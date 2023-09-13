@@ -149,7 +149,7 @@ export class UserService {
     );
   }
 
-  updateRoleOfUser(id: any, user: User): Observable<any> {
+  updateRoleOfUser(id: any, user: any): Observable<any> {
     return from(this.userRepository.update(id, user));
   }
 
