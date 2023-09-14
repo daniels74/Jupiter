@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CoinsEntity, NftsEntity } from '../../Core/Interfaces/top-trending';
-import { selectCrypto, selectNfts } from '../../Shared/State/crypto.selectors';
+import { selectCrypto, selectNfts } from '../../Shared/State/Selectors/crypto.selectors';
 
 @Component({
   selector: 'app-home',

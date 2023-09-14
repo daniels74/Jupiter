@@ -149,8 +149,30 @@ export class UserService {
     );
   }
 
-  updateRoleOfUser(id: any, user: User): Observable<any> {
-    return from(this.userRepository.update(id, user));
+  updateRoleOfUser(id: any, user: any): Observable<JwtObj> {
+    // return from(this.userRepository.update(id, user));
+    // this.userRepository.update(id, user);
+    return from(this.userRepository.update(id, user)).pipe<JwtObj>(
+      switchMap(() => {
+        return this.findOne(id).pipe<JwtObj>(
+          switchMap((foundUpdatedUser: User) => {
+            return this.AuthServ.generateJWT(foundUpdatedUser).pipe(
+              map((jwt: string) => {
+                const obj: JwtObj = { jwt: jwt };
+                return obj;
+              }),
+            );
+          }),
+        );
+        // this.AuthServ.generateJWT(user).pipe(
+        //   map((jwt: string) => {
+        //     const obj: JwtObj = { jwt: jwt };
+        //     return obj;
+        //   }),
+        // );
+      }),
+    );
+    //this.AuthServ.generateJWT(user).pipe(map((jwt: string) => jwt));
   }
 
   login(user: User): Observable<string> {
