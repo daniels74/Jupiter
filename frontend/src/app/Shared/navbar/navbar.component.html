@@ -8,12 +8,19 @@
         <h3 routerLink="home">Home</h3>
         <h3 *ngIf="authState" routerLink="user/{{ id }}">{{userName}}</h3>
         <!-- <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3> -->
-        <h3 *ngIf="authState" (click)="toggleSettings()" >Settings</h3>
+        <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
         <h3 *ngIf="!authState" routerLink="login">Login</h3>
         <h3 *ngIf="!authState" routerLink="register">Register</h3>
     </div>
 </div>
 <div *ngIf="settingsToggle" class="settingsTab">
+    <form *ngIf="userRole === 'admin' || 'user'" [formGroup]="roleSelectionForm" (ngSubmit)="changeRole()" action="">
+        <select formControlName="role">
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
     <h3 (click)="deleteAccount()">Delete Account</h3>
     <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3>
 </div>
