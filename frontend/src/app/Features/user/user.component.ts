@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../Core/Services/auth.service';
+import { Store } from '@ngrx/store';
+import { selectUser } from '../../Shared/State/Selectors/users.selector';
 
 @Component({
   selector: 'app-user',
@@ -21,15 +23,16 @@ export class UserComponent implements OnInit {
   sub!: Subscription;
 
   constructor(
+    private store: Store,
     private formBuilder: FormBuilder,
     private userServ: UserService,
     private authServ: AuthService,
   ) {}
 
   ngOnInit(): void {
-    this.sub = this.userServ.User$.subscribe((user) => {
-      console.log('onInit User: ', user);
-      this.user = user;
+    this.store.select(selectUser).subscribe((currentUser) => {
+      console.log('In user: ', currentUser);
+      this.user = currentUser;
     });
   }
 
@@ -57,7 +60,7 @@ export class UserComponent implements OnInit {
 
   updateUser() {
     //// Ready the data to be updated
-    const user: any = {
+    const updates: any = {
       // email: this.emailControl.value,
       name: this.nameControl.value ? this.nameControl.value : this.user.name,
       username: this.usernameControl.value
@@ -65,27 +68,9 @@ export class UserComponent implements OnInit {
         : this.user.username,
     };
     //// Update user data
-    this.userServ.updateUser(user).subscribe((res) => {
+    this.userServ.updateUser(updates, this.user).subscribe((res) => {
       this.authServ.setPermissions(res.jwt);
     });
     return;
-  }
-
-  roleForm: FormGroup = this.formBuilder.group({
-    role: new FormControl('', [Validators.required]),
-  });
-
-  get roleControl() {
-    return this.roleForm.get('role') as FormControl;
-  }
-
-  changeRole() {
-    const role: any = {
-      role: this.roleControl.value,
-    };
-
-    return this.userServ.changeRole(role).subscribe((res) => {
-      console.log('Role change res; ', res);
-    });
   }
 }

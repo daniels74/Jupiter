@@ -9,15 +9,21 @@ import { WINDOW_PROVIDERS } from '../window-token';
 import { StoreModule } from '@ngrx/store';
 import { cryptoReducer } from '../Shared/State/Reducers/cryptoList.reducer';
 import { nftReducer } from '../Shared/State/Reducers/nftList.reducer';
-import { userProfileGuard } from '../Shared/guards/user-profile.guard';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserRoleInterceptor } from '../Core/Interceptors/user-role.interceptor';
+import { authReducer } from '../Shared/State/Reducers/auth.reducer';
+import { usersReducer } from '../Shared/State/Reducers/users.reducer';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    StoreModule.forRoot({ cryptos: cryptoReducer, nfts: nftReducer }), // // REDUX
+    StoreModule.forRoot({
+      userState_ngrx: usersReducer,
+      authState_ngrx: authReducer,
+      cryptos: cryptoReducer,
+      nfts: nftReducer,
+    }), // // REDUX
     BrowserModule,
     AppRoutingModule,
     NavbarModule,

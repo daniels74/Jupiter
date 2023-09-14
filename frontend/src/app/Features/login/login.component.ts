@@ -8,16 +8,19 @@ import {
 import { AuthService } from '../../Core/Services/auth.service';
 import { take } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Store } from '@ngrx/store';
+import { selectAuth } from '../../Shared/State/Selectors/auth.selector';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   loadingState = false;
 
   constructor(
+    private store: Store,
     public spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
     private authServ: AuthService,
@@ -34,11 +37,6 @@ export class LoginComponent implements OnInit {
 
   get passwordInput() {
     return this.loginForm.get('password') as FormControl;
-  }
-
-  ngOnInit(): void {
-    // this.spinner.show('primary');
-    // this.loadingState = true;
   }
 
   loginUser() {

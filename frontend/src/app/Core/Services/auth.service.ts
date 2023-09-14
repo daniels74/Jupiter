@@ -1,31 +1,35 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { JwtObj } from '../Interfaces/jwt-obj';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { WINDOW } from '../../../app/window-token';
+import { Store } from '@ngrx/store';
+import { authAction } from '../../Shared/State/Actions/auth.actions';
+import { usersAction } from '../../Shared/State/Actions/users.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   constructor(
+    private store: Store,
     private http: HttpClient,
     private router: Router,
     private userServ: UserService,
     @Inject(WINDOW) private window: Window,
   ) {}
 
-  authStateBehaviorSubject$ = new BehaviorSubject<boolean>(false);
-  authState$ = this.authStateBehaviorSubject$.asObservable();
-
-  origin = 'http://localhost:3000'; //this.window.location.origin;
+  origin = this.window.location.origin; // 'http://localhost:3000';
 
   logout() {
     localStorage.removeItem('blog-token');
-    this.authStateBehaviorSubject$.next(false);
+
+    const authState_ngrx = false;
+    this.store.dispatch(authAction.setAuthenticationState({ authState_ngrx }));
+
     this.router.navigate(['']);
   }
 
@@ -53,13 +57,15 @@ export class AuthService {
       this.logout();
     }, timer);
 
-    //! Set auth state
-    this.authStateBehaviorSubject$.next(true);
+    //// Set authState
+    const authState_ngrx = true;
+    this.store.dispatch(authAction.setAuthenticationState({ authState_ngrx }));
 
-    this.userServ.setUserObservable(user.user);
+    //// Set userState
+    const userState_ngrx = user.user;
+    this.store.dispatch(usersAction.setCurrentUserState({ userState_ngrx }));
 
     this.router.navigate(['/user', user.user.id]);
-    // this.router.navigate(['home']);
   }
 
   liveSessionCheck() {
@@ -70,9 +76,5 @@ export class AuthService {
     } else {
       return;
     }
-  }
-
-  currentAuthState(): boolean {
-    return this.authStateBehaviorSubject$.value;
   }
 }

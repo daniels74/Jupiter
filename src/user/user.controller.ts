@@ -94,7 +94,7 @@ export class UserController {
   updateRoleOfUser(
     @Param('id') id: string,
     @Body() user: any,
-  ): Observable<any> {
+  ): Observable<JwtObj> {
     return this.userService.updateRoleOfUser(Number(id), user);
   }
 }

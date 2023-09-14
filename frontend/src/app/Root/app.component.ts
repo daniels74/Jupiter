@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { coinGeckoApiActions } from '../Shared/State/Actions/cryptoList.actions';
 import { nftCoinGeckoApiActions } from '../Shared/State/Actions/nftList.actions';
 import { AuthService } from '../Core/Services/auth.service';
+import { selectAuth } from '../Shared/State/Selectors/auth.selector';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authService.liveSessionCheck();
+
+    const currentAuthState = this.store.select(selectAuth);
+    currentAuthState.subscribe((state) => {
+      console.log('Root auth State from ngrx: ', state);
+    });
 
     this.coinGeckoService.getTrendingCrypto().subscribe((cryptos) => {
       console.log('Top tredning', cryptos);

@@ -1,52 +1,59 @@
-import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Inject, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription, take } from 'rxjs';
 import { User } from '../Interfaces/User.interface';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { WINDOW } from '../../../app/window-token';
 import { JwtObj } from '../Interfaces/jwt-obj';
+import { Store } from '@ngrx/store';
+import { selectUser } from '../../Shared/State/Selectors/users.selector';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class UserService implements OnInit, OnDestroy {
   user!: User;
-  userBehaviorSubject$ = new BehaviorSubject<User>(this.user);
-  User$ = this.userBehaviorSubject$.asObservable();
-  origin = 'http://localhost:3000'; // this.window.location.origin;
+  userSub!: Subscription;
+  origin = this.window.location.origin; // 'http://localhost:3000';
 
   constructor(
     @Inject(WINDOW) private window: Window,
     private route: ActivatedRoute,
     private http: HttpClient,
+    private store: Store,
   ) {}
-
-  deleteUser() {
-    return this.http.delete(
-      this.origin + '/user/' + this.userBehaviorSubject$.value.id,
-    );
+  ngOnInit(): void {
+    this.userSub = this.store
+      .select(selectUser)
+      .pipe(take(1))
+      .subscribe((currentUser) => {
+        this.user = currentUser;
+      });
   }
 
-  updateUser(userUpdate: any): Observable<JwtObj> {
+  ngOnDestroy(): void {
+    this.userSub.unsubscribe();
+  }
+
+  deleteUser(user: User) {
+    return this.http.delete(this.origin + '/user/' + user.id);
+  }
+
+  updateUser(userUpdate: any, user: User): Observable<JwtObj> {
     const updatedUserObject = {
-      ...this.userBehaviorSubject$.value,
+      ...user,
       ...userUpdate,
     };
     return this.http.put<JwtObj>(
-      this.origin + '/user/' + this.userBehaviorSubject$.value.id,
+      this.origin + '/user/' + user.id,
       updatedUserObject,
     );
   }
 
-  changeRole(newRole: any): Observable<any> {
-    return this.http.put(
-      this.origin + '/user/updaterole/' + this.userBehaviorSubject$.value.id,
+  changeRole(newRole: any, user: User): Observable<JwtObj> {
+    return this.http.put<JwtObj>(
+      this.origin + '/user/updaterole/' + user.id,
       newRole,
     );
-  }
-
-  setUserObservable(user: User): void {
-    this.userBehaviorSubject$.next(user);
-    return;
   }
 }

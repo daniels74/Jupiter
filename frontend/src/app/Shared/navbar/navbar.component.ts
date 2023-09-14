@@ -3,6 +3,11 @@ import { AuthService } from '../../Core/Services/auth.service';
 import { UserService } from '../../Core/Services/user.service';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { selectAuth } from '../State/Selectors/auth.selector';
+import { authAction } from '../State/Actions/auth.actions';
+import { selectUser } from '../State/Selectors/users.selector';
+import { User } from '../../Core/Interfaces/User.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -16,26 +21,32 @@ export class NavbarComponent implements OnDestroy, OnInit {
   userName = 'Profile';
   settingsToggle = false;
   userRole!: string;
+  user!: User;
 
   constructor(
+    private store: Store,
     private fb: FormBuilder,
     private authServic: AuthService,
     private userService: UserService,
   ) {}
+
   ngOnInit(): void {
     this.settingsToggle = false;
-    this.userService.User$.subscribe((user) => {
-      this.id = user.id;
-      this.userRole = user.role;
-      if (user.username) {
-        this.userName = user.username;
+
+    this.store.select(selectUser).subscribe((currentUser) => {
+      this.user = currentUser;
+      this.id = currentUser.id;
+      this.userRole = currentUser.role;
+      if (currentUser.username) {
+        this.userName = currentUser.username;
       }
     });
 
-    this.authSub = this.authServic.authState$.subscribe(
-      (state: any) => (this.authState = state),
-    );
+    this.authSub = this.store.select(selectAuth).subscribe((state) => {
+      this.authState = state;
+    });
   }
+
   ngOnDestroy(): void {
     this.authSub.unsubscribe();
   }
@@ -45,7 +56,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   deleteAccount() {
-    this.userService.deleteUser().subscribe((res) => {
+    this.userService.deleteUser(this.user).subscribe((res) => {
       console.log('Delete res: ', res);
       this.logout();
     });
@@ -53,8 +64,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   logout() {
     this.settingsToggle = false;
-    this.authServic.logout();
-    this.authState = false;
+    const authState_ngrx = false;
+    this.store.dispatch(authAction.setAuthenticationState({ authState_ngrx }));
   }
 
   roleSelectionForm: FormGroup = this.fb.group({
@@ -65,14 +76,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
     const role: any = {
       role: this.roleSelectionForm.get('role')?.value,
     };
-    this.userService
-      .changeRole(role)
-      .subscribe((res) => console.log('USer role:', res));
+    this.userService.changeRole(role, this.user).subscribe((jwt) => {
+      console.log('New updated jwt:', jwt.jwt);
+      this.authServic.setPermissions(jwt.jwt);
+    });
   }
 }
-
-// <form action="" [formGroup]="roleForm" (ngSubmit)="changeRole()">
-//                 <input [formControl]="roleControl" type="text">
-//                 <button type="submit">Submit</button>
-//                 {{ roleControl.value }}
-//             </form>
