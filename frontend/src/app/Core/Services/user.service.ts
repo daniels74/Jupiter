@@ -14,7 +14,7 @@ import { selectUser } from '../../Shared/State/Selectors/users.selector';
 export class UserService implements OnInit, OnDestroy {
   user!: User;
   userSub!: Subscription;
-  origin = this.window.location.origin; // 'http://localhost:3000';
+  origin = 'http://localhost:3000'; // this.window.location.origin;
 
   constructor(
     @Inject(WINDOW) private window: Window,
@@ -39,14 +39,15 @@ export class UserService implements OnInit, OnDestroy {
     return this.http.delete(this.origin + '/user/' + user.id);
   }
 
+  // {name: string, username: string}
   updateUser(userUpdate: any, user: User): Observable<JwtObj> {
-    const updatedUserObject = {
-      ...user,
-      ...userUpdate,
-    };
-    return this.http.put<JwtObj>(
+    // const updatedUserObject = {
+    //   ...user,
+    //   ...userUpdate,
+    // };
+    return this.http.patch<JwtObj>(
       this.origin + '/user/' + user.id,
-      updatedUserObject,
+      userUpdate,
     );
   }
 

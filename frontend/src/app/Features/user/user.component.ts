@@ -94,10 +94,10 @@ export class UserComponent implements OnInit {
     //// Ready the data to be updated
     const updates: any = {
       // email: this.emailControl.value,
-      name: this.nameControl.value ? this.nameControl.value : this.user.name,
+      name: this.nameControl.value ? this.nameControl.value : 'No name',
       username: this.usernameControl.value
         ? this.usernameControl.value
-        : this.user.username,
+        : 'no username',
     };
     //// Update user data
     this.userServ.updateUser(updates, this.user).subscribe((res) => {
