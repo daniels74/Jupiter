@@ -14,7 +14,8 @@ import { WINDOW } from '../../window-token';
 export class UserRoleInterceptor implements HttpInterceptor, OnDestroy {
   isAuth = false;
   sub!: Subscription;
-  origin = 'http://localhost:3000'; // this.window.location.origin;
+  // origin = 'http://localhost:3000';
+  origin = this.window.location.origin;
 
   constructor(private store: Store, @Inject(WINDOW) private window: Window) {}
 
