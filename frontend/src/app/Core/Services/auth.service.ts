@@ -26,7 +26,7 @@ export class AuthService {
     @Inject(WINDOW) private window: Window,
   ) {}
 
-  origin = 'http://localhost:3000'; // this.window.location.origin;
+  origin = this.window.location.origin; // 'http://localhost:3000';
 
   logout() {
     localStorage.removeItem('blog-token');

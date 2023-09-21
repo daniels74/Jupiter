@@ -14,7 +14,7 @@ import { selectUser } from '../../Shared/State/Selectors/users.selector';
 export class UserService implements OnInit, OnDestroy {
   user!: User;
   userSub!: Subscription;
-  origin = 'http://localhost:3000'; // this.window.location.origin;
+  origin = this.window.location.origin; //'http://localhost:3000';
 
   constructor(
     @Inject(WINDOW) private window: Window,
