@@ -10,21 +10,32 @@ import { take } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Store } from '@ngrx/store';
 import { selectAuth } from '../../Shared/State/Selectors/auth.selector';
+import { Router } from '@angular/router';
+import { selectUser } from '../../Shared/State/Selectors/users.selector';
+import { User } from '../../Core/Interfaces/User.interface';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loadingState = false;
+  user!: User;
 
   constructor(
+    private router: Router,
     private store: Store,
     public spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
     private authServ: AuthService,
   ) {}
+
+  ngOnInit(): void {
+    this.store.select(selectUser).subscribe((theuser) => {
+      this.user = theuser;
+    });
+  }
 
   loginForm: FormGroup = this.formBuilder.group({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -50,6 +61,7 @@ export class LoginComponent {
           this.spinner.hide();
           this.loadingState = false;
           this.authServ.setPermissions(ele.jwt);
+          this.router.navigate(['/user', this.user.id]);
         }, 3000);
       });
   }

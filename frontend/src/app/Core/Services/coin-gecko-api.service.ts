@@ -6,6 +6,7 @@ import {
   TopTrending,
 } from '../Interfaces/top-trending';
 import { Observable, map } from 'rxjs';
+import { SingleCoin } from '../Interfaces/singleCoin.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +28,13 @@ export class CoinGeckoApiService {
         'https://api.coingecko.com/api/v3/search/trending',
       )
       .pipe(map((nft) => nft.nfts || []));
+  }
+
+  getSingleCoin(coinId: string): Observable<SingleCoin> {
+    return this.http.get<SingleCoin>(
+      'https://api.coingecko.com/api/v3/coins/' +
+        coinId +
+        '?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false',
+    );
   }
 }

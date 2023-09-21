@@ -134,3 +134,21 @@
     border-width: thin;
     border-color: lightblue;
 }
+
+.mycrypto-container{
+  background-color: rgb(64, 75, 108);
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3rem;
+}
+
+.random-numbers {
+  background-color: blue;
+  height: 50%;
+  width: 100%;
+}

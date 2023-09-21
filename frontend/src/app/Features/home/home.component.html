@@ -3,7 +3,7 @@
     <div class="listt-container">
         <div *ngFor="let coin of crypto$ | async">
             <app-card [dataImage]="coin.item.small" [dataName]="coin.item.name"
-                [dataMarketCapRank]="coin.item.market_cap_rank" />
+                [dataMarketCapRank]="coin.item.market_cap_rank" [coinId]="coin.item.id" />
         </div>
     </div>
 

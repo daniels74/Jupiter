@@ -37,7 +37,24 @@
     <div class="vertical-line"></div>
     <div class="right-section">
         <div class="crypto-list-container">
-
+            <div class="mycrypto-container">
+                <!-- <div *ngFor="let cryptoid of allCryptoIds">
+                    {{ cryptoid.cryptoid ? (cryptoid.cryptoid) : (cryptoid | json) }}
+                    <button (click)="deleteCryptoId(cryptoid.cryptoid)">Delete</button>
+                    <button (click)="deleteCryptoEntryById(cryptoid.id)"> Delete by entry id</button>
+                </div> -->
+                <!-- <div class="mycrypto"> -->
+                    <div *ngFor="let singleCoin of cryptoCollection">
+                       <app-crypto-card [crypto]="singleCoin" />
+                    </div>
+                <!-- </div> -->
+            </div>
+            <!-- <form class="random-numbers" (ngSubmit)="addCryptoToList()" [formGroup]="cryptoForm" action="">
+                <div *ngFor="let item of mynumbers">
+                <input type="text" formControlName="cryptoidd">
+                <button type="submit">Submit</button>
+                </div>
+            </form> -->
         </div>
     </div>
 </div>

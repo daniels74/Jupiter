@@ -14,11 +14,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserRoleInterceptor } from '../Core/Interceptors/user-role.interceptor';
 import { authReducer } from '../Shared/State/Reducers/auth.reducer';
 import { usersReducer } from '../Shared/State/Reducers/users.reducer';
+import { userCryptoCollectionReducer } from '../Shared/State/Reducers/userCryptoCollection.reducer';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     StoreModule.forRoot({
+      cryptoCollection_ngrx: userCryptoCollectionReducer,
       userState_ngrx: usersReducer,
       authState_ngrx: authReducer,
       cryptos: cryptoReducer,

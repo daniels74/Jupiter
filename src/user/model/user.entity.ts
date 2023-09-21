@@ -1,5 +1,12 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { UserRole } from './user.interface';
+import { CryptoIdEnitity } from '../../cryptoid/model/cryptoid.entity';
 
 @Entity()
 export class UserEntity {
@@ -20,6 +27,9 @@ export class UserEntity {
 
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
   role: UserRole;
+
+  @OneToMany(() => CryptoIdEnitity, (crypto) => crypto.user)
+  cryptos: CryptoIdEnitity[];
 
   @BeforeInsert()
   emailToLowerCase() {

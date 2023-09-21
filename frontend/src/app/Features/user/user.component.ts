@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { User } from '../../Core/Interfaces/User.interface';
 import { UserService } from '../../Core/Services/user.service';
 import {
@@ -7,10 +7,15 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, map, switchMap } from 'rxjs';
 import { AuthService } from '../../Core/Services/auth.service';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../Shared/State/Selectors/users.selector';
+import { CryptoId } from '../../Core/Interfaces/top-trending';
+import { CryptoService } from '../../Core/Services/crypto.service';
+import { selectUserCryptoCollection } from '../../Shared/State/Selectors/userCryptoCollection.selector';
+import { userCryptoCollectionAction } from '../../Shared/State/Actions/userCryptoCollection.actions';
+import { CoinGeckoApiService } from '../../Core/Services/coin-gecko-api.service';
 
 @Component({
   selector: 'app-user',
@@ -22,17 +27,44 @@ export class UserComponent implements OnInit {
   settingState = false;
   sub!: Subscription;
 
+  allCryptoIds!: any;
+  cryptoCollection: any[] = [];
+
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
     private userServ: UserService,
     private authServ: AuthService,
+    private cryptoService: CryptoService,
+    private CoinGecko: CoinGeckoApiService,
   ) {}
 
   ngOnInit(): void {
     this.store.select(selectUser).subscribe((currentUser) => {
       console.log('In user: ', currentUser);
       this.user = currentUser;
+    });
+
+    // this.store
+    //   .select(selectUserCryptoCollection)
+    //   .subscribe((cryptocollection) => {
+    //     console.log('NGRX Crypto Collection: ', cryptocollection);
+    //     this.allCryptoIds = cryptocollection;
+    //   });
+
+    // this.allCryptoIds.forEach((ele: CryptoId) => {
+    //   this.CoinGecko.getSingleCoin(ele.cryptoid).subscribe((res) => {
+    //     console.log('A coin lookup: ', res);
+    //     //const r: any = { ...res };
+    //     this.cryptoCollection.push(res);
+    //   });
+    // });
+
+    // this.setSingleCoins();
+    //this.cryptoService.setCryptoSignleCoins(this.allCryptoIds);
+    this.cryptoService.cryptoSingleCoinListObservable.subscribe((coinList) => {
+      this.cryptoCollection = coinList;
+      console.log('My collection full: ', this.cryptoCollection);
     });
   }
 
@@ -73,4 +105,42 @@ export class UserComponent implements OnInit {
     });
     return;
   }
+
+  cryptoForm: FormGroup = this.formBuilder.group({
+    cryptoidd: new FormControl(''),
+  });
+
+  addCryptoToList() {
+    const chosenCryptoId = this.cryptoForm.get('cryptoidd')?.value;
+    this.cryptoService.postCryptoId(chosenCryptoId).subscribe((res) => {
+      console.log('Poseted to database throught fe: ', res);
+      this.authServ.setPermissions(res.jwt);
+    });
+  }
+
+  deleteCryptoId(id: string) {
+    this.cryptoService.deleteCryptoId(id).subscribe((res) => {
+      console.log('Deleted res: ', res);
+      this.authServ.setPermissions(res.jwt);
+      // this.setSingleCoins();
+    });
+  }
+
+  //! Does not return new jwt so does not update this user's crypto list redux state
+  deleteCryptoEntryById(cryptoid: number) {
+    this.cryptoService.deleteCryptoEntryById(cryptoid).subscribe((res) => {
+      console.log('CryptoId Deleted: ', res);
+    });
+  }
+
+  // setSingleCoins() {
+  //   this.cryptoCollection = [];
+  //   this.allCryptoIds.forEach((ele: CryptoId) => {
+  //     this.CoinGecko.getSingleCoin(ele.cryptoid).subscribe((res) => {
+  //       console.log('A coin lookup: ', res);
+  //       //const r: any = { ...res };
+  //       this.cryptoCollection.push(res);
+  //     });
+  //   });
+  // }
 }

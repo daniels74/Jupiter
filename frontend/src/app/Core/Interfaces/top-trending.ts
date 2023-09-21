@@ -1,3 +1,5 @@
+import { User } from './User.interface';
+
 export interface TopTrending {
   coins?: CoinsEntity[] | null;
   nfts?: NftsEntity[] | null;
@@ -25,4 +27,10 @@ export interface NftsEntity {
   symbol: string;
   thumb: string;
   nft_contract_id: number;
+}
+
+export interface CryptoId {
+  id: number;
+  cryptoid: string;
+  user: User;
 }

@@ -9,6 +9,9 @@ import { WINDOW } from '../../../app/window-token';
 import { Store } from '@ngrx/store';
 import { authAction } from '../../Shared/State/Actions/auth.actions';
 import { usersAction } from '../../Shared/State/Actions/users.actions';
+import { userCryptoCollectionAction } from '../../Shared/State/Actions/userCryptoCollection.actions';
+import { User } from '../Interfaces/User.interface';
+import { CryptoService } from './crypto.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +22,7 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private userServ: UserService,
+    private CryptoService: CryptoService,
     @Inject(WINDOW) private window: Window,
   ) {}
 
@@ -62,10 +66,20 @@ export class AuthService {
     this.store.dispatch(authAction.setAuthenticationState({ authState_ngrx }));
 
     //// Set userState
-    const userState_ngrx = user.user;
+    const userState_ngrx: User = user.user;
     this.store.dispatch(usersAction.setCurrentUserState({ userState_ngrx }));
 
-    this.router.navigate(['/user', user.user.id]);
+    //// Set user Crypto Collection
+    const cryptoCollection_ngrx = userState_ngrx.cryptos;
+    this.store.dispatch(
+      userCryptoCollectionAction.setUserCryptoCollection({
+        cryptoCollection_ngrx,
+      }),
+    );
+
+    this.CryptoService.setCryptoSingleCoins(cryptoCollection_ngrx);
+
+    //this.router.navigate(['/user', user.user.id]);
   }
 
   liveSessionCheck() {

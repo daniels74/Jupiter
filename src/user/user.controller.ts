@@ -22,6 +22,19 @@ import { JwtObj } from './model/jwt-obj.interface';
 export class UserController {
   constructor(private userService: UserService) {}
 
+  // @Post('postcrypto')
+  // cryptoposter(
+  //   @Body('id') user: User,
+  //   @Body('cryptoId') id: number,
+  // ): Observable<any> {
+  //   return this.userService.cryptoposter(user, id);
+  // }
+
+  // @Get('mycryptos')
+  // getAllCryptoIds(@Body('id') user: User): Observable<any> {
+  //   return this.userService.getAllCryptoIds(user);
+  // }
+
   @Post('register')
   create(@Body() user: User): Observable<User | object> {
     return this.userService.create(user).pipe(
