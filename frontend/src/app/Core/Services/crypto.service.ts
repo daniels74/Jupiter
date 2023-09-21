@@ -14,7 +14,7 @@ import { CoinGeckoApiService } from './coin-gecko-api.service';
 export class CryptoService implements OnInit {
   user!: User;
   userSub!: Subscription;
-  origin = this.window.location.origin; // 'http://localhost:3000';
+  origin = 'http://localhost:3000'; // this.window.location.origin;
   // cryptoSingleCoinList: any[] = [];
   cryptoSingleCoinListBehaviorSubject = new BehaviorSubject<any[]>([]);
   cryptoSingleCoinListObservable =

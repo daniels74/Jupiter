@@ -8,6 +8,7 @@ import {
   Put,
   UseGuards,
   Query,
+  Patch,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './model/user.interface';
@@ -96,9 +97,12 @@ export class UserController {
     return this.userService.deleteOne(id);
   }
 
-  @Put(':id')
-  updateOne(@Param('id') id: string, @Body() user: any): Observable<JwtObj> {
-    return this.userService.updateOne(Number(id), user);
+  @Patch(':id')
+  updateOne(
+    @Param('id') userid: any,
+    @Body() userupdates: any,
+  ): Observable<JwtObj> {
+    return this.userService.updateOne(userid, userupdates);
   }
 
   @hasRoles('user', 'admin')

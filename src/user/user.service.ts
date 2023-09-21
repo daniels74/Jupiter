@@ -155,16 +155,25 @@ export class UserService {
     return from(this.userRepository.delete(id));
   }
 
-  updateOne(id: number, user: any): Observable<JwtObj> {
+  updateOne(id: any, user: any): Observable<JwtObj> {
     // return from(this.userRepository.update(id, user));
-    delete user.email;
-    delete user.password;
-    console.log('USer update', user);
-    return from(this.userRepository.update(id, user)).pipe<JwtObj>(
+    // delete user.email;
+    // delete user.password;
+    console.log('USer update and id', user, id);
+    return from(
+      this.userRepository.update(+id, {
+        name: user.name,
+        username: user.username,
+      }),
+    ).pipe<JwtObj>(
       switchMap(() => {
-        return this.AuthServ.generateJWT(user).pipe(
-          map((jwt: string) => {
-            return { jwt: jwt };
+        return this.findOne(+id).pipe(
+          switchMap((founduser) => {
+            return this.AuthServ.generateJWT(founduser).pipe(
+              map((jwt: string) => {
+                return { jwt: jwt };
+              }),
+            );
           }),
         );
       }),
