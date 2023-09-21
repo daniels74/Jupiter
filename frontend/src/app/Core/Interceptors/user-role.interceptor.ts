@@ -30,7 +30,10 @@ export class UserRoleInterceptor implements HttpInterceptor, OnDestroy {
       this.isAuth = state;
     });
 
-    const urlValid = request.url.startsWith(this.origin + '/user/updaterole');
+    const urlValid =
+      request.url.startsWith(this.origin + '/user/updaterole') ||
+      request.url.startsWith(this.origin + '/cryptoid') ||
+      request.url.startsWith(this.origin + '/cryptoid/entrydelete/cryptoid');
 
     if (this.isAuth && urlValid) {
       const token = localStorage.getItem('blog-token');

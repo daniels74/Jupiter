@@ -66,6 +66,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     this.settingsToggle = false;
     const authState_ngrx = false;
     this.store.dispatch(authAction.setAuthenticationState({ authState_ngrx }));
+    this.authServic.logout();
   }
 
   roleSelectionForm: FormGroup = this.fb.group({

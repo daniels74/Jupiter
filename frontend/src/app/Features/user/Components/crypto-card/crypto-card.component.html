@@ -1,0 +1,14 @@
+<div class="crypto-card">
+    <div class="img-container">
+        <img *ngIf="crypto.image" src="{{crypto.image.small}}" alt="">
+    </div>
+    <div class="crypto-data-container">
+        <h2 *ngIf="crypto.name">{{crypto.name}}</h2>
+        <div *ngIf="crypto.market_data">Price USD: {{crypto.market_data.current_price.usd}}</div>
+        <div *ngIf="crypto.coingecko_rank">Coin Gecko Rank: {{crypto.coingecko_rank}}</div>
+        <div *ngIf="crypto.collectionId">Collection Number: {{crypto.collectionId}}</div>
+    </div>
+    <div class="user-options">
+        <button class="delete-btn" (click)="removeCrypto()">Remove</button>
+    </div>
+</div>

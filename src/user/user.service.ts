@@ -21,14 +21,33 @@ import {
 } from 'nestjs-typeorm-paginate';
 import { JwtObj } from './model/jwt-obj.interface';
 import { error } from 'console';
+import { CryptoIdEnitity } from '../cryptoid/model/cryptoid.entity';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    private AuthServ: AuthService,
+    private AuthServ: AuthService, // @InjectRepository(CryptoIdEnitity) // private readonly cryptoRepository: Repository<CryptoIdEnitity>,
   ) {}
+
+  // cryptoposter(user: User, cryptoId: number): Observable<CryptoIdEnitity> {
+  //   const cryptoEntity = new CryptoIdEnitity();
+  //   const userentity = new UserEntity();
+  //   userentity.id = user.id;
+  //   cryptoEntity.cryptoid = cryptoId;
+  //   cryptoEntity.user = userentity;
+
+  //   return from(this.cryptoRepository.save(cryptoEntity)).pipe(
+  //     map((res) => {
+  //       return res;
+  //     }),
+  //   );
+  // }
+
+  // getAllCryptoIds(myuser: User): Observable<CryptoIdEnitity[]> {
+  //   return from(this.cryptoRepository.find());
+  // }
 
   create(user: User): Observable<User> {
     // return from(this.userRepository.save(user));
@@ -40,6 +59,7 @@ export class UserService {
         newUser.email = user.email;
         newUser.password = passwordHash;
         newUser.role = user.role;
+        newUser.cryptos = <CryptoIdEnitity[]>[];
 
         return from(this.userRepository.save(newUser)).pipe(
           map((user: User) => {
@@ -55,9 +75,11 @@ export class UserService {
 
   findOne(id: number): Observable<User> {
     // return from(this.userRepository.findOne({ where: { id } }));
-    return from(this.userRepository.findOne({ where: { id } })).pipe(
+    return from(
+      this.userRepository.findOne({ where: { id }, relations: ['cryptos'] }),
+    ).pipe(
       map((user: User) => {
-        console.log('FindOne-Database: ', user);
+        // console.log('FindOne-Database: ', user);
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password, ...result } = user;
         return result;
@@ -179,6 +201,7 @@ export class UserService {
     return this.validateUser(user.email, user.password).pipe(
       switchMap((user: User) => {
         if (user) {
+          // console.log('LoggingIn: ', user);
           return this.AuthServ.generateJWT(user).pipe(
             map((jwt: string) => jwt),
           );
@@ -211,6 +234,8 @@ export class UserService {
   }
 
   findByMail(email: string): Observable<User> {
-    return from(this.userRepository.findOne({ where: { email } }));
+    return from(
+      this.userRepository.findOne({ where: { email }, relations: ['cryptos'] }),
+    );
   }
 }

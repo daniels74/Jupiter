@@ -1,3 +1,5 @@
+import { cryptoidEntry } from '../../cryptoid/model/cryptoid.interface';
+
 export interface User {
   id?: number;
   name?: string;
@@ -5,6 +7,7 @@ export interface User {
   email?: string;
   password?: string;
   role?: UserRole;
+  cryptos?: cryptoidEntry[];
 }
 
 export enum UserRole {
