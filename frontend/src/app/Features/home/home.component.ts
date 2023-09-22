@@ -18,4 +18,20 @@ export class HomeComponent {
   crypto$: Observable<Array<CoinsEntity>> = this.store.select(selectCrypto);
 
   nfts$: Observable<Array<NftsEntity>> = this.store.select(selectNfts);
+
+  displayCryptoExp = window.innerWidth < 700 ? 'flex' : 'flex';
+
+  displayNftExp = window.innerWidth < 700 ? 'none' : 'flex';
+
+  heightCryptoExp = window.innerWidth < 700 ? '90%' : '40%';
+
+  widthCryptoExp = window.innerWidth < 700 ? '90%' : '70%';
+
+  cryptoFlexDirectionExp = window.innerWidth < 700 ? 'column' : 'row';
+
+  cryptoScrollYExp = window.innerWidth < 700 ? 'scroll' : 'hidden';
+
+  cryptoScrollXExp = window.innerWidth < 700 ? 'hidden' : 'scroll';
+
+  cryptoJustifyContent = window.innerWidth < 700 ? 'flex-start' : 'flex-start';
 }

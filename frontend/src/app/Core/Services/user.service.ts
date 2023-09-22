@@ -7,6 +7,7 @@ import { WINDOW } from '../../../app/window-token';
 import { JwtObj } from '../Interfaces/jwt-obj';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../Shared/State/Selectors/users.selector';
+import { BaseUrl } from '../../Root/app.module';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +15,10 @@ import { selectUser } from '../../Shared/State/Selectors/users.selector';
 export class UserService implements OnInit, OnDestroy {
   user!: User;
   userSub!: Subscription;
-  // origin = 'http://localhost:3000';
-  origin = this.window.location.origin;
+  origin = this.local_origin ? this.local_origin : this.window.location.origin;
 
   constructor(
+    @Inject(BaseUrl) private local_origin: string,
     @Inject(WINDOW) private window: Window,
     private route: ActivatedRoute,
     private http: HttpClient,

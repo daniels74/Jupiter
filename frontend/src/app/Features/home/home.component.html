@@ -1,13 +1,22 @@
 <div class="crypto-page">
-    <button gloww class="home-btn" routerLink="/">Home</button>
-    <div class="listt-container">
+    <!-- <button gloww class="home-btn" routerLink="/">Home</button> -->
+    <div class="listt-container" [ngStyle]="{
+        'display': displayCryptoExp,
+        'height': heightCryptoExp, 
+        'width': widthCryptoExp,
+        'flexDirection': cryptoFlexDirectionExp,
+        'overflowY': cryptoScrollYExp,
+        'overflowX': 'hidden',
+        'alignItems': 'center',
+        'justifyContent': cryptoJustifyContent
+    }">
         <div *ngFor="let coin of crypto$ | async">
             <app-card [dataImage]="coin.item.small" [dataName]="coin.item.name"
                 [dataMarketCapRank]="coin.item.market_cap_rank" [coinId]="coin.item.id" />
         </div>
     </div>
 
-    <div class="listt-container">
+    <div class="listt-container" [ngStyle]="{'display': displayNftExp}">
         <div *ngFor="let nft of nfts$ | async">
             <app-card [dataImage]="nft.thumb" [dataName]="nft.name" />
         </div>

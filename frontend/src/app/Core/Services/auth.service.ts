@@ -12,6 +12,7 @@ import { usersAction } from '../../Shared/State/Actions/users.actions';
 import { userCryptoCollectionAction } from '../../Shared/State/Actions/userCryptoCollection.actions';
 import { User } from '../Interfaces/User.interface';
 import { CryptoService } from './crypto.service';
+import { BaseUrl } from '../../Root/app.module';
 
 @Injectable({
   providedIn: 'root',
@@ -24,10 +25,12 @@ export class AuthService {
     private userServ: UserService,
     private CryptoService: CryptoService,
     @Inject(WINDOW) private window: Window,
+    @Inject(BaseUrl) private local_origin: string,
   ) {}
 
   // origin = 'http://localhost:3000';
-  origin = this.window.location.origin;
+  // origin = this.window.location.origin;
+  origin = this.local_origin ? this.local_origin : this.window.location.origin;
 
   logout() {
     localStorage.removeItem('blog-token');

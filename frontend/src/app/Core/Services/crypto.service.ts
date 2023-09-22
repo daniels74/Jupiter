@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable, Subscription, take } from 'rxjs';
 import { selectUser } from '../../Shared/State/Selectors/users.selector';
 import { CryptoId } from '../Interfaces/top-trending';
 import { CoinGeckoApiService } from './coin-gecko-api.service';
+import { BaseUrl } from '../../Root/app.module';
 
 @Injectable({
   providedIn: 'root',
@@ -14,14 +15,14 @@ import { CoinGeckoApiService } from './coin-gecko-api.service';
 export class CryptoService implements OnInit {
   user!: User;
   userSub!: Subscription;
-  // origin = 'http://localhost:3000';
-  origin = this.window.location.origin;
+  origin = this.local_origin ? this.local_origin : this.window.location.origin;
   // cryptoSingleCoinList: any[] = [];
   cryptoSingleCoinListBehaviorSubject = new BehaviorSubject<any[]>([]);
   cryptoSingleCoinListObservable =
     this.cryptoSingleCoinListBehaviorSubject.asObservable();
 
   constructor(
+    @Inject(BaseUrl) private local_origin: string,
     @Inject(WINDOW) private window: Window,
     private http: HttpClient,
     private store: Store,

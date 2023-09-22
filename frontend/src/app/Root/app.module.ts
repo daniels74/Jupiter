@@ -1,4 +1,8 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  InjectionToken,
+  NgModule,
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +20,7 @@ import { authReducer } from '../Shared/State/Reducers/auth.reducer';
 import { usersReducer } from '../Shared/State/Reducers/users.reducer';
 import { userCryptoCollectionReducer } from '../Shared/State/Reducers/userCryptoCollection.reducer';
 
+export const BaseUrl = new InjectionToken<string>('');
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -36,6 +41,10 @@ import { userCryptoCollectionReducer } from '../Shared/State/Reducers/userCrypto
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: UserRoleInterceptor, multi: true },
     WINDOW_PROVIDERS,
+    {
+      provide: BaseUrl,
+      useValue: null, //'http://localhost:3000',
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA], //For angular material
