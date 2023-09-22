@@ -9,15 +9,20 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectAuth } from '../../Shared/State/Selectors/auth.selector';
 import { WINDOW } from '../../window-token';
+import { BaseUrl } from '../../Root/app.module';
 
 @Injectable()
 export class UserRoleInterceptor implements HttpInterceptor, OnDestroy {
   isAuth = false;
   sub!: Subscription;
   // origin = 'http://localhost:3000';
-  origin = this.window.location.origin;
+  origin = this.local_origin ? this.local_origin : this.window.location.origin;
 
-  constructor(private store: Store, @Inject(WINDOW) private window: Window) {}
+  constructor(
+    @Inject(BaseUrl) private local_origin: string,
+    private store: Store,
+    @Inject(WINDOW) private window: Window,
+  ) {}
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();

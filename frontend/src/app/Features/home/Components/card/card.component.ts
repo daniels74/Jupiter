@@ -14,6 +14,20 @@ export class CardComponent {
   @Input() dataMarketCapRank!: any;
   @Input() coinId!: string;
 
+  cardHeightExp = window.innerWidth < 700 ? '40rem' : '25rem';
+  cardWidthExp = window.innerWidth < 700 ? '25rem' : '15rem';
+  fullClass =
+    window.innerWidth < 700
+      ? {
+          height: '40rem',
+          width: '19rem',
+          flexDirection: 'column',
+          // overflowY: 'scroll',
+          // overflowX: 'none',
+          marginLeft: '3rem',
+        }
+      : {};
+
   constructor(
     private authService: AuthService,
     private cryptoService: CryptoService,
