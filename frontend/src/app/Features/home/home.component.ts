@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CoinsEntity, NftsEntity } from '../../Core/Interfaces/top-trending';
@@ -19,13 +19,21 @@ export class HomeComponent {
 
   nfts$: Observable<Array<NftsEntity>> = this.store.select(selectNfts);
 
-  displayCryptoExp = window.innerWidth < 700 ? 'flex' : 'flex';
+  isBigScreen = window.innerWidth > 700 ? 'flex' : 'none';
+  isSmallScreen = window.innerWidth < 700 ? 'flex' : 'none';
 
-  displayNftExp = window.innerWidth < 700 ? 'none' : 'flex';
+  //displayNFTS = window.innerWidth > 700 ? true : false;
+  content_toggler = false;
 
-  heightCryptoExp = window.innerWidth < 700 ? '90%' : '40%';
+  selectedContent = 'Crypto';
 
-  widthCryptoExp = window.innerWidth < 700 ? '90%' : '70%';
+  displayCryptoExp = 'flex';
+
+  displayNftExp = 'none';
+
+  heightCryptoExp = window.innerWidth < 700 ? '80%' : '40%';
+
+  widthCryptoExp = window.innerWidth < 700 ? '100%' : '70%';
 
   cryptoFlexDirectionExp = window.innerWidth < 700 ? 'column' : 'row';
 
@@ -33,5 +41,19 @@ export class HomeComponent {
 
   cryptoScrollXExp = window.innerWidth < 700 ? 'hidden' : 'scroll';
 
-  cryptoJustifyContent = window.innerWidth < 700 ? 'flex-start' : 'flex-start';
+  toggleContainerContent() {
+    if (this.displayCryptoExp === 'flex') {
+      this.displayCryptoExp = 'none';
+    } else {
+      this.displayCryptoExp = 'flex';
+      this.selectedContent = 'Crypto';
+    }
+    if (this.displayNftExp === 'none') {
+      this.displayNftExp = 'flex';
+      this.selectedContent = 'NFTs';
+    } else {
+      this.displayNftExp = 'none';
+    }
+    this.content_toggler = !this.content_toggler;
+  }
 }

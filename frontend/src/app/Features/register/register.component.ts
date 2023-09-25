@@ -18,6 +18,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class RegisterComponent {
   loadingState = false;
 
+  // ? Access width and height properties using "window."
+  container_width = window.innerWidth <= 700 ? '95%' : '50%';
+  container_height = window.innerWidth <= 700 ? '75%' : '50%';
+  form_input_container_width = window.innerWidth <= 700 ? '100%' : '50%';
+  form_input_container_height = window.innerWidth <= 700 ? '20%' : '20%';
+
   constructor(
     public spinner: NgxSpinnerService,
     private authServ: AuthService,

@@ -10,8 +10,8 @@
 
 .login-form {
   position: relative;
-  height: 50%;
-  width: 50%;
+  /* height: 50%;
+  width: 50%; */
   background-color: black;
   color: white;
   display: flex;

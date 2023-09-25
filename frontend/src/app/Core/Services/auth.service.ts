@@ -60,6 +60,7 @@ export class AuthService {
 
     const user: any = jwtDecode(token);
 
+    //// Set 1 hour timer for JWT
     const timer = 60000 * 60;
     setTimeout(() => {
       this.logout();

@@ -23,6 +23,12 @@ export class LoginComponent implements OnInit {
   loadingState = false;
   user!: User;
 
+  // ? Access width and height properties using "window."
+  container_width = window.innerWidth <= 700 ? '95%' : '50%';
+  container_height = window.innerWidth <= 700 ? '75%' : '50%';
+  form_input_container_width = window.innerWidth <= 700 ? '100%' : '50%';
+  form_input_container_height = window.innerWidth <= 700 ? '20%' : '20%';
+
   constructor(
     private router: Router,
     private store: Store,

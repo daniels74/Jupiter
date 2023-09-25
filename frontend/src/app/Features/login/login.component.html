@@ -1,11 +1,11 @@
 <div class="login-page">
-    <form *ngIf="!loadingState" action="" [formGroup]="loginForm" class="login-form" (ngSubmit)="loginUser()">
+    <form *ngIf="!loadingState" action="" [formGroup]="loginForm" class="login-form" [style.width]="container_width" [style.height]="container_height" (ngSubmit)="loginUser()">
         <div>
             <h1>
                 Login
             </h1>
         </div>
-        <div class="form-input-container">
+        <div class="form-input-container" [style.width]="form_input_container_width" [style.height]="form_input_container_height">
             <div class="form-input">
                 <label class="input-label" for="email">Email</label>
                 <input id="email" class="input-box" placeholder="Email" name="email" [formControl]="emailInput"
@@ -15,7 +15,7 @@
                 <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">Email is required</div>
             </div>
         </div>
-        <div class="form-input-container">
+        <div class="form-input-container" [style.width]="form_input_container_width" [style.height]="form_input_container_height">
             <div class="form-input">
                 <label class="input-label" for="email">Password</label>
                 <input class="input-box" placeholder="Password" [formControl]="passwordInput" type="text" required>
@@ -30,7 +30,7 @@
             <button class="submit-btn" type="submit">Login</button>
         </div>
     </form>
-    <div class="login-form" *ngIf="loadingState">
+    <div *ngIf="loadingState" class="login-form" [style.width]="container_width" [style.height]="container_height">
         <ngx-spinner 
             class="spinner"
             size="medium" 
@@ -39,5 +39,5 @@
             bdColor="rgba(1, 1, 1, 1)"
         ></ngx-spinner>
     </div>
-    {{emailInput.value}}
+    <!-- {{emailInput.value}} -->
 </div>

@@ -64,13 +64,15 @@ export class CryptoService implements OnInit {
     return this.http.delete(this.origin + '/cryptoid/entrydelete/' + id);
   }
 
+  // ? Use string IDs to lookup info on each coin, push to array, and
+  // ? set the observable with that array
   setCryptoSingleCoins(allCryptoIds: any[]) {
     console.log('All ids: ', allCryptoIds);
     const cryptoCollection: any[] = [];
     allCryptoIds.forEach((ele: CryptoId) => {
       if (ele.cryptoid) {
         this.CoinGecko.getSingleCoin(ele.cryptoid).subscribe((res) => {
-          console.log('A coin lookup: ', res);
+          //// I add the string ID to the coin object
           const cryptoCoin = {
             ...res,
             collectionId: ele.id,
