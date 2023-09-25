@@ -2,10 +2,6 @@
   height: 90vh;
   width: 100%;
   background-color: rgb(25, 25, 57);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
 }
 
 .listt-container {
@@ -25,13 +21,22 @@
   gap: 8rem;
 }
 
-.home-btn {
+.toggleButton {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
   height: 2rem;
-  width: 4rem;
-  border-radius: 1rem;
-  background-color: darkblue;
-  color: lightblue;
+  width: 6rem;
+  border-radius: .5rem;
+  background-color: rgb(71, 134, 155);
+  color: darkblue;
   border-style: solid;
   border-width: thin;
-  border-color: light blue;
+  border-color: blue
 }

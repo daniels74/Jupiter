@@ -1,24 +1,90 @@
 <div class="crypto-page">
     <!-- <button gloww class="home-btn" routerLink="/">Home</button> -->
-    <div class="listt-container" [ngStyle]="{
+    <!-- For BIG SCREENS -->
+    <div [ngStyle]="{
+        'height': '100%',
+        'width': '100%',
+        'display': isBigScreen,
+        'flexDirection': 'column',
+        'alignItems': 'center',
+        'justifyContent': 'space-around',
+    }">
+        <div class="listt-container" [ngStyle]="{
+        'display': displayCryptoExp,
+        'height': heightCryptoExp, 
+        'width': widthCryptoExp,
+        'flexDirection': cryptoFlexDirectionExp,
+        'overflowY': cryptoScrollYExp,
+        'overflowX': 'scroll',
+    }">
+            <div *ngFor="let coin of crypto$ | async">
+                <app-card [dataImage]="coin.item.small" [dataName]="coin.item.name"
+                    [dataMarketCapRank]="coin.item.market_cap_rank" [coinId]="coin.item.id" />
+            </div>
+        </div>
+
+        <div class="listt-container" [ngStyle]="{
+        'display': 'flex',
+        'height': heightCryptoExp, 
+        'width': widthCryptoExp,
+        'flexDirection': cryptoFlexDirectionExp,
+        'overflowY': cryptoScrollYExp,
+        'overflowX': 'scroll',
+    }">
+            <div *ngFor="let nft of nfts$ | async">
+                <app-card [dataImage]="nft.thumb" [dataName]="nft.name" />
+            </div>
+        </div>
+    </div>
+    <!-- For small Screens -->
+    <div [ngStyle]="{
+        'height': '100%',
+        'width': '100%',
+        'display': isSmallScreen,
+        'flexDirection': 'column',
+        'alignItems': 'center',
+        'justifyContent': 'center',
+    }">
+        <h2 [ngStyle]="{
+            'color': 'lightblue',
+            'height': '10%',
+            'width': '100%',
+            'display': 'flex',
+            'flexDirection': 'row',
+            'alignItems': 'center',
+            'justifyContent': 'center',
+
+        }">{{selectedContent}}</h2>
+        <div class="listt-container" [ngStyle]="{
         'display': displayCryptoExp,
         'height': heightCryptoExp, 
         'width': widthCryptoExp,
         'flexDirection': cryptoFlexDirectionExp,
         'overflowY': cryptoScrollYExp,
         'overflowX': 'hidden',
-        'alignItems': 'center',
-        'justifyContent': cryptoJustifyContent
     }">
-        <div *ngFor="let coin of crypto$ | async">
-            <app-card [dataImage]="coin.item.small" [dataName]="coin.item.name"
-                [dataMarketCapRank]="coin.item.market_cap_rank" [coinId]="coin.item.id" />
+            <div *ngFor="let coin of crypto$ | async">
+                <app-card [dataImage]="coin.item.small" [dataName]="coin.item.name"
+                    [dataMarketCapRank]="coin.item.market_cap_rank" [coinId]="coin.item.id" />
+            </div>
         </div>
-    </div>
 
-    <div class="listt-container" [ngStyle]="{'display': displayNftExp}">
-        <div *ngFor="let nft of nfts$ | async">
-            <app-card [dataImage]="nft.thumb" [dataName]="nft.name" />
+        <div class="listt-container" [ngStyle]="{
+        'display': displayNftExp,
+        'height': heightCryptoExp, 
+        'width': widthCryptoExp,
+        'flexDirection': cryptoFlexDirectionExp,
+        'overflowY': cryptoScrollYExp,
+        'overflowX': 'hidden',
+    }">
+            <div *ngFor="let nft of nfts$ | async">
+                <app-card [dataImage]="nft.thumb" [dataName]="nft.name" />
+            </div>
+        </div>
+
+        <div class="toggleButton">
+            <button class="btn" *ngIf="!content_toggler" (click)="toggleContainerContent()">NFTs</button>
+            <button class="btn" *ngIf="content_toggler" (click)="toggleContainerContent()">Crypto</button>
         </div>
     </div>
 </div>

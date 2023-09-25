@@ -1,11 +1,11 @@
 <div class="register-page">
-    <form *ngIf="!loadingState" action="" [formGroup]="registerForm" class="register-form" (ngSubmit)="registerUser()">
+    <form *ngIf="!loadingState" action="" [formGroup]="registerForm" class="register-form" [style.width]="container_width" [style.height]="container_height" (ngSubmit)="registerUser()">
         <div>
             <h1>
                 Register
             </h1>
         </div>
-        <div class="form-input-container">
+        <div class="form-input-container" [style.width]="form_input_container_width" [style.height]="form_input_container_height">
             <div class="form-input">
                 <label class="input-label" for="email">Email</label>
                 <input id="email" class="input-box" placeholder="Email" name="email" type="text"
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-input-container">
+        <div class="form-input-container" [style.width]="form_input_container_width" [style.height]="form_input_container_height">
             <div class="form-input">
                 <label class="input-label" for="email">Password</label>
                 <input class="input-box" placeholder="Password" [formControl]="passwordControl" type="text" required>
@@ -31,7 +31,7 @@
             <button class="submit-btn" type="submit">Register</button>
         </div>
     </form>
-    <div class="register-form" *ngIf="loadingState">
+    <div *ngIf="loadingState" class="login-form" [style.width]="container_width" [style.height]="container_height">
         <ngx-spinner 
             class="spinner"
             size="medium" 

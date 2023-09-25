@@ -16,17 +16,31 @@ export class CardComponent {
 
   cardHeightExp = window.innerWidth < 700 ? '40rem' : '25rem';
   cardWidthExp = window.innerWidth < 700 ? '25rem' : '15rem';
-  fullClass =
+  cardClass =
     window.innerWidth < 700
       ? {
-          height: '40rem',
+          height: '30rem',
           width: '19rem',
-          flexDirection: 'column',
-          // overflowY: 'scroll',
-          // overflowX: 'none',
           marginLeft: '3rem',
+          marginTop: '2rem',
+          marginBottom: '2rem',
         }
-      : {};
+      : {
+          height: '25vh',
+          width: '15vw',
+          marginLeft: '2rem',
+        };
+
+  btnClass =
+    window.innerWidth < 700
+      ? {
+          height: '50%',
+          width: '35%',
+        }
+      : {
+          height: '80%',
+          width: '25%',
+        };
 
   constructor(
     private authService: AuthService,

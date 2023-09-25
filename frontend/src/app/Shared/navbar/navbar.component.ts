@@ -23,6 +23,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
   userRole!: string;
   user!: User;
 
+  // ? For sizing
+  logoWidth = window.innerWidth < 700 ? '70%' : '20%';
+
   constructor(
     private store: Store,
     private fb: FormBuilder,

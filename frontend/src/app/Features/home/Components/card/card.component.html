@@ -1,5 +1,5 @@
 <div gloww class="card" 
-[ngStyle]="fullClass">
+[ngStyle]="cardClass">
     <div class="coin-img-container">
         <img src="{{dataImage}}" alt="">
     </div>
@@ -13,6 +13,6 @@
         </div>
     </div>
     <div class="options">
-        <button class="save-btn" (click)="saveToCollection()">Save</button>
+        <button class="save-btn" [ngStyle]="btnClass" (click)="saveToCollection()">Save</button>
     </div>
 </div>
