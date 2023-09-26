@@ -19,12 +19,16 @@ export class NavbarComponent implements OnDestroy, OnInit {
   authState: any = false;
   id!: number;
   userName = 'Profile';
-  settingsToggle = false;
   userRole!: string;
   user!: User;
 
+  // ? Togglers
+  menuToggler = false;
+  settingsToggle = false;
+
   // ? For sizing
   logoWidth = window.innerWidth < 700 ? '70%' : '20%';
+  screenSizeCheck = window.innerWidth < 700 ? false : true;
 
   constructor(
     private store: Store,
@@ -56,6 +60,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   toggleSettings() {
     this.settingsToggle = !this.settingsToggle;
+    this.menuToggler = false;
   }
 
   deleteAccount() {
@@ -84,5 +89,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
       console.log('New updated jwt:', jwt.jwt);
       this.authServic.setPermissions(jwt.jwt);
     });
+  }
+
+  toggleMenu() {
+    this.menuToggler = !this.menuToggler;
   }
 }

@@ -30,6 +30,10 @@ export class UserComponent implements OnInit {
   allCryptoIds!: any;
   cryptoCollection: any[] = [];
 
+  // ? Screen Sizing
+  // False if small screen / True if Big screen
+  isBigScreen = window.innerWidth < 700 ? false : true;
+
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
@@ -45,23 +49,6 @@ export class UserComponent implements OnInit {
       this.user = currentUser;
     });
 
-    // this.store
-    //   .select(selectUserCryptoCollection)
-    //   .subscribe((cryptocollection) => {
-    //     console.log('NGRX Crypto Collection: ', cryptocollection);
-    //     this.allCryptoIds = cryptocollection;
-    //   });
-
-    // this.allCryptoIds.forEach((ele: CryptoId) => {
-    //   this.CoinGecko.getSingleCoin(ele.cryptoid).subscribe((res) => {
-    //     console.log('A coin lookup: ', res);
-    //     //const r: any = { ...res };
-    //     this.cryptoCollection.push(res);
-    //   });
-    // });
-
-    // this.setSingleCoins();
-    //this.cryptoService.setCryptoSignleCoins(this.allCryptoIds);
     this.cryptoService.cryptoSingleCoinListObservable.subscribe((coinList) => {
       this.cryptoCollection = coinList;
       console.log('My collection full: ', this.cryptoCollection);
@@ -132,15 +119,4 @@ export class UserComponent implements OnInit {
       console.log('CryptoId Deleted: ', res);
     });
   }
-
-  // setSingleCoins() {
-  //   this.cryptoCollection = [];
-  //   this.allCryptoIds.forEach((ele: CryptoId) => {
-  //     this.CoinGecko.getSingleCoin(ele.cryptoid).subscribe((res) => {
-  //       console.log('A coin lookup: ', res);
-  //       //const r: any = { ...res };
-  //       this.cryptoCollection.push(res);
-  //     });
-  //   });
-  // }
 }
