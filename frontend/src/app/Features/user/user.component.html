@@ -1,4 +1,4 @@
-<div class="user-profile-page">
+<div *ngIf="isBigScreen" class="user-profile-page">
     <div class="left-section">
         <div class="img-container">
             <h4>Img feature coming soon... 🔮</h4>
@@ -38,23 +38,68 @@
     <div class="right-section">
         <div class="crypto-list-container">
             <div class="mycrypto-container">
-                <!-- <div *ngFor="let cryptoid of allCryptoIds">
-                    {{ cryptoid.cryptoid ? (cryptoid.cryptoid) : (cryptoid | json) }}
-                    <button (click)="deleteCryptoId(cryptoid.cryptoid)">Delete</button>
-                    <button (click)="deleteCryptoEntryById(cryptoid.id)"> Delete by entry id</button>
-                </div> -->
-                <!-- <div class="mycrypto"> -->
-                    <div *ngFor="let singleCoin of cryptoCollection">
-                       <app-crypto-card [crypto]="singleCoin" />
-                    </div>
-                <!-- </div> -->
-            </div>
-            <!-- <form class="random-numbers" (ngSubmit)="addCryptoToList()" [formGroup]="cryptoForm" action="">
-                <div *ngFor="let item of mynumbers">
-                <input type="text" formControlName="cryptoidd">
-                <button type="submit">Submit</button>
+                <div *ngFor="let singleCoin of cryptoCollection">
+                    <app-crypto-card [crypto]="singleCoin" />
                 </div>
-            </form> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ! Small Screen -->
+<div *ngIf="!isBigScreen" class="user-profile-page" [style.flexDirection]="'column'">
+    <div [ngStyle]="{
+        'height': '100%',
+        'width': '100%',
+    }">
+        <div [ngStyle]="{
+        'display': 'flex',
+        'flexDirection': 'column',
+        'alignItems': 'center',
+        'justifyContent': 'center',
+        'overflowY': 'scroll',
+        'gap': '4rem',
+        }">
+            <div class="img-container" [style.height]="'10rem'" [style.marginTop]="'2rem'">
+                <h4>Img feature coming soon... 🔮</h4>
+            </div>
+            <!-- ! User Info Container -->
+            <div class="user-info-container" [style.height]="'20rem'">
+                <div class="info-settings">
+                    <button class="settings-btn" (click)="toggleSettings()" mat-raised-button
+                        color="primary">Update</button>
+                </div>
+                <div *ngIf="!settingState" class="user-info-wrapper">
+                    <div class="user-info-box">
+                        <div class="user-info-line">
+                            <h4>Username: </h4>
+                            <h4>{{ user.username }}</h4>
+                        </div>
+                        <div class="user-info-line">
+                            <h4>Name: </h4>
+                            <h4>{{user.name}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- ! User Info Editing  -->
+                <div *ngIf="settingState" class="settings-wrapper">
+                    <form [formGroup]="updateUserForm" action="" class="form-container" (ngSubmit)="updateUser()">
+                        <div class="form-inner-container">
+                            <input [formControl]="usernameControl" placeholder="Username" type="text">
+                            <input [formControl]="nameControl" placeholder="Name" type="text">
+                            <input placeholder="Email" type="text">
+                            <button type="submit" mat-raised-button color="primary">Submit</button>
+                        </div>
+                    </form>
+                    {{ usernameControl.value }} {{ nameControl.value }}
+                </div>
+            </div>
+            <div class="crypto-list-container" [style.height]="'30rem'" [style.marginBottom]="'2rem'">
+                <div class="mycrypto-container">
+                    <div *ngFor="let singleCoin of cryptoCollection">
+                        <app-crypto-card [crypto]="singleCoin" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

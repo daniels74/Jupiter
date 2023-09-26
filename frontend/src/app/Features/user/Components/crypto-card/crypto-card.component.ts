@@ -11,6 +11,9 @@ import { CryptoService } from '../../../../Core/Services/crypto.service';
 export class CryptoCardComponent {
   @Input() crypto!: SingleCoin;
 
+  // ? Sizing
+  isLargeScreen = window.innerWidth < 700 ? false : true;
+
   constructor(
     private authService: AuthService,
     private cryptoService: CryptoService,

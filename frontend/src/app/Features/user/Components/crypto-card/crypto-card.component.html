@@ -1,4 +1,7 @@
-<div class="crypto-card">
+<div class="crypto-card" [ngStyle]="{
+    height: !isLargeScreen ? '35vh' : '25vh',
+    width: !isLargeScreen ? '70vw' : '35vw'
+}">
     <div class="img-container">
         <img *ngIf="crypto.image" src="{{crypto.image.small}}" alt="">
     </div>
@@ -9,6 +12,7 @@
         <div *ngIf="crypto.collectionId">Collection Number: {{crypto.collectionId}}</div>
     </div>
     <div class="user-options">
-        <button class="delete-btn" (click)="removeCrypto()">Remove</button>
+        <button class="delete-btn" (click)="removeCrypto()"
+            [style.width]="!isLargeScreen ? '25%' : '10%'">Remove</button>
     </div>
 </div>

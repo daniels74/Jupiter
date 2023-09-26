@@ -4,7 +4,7 @@
             <img src="../../../assets/darklogo.png" alt="" [style.height]="'100%'" [style.width]="logoWidth">
         </div>
     </div>
-    <div class="menu">
+    <div *ngIf="screenSizeCheck" class="menu">
         <h3 routerLink="home">Home</h3>
         <h3 *ngIf="authState" routerLink="user/{{ id }}">{{userName}}</h3>
         <!-- <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3> -->
@@ -12,8 +12,36 @@
         <h3 *ngIf="!authState" routerLink="login">Login</h3>
         <h3 *ngIf="!authState" routerLink="register">Register</h3>
     </div>
+    <div *ngIf="!screenSizeCheck" class="menu" [style.justifyContent]="'flex-end'">
+        <img src="../../../assets/menu.png" alt="" (click)="toggleMenu()" [style.height]="'50%'" [style.width]="'22%'"
+            [style.marginRight]="'1rem'">
+    </div>
 </div>
-<div *ngIf="settingsToggle" class="settingsTab">
+<div *ngIf="menuToggler" class="settingsTab" [ngStyle]="{
+    'width': !screenSizeCheck ? '100%' : '50%',
+}">
+    <h3 routerLink="home" (click)="toggleMenu()">Home</h3>
+    <h3 *ngIf="authState" routerLink="user/{{ id }}" (click)="toggleMenu()">{{userName}}</h3>
+    <!-- <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3> -->
+    <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
+    <h3 *ngIf="!authState" routerLink="login">Login</h3>
+    <h3 *ngIf="!authState" routerLink="register">Register</h3>
+</div>
+<div *ngIf="settingsToggle" class="settingsTab" [ngStyle]="{
+    'width': !screenSizeCheck ? '100%' : '50%',
+}">
+    <div [ngStyle]="{
+            'position': 'absolute',
+            'height': '5%',
+            'width': 'auto%',
+            'top': '.5rem',
+            'left': '.5rem'
+        }" (click)="toggleSettings()">
+        <img src="../../../assets/cross.png" alt="" [ngStyle]="{
+                'height': '100%',
+                'width': '100%' 
+            }">
+    </div>
     <form *ngIf="userRole === 'admin' || 'user'" [formGroup]="roleSelectionForm" (ngSubmit)="changeRole()" action="">
         <select formControlName="role">
             <option value="admin">Admin</option>
