@@ -1,3 +1,4 @@
+import { NFTId } from './singleNFT';
 import { CryptoId } from './top-trending';
 
 export interface User {
@@ -7,4 +8,5 @@ export interface User {
   role: string;
   username: string;
   cryptos: CryptoId[];
+  nfts: NFTId[];
 }

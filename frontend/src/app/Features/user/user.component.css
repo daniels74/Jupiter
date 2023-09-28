@@ -125,7 +125,56 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 5%;
+}
+
+.collectionConainer {
+  height:90vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+  margin-bottom: 5rem;
+}
+
+.right-button-container {
+  height: 5%;
+  width: 100%;
+  /* background-color: red; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: space-around;
+}
+
+.btn {
+  min-height: 3rem;
+  width: auto;
+  /* flex: auto auto 1; */
+  /* margin: 10px; */
+  /* padding: 30px; */
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+ /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+}
+
+.btn:hover {
+  background-position: right center; /* change the direction of the change here */
+}
+
+.collection-btn {
+  /* min-height: 2rem;
+  width: 6rem; */
+  /* background-image: linear-gradient(to left, #f6d365 0%, #fda085 51%, #f6d365 100%); */
+  background-image: radial-gradient(circle, rgba(31,214,255,1) 0%, rgba(48,87,140,1) 34%, rgba(38,27,120,1) 65%, rgba(102,62,142,1) 87%, rgba(119,41,184,1) 100%);
 }
 
 .crypto-list-container {

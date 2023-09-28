@@ -1,23 +1,39 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { CoinsEntity, NftsEntity } from '../../Core/Interfaces/top-trending';
+import { CryptoCoinObj, NFT } from '../../Core/Interfaces/top-trending';
 import {
   selectCrypto,
   selectNfts,
 } from '../../Shared/State/Selectors/crypto.selectors';
+import { UserNftCollectionService } from '../../Core/Services/UserCollection/user-nft-collection.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
-  constructor(private store: Store) {}
+export class HomeComponent implements OnInit {
+  constructor(
+    private store: Store,
+    private nftService: UserNftCollectionService,
+  ) {}
+  ngOnInit(): void {
+    this.crypto$.subscribe((c) => {
+      console.log('Trending Crypto <Home>: ', c);
+    });
+    this.nfts$.subscribe((n) => {
+      console.log('Trending NFTS <Home>: ', n);
+    });
 
-  crypto$: Observable<Array<CoinsEntity>> = this.store.select(selectCrypto);
+    this.nftService.nftCollection.subscribe((nfts) => {
+      console.log('my nfts: ', nfts);
+    });
+  }
 
-  nfts$: Observable<Array<NftsEntity>> = this.store.select(selectNfts);
+  crypto$: Observable<Array<CryptoCoinObj>> = this.store.select(selectCrypto);
+
+  nfts$: Observable<Array<NFT>> = this.store.select(selectNfts);
 
   isBigScreen = window.innerWidth > 700 ? 'flex' : 'none';
   isSmallScreen = window.innerWidth < 700 ? 'flex' : 'none';
@@ -41,6 +57,8 @@ export class HomeComponent {
 
   cryptoScrollXExp = window.innerWidth < 700 ? 'hidden' : 'scroll';
 
+  // ! This is used for toggling between
+  //! crypto and NFTs in small screens
   toggleContainerContent() {
     if (this.displayCryptoExp === 'flex') {
       this.displayCryptoExp = 'none';

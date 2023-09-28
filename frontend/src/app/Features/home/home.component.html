@@ -18,8 +18,11 @@
         'overflowX': 'scroll',
     }">
             <div *ngFor="let coin of crypto$ | async">
-                <app-card [dataImage]="coin.item.small" [dataName]="coin.item.name"
+                <app-card [isCrypto]="true" [dataImage]="coin.item.small" [dataName]="coin.item.name"
                     [dataMarketCapRank]="coin.item.market_cap_rank" [coinId]="coin.item.id" />
+            </div>
+            <div *ngIf="crypto$">
+                Api Down... 
             </div>
         </div>
 
@@ -32,7 +35,7 @@
         'overflowX': 'scroll',
     }">
             <div *ngFor="let nft of nfts$ | async">
-                <app-card [dataImage]="nft.thumb" [dataName]="nft.name" />
+                <app-card [isCrypto]="false" [dataImage]="nft.thumb" [dataName]="nft.name" [coinId]="nft.id"/>
             </div>
         </div>
     </div>

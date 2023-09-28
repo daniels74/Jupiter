@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CryptoidModule } from './cryptoid/cryptoid.module';
+import { NftidModule } from './nftid/nftid.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { CryptoidModule } from './cryptoid/cryptoid.module';
     UserModule,
     AuthModule,
     CryptoidModule,
+    NftidModule,
   ],
   controllers: [AppController],
   providers: [AppService],

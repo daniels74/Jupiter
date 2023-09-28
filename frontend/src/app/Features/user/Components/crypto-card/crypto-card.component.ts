@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { SingleCoin } from '../../../../Core/Interfaces/singleCoin.interface';
 import { AuthService } from '../../../../Core/Services/auth.service';
-import { CryptoService } from '../../../../Core/Services/crypto.service';
+import { CryptoService } from '../../../../Core/Services/UserCollection/crypto.service';
 
 @Component({
   selector: 'app-crypto-card',

@@ -11,8 +11,10 @@ import { authAction } from '../../Shared/State/Actions/auth.actions';
 import { usersAction } from '../../Shared/State/Actions/users.actions';
 import { userCryptoCollectionAction } from '../../Shared/State/Actions/userCryptoCollection.actions';
 import { User } from '../Interfaces/User.interface';
-import { CryptoService } from './crypto.service';
+import { CryptoService } from './UserCollection/crypto.service';
 import { BaseUrl } from '../../Root/app.module';
+import { NFTId } from '../Interfaces/singleNFT';
+import { UserNftCollectionService } from './UserCollection/user-nft-collection.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +26,7 @@ export class AuthService {
     private router: Router,
     private userServ: UserService,
     private CryptoService: CryptoService,
+    private NftService: UserNftCollectionService,
     @Inject(WINDOW) private window: Window,
     @Inject(BaseUrl) private local_origin: string,
   ) {}
@@ -60,6 +63,8 @@ export class AuthService {
 
     const user: any = jwtDecode(token);
 
+    console.log('User obj from Jwt decode: ', user.user);
+
     //// Set 1 hour timer for JWT
     const timer = 60000 * 60;
     setTimeout(() => {
@@ -82,7 +87,12 @@ export class AuthService {
       }),
     );
 
+    // ? Get all crypto from ids and set array observable
     this.CryptoService.setCryptoSingleCoins(cryptoCollection_ngrx);
+
+    const userNftCollection_ngrx = userState_ngrx.nfts;
+    // ! Set up ngrx for nft id user list
+    this.NftService.setUserFullNftCollection(userNftCollection_ngrx);
 
     //this.router.navigate(['/user', user.user.id]);
   }

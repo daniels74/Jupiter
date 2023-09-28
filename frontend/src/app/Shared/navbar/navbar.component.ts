@@ -8,6 +8,7 @@ import { selectAuth } from '../State/Selectors/auth.selector';
 import { authAction } from '../State/Actions/auth.actions';
 import { selectUser } from '../State/Selectors/users.selector';
 import { User } from '../../Core/Interfaces/User.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -35,6 +36,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     private fb: FormBuilder,
     private authServic: AuthService,
     private userService: UserService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -75,6 +77,24 @@ export class NavbarComponent implements OnDestroy, OnInit {
     const authState_ngrx = false;
     this.store.dispatch(authAction.setAuthenticationState({ authState_ngrx }));
     this.authServic.logout();
+  }
+
+  login() {
+    this.menuToggler = false;
+    this.settingsToggle = false;
+    this.router.navigate(['/login']);
+  }
+
+  register() {
+    this.menuToggler = false;
+    this.settingsToggle = false;
+    this.router.navigate(['/register']);
+  }
+
+  goToLanding() {
+    this.menuToggler = false;
+    this.settingsToggle = false;
+    this.router.navigate(['']);
   }
 
   roleSelectionForm: FormGroup = this.fb.group({
