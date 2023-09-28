@@ -42,7 +42,7 @@ export class CardComponent implements OnInit {
     window.innerWidth < 700
       ? {
           height: '50%',
-          width: '35%',
+          width: '45%',
         }
       : {
           height: '80%',
@@ -70,21 +70,17 @@ export class CardComponent implements OnInit {
   }
   // ! Save string id of Crypto into database,
   // ! this id is later used to look up the coin for more info
-  saveToCollection() {
+  saveToCollection(coinId: string) {
     if (this.isCrypto === true) {
+      console.log('crypto id saving to db: ', coinId);
       // // Save Crypto ID string into database
-      this.cryptoService.postCryptoId(this.coinId).subscribe((postRes) => {
+      this.cryptoService.postCryptoId(coinId).subscribe((postRes) => {
         this.authService.setPermissions(postRes.jwt);
       });
     } else if (this.isCrypto === false) {
-      // // Save Crypto ID string into database
-      console.log('id', this.coinId);
-      // this.coinGeckoService
-      //   .getSingleNFT(this.coinId)
-      //   .subscribe((res) => console.log('RES:', res));
-      // ? Replacing with a function that post to database using
-      // ? userNftService
-      this.nftService.postNftId(this.coinId).subscribe((postRes) => {
+      // // Save NFT ID string into database
+      console.log('id', coinId);
+      this.nftService.postNftId(coinId).subscribe((postRes) => {
         this.authService.setPermissions(postRes.jwt);
       });
     }
