@@ -39,7 +39,8 @@ export class UserRoleInterceptor implements HttpInterceptor, OnDestroy {
     const urlValid =
       request.url.startsWith(this.origin + '/user/updaterole') ||
       request.url.startsWith(this.origin + '/cryptoid') ||
-      request.url.startsWith(this.origin + '/cryptoid/entrydelete/cryptoid');
+      request.url.startsWith(this.origin + '/cryptoid/entrydelete/cryptoid') ||
+      request.url.startsWith(this.origin + '/nftid');
 
     if (this.isAuth && urlValid) {
       const token = localStorage.getItem('blog-token');

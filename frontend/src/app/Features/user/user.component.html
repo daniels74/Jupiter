@@ -36,12 +36,27 @@
     </div>
     <div class="vertical-line"></div>
     <div class="right-section">
+        <div class="collectionType-container">
+            <h2 *ngIf="!collectionTypeToggle">Crypto Collection</h2>
+            <h2 *ngIf="collectionTypeToggle">NFT Collection</h2>
+        </div>
         <div class="crypto-list-container">
-            <div class="mycrypto-container">
+            <div *ngIf="!collectionTypeToggle" class="mycrypto-container">
                 <div *ngFor="let singleCoin of cryptoCollection">
                     <app-crypto-card [crypto]="singleCoin" />
                 </div>
             </div>
+            <div *ngIf="collectionTypeToggle" class="mycrypto-container">
+                <div *ngFor="let singleCoin of nftCollection">
+                    <app-crypto-card [crypto]="singleCoin" />
+                </div>
+            </div>
+        </div>
+        <div class="right-button-container">
+            <button *ngIf="!collectionTypeToggle" class="btn collection-btn" (click)="toggleCollectionType()">NFT
+                Collection</button>
+            <button *ngIf="collectionTypeToggle" class="btn collection-btn" (click)="toggleCollectionType()">Crypto
+                Collection</button>
         </div>
     </div>
 </div>
@@ -93,11 +108,42 @@
                     {{ usernameControl.value }} {{ nameControl.value }}
                 </div>
             </div>
-            <div class="crypto-list-container" [style.height]="'30rem'" [style.marginBottom]="'2rem'">
-                <div class="mycrypto-container">
+            <!-- <div class="crypto-list-container" [style.height]="'30rem'" [style.marginBottom]="'2rem'">
+                <div *ngIf="!collectionTypeToggle" class="mycrypto-container">
                     <div *ngFor="let singleCoin of cryptoCollection">
                         <app-crypto-card [crypto]="singleCoin" />
                     </div>
+                </div>
+                <div *ngIf="collectionTypeToggle" class="mycrypto-container">
+                    <div *ngFor="let singleCoin of nftCollection">
+                        <app-crypto-card [crypto]="singleCoin" />
+                    </div>
+                </div>
+            </div> -->
+            <div class="collectionConainer">
+                <div class="collectionType-container">
+                    <h2 *ngIf="!collectionTypeToggle">Crypto Collection</h2>
+                    <h2 *ngIf="collectionTypeToggle">NFT Collection</h2>
+                </div>
+                <div class="crypto-list-container">
+                    <div *ngIf="!collectionTypeToggle" class="mycrypto-container">
+                        <div *ngFor="let singleCoin of cryptoCollection">
+                            <app-crypto-card [crypto]="singleCoin" />
+                        </div>
+                    </div>
+                    <div *ngIf="collectionTypeToggle" class="mycrypto-container">
+                        <div *ngFor="let singleCoin of nftCollection">
+                            <app-crypto-card [crypto]="singleCoin" />
+                        </div>
+                    </div>
+                </div>
+                <div class="right-button-container">
+                    <button *ngIf="!collectionTypeToggle" class="btn collection-btn"
+                        (click)="toggleCollectionType()">NFT
+                        Collection</button>
+                    <button *ngIf="collectionTypeToggle" class="btn collection-btn"
+                        (click)="toggleCollectionType()">Crypto
+                        Collection</button>
                 </div>
             </div>
         </div>

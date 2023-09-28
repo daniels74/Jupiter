@@ -22,6 +22,7 @@ import {
 import { JwtObj } from './model/jwt-obj.interface';
 import { error } from 'console';
 import { CryptoIdEnitity } from '../cryptoid/model/cryptoid.entity';
+import { NftIdEntity } from 'src/nftid/model/nftid.entity';
 
 @Injectable()
 export class UserService {
@@ -60,6 +61,7 @@ export class UserService {
         newUser.password = passwordHash;
         newUser.role = user.role;
         newUser.cryptos = <CryptoIdEnitity[]>[];
+        newUser.nfts = <NftIdEntity[]>[];
 
         return from(this.userRepository.save(newUser)).pipe(
           map((user: User) => {
@@ -76,7 +78,10 @@ export class UserService {
   findOne(id: number): Observable<User> {
     // return from(this.userRepository.findOne({ where: { id } }));
     return from(
-      this.userRepository.findOne({ where: { id }, relations: ['cryptos'] }),
+      this.userRepository.findOne({
+        where: { id },
+        relations: ['cryptos', 'nfts'],
+      }),
     ).pipe(
       map((user: User) => {
         // console.log('FindOne-Database: ', user);
@@ -244,7 +249,10 @@ export class UserService {
 
   findByMail(email: string): Observable<User> {
     return from(
-      this.userRepository.findOne({ where: { email }, relations: ['cryptos'] }),
+      this.userRepository.findOne({
+        where: { email },
+        relations: ['cryptos', 'nfts'],
+      }),
     );
   }
 }

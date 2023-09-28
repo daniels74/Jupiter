@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CoinGeckoApiService } from '../Core/Services/coin-gecko-api.service';
 import { Store } from '@ngrx/store';
-import { coinGeckoApiActions } from '../Shared/State/Actions/cryptoList.actions';
+import { cryptoCoinGeckoApiActions } from '../Shared/State/Actions/coingecko.actions';
 import { nftCoinGeckoApiActions } from '../Shared/State/Actions/nftList.actions';
 import { AuthService } from '../Core/Services/auth.service';
 import { selectAuth } from '../Shared/State/Selectors/auth.selector';
@@ -21,20 +21,21 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    //  Check if user has token
     this.authService.liveSessionCheck();
 
-    const currentAuthState = this.store.select(selectAuth);
-    currentAuthState.subscribe((state) => {
-      console.log('Root auth State from ngrx: ', state);
-    });
-
+    // Fetching|Setting trending CRYPTO
     this.coinGeckoService.getTrendingCrypto().subscribe((cryptos) => {
       console.log('Top tredning', cryptos);
-      this.store.dispatch(coinGeckoApiActions.retrieveCryptoList({ cryptos }));
+      this.store.dispatch(
+        cryptoCoinGeckoApiActions.setCryptoListState({ cryptos }),
+      );
     });
-
+    // Fetching|Setting trending NFTS
     this.coinGeckoService.getTrendingNFT().subscribe((nfts) => {
-      this.store.dispatch(nftCoinGeckoApiActions.retrieveNFTS({ nfts }));
+      this.store.dispatch(
+        nftCoinGeckoApiActions.setTrendingNFTSState({ nfts }),
+      );
     });
   }
 }

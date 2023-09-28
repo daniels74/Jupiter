@@ -1,6 +1,6 @@
 <div class="nav-page">
     <div class="logo-container">
-        <div routerLink="" class="logo">
+        <div (click)="goToLanding()" class="logo">
             <img src="../../../assets/darklogo.png" alt="" [style.height]="'100%'" [style.width]="logoWidth">
         </div>
     </div>
@@ -9,8 +9,8 @@
         <h3 *ngIf="authState" routerLink="user/{{ id }}">{{userName}}</h3>
         <!-- <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3> -->
         <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
-        <h3 *ngIf="!authState" routerLink="login">Login</h3>
-        <h3 *ngIf="!authState" routerLink="register">Register</h3>
+        <h3 *ngIf="!authState" (click)="login()">Login</h3>
+        <h3 *ngIf="!authState" (click)="register()">Register</h3>
     </div>
     <div *ngIf="!screenSizeCheck" class="menu" [style.justifyContent]="'flex-end'">
         <img src="../../../assets/menu.png" alt="" (click)="toggleMenu()" [style.height]="'50%'" [style.width]="'22%'"
@@ -24,9 +24,10 @@
     <h3 *ngIf="authState" routerLink="user/{{ id }}" (click)="toggleMenu()">{{userName}}</h3>
     <!-- <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3> -->
     <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
-    <h3 *ngIf="!authState" routerLink="login">Login</h3>
-    <h3 *ngIf="!authState" routerLink="register">Register</h3>
+    <h3 *ngIf="!authState" (click)="login()">Login</h3>
+    <h3 *ngIf="!authState" (click)="register()">Register</h3>
 </div>
+<!-- !Settings options -->
 <div *ngIf="settingsToggle" class="settingsTab" [ngStyle]="{
     'width': !screenSizeCheck ? '100%' : '50%',
 }">

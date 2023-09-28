@@ -12,10 +12,11 @@ import { AuthService } from '../../Core/Services/auth.service';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../Shared/State/Selectors/users.selector';
 import { CryptoId } from '../../Core/Interfaces/top-trending';
-import { CryptoService } from '../../Core/Services/crypto.service';
+import { CryptoService } from '../../Core/Services/UserCollection/crypto.service';
 import { selectUserCryptoCollection } from '../../Shared/State/Selectors/userCryptoCollection.selector';
 import { userCryptoCollectionAction } from '../../Shared/State/Actions/userCryptoCollection.actions';
 import { CoinGeckoApiService } from '../../Core/Services/coin-gecko-api.service';
+import { UserNftCollectionService } from '../../Core/Services/UserCollection/user-nft-collection.service';
 
 @Component({
   selector: 'app-user',
@@ -29,6 +30,9 @@ export class UserComponent implements OnInit {
 
   allCryptoIds!: any;
   cryptoCollection: any[] = [];
+  nftCollection: any[] = [];
+
+  collectionTypeToggle = false; //// Crypto list or Nft list
 
   // ? Screen Sizing
   // False if small screen / True if Big screen
@@ -41,6 +45,7 @@ export class UserComponent implements OnInit {
     private authServ: AuthService,
     private cryptoService: CryptoService,
     private CoinGecko: CoinGeckoApiService,
+    private UserNftCollectionService: UserNftCollectionService,
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +57,11 @@ export class UserComponent implements OnInit {
     this.cryptoService.cryptoSingleCoinListObservable.subscribe((coinList) => {
       this.cryptoCollection = coinList;
       console.log('My collection full: ', this.cryptoCollection);
+    });
+
+    this.UserNftCollectionService.nftCollection.subscribe((usernfts) => {
+      this.nftCollection = usernfts;
+      console.log('User Nfts: ', this.nftCollection);
     });
   }
 
@@ -118,5 +128,9 @@ export class UserComponent implements OnInit {
     this.cryptoService.deleteCryptoEntryById(cryptoid).subscribe((res) => {
       console.log('CryptoId Deleted: ', res);
     });
+  }
+
+  toggleCollectionType() {
+    this.collectionTypeToggle = !this.collectionTypeToggle;
   }
 }

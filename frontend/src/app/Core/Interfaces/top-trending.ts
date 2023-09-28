@@ -1,11 +1,11 @@
 import { User } from './User.interface';
 
 export interface TopTrending {
-  coins?: CoinsEntity[] | null;
-  nfts?: NftsEntity[] | null;
+  coins?: CryptoCoinObj[] | null;
+  nfts?: NFT[] | null;
   exchanges?: null[] | null;
 }
-export interface CoinsEntity {
+export interface CryptoCoinObj {
   item: Crypto;
 }
 export interface Crypto {
@@ -21,7 +21,7 @@ export interface Crypto {
   price_btc: number;
   score: number;
 }
-export interface NftsEntity {
+export interface NFT {
   id: string;
   name: string;
   symbol: string;

@@ -1,10 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
-import { NftsEntity } from '../../../Core/Interfaces/top-trending';
+import { NFT } from '../../../Core/Interfaces/top-trending';
 import { nftCoinGeckoApiActions } from '../Actions/nftList.actions';
 
-export const initialState: Array<NftsEntity> = [];
+export const initialState: Array<NFT> = [];
 
 export const nftReducer = createReducer(
   initialState,
-  on(nftCoinGeckoApiActions.retrieveNFTS, (state, { nfts }) => nfts),
+  on(nftCoinGeckoApiActions.setTrendingNFTSState, (state, { nfts }) => nfts),
 );

@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { UserRole } from './user.interface';
 import { CryptoIdEnitity } from '../../cryptoid/model/cryptoid.entity';
+import { NftIdEntity } from 'src/nftid/model/nftid.entity';
 
 @Entity()
 export class UserEntity {
@@ -30,6 +31,9 @@ export class UserEntity {
 
   @OneToMany(() => CryptoIdEnitity, (crypto) => crypto.user)
   cryptos: CryptoIdEnitity[];
+
+  @OneToMany(() => NftIdEntity, (nft) => nft.user)
+  nfts: NftIdEntity[];
 
   @BeforeInsert()
   emailToLowerCase() {

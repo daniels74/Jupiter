@@ -1,3 +1,4 @@
+import { nftId } from 'src/nftid/model/nftid.interface';
 import { cryptoidEntry } from '../../cryptoid/model/cryptoid.interface';
 
 export interface User {
@@ -8,6 +9,7 @@ export interface User {
   password?: string;
   role?: UserRole;
   cryptos?: cryptoidEntry[];
+  nfts?: nftId[];
 }
 
 export enum UserRole {
