@@ -1,6 +1,6 @@
 <div class="crypto-page">
     <!-- <button gloww class="home-btn" routerLink="/">Home</button> -->
-    <!-- For BIG SCREENS -->
+    <!--! For BIG SCREENS -->
     <div [ngStyle]="{
         'height': '100%',
         'width': '100%',
@@ -18,7 +18,7 @@
         'overflowX': 'scroll',
     }">
             <div *ngFor="let coin of crypto$ | async">
-                <app-card [isCrypto]="true" [dataImage]="coin.item.small" [dataName]="coin.item.name"
+                <app-card [collectionClassification]="'crypto'" [dataImage]="coin.item.small" [dataName]="coin.item.name"
                     [dataMarketCapRank]="coin.item.market_cap_rank" [coinId]="coin.item.id" />
             </div>
             <div *ngIf="crypto$">
@@ -35,11 +35,11 @@
         'overflowX': 'scroll',
     }">
             <div *ngFor="let nft of nfts$ | async">
-                <app-card [isCrypto]="false" [dataImage]="nft.thumb" [dataName]="nft.name" [coinId]="nft.id"/>
+                <app-card [collectionClassification]="'nft'" [dataImage]="nft.thumb" [dataName]="nft.name" [coinId]="nft.id"/>
             </div>
         </div>
     </div>
-    <!-- For small Screens -->
+    <!-- !For small Screens -->
     <div [ngStyle]="{
         'height': '100%',
         'width': '100%',
@@ -67,7 +67,7 @@
         'overflowX': 'hidden',
     }">
             <div *ngFor="let coin of crypto$ | async">
-                <app-card [isCrypto]="true" [dataImage]="coin.item.small" [dataName]="coin.item.name"
+                <app-card [collectionClassification]="'crypto'" [dataImage]="coin.item.small" [dataName]="coin.item.name"
                     [dataMarketCapRank]="coin.item.market_cap_rank" [coinId]="coin.item.id" />
             </div>
         </div>
@@ -81,7 +81,7 @@
         'overflowX': 'hidden',
     }">
             <div *ngFor="let nft of nfts$ | async">
-                <app-card [isCrypto]="false" [dataImage]="nft.thumb" [dataName]="nft.name" />
+                <app-card [collectionClassification]="'nft'" [dataImage]="nft.thumb" [dataName]="nft.name" />
             </div>
         </div>
 

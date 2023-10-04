@@ -33,4 +33,20 @@ export class NftidService {
       }),
     );
   }
+
+  deleteUserNftEntry(user: User, nftid: string): Observable<any> {
+    return from(this.nftRepository.delete({ nftid: nftid })).pipe(
+      switchMap((deleteRes) => {
+        return this.userService.findOne(user.id).pipe(
+          switchMap((foundUser) => {
+            return this.authService.generateJWT(foundUser).pipe(
+              map((jwt: string) => {
+                return { jwt: jwt };
+              }),
+            );
+          }),
+        );
+      }),
+    );
+  }
 }

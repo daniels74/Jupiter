@@ -1,5 +1,19 @@
 <div *ngIf="isBigScreen" class="user-profile-page">
-    <div class="left-section">
+    <div *ngIf="chartToggler" id="divChart">
+        <div [ngStyle]="{
+            height: '20%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'
+        }">
+            <h2>
+                {{chosenCrypto.name}}
+            </h2>
+            <button (click)="closeChart()">Exit</button>
+        </div>
+        <canvas baseChart [ngStyle]="{
+            height: '80%', width:  '100%', backgroundColor: 'black'
+        }" [type]="'line'" [data]="lineChartData" [options]="lineChartOptions" [legend]="lineChartLegend">
+        </canvas>
+    </div>
+    <div class="left-section" *ngIf="!chartToggler">
         <div class="img-container">
             <h4>Img feature coming soon... 🔮</h4>
         </div>
@@ -9,6 +23,7 @@
                 <button class="settings-btn" (click)="toggleSettings()" mat-raised-button
                     color="primary">Update</button>
             </div>
+            <!--! User Info  -->
             <div *ngIf="!settingState" class="user-info-wrapper">
                 <div class="user-info-box">
                     <div class="user-info-line">
@@ -21,21 +36,22 @@
                     </div>
                 </div>
             </div>
+            <!-- !Update user profile -->
             <div *ngIf="settingState" class="settings-wrapper">
                 <form [formGroup]="updateUserForm" action="" class="form-container" (ngSubmit)="updateUser()">
                     <div class="form-inner-container">
-                        <input [formControl]="usernameControl" placeholder="Username" type="text">
-                        <input [formControl]="nameControl" placeholder="Name" type="text">
-                        <input placeholder="Email" type="text">
+                        <input formControlName="username" placeholder="Username" type="text">
+                        <input formControlName="name" placeholder="Name" type="text">
+                        <!-- <input placeholder="Email" type="text"> -->
                         <button type="submit" mat-raised-button color="primary">Submit</button>
                     </div>
                 </form>
-                {{ usernameControl.value }} {{ nameControl.value }}
             </div>
         </div>
     </div>
-    <div class="vertical-line"></div>
-    <div class="right-section">
+    <div *ngIf="!isBigScreen" class="vertical-line"></div>
+    <!-- ! User Collections -->
+    <div class="right-section" *ngIf="!chartToggler">
         <div class="collectionType-container">
             <h2 *ngIf="!collectionTypeToggle">Crypto Collection</h2>
             <h2 *ngIf="collectionTypeToggle">NFT Collection</h2>
@@ -43,12 +59,13 @@
         <div class="crypto-list-container">
             <div *ngIf="!collectionTypeToggle" class="mycrypto-container">
                 <div *ngFor="let singleCoin of cryptoCollection">
-                    <app-crypto-card [crypto]="singleCoin" />
+                    <app-crypto-card [crypto]="singleCoin" [collectionClassifcation]="'crypto'"
+                        (chartStateOutput)="toggleChart($event)" />
                 </div>
             </div>
             <div *ngIf="collectionTypeToggle" class="mycrypto-container">
                 <div *ngFor="let singleCoin of nftCollection">
-                    <app-crypto-card [crypto]="singleCoin" />
+                    <app-crypto-card [nfts]="singleCoin" [collectionClassifcation]="'nft'" />
                 </div>
             </div>
         </div>
@@ -62,7 +79,38 @@
 </div>
 <!-- ! Small Screen -->
 <div *ngIf="!isBigScreen" class="user-profile-page" [style.flexDirection]="'column'">
-    <div [ngStyle]="{
+    <div *ngIf="chartToggler" id="divChart"
+        [ngStyle]="{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: '1rem'}">
+        <div [ngStyle]="{ height: '35%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around' }">
+            <div [ngStyle]="{ height: '20%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'
+            }">
+                <div [ngStyle]="{height: '100%', width: 'auto',  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }">
+                    <img src="{{chosenCrypto.image.small}}" alt="">
+                </div>
+                <h2>
+                    {{chosenCrypto.name}}
+                </h2>
+                <button (click)="closeChart()">Exit</button>
+            </div>
+            <div [ngStyle]="{ height: '70%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flexStart'}">
+                <canvas baseChart id="canvas" [ngStyle]="{
+                    height: 'auto', width:  '100%', backgroundColor: 'black'
+                }" borderWidth=".2" [type]="'line'" [data]="lineChartData" [options]="lineChartOptions"
+                    [legend]="lineChartLegend">
+                </canvas>
+            </div>
+        </div>
+        <div
+            [ngStyle]="{ height: '65%', width: '90%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flexStart'}">
+            <div [ngStyle]="{height: 'auto', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}">
+                <h3>
+                    What is {{chosenCrypto.name}}?
+                </h3>
+                <h5>{{chosenCrypto.description.en}}</h5>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!chartToggler" [ngStyle]="{
         'height': '100%',
         'width': '100%',
     }">
@@ -74,11 +122,11 @@
         'overflowY': 'scroll',
         'gap': '4rem',
         }">
-            <div class="img-container" [style.height]="'10rem'" [style.marginTop]="'2rem'">
+            <div class="img-container" [style.height]="'10rem'" [style.marginTop]="'2rem'" *ngIf="!chartToggler">
                 <h4>Img feature coming soon... 🔮</h4>
             </div>
             <!-- ! User Info Container -->
-            <div class="user-info-container" [style.height]="'20rem'">
+            <div class="user-info-container" [style.height]="'20rem'" *ngIf="!chartToggler">
                 <div class="info-settings">
                     <button class="settings-btn" (click)="toggleSettings()" mat-raised-button
                         color="primary">Update</button>
@@ -99,28 +147,16 @@
                 <div *ngIf="settingState" class="settings-wrapper">
                     <form [formGroup]="updateUserForm" action="" class="form-container" (ngSubmit)="updateUser()">
                         <div class="form-inner-container">
-                            <input [formControl]="usernameControl" placeholder="Username" type="text">
-                            <input [formControl]="nameControl" placeholder="Name" type="text">
-                            <input placeholder="Email" type="text">
+                            <input formControlName="username" placeholder="Username" type="text">
+                            <input formControlName="name" placeholder="Name" type="text">
+                            <!-- <input placeholder="Email" type="text"> -->
                             <button type="submit" mat-raised-button color="primary">Submit</button>
                         </div>
                     </form>
-                    {{ usernameControl.value }} {{ nameControl.value }}
                 </div>
             </div>
-            <!-- <div class="crypto-list-container" [style.height]="'30rem'" [style.marginBottom]="'2rem'">
-                <div *ngIf="!collectionTypeToggle" class="mycrypto-container">
-                    <div *ngFor="let singleCoin of cryptoCollection">
-                        <app-crypto-card [crypto]="singleCoin" />
-                    </div>
-                </div>
-                <div *ngIf="collectionTypeToggle" class="mycrypto-container">
-                    <div *ngFor="let singleCoin of nftCollection">
-                        <app-crypto-card [crypto]="singleCoin" />
-                    </div>
-                </div>
-            </div> -->
-            <div class="collectionConainer">
+            <!-- ! User collection -->
+            <div class="collectionConainer" *ngIf="!chartToggler">
                 <div class="collectionType-container">
                     <h2 *ngIf="!collectionTypeToggle">Crypto Collection</h2>
                     <h2 *ngIf="collectionTypeToggle">NFT Collection</h2>
@@ -128,12 +164,13 @@
                 <div class="crypto-list-container">
                     <div *ngIf="!collectionTypeToggle" class="mycrypto-container">
                         <div *ngFor="let singleCoin of cryptoCollection">
-                            <app-crypto-card [crypto]="singleCoin" />
+                            <app-crypto-card [crypto]="singleCoin" [collectionClassifcation]="'crypto'"
+                                (chartStateOutput)="toggleChart($event)" />
                         </div>
                     </div>
                     <div *ngIf="collectionTypeToggle" class="mycrypto-container">
                         <div *ngFor="let singleCoin of nftCollection">
-                            <app-crypto-card [crypto]="singleCoin" />
+                            <app-crypto-card [crypto]="singleCoin" [collectionClassifcation]="'nft'" />
                         </div>
                     </div>
                 </div>

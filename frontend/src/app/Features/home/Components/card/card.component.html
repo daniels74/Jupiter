@@ -13,7 +13,6 @@
         </div>
     </div>
     <div class="options">
-        <!-- *ngIf="authState" -->
-        <button class="save-btn" [ngStyle]="btnClass" (click)="saveToCollection(coinId)">Save to Collection</button>
+        <button *ngIf="authState" class="save-btn" [ngStyle]="btnClass" (click)="saveToCollection(coinId)">Save to Collection</button>
     </div>
 </div>

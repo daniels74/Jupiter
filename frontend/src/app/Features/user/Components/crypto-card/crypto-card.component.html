@@ -2,17 +2,37 @@
     height: !isLargeScreen ? '35vh' : '25vh',
     width: !isLargeScreen ? '70vw' : '35vw'
 }">
-    <div class="img-container">
-        <img *ngIf="crypto.image" src="{{crypto.image.small}}" alt="">
+    <div *ngIf="crypto" [ngStyle]="{
+    height: '100%', width: '100%', }">
+        <div class="img-container">
+            <img *ngIf="crypto.image" src="{{crypto.image.small}}" alt="">
+        </div>
+        <div class="crypto-data-container">
+            <h2 *ngIf="crypto.name">{{crypto.name}}</h2>
+            <div *ngIf="crypto.market_data">Price USD: {{crypto.market_data.current_price.usd}}</div>
+            <div *ngIf="crypto.coingecko_rank">Coin Gecko Rank: {{crypto.coingecko_rank}}</div>
+            <div *ngIf="crypto.collectionId">Collection Number: {{crypto.collectionId}}</div>
+        </div>
+        <div class="user-options">
+            <button (click)="getChartData(crypto.id)">Chart</button>
+            <button class="delete-btn" (click)="removeCrypto(crypto.id)"
+                [style.width]="!isLargeScreen ? '25%' : '10%'">Remove</button>
+        </div>
     </div>
-    <div class="crypto-data-container">
-        <h2 *ngIf="crypto.name">{{crypto.name}}</h2>
-        <div *ngIf="crypto.market_data">Price USD: {{crypto.market_data.current_price.usd}}</div>
-        <div *ngIf="crypto.coingecko_rank">Coin Gecko Rank: {{crypto.coingecko_rank}}</div>
-        <div *ngIf="crypto.collectionId">Collection Number: {{crypto.collectionId}}</div>
-    </div>
-    <div class="user-options">
-        <button class="delete-btn" (click)="removeCrypto()"
-            [style.width]="!isLargeScreen ? '25%' : '10%'">Remove</button>
+    <div *ngIf="nfts" [ngStyle]="{
+        height: '100%', width: '100%', }">
+        <div class="img-container">
+            <img *ngIf="nfts.image" src="{{nfts.image.small}}" alt="">
+        </div>
+        <div class="crypto-data-container">
+            <h2 *ngIf="nfts.name">{{nfts.name}}</h2>
+            <div *ngIf="nfts.market_data">Price USD: {{nfts.floor_price.usd}}</div>
+            <!-- <div *ngIf="nfts.coingecko_rank">Coin Gecko Rank: {{nfts.coingecko_rank}}</div>
+            <div *ngIf="nfts.collectionId">Collection Number: {{crypto.collectionId}}</div> -->
+        </div>
+        <div class="user-options">
+            <button class="delete-btn" (click)="removeCrypto(nfts.id)"
+                [style.width]="!isLargeScreen ? '25%' : '10%'">Remove</button>
+        </div>
     </div>
 </div>

@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { cryptoCoinGeckoApiActions } from '../Shared/State/Actions/coingecko.actions';
 import { nftCoinGeckoApiActions } from '../Shared/State/Actions/nftList.actions';
 import { AuthService } from '../Core/Services/auth.service';
-import { selectAuth } from '../Shared/State/Selectors/auth.selector';
 
 @Component({
   selector: 'app-root',
