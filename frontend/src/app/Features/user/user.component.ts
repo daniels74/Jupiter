@@ -1,4 +1,10 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { User } from '../../Core/Interfaces/User.interface';
 import { UserService } from '../../Core/Services/user.service';
 import {
@@ -7,7 +13,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Subscription, map, switchMap } from 'rxjs';
+import { Subscription, concat, map, switchMap, take } from 'rxjs';
 import { AuthService } from '../../Core/Services/auth.service';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../Shared/State/Selectors/users.selector';
@@ -17,6 +23,14 @@ import { selectUserCryptoCollection } from '../../Shared/State/Selectors/userCry
 import { userCryptoCollectionAction } from '../../Shared/State/Actions/userCryptoCollection.actions';
 import { CoinGeckoApiService } from '../../Core/Services/coin-gecko-api.service';
 import { UserNftCollectionService } from '../../Core/Services/UserCollection/user-nft-collection.service';
+import {
+  Chart,
+  ChartConfiguration,
+  ChartOptions,
+  registerables,
+} from 'chart.js';
+import { SingleCoin } from '../../Core/Interfaces/singleCoin.interface';
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-user',
@@ -33,10 +47,24 @@ export class UserComponent implements OnInit {
   nftCollection: any[] = [];
 
   collectionTypeToggle = false; //// Crypto list or Nft list
+  chartToggler = false;
+  public chart: any;
+  cryptoChartData: any[] = [];
+
+  chosenCrypto!: SingleCoin;
 
   // ? Screen Sizing
   // False if small screen / True if Big screen
   isBigScreen = window.innerWidth < 700 ? false : true;
+
+  public lineChartData: ChartConfiguration<'line'>['data'] = {
+    datasets: [],
+  };
+
+  public lineChartOptions: ChartOptions<'line'> = {
+    responsive: false,
+  };
+  public lineChartLegend = true;
 
   constructor(
     private store: Store,
@@ -44,25 +72,70 @@ export class UserComponent implements OnInit {
     private userServ: UserService,
     private authServ: AuthService,
     private cryptoService: CryptoService,
-    private CoinGecko: CoinGeckoApiService,
     private UserNftCollectionService: UserNftCollectionService,
+    private CoinGeckoApi: CoinGeckoApiService,
+    private elementRef: ElementRef,
   ) {}
 
   ngOnInit(): void {
+    // USER
     this.store.select(selectUser).subscribe((currentUser) => {
       console.log('In user: ', currentUser);
       this.user = currentUser;
     });
-
-    this.cryptoService.cryptoSingleCoinListObservable.subscribe((coinList) => {
+    // Crypto Collection
+    this.cryptoService.cryptoCollection_O.subscribe((coinList) => {
       this.cryptoCollection = coinList;
       console.log('My collection full: ', this.cryptoCollection);
     });
-
+    // Retrieve User NFt Collection
     this.UserNftCollectionService.nftCollection.subscribe((usernfts) => {
       this.nftCollection = usernfts;
       console.log('User Nfts: ', this.nftCollection);
     });
+
+    //! See currrent chart data for selected crypto
+    this.CoinGeckoApi.marketChartData_O.subscribe((data) => {
+      console.log('Market Chart Data: ', data);
+      this.cryptoChartData = data;
+      this.setChart();
+    });
+  }
+
+  setChart() {
+    // const h = this.cryptoChartData.map((ele) => {
+    //   const eleDate = new Date(ele[0]);
+    //   return eleDate.getDate();
+    // });
+    // console.log('HDate: ', h);
+
+    this.lineChartData = {
+      labels: this.cryptoChartData.map((ele) => {
+        const eleDate = new Date(ele[0]);
+        const date = eleDate.getDate();
+        const month = eleDate.getMonth();
+        const Year = eleDate.getFullYear();
+        const day = eleDate.getDay();
+
+        return `${month}, ${date}, ${Year}`;
+      }),
+      datasets: [
+        {
+          data: this.cryptoChartData.map((ele) => {
+            return ele[1];
+          }),
+          label: 'Series A',
+          pointRadius: 0,
+          pointHitRadius: 4,
+          pointBackgroundColor: 'darkblue',
+          pointBorderColor: 'lightblue',
+          fill: false,
+          tension: 0.5,
+          backgroundColor: 'blue', // for chart toolbox
+          borderColor: 'lightblue', // for line
+        },
+      ],
+    };
   }
 
   updateUserForm: FormGroup = this.formBuilder.group({
@@ -70,18 +143,6 @@ export class UserComponent implements OnInit {
     username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
   });
-
-  get nameControl() {
-    return this.updateUserForm.get('name') as FormControl;
-  }
-
-  get usernameControl() {
-    return this.updateUserForm.get('username') as FormControl;
-  }
-
-  get emailControl() {
-    return this.updateUserForm.get('email') as FormControl;
-  }
 
   toggleSettings() {
     this.settingState = !this.settingState;
@@ -91,9 +152,11 @@ export class UserComponent implements OnInit {
     //// Ready the data to be updated
     const updates: any = {
       // email: this.emailControl.value,
-      name: this.nameControl.value ? this.nameControl.value : 'No name',
-      username: this.usernameControl.value
-        ? this.usernameControl.value
+      name: this.updateUserForm.get('name')?.value
+        ? this.updateUserForm.get('name')?.value
+        : 'No name',
+      username: this.updateUserForm.get('username')?.value
+        ? this.updateUserForm.get('username')?.value
         : 'no username',
     };
     //// Update user data
@@ -103,34 +166,16 @@ export class UserComponent implements OnInit {
     return;
   }
 
-  cryptoForm: FormGroup = this.formBuilder.group({
-    cryptoidd: new FormControl(''),
-  });
-
-  addCryptoToList() {
-    const chosenCryptoId = this.cryptoForm.get('cryptoidd')?.value;
-    this.cryptoService.postCryptoId(chosenCryptoId).subscribe((res) => {
-      console.log('Poseted to database throught fe: ', res);
-      this.authServ.setPermissions(res.jwt);
-    });
-  }
-
-  deleteCryptoId(id: string) {
-    this.cryptoService.deleteCryptoId(id).subscribe((res) => {
-      console.log('Deleted res: ', res);
-      this.authServ.setPermissions(res.jwt);
-      // this.setSingleCoins();
-    });
-  }
-
-  //! Does not return new jwt so does not update this user's crypto list redux state
-  deleteCryptoEntryById(cryptoid: number) {
-    this.cryptoService.deleteCryptoEntryById(cryptoid).subscribe((res) => {
-      console.log('CryptoId Deleted: ', res);
-    });
-  }
-
   toggleCollectionType() {
     this.collectionTypeToggle = !this.collectionTypeToggle;
+  }
+
+  toggleChart(crypto: SingleCoin) {
+    this.chartToggler = !this.chartToggler;
+    this.chosenCrypto = crypto;
+  }
+
+  closeChart() {
+    this.chartToggler = false;
   }
 }

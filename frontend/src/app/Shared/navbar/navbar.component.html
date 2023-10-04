@@ -18,7 +18,7 @@
     </div>
 </div>
 <div *ngIf="menuToggler" class="settingsTab" [ngStyle]="{
-    'width': !screenSizeCheck ? '100%' : '50%',
+    'width': !screenSizeCheck ? '100%' : '50%', zIndex: '9999'
 }">
     <h3 routerLink="home" (click)="toggleMenu()">Home</h3>
     <h3 *ngIf="authState" routerLink="user/{{ id }}" (click)="toggleMenu()">{{userName}}</h3>

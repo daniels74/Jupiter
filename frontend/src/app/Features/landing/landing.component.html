@@ -3,9 +3,19 @@
         <h1>CryptoZapp</h1>
         <h3>See the market, make your list, and share it.</h3>
     </div>
-    <div class="crpyoinfo-container" [style.width]="crpyoinfo_container_width" [style.height]="crpyoinfo_container_height">
+    <div [ngStyle]="{zIndex: '1'}">
+        <carousel [loop]='true' [height]="200" [width]="1200" [cellsToShow]="2" [autoplay]="true" [autoplayInterval]="5000"
+        [transitionDuration]="2000" transitionTimingFunction="ease" [arrowsOutside]="true" [arrows]="false">
+        <div *ngFor="let item of trending_cryptos" class="carousel-cell" >
+            <app-carousel-element [Item]="item" [name]="item.name" />
+        </div>
+    </carousel>
+    </div>
+    <div class="crpyoinfo-container" [style.width]="crpyoinfo_container_width"
+        [style.height]="crpyoinfo_container_height">
         Crypto allows for self custody of trasferable energy, aka, work that was done. When you work, you
-        exchange time and enerygy for money in a proportional manner. However, overtime that money dissipates due to our fiat
+        exchange time and enerygy for money in a proportional manner. However, overtime that money dissipates due to our
+        fiat
         money's fundumantal solution to everything, inflation.
     </div>
 </div>

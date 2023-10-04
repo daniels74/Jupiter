@@ -10,6 +10,17 @@
   overflow-y: scroll;
 }
 
+#divChart{
+  /* display: block; */
+  width: 70%;
+  height: 80%;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .vertical-line {
   border-left: 1px solid lightblue;
   height: 80%;

@@ -6,6 +6,7 @@ import { UserComponent } from './user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { CryptoCardComponent } from './Components/crypto-card/crypto-card.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [UserComponent, CryptoCardComponent],
@@ -15,6 +16,7 @@ import { CryptoCardComponent } from './Components/crypto-card/crypto-card.compon
     ReactiveFormsModule,
     CommonModule,
     UserRoutingModule,
+    NgChartsModule,
   ],
 })
 export class UserModule {}

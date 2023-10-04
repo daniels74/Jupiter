@@ -16,7 +16,7 @@ export class CardComponent implements OnInit {
   @Input() dataName!: string;
   @Input() dataMarketCapRank!: any;
   @Input() coinId!: string;
-  @Input() isCrypto!: boolean;
+  @Input() collectionClassification!: string;
 
   //! Auth State
   authState: any = false;
@@ -68,20 +68,22 @@ export class CardComponent implements OnInit {
       console.log('API for single coin working: ', res);
     });
   }
-  // ! Save string id of Crypto into database,
-  // ! this id is later used to look up the coin for more info
+  // // Save string id of Crypto into database,
+  // // this id is later used to look up the coin for more info
   saveToCollection(coinId: string) {
-    if (this.isCrypto === true) {
+    if (this.collectionClassification === 'crypto') {
       console.log('crypto id saving to db: ', coinId);
       // // Save Crypto ID string into database
       this.cryptoService.postCryptoId(coinId).subscribe((postRes) => {
-        this.authService.setPermissions(postRes.jwt);
+        //this.authService.setPermissions(postRes.jwt);
+        this.authService.setSessionToken(postRes.jwt);
       });
-    } else if (this.isCrypto === false) {
+    } else if (this.collectionClassification === 'nft') {
       // // Save NFT ID string into database
       console.log('id', coinId);
       this.nftService.postNftId(coinId).subscribe((postRes) => {
-        this.authService.setPermissions(postRes.jwt);
+        // this.authService.setPermissions(postRes.jwt);
+        this.authService.setSessionToken(postRes.jwt);
       });
     }
   }

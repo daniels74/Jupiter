@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { JwtObj } from '../Interfaces/jwt-obj';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
@@ -15,6 +15,7 @@ import { CryptoService } from './UserCollection/crypto.service';
 import { BaseUrl } from '../../Root/app.module';
 import { NFTId } from '../Interfaces/singleNFT';
 import { UserNftCollectionService } from './UserCollection/user-nft-collection.service';
+import { userNftCollectionAction } from '../../Shared/State/Actions/userNftCollection.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -71,15 +72,15 @@ export class AuthService {
       this.logout();
     }, timer);
 
-    //// Set authState
+    //// Set auth state
     const authState_ngrx = true;
     this.store.dispatch(authAction.setAuthenticationState({ authState_ngrx }));
 
-    //// Set userState
+    //// Set user data State
     const userState_ngrx: User = user.user;
     this.store.dispatch(usersAction.setCurrentUserState({ userState_ngrx }));
 
-    //// Set user Crypto Collection
+    //// Set user's crypto ID collection
     const cryptoCollection_ngrx = userState_ngrx.cryptos;
     this.store.dispatch(
       userCryptoCollectionAction.setUserCryptoCollection({
@@ -87,14 +88,24 @@ export class AuthService {
       }),
     );
 
-    // ? Get all crypto from ids and set array observable
-    this.CryptoService.setCryptoSingleCoins(cryptoCollection_ngrx);
+    // // Search each crypto and save in an observable of type [] in crypto service
+    this.CryptoService.setCryptoSingleCoins();
 
-    const userNftCollection_ngrx = userState_ngrx.nfts;
-    // ! Set up ngrx for nft id user list
-    this.NftService.setUserFullNftCollection(userNftCollection_ngrx);
+    //// Set user's nft ID collection
+    const nftCollection_ngrx = userState_ngrx.nfts;
+    this.store.dispatch(
+      userNftCollectionAction.setUserNftCollection({
+        nftCollection_ngrx,
+      }),
+    );
+    // // Search each NFT and save in an observable of type [] in NFT service
+    this.NftService.setUserFullNftCollection();
 
     //this.router.navigate(['/user', user.user.id]);
+  }
+
+  setSessionToken(token: string) {
+    localStorage.setItem('blog-token', token);
   }
 
   liveSessionCheck() {
