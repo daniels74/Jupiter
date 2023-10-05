@@ -46,6 +46,7 @@ export class UserComponent implements OnInit {
   cryptoCollection: any[] = [];
   nftCollection: any[] = [];
 
+  descriptionToggler = true;
   collectionTypeToggle = false; //// Crypto list or Nft list
   chartToggler = false;
   public chart: any;
@@ -103,12 +104,6 @@ export class UserComponent implements OnInit {
   }
 
   setChart() {
-    // const h = this.cryptoChartData.map((ele) => {
-    //   const eleDate = new Date(ele[0]);
-    //   return eleDate.getDate();
-    // });
-    // console.log('HDate: ', h);
-
     this.lineChartData = {
       labels: this.cryptoChartData.map((ele) => {
         const eleDate = new Date(ele[0]);
@@ -124,7 +119,7 @@ export class UserComponent implements OnInit {
           data: this.cryptoChartData.map((ele) => {
             return ele[1];
           }),
-          label: 'Series A',
+          label: 'USD Price',
           pointRadius: 0,
           pointHitRadius: 4,
           pointBackgroundColor: 'darkblue',
@@ -133,6 +128,7 @@ export class UserComponent implements OnInit {
           tension: 0.5,
           backgroundColor: 'blue', // for chart toolbox
           borderColor: 'lightblue', // for line
+          borderWidth: 1,
         },
       ],
     };
@@ -177,5 +173,9 @@ export class UserComponent implements OnInit {
 
   closeChart() {
     this.chartToggler = false;
+  }
+
+  toggleDescription() {
+    this.descriptionToggler = !this.descriptionToggler;
   }
 }
