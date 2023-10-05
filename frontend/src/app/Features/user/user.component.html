@@ -1,17 +1,91 @@
 <div *ngIf="isBigScreen" class="user-profile-page">
-    <div *ngIf="chartToggler" id="divChart">
+    <div *ngIf="chartToggler" [ngStyle]="{height: '100%', width: '100%', display: 'flex', flexDirection: 'column'}">
         <div [ngStyle]="{
-            height: '20%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'
+             height: '100%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'
         }">
-            <h2>
-                {{chosenCrypto.name}}
-            </h2>
-            <button (click)="closeChart()">Exit</button>
+            <div *ngIf="chartToggler" [ngStyle]="{backgroundColor: 'black', width: '70%', height: '90%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', borderRadius: '.5rem'
+            }">
+                <div [ngStyle]="{
+                     height: '15%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'
+                }">
+                    <div [ngStyle]="{
+                        height: '100%', width: '50%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flexStart'
+                    }">
+                        <div [ngStyle]="{
+                            height: '100%', width: '25%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'
+                        }">
+                            <img src="{{chosenCrypto.image.small}}" alt="">
+                        </div>
+                        <div [ngStyle]="{
+                            height: '100%', width: '25%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'
+                        }">
+                            <h2>
+                                {{chosenCrypto.name}}
+                            </h2>
+                        </div>
+                    </div>
+                    <div [ngStyle]="{
+                        height: '100%', width: '50%', display: 'flex', flexDirection: 'row'
+                    }">
+                        <div [ngStyle]="{ height: '100%', width: '50%', display: 'flex', flexDirection: 'column'}">
+                            <div
+                                [ngStyle]="{height: '50%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}">
+                                USD | ${{chosenCrypto.market_data.current_price.usd}}
+                            </div>
+                            <br>
+                            <div
+                                [ngStyle]="{height: '50%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}">
+                                <div
+                                    [ngStyle]="{height: '50%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}">
+                                    24h Δ% | {{chosenCrypto.market_data.price_change_percentage_24h_in_currency.usd}}%
+                                </div>
+                            </div>
+                        </div>
+                        <div [ngStyle]="{ height: '100%', width: '50%', display: 'flex', flexDirection: 'column'}">
+                            <div
+                                [ngStyle]="{height: '50%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}">
+                                24h High | ${{chosenCrypto.market_data.high_24h.usd}}
+                            </div>
+                            <br>
+                            <div
+                                [ngStyle]="{height: '50%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}">
+                                <div
+                                    [ngStyle]="{height: '50%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}">
+                                    24h Low | ${{chosenCrypto.market_data.low_24h.usd}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <canvas baseChart [ngStyle]="{
+                    height: '65%', width: 'auto', backgroundColor: 'black', borderRadius: '.5rem'
+                }" [type]="'line'" [data]="lineChartData" [options]="lineChartOptions" [legend]="lineChartLegend">
+                </canvas>
+            </div>
+
+            <div *ngIf="chartToggler" [ngStyle]="{
+                height: '100%', width: '25%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', gap: '2rem'
+            }">
+                <div [ngStyle]="{
+                    height: '10%', width: '100%', backgroundColor: 'black', marginTop: '1rem', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', borderRadius: '.5rem'
+                }">
+                    <button [ngStyle]="{height: '2rem', width: 'auto', maxWidth: '6rem', minWidth: '7rem', backgroundColor: 'lightblue', borderStyle: 'solid', borderWidth: 'thin', borderRadius: '.5rem', borderColor: 'darkblue'}" (click)="toggleDescription()">Description</button>
+                    <button [ngStyle]="{height: '2rem', width: 'auto', maxWidth: '6rem', minWidth: '7rem', backgroundColor: 'lightcoral', borderStyle: 'solid', borderWidth: 'thin', borderRadius: '.5rem', borderColor: 'crimson'}" (click)="closeChart()">Close</button>
+                </div>
+                <div *ngIf="chartToggler && descriptionToggler" [ngStyle]="{
+                    minHeight: '50%', maxHeight: '75%', height: 'auto', width: '100%', backgroundColor: 'black', 
+                    overflowY: 'auto', borderRadius: '.5rem'
+                }">
+                    <div [ngStyle]="{
+                        margin: '1rem', marginBottom: '2rem', 
+                    }">
+                        <h3>What is {{chosenCrypto.name}} ?</h3>
+                        <small *ngIf="chosenCrypto.description.en">{{chosenCrypto.description.en}}</small>
+                        <small *ngIf="!chosenCrypto.description.en">Information not available..</small>
+                    </div>
+                </div>
+            </div>
         </div>
-        <canvas baseChart [ngStyle]="{
-            height: '80%', width:  '100%', backgroundColor: 'black'
-        }" [type]="'line'" [data]="lineChartData" [options]="lineChartOptions" [legend]="lineChartLegend">
-        </canvas>
     </div>
     <div class="left-section" *ngIf="!chartToggler">
         <div class="img-container">
@@ -81,10 +155,12 @@
 <div *ngIf="!isBigScreen" class="user-profile-page" [style.flexDirection]="'column'">
     <div *ngIf="chartToggler" id="divChart"
         [ngStyle]="{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: '1rem'}">
-        <div [ngStyle]="{ height: '35%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around' }">
+        <div
+            [ngStyle]="{ height: '35%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around' }">
             <div [ngStyle]="{ height: '20%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'
             }">
-                <div [ngStyle]="{height: '100%', width: 'auto',  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }">
+                <div
+                    [ngStyle]="{height: '100%', width: 'auto',  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }">
                     <img src="{{chosenCrypto.image.small}}" alt="">
                 </div>
                 <h2>
@@ -92,7 +168,8 @@
                 </h2>
                 <button (click)="closeChart()">Exit</button>
             </div>
-            <div [ngStyle]="{ height: '70%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flexStart'}">
+            <div
+                [ngStyle]="{ height: '70%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flexStart'}">
                 <canvas baseChart id="canvas" [ngStyle]="{
                     height: 'auto', width:  '100%', backgroundColor: 'black'
                 }" borderWidth=".2" [type]="'line'" [data]="lineChartData" [options]="lineChartOptions"
@@ -102,7 +179,8 @@
         </div>
         <div
             [ngStyle]="{ height: '65%', width: '90%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flexStart'}">
-            <div [ngStyle]="{height: 'auto', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}">
+            <div
+                [ngStyle]="{height: 'auto', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around'}">
                 <h3>
                     What is {{chosenCrypto.name}}?
                 </h3>
