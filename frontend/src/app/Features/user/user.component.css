@@ -203,3 +203,14 @@
   height: 50%;
   width: 100%;
 }
+
+.spinner {
+  height: 50%;
+  width: 50%;
+  position: relative;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

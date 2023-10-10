@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { CryptoCardComponent } from './Components/crypto-card/crypto-card.component';
 import { NgChartsModule } from 'ng2-charts';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [UserComponent, CryptoCardComponent],
@@ -17,6 +18,7 @@ import { NgChartsModule } from 'ng2-charts';
     CommonModule,
     UserRoutingModule,
     NgChartsModule,
+    NgxSpinnerModule,
   ],
 })
 export class UserModule {}
