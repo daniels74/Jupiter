@@ -1,10 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CryptoCoinObj, NFT, TopTrending } from '../Interfaces/top-trending';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  map,
+  retry,
+  throwError,
+} from 'rxjs';
 import { SingleCoin } from '../Interfaces/singleCoin.interface';
 import { SingleNFT } from '../Interfaces/singleNFT';
 import { CryptoService } from './UserCollection/crypto.service';
+import { BasicCrypto } from '../Interfaces/CoinGecko/BasicCrypto.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +21,16 @@ export class CoinGeckoApiService {
   marketChartData_BS = new BehaviorSubject<any[]>([]);
   marketChartData_O = this.marketChartData_BS.asObservable();
 
+  allCrypto_BS = new BehaviorSubject<BasicCrypto[]>([]);
+  allCrypto_O = this.allCrypto_BS.asObservable();
+
   constructor(private http: HttpClient) {}
+
+  getAllCrypto(): Observable<BasicCrypto[]> {
+    return this.http.get<BasicCrypto[]>(
+      'https://api.coingecko.com/api/v3/coins/list?include_platform=false',
+    );
+  }
 
   getTrendingCrypto(): Observable<Array<CryptoCoinObj>> {
     return this.http
@@ -52,9 +69,24 @@ export class CoinGeckoApiService {
       )
       .pipe(
         map((res: any) => {
-          this.marketChartData_BS.next(res.prices);
+          if (!res.prices) {
+            this.marketChartData_BS.next([1]);
+          } else {
+            this.marketChartData_BS.next(res.prices);
+          }
           return res;
         }),
       );
+    // .pipe(
+    //   catchError((err) => {
+    //     this.marketChartData_BS.next([1]);
+    //     return this.catchTheError(err);
+    //   }),
+    // );
+  }
+
+  catchTheError(error: any): Observable<any> {
+    console.log('ERROR: ', error);
+    return throwError(error);
   }
 }

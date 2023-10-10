@@ -13,7 +13,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Subscription, concat, map, switchMap, take } from 'rxjs';
+import { Subscription, concat, map, switchMap, take, timer } from 'rxjs';
 import { AuthService } from '../../Core/Services/auth.service';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../Shared/State/Selectors/users.selector';
@@ -30,6 +30,7 @@ import {
   registerables,
 } from 'chart.js';
 import { SingleCoin } from '../../Core/Interfaces/singleCoin.interface';
+import { NgxSpinnerService } from 'ngx-spinner';
 Chart.register(...registerables);
 
 @Component({
@@ -51,6 +52,11 @@ export class UserComponent implements OnInit {
   chartToggler = false;
   public chart: any;
   cryptoChartData: any[] = [];
+  chartActive = false;
+  chartloading_timer = 0;
+  countDown_Sub!: Subscription;
+  counter = 30;
+  tick = 1000;
 
   chosenCrypto!: SingleCoin;
 
@@ -75,7 +81,7 @@ export class UserComponent implements OnInit {
     private cryptoService: CryptoService,
     private UserNftCollectionService: UserNftCollectionService,
     private CoinGeckoApi: CoinGeckoApiService,
-    private elementRef: ElementRef,
+    public spinner: NgxSpinnerService,
   ) {}
 
   ngOnInit(): void {
@@ -99,7 +105,22 @@ export class UserComponent implements OnInit {
     this.CoinGeckoApi.marketChartData_O.subscribe((data) => {
       console.log('Market Chart Data: ', data);
       this.cryptoChartData = data;
-      this.setChart();
+      if (this.cryptoChartData.length <= 1) {
+        this.chartActive = false;
+        this.spinner.show('primary');
+        this.counter = 30;
+        this.countDown_Sub = timer(0, this.tick).subscribe(() => {
+          if (this.counter === 0) {
+            this.counter = 30;
+          } else {
+            --this.counter;
+          }
+        });
+      } else {
+        this.spinner.hide();
+        this.setChart();
+        this.chartActive = true;
+      }
     });
   }
 

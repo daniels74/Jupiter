@@ -57,10 +57,20 @@
                         </div>
                     </div>
                 </div>
-                <canvas baseChart [ngStyle]="{
-                    height: '65%', width: 'auto', backgroundColor: 'black', borderRadius: '.5rem'
+                <canvas *ngIf="chartActive" baseChart [ngStyle]="{
+                    height: '65%', width: 'auto', borderRadius: '.5rem'
                 }" [type]="'line'" [data]="lineChartData" [options]="lineChartOptions" [legend]="lineChartLegend">
                 </canvas>
+                <div *ngIf="!chartActive" [ngStyle]="{
+                    height: '65%', width: 'auto%', borderRadius: '.5rem',
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', marginTop: '2rem',
+                }">
+                    <ngx-spinner class="spinner" size="medium" template="<img src='../../../assets/805.gif' />"
+                        [fullScreen]="false" bdColor="rgba(1,1,1,1)"></ngx-spinner>
+                    <h3>API cooling down, please wait, and try again</h3>
+                    <div>{{counter}}</div>
+                    <div *ngIf="counter === 0">Sending Request...</div>
+                </div>
             </div>
 
             <div *ngIf="chartToggler" [ngStyle]="{
@@ -69,8 +79,12 @@
                 <div [ngStyle]="{
                     height: '10%', width: '100%', backgroundColor: 'black', marginTop: '1rem', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', borderRadius: '.5rem'
                 }">
-                    <button [ngStyle]="{height: '2rem', width: 'auto', maxWidth: '6rem', minWidth: '7rem', backgroundColor: 'lightblue', borderStyle: 'solid', borderWidth: 'thin', borderRadius: '.5rem', borderColor: 'darkblue'}" (click)="toggleDescription()">Description</button>
-                    <button [ngStyle]="{height: '2rem', width: 'auto', maxWidth: '6rem', minWidth: '7rem', backgroundColor: 'lightcoral', borderStyle: 'solid', borderWidth: 'thin', borderRadius: '.5rem', borderColor: 'crimson'}" (click)="closeChart()">Close</button>
+                    <button
+                        [ngStyle]="{height: '2rem', width: 'auto', maxWidth: '6rem', minWidth: '7rem', backgroundColor: 'lightblue', borderStyle: 'solid', borderWidth: 'thin', borderRadius: '.5rem', borderColor: 'darkblue'}"
+                        (click)="toggleDescription()">Description</button>
+                    <button
+                        [ngStyle]="{height: '2rem', width: 'auto', maxWidth: '6rem', minWidth: '7rem', backgroundColor: 'lightcoral', borderStyle: 'solid', borderWidth: 'thin', borderRadius: '.5rem', borderColor: 'crimson'}"
+                        (click)="closeChart()">Close</button>
                 </div>
                 <div *ngIf="chartToggler && descriptionToggler" [ngStyle]="{
                     minHeight: '50%', maxHeight: '75%', height: 'auto', width: '100%', backgroundColor: 'black', 

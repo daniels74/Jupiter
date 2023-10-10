@@ -21,14 +21,12 @@ export class CardComponent implements OnInit {
   //! Auth State
   authState: any = false;
 
-  cardHeightExp = window.innerWidth < 700 ? '40rem' : '25rem';
-  cardWidthExp = window.innerWidth < 700 ? '25rem' : '15rem';
   cardClass =
     window.innerWidth < 700
       ? {
-          height: '30rem',
+          height: '14rem',
           width: '19rem',
-          marginLeft: '3rem',
+          marginLeft: '2rem',
           marginTop: '2rem',
           marginBottom: '2rem',
         }

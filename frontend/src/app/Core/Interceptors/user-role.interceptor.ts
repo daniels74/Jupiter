@@ -4,8 +4,9 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, retry, timer } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectAuth } from '../../Shared/State/Selectors/auth.selector';
 import { WINDOW } from '../../window-token';
@@ -26,6 +27,13 @@ export class UserRoleInterceptor implements HttpInterceptor, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  shouldRetry(error: HttpErrorResponse) {
+    if (error.status === 0 || error.status === 429) {
+      return timer(30000);
+    }
+    throw error;
   }
 
   intercept(
@@ -50,6 +58,13 @@ export class UserRoleInterceptor implements HttpInterceptor, OnDestroy {
           Authorization: `Bearer ${token}`,
         },
       });
+    } else if (
+      // request.url.startsWith('https://api.coingecko.com/api/v3/coins/')
+      request.url.endsWith('/market_chart?vs_currency=usd&days=7')
+    ) {
+      return next
+        .handle(request)
+        .pipe(retry({ count: 10, delay: this.shouldRetry }));
     }
 
     return next.handle(request);

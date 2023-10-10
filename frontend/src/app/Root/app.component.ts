@@ -23,6 +23,11 @@ export class AppComponent implements OnInit {
     //  Check if user has token
     this.authService.liveSessionCheck();
 
+    // Fetch all Crypto
+    this.coinGeckoService.getAllCrypto().subscribe((allcrypto) => {
+      this.coinGeckoService.allCrypto_BS.next(allcrypto);
+    });
+
     // Fetching|Setting trending CRYPTO
     this.coinGeckoService.getTrendingCrypto().subscribe((cryptos) => {
       console.log('Top tredning', cryptos);
