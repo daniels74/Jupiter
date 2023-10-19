@@ -1,0 +1,68 @@
+<div [ngStyle]="{height: '100%'}">
+    <div class="input-container">
+        <mat-form-field appearance="fill" [color]="'primary'" [ngStyle]="{
+        width: sizeState ? '25%' : '65%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Bitcoin" #input>
+        </mat-form-field>
+        <button *ngIf="selection.selected.length" mat-raised-button color="primary" (click)="submitForm()" [ngStyle]="{
+            position: 'relative',
+            
+        }">Save Selected</button>
+    </div>
+    <div *ngIf="allCrypto" class="crypto-table">
+        <table mat-table [dataSource]="dataSource" class="table">
+            <ng-container [ngStyle]="{backgroundColor: 'white', color: 'lightblue'}" *ngIf="isAuth" matColumnDef="selected">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox [color]="'warn'" (change)="$event ? toggleAllRows() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="'title'">
+                    </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)" [aria-label]="'col'">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" [ngStyle]="{color: 'white'}"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngStyle]="{color: 'white'}"></tr>
+        </table>
+    </div>
+    <div *ngIf="!allCrypto" class="crypto-table" [ngStyle]="{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    }">
+        <ngx-spinner class="spinner" size="medium" template="<img src='../../../assets/805.gif' />" [fullScreen]="false"
+            bdColor="transparent"></ngx-spinner>
+        <div [style.color]="'lightblue'">
+            <h6>Sorry, I am cheap</h6>
+            <h5>Api Request Limit Exeeded, Cooling Down...</h5>
+        </div>
+    </div>
+    <div class="paginator">
+        <mat-paginator class="paginator" [color]="'primary'" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
+    </div>
+</div>

@@ -65,6 +65,10 @@ export class UserRoleInterceptor implements HttpInterceptor, OnDestroy {
       return next
         .handle(request)
         .pipe(retry({ count: 10, delay: this.shouldRetry }));
+    } else if (request.url.endsWith('/coins/list?include_platform=false')) {
+      return next
+        .handle(request)
+        .pipe(retry({ count: 10, delay: this.shouldRetry }));
     }
 
     return next.handle(request);

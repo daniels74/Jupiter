@@ -11,7 +11,6 @@ import {
 } from 'rxjs';
 import { SingleCoin } from '../Interfaces/singleCoin.interface';
 import { SingleNFT } from '../Interfaces/singleNFT';
-import { CryptoService } from './UserCollection/crypto.service';
 import { BasicCrypto } from '../Interfaces/CoinGecko/BasicCrypto.interface';
 
 @Injectable({

@@ -5,16 +5,6 @@
   background-color: rgb(25, 25, 57);
 }
 
-/* // -------------------------------------- BIG SCREEN */
-.big-screen {
-  height: 90vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-
 .top-trending-container {
   height: 40%;
   width: 100%;
@@ -48,14 +38,14 @@
 }
 
 .top_trending_options_container {
-  position: absolute;
+  position: relative;
   height: 36%;
   width: 10vw;
   right: 0;
   top: 12vh;
   /* border-width: thin;
-  border-style: solid;
-  border-color: red; */
+    border-style: solid;
+    border-color: red; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -64,7 +54,7 @@
 
 .listt-container {
   /* height: 40%;
-  width: 70%; */
+    width: 70%; */
   color: black;
   background-color: rgb(3, 3, 36);
   border-radius: 1rem;
@@ -81,9 +71,9 @@
 
 .paginator-container {
   position: relative;
-  height: 50%;
+  height: 100%;
   /* min-height: 60vh; */
-  width: 80%;
+  width: 100%;
   /* min-width: 100vw; */
   background-color: rgb(0, 0, 0);
   display: flex;
@@ -93,12 +83,12 @@
 }
 
 /* .crypto-table-contianer {
-  position: relative;
-  height: 90%;
-  width: 100%;
-  background-color:  red;
-  overflow: auto;
-} */
+    position: relative;
+    height: 90%;
+    width: 100%;
+    background-color:  red;
+    overflow: auto;
+  } */
 
 .crypto-table {
   position: relative;
@@ -149,3 +139,13 @@
   border-radius: 1rem;
 }
 
+.small-screen-container {
+  min-height: 90vh;
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+}

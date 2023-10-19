@@ -9,6 +9,7 @@ import {
   Subscription,
   from,
   map,
+  of,
   take,
 } from 'rxjs';
 import { selectUser } from '../../../Shared/State/Selectors/users.selector';
@@ -80,10 +81,24 @@ export class CryptoService implements OnInit {
       .delete(this.origin + '/cryptoid/entrydelete/cryptoid/' + disposeCrypto)
       .pipe(
         map((res) => {
+          // delete item from list of full cryptos
           const newCollection = this.cryptoCollection_BS.value.filter(
             (crypto) => crypto.id != disposeCrypto,
           );
           this.cryptoCollection_BS.next(newCollection);
+          // delete item from id list
+          // this.store
+          //   .select(selectUserCryptoCollection)
+          //   .subscribe((cryptoIds) => {
+          //     const cryptoCollection_ngrx = cryptoIds.filter(
+          //       (crypto) => crypto.cryptoid != disposeCrypto,
+          //     );
+          //     this.store.dispatch(
+          //       userCryptoCollectionAction.setUserCryptoCollection({
+          //         cryptoCollection_ngrx,
+          //       }),
+          //     );
+          //   });
           return res;
         }),
       );
@@ -95,9 +110,9 @@ export class CryptoService implements OnInit {
 
   // // Use string IDs to lookup each coin, push to array, and
   // // set the observable with that array
-  setCryptoSingleCoins() {
+  setCryptoSingleCoins(): Observable<boolean> {
+    const cryptoCollection_ngrx: Array<any> = [];
     this.store.select(selectUserCryptoCollection).subscribe((allCryptoIds) => {
-      const cryptoCollection_ngrx: Array<any> = [];
       allCryptoIds.forEach((ele: CryptoId) => {
         if (ele.cryptoid) {
           this.CoinGecko.getSingleCoin(ele.cryptoid).subscribe((res) => {
@@ -118,5 +133,7 @@ export class CryptoService implements OnInit {
       });
       this.cryptoCollection_BS.next(cryptoCollection_ngrx);
     });
+    console.log('Crypto Service , set single cryptos');
+    return of(true);
   }
 }

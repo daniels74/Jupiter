@@ -39,12 +39,12 @@ export class CardComponent implements OnInit {
   btnClass =
     window.innerWidth < 700
       ? {
-          height: '50%',
-          width: '45%',
+          height: '75%',
+          width: 'auto',
         }
       : {
-          height: '80%',
-          width: '25%',
+          height: '75%',
+          width: '90%',
         };
 
   constructor(
