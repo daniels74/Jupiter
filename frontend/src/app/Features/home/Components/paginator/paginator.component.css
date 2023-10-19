@@ -1,0 +1,33 @@
+.input-container {
+  height: auto;
+  width: 100%;
+  background-color: rgb(3, 3, 36);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+}
+
+.crypto-table {
+  position: relative;
+  height: 65%;
+  width: 100%;
+  overflow-y: scroll;
+  background-color: rgb(3, 3, 36);
+  color: white;
+}
+.table {
+  overflow-y: scroll;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(43, 63, 110);
+}
+
+.paginator {
+  position: relative;
+  height: auto;
+  width: 100%;
+  background-color: lightblue;
+}

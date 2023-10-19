@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../Features/home/home.component';
 import { LoginComponent } from '../Features/login/login.component';
+import { cryptoCollectionResolver } from '../Shared/resolvers/crypto-collection.resolver';
+import { nftCollectionResolver } from '../Shared/resolvers/nft-collection.resolver';
+import { allCryptoResolver } from '../Shared/resolvers/all-crypto.resolver';
 
 const routes: Routes = [
   {
@@ -11,6 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
+    // resolve: { allCrypto: allCryptoResolver },
     loadChildren: () =>
       import('../Features/home/home.module').then((m) => m.HomeModule),
   },
@@ -21,6 +25,10 @@ const routes: Routes = [
   },
   {
     path: 'user/:id',
+    // resolve: {
+    //   crypto: cryptoCollectionResolver,
+    //   nfts: nftCollectionResolver,
+    // },
     loadChildren: () =>
       import('../Features/user/user.module').then((m) => m.UserModule),
   },

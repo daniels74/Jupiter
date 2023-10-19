@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { BaseUrl } from '../../../Root/app.module';
 import { WINDOW } from '../../../window-token';
 import { NFTId, SingleNFT } from '../../Interfaces/singleNFT';
@@ -59,7 +59,7 @@ export class UserNftCollectionService {
       );
   }
 
-  setUserFullNftCollection() {
+  setUserFullNftCollection(): Observable<boolean> {
     const nftCollection: Array<any> = [];
     this.store.select(selectUserNftCollection).subscribe((allNftIds) => {
       console.log('WHTF:', allNftIds);
@@ -86,5 +86,7 @@ export class UserNftCollectionService {
       }
       this.nftCollectionBehaviorSubject.next(nftCollection);
     });
+    console.log('NFT Service , set single NFTS');
+    return of(true);
   }
 }

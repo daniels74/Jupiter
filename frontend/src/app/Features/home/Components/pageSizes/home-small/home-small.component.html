@@ -1,0 +1,71 @@
+<div class="small-screen-container">
+    <div [ngStyle]="{
+        'backgroundColor': 'rgb(3, 3, 36)',
+        'height': '55vh',
+        'width': '100%',
+        'display': 'flex',
+        'flexDirection': 'column',
+        'alignItems': 'center',
+        'justifyContent': 'space-between',
+    }">
+        <div
+            [ngStyle]="{height: '80%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}">
+            <h2 [ngStyle]="{
+                'color': 'lightblue',
+                'height': '10%',
+                'width': '100%',
+                'display': 'flex',
+                'flexDirection': 'row',
+                'alignItems': 'center',
+                'justifyContent': 'center',
+            }">
+                <img width="10%" [style.marginRIght]="'1rem'" src="../../../../../../assets/fire4.gif" alt="">
+                Trending {{selectedContent}}
+                <img width="10%" [style.marginLeft]="'1rem'" src="../../../../../../assets/fire4.gif" alt="">
+            </h2>
+            <div *ngIf="!trendingContent_state" class="listt-container" [ngStyle]="{
+            'display': 'flex',
+            'height': '75%', 
+            'width': '100%',
+            'flexDirection': 'row',
+            'overflowY': 'hidden',
+            'overflowX': 'scroll',
+            'border-style': 'none',
+            'border-radius': '0',
+        }">
+                <div *ngFor="let coin of crypto$ | async">
+                    <app-card [collectionClassification]="'crypto'" [dataImage]="coin.item.small"
+                        [dataName]="coin.item.name" [dataMarketCapRank]="coin.item.market_cap_rank"
+                        [coinId]="coin.item.id" />
+                </div>
+            </div>
+
+            <div *ngIf="trendingContent_state" class="listt-container" [ngStyle]="{
+            'display': 'flex',
+            'height': '75%', 
+            'width': '100%',
+            'flexDirection': 'row',
+            'overflowY': 'hidden',
+            'overflowX': 'scroll',
+            'border-style': 'none',
+            'border-radius': '0',
+        }">
+                <div *ngFor="let nft of nfts$ | async">
+                    <app-card [collectionClassification]="'nft'" [dataImage]="nft.thumb" [dataName]="nft.name" />
+                </div>
+            </div>
+        </div>
+        <div class="toggleButton" [ngStyle]="{height: '20%'}">
+            <button class="btn" *ngIf="!trendingContent_state" (click)="toggleContentState()">NFTs</button>
+            <button class="btn" *ngIf="trendingContent_state" (click)="toggleContentState()">Crypto</button>
+        </div>
+    </div>
+    <div [ngStyle]="{ 
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'flex-start',
+        backgroundColor: 'rgb(3, 3, 36)' , height: '60vh', width: '100vw', marginBottom: '5rem'}">
+        <div class="paginator-container">
+            <app-paginator [ngStyle]="{height: '100%', width: '100%'}" />
+        </div>
+    </div>
+</div>

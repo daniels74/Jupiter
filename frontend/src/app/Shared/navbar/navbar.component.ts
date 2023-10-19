@@ -9,6 +9,7 @@ import { authAction } from '../State/Actions/auth.actions';
 import { selectUser } from '../State/Selectors/users.selector';
 import { User } from '../../Core/Interfaces/User.interface';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-navbar',
@@ -26,6 +27,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   // ? Togglers
   menuToggler = false;
   settingsToggle = false;
+  loader = false;
 
   // ? For sizing
   logoWidth = window.innerWidth < 700 ? '70%' : '20%';
@@ -37,6 +39,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
     private authServic: AuthService,
     private userService: UserService,
     private router: Router,
+    private spinner: NgxSpinnerService,
   ) {}
 
   ngOnInit(): void {
@@ -73,28 +76,60 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   logout() {
-    this.settingsToggle = false;
-    const authState_ngrx = false;
-    this.store.dispatch(authAction.setAuthenticationState({ authState_ngrx }));
-    this.authServic.logout();
+    this.loader = true;
+    setTimeout(() => {
+      this.settingsToggle = false;
+      const authState_ngrx = false;
+      this.store.dispatch(
+        authAction.setAuthenticationState({ authState_ngrx }),
+      );
+      this.authServic.logout();
+      this.loader = false;
+    }, 300);
   }
 
   login() {
-    this.menuToggler = false;
-    this.settingsToggle = false;
-    this.router.navigate(['/login']);
+    this.loader = true;
+    setTimeout(() => {
+      this.menuToggler = false;
+      this.settingsToggle = false;
+      this.loader = false;
+      this.router.navigate(['/login']);
+    }, 300);
   }
 
   register() {
-    this.menuToggler = false;
-    this.settingsToggle = false;
-    this.router.navigate(['/register']);
+    this.loader = true;
+    setTimeout(() => {
+      this.menuToggler = false;
+      this.settingsToggle = false;
+      this.loader = false;
+      this.router.navigate(['/register']);
+    }, 300);
   }
 
   goToLanding() {
-    this.menuToggler = false;
-    this.settingsToggle = false;
-    this.router.navigate(['']);
+    this.loader = true;
+    // this.spinner.show('primary');
+    setTimeout(() => {
+      this.settingsToggle = false;
+      this.loader = false;
+      this.menuToggler = false;
+      // this.spinner.hide();
+      this.router.navigate(['']);
+    }, 300);
+  }
+
+  goHome() {
+    this.loader = true;
+    // this.spinner.show('primary');
+    // this.router.navigate(['home']);
+    setTimeout(() => {
+      this.loader = false;
+      this.menuToggler = false;
+      // this.spinner.hide();
+      this.router.navigate(['home']);
+    }, 300);
   }
 
   roleSelectionForm: FormGroup = this.fb.group({

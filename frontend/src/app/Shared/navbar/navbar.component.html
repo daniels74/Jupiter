@@ -5,7 +5,7 @@
         </div>
     </div>
     <div *ngIf="screenSizeCheck" class="menu">
-        <h3 routerLink="home">Home</h3>
+        <h3 (click)="goHome()">Home</h3>
         <h3 *ngIf="authState" routerLink="user/{{ id }}">{{userName}}</h3>
         <!-- <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3> -->
         <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
@@ -17,19 +17,37 @@
             [style.marginRight]="'1rem'">
     </div>
 </div>
+<div *ngIf="loader"
+    [ngStyle]="{position: 'absolute' , height: '90vh', width: '100%', backgroundColor: 'rgb(3, 3, 36)',zIndex: '1000000', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }">
+    <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium" template="<img src='../../../assets/bluedots-transparent.gif' />"
+        [fullScreen]="true" bdColor="transparent"></ngx-spinner> -->
+    <span class="loader"></span>
+</div>
 <div *ngIf="menuToggler" class="settingsTab" [ngStyle]="{
-    'width': !screenSizeCheck ? '100%' : '50%', zIndex: '9999'
+    'width': !screenSizeCheck ? '100%' : '50%', zIndex: '1000000'
 }">
-    <h3 routerLink="home" (click)="toggleMenu()">Home</h3>
-    <h3 *ngIf="authState" routerLink="user/{{ id }}" (click)="toggleMenu()">{{userName}}</h3>
-    <!-- <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3> -->
-    <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
-    <h3 *ngIf="!authState" (click)="login()">Login</h3>
-    <h3 *ngIf="!authState" (click)="register()">Register</h3>
+    <div *ngIf="!loader" class="settingsTab" [style.width]="'100%'">
+        <h3 (click)="goHome()">Home</h3>
+        <h3 *ngIf="authState" routerLink="user/{{ id }}" (click)="toggleMenu()">{{userName}}</h3>
+        <!-- <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3> -->
+        <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
+        <h3 *ngIf="!authState" (click)="login()">Login</h3>
+        <h3 *ngIf="!authState" (click)="register()">Register</h3>
+    </div>
+    <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium"
+        template="<img src='../../../assets/bluedots-transparent.gif' />" [fullScreen]="false"
+        bdColor="transparent"></ngx-spinner> -->
+    <div *ngIf="loader"
+        [ngStyle]="{position: 'absolute' , height: '90vh', width: '100%', backgroundColor: 'rgb(3, 3, 36)',zIndex: '1000000', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }">
+        <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium" template="<img src='../../../assets/bluedots-transparent.gif' />"
+        [fullScreen]="true" bdColor="transparent"></ngx-spinner> -->
+        <span class="loader"></span>
+    </div>
 </div>
 <!-- !Settings options -->
 <div *ngIf="settingsToggle" class="settingsTab" [ngStyle]="{
     'width': !screenSizeCheck ? '100%' : '50%',
+    'zIndex': '1000000'
 }">
     <div [ngStyle]="{
             'position': 'absolute',

@@ -1,0 +1,36 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// ! Palletes
+$my-primary: mat.define-palette(mat.$indigo-palette, 400, 700, 900);
+$my-accent: mat.define-palette(mat.$light-blue-palette, 100, 600, 900);
+// The "warn" palette is optional and defaults to red if not specified.
+$my-warn: mat.define-palette(mat.$red-palette);
+
+//! My theme
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+   warn: $my-warn,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+// Emit theme-dependent styles for common features used across multiple components.
+@include mat.core-theme($my-theme);
+
+// Emit styles for MatButton based on `$my-theme`. Because the configuration
+// passed to `define-light-theme` omits typography, `button-theme` will not
+// emit any typography styles.
+@include mat.button-theme($my-theme);
+
+//! Include the theme mixins for other components you use here.
+//// @include mat.form-field-theme($my-theme);
+
+//// @include mat.paginator-theme($my-theme);
+
+//! Include all theme styles for the components.
+@include mat.all-component-themes($my-theme);
