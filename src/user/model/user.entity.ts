@@ -8,6 +8,7 @@ import {
 import { UserRole } from './user.interface';
 import { CryptoIdEnitity } from '../../cryptoid/model/cryptoid.entity';
 import { NftIdEntity } from 'src/nftid/model/nftid.entity';
+import { PostEntity } from 'src/posting/models/post.entity';
 
 @Entity()
 export class UserEntity {
@@ -34,6 +35,9 @@ export class UserEntity {
 
   @OneToMany(() => NftIdEntity, (nft) => nft.user)
   nfts: NftIdEntity[];
+
+  @OneToMany(() => PostEntity, (post) => post.user)
+  posts: PostEntity[];
 
   @BeforeInsert()
   emailToLowerCase() {

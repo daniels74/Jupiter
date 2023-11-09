@@ -20,4 +20,11 @@ export class AuthService {
     return from(bcrypt.compare(newPassword, passwordHash));
     // return of<any | boolean>(bcrypt.compare(newPassword, passwordHash));
   }
+
+  validateJWT(jwt: string): Observable<boolean> {
+    const validationStatus = this.jwtService.verify(jwt);
+    if (validationStatus) {
+      return of(true);
+    } else return of(false);
+  }
 }

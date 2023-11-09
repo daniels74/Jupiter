@@ -19,6 +19,7 @@ export class CryptoidService {
   ) {}
 
   create(user: User, cryptoEntry: cryptoidEntry): Observable<any> {
+    // Claim ownership of entry by user in it.
     cryptoEntry.user = user;
     return from(this.cryptoRepository.save(cryptoEntry)).pipe(
       switchMap((res) => {

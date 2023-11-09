@@ -1,5 +1,6 @@
-import { nftId } from 'src/nftid/model/nftid.interface';
+import { nftId } from '../../nftid/model/nftid.interface';
 import { cryptoidEntry } from '../../cryptoid/model/cryptoid.interface';
+import { PostInterface } from '../../posting/models/post.interface';
 
 export interface User {
   id?: number;
@@ -10,6 +11,7 @@ export interface User {
   role?: UserRole;
   cryptos?: cryptoidEntry[];
   nfts?: nftId[];
+  posts?: PostInterface[];
 }
 
 export enum UserRole {

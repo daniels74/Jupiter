@@ -1,0 +1,19 @@
+<div class="user-card">
+    <div class="basic-info">
+        <div>
+            {{name}}
+        </div>
+        <div>
+            {{email}}
+        </div>
+    </div>
+    <div class="buttons">
+        <button mat-raised-button color="primary" [ngStyle]="{height: '35%'}">
+            <h6>Message</h6>
+        </button>
+        <button mat-raised-button color="primary" [ngStyle]="{height: '35%'}" >
+            <h6>Subscribe</h6>
+        </button>
+    </div>
+</div>
+<div *ngIf="!isLast" class="glowingLine"></div>

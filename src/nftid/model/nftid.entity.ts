@@ -1,5 +1,4 @@
 import { UserEntity } from 'src/user/model/user.entity';
-import { User } from '../../user/model/user.interface';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('nftid_entry')
@@ -10,6 +9,6 @@ export class NftIdEntity {
   @Column({ nullable: true })
   nftid: string;
 
-  @ManyToOne((type) => UserEntity, (userentity) => userentity)
-  user: User;
+  @ManyToOne((type) => UserEntity, (userentity) => userentity.nfts)
+  user: UserEntity;
 }

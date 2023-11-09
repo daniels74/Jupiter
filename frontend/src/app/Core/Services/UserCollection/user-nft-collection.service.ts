@@ -27,22 +27,23 @@ export class UserNftCollectionService {
   nftCollection = this.nftCollectionBehaviorSubject.asObservable();
 
   postNftId(nftId: string): Observable<any> {
-    return this.http
-      .post(this.origin + '/nftid', {
-        nftid: nftId,
-      })
-      .pipe(
-        map((res) => {
-          this.CoinGeckoApiService.getSingleNFT(nftId).subscribe((nftres) => {
-            const nft = {
-              ...nftres,
-            };
-            const collection = this.nftCollectionBehaviorSubject.value;
-            collection.push(nft);
-          });
-          return res;
-        }),
-      );
+    //1 First Save NFT Id into DB
+    return this.http.post(this.origin + '/nftid', {
+      nftid: nftId,
+    });
+    // .pipe(
+    //   map((res) => {
+    //     //2 Look up NFT full info for displaying purposes
+    //     this.CoinGeckoApiService.getSingleNFT(nftId).subscribe((nftres) => {
+    //       const nft = {
+    //         ...nftres,
+    //       };
+    //       const collection = this.nftCollectionBehaviorSubject.value;
+    //       collection.push(nft);
+    //     });
+    //     return res;
+    //   }),
+    // );
   }
 
   deleteNftId(disposeNft: string): Observable<any> {
@@ -59,14 +60,13 @@ export class UserNftCollectionService {
       );
   }
 
+  // Uses nft ids to look them up and set the full nft collection observable
   setUserFullNftCollection(): Observable<boolean> {
     const nftCollection: Array<any> = [];
     this.store.select(selectUserNftCollection).subscribe((allNftIds) => {
-      console.log('WHTF:', allNftIds);
       if (allNftIds) {
         allNftIds.forEach((ele: NFTId) => {
           if (ele.nftid) {
-            console.log('NFt id:', ele);
             this.CoinGeckoApiService.getSingleNFT(ele.nftid).subscribe(
               (res) => {
                 const nft = {
@@ -86,7 +86,6 @@ export class UserNftCollectionService {
       }
       this.nftCollectionBehaviorSubject.next(nftCollection);
     });
-    console.log('NFT Service , set single NFTS');
     return of(true);
   }
 }

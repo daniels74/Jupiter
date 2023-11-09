@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of, take } from 'rxjs';
 import { JwtObj } from '../Interfaces/jwt-obj';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
@@ -16,12 +16,14 @@ import { BaseUrl } from '../../Root/app.module';
 import { NFTId } from '../Interfaces/singleNFT';
 import { UserNftCollectionService } from './UserCollection/user-nft-collection.service';
 import { userNftCollectionAction } from '../../Shared/State/Actions/userNftCollection.actions';
+import { UserPostService } from './UserPost/user-post.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   constructor(
+    private userPostService: UserPostService,
     private store: Store,
     private http: HttpClient,
     private router: Router,
@@ -64,7 +66,7 @@ export class AuthService {
 
     const user: any = jwtDecode(token);
 
-    console.log('User obj from Jwt decode: ', user.user);
+    console.log('SettingPermissions from JWT: ', user.user);
 
     //// Set 1 hour timer for JWT
     const timer = 60000 * 60;
@@ -101,6 +103,8 @@ export class AuthService {
     // // Search each NFT and save in an observable of type [] in NFT service
     this.NftService.setUserFullNftCollection();
 
+    // // Set users Posts
+    this.userPostService.userPostsBehaviorSubject.next(user.user.posts);
     //this.router.navigate(['/user', user.user.id]);
   }
 
@@ -110,11 +114,22 @@ export class AuthService {
 
   liveSessionCheck() {
     const token = localStorage.getItem('blog-token');
-
     if (token) {
-      this.setPermissions(token);
+      this.validateJWT(token).subscribe((isValid) => {
+        if (isValid) {
+          console.log('IS valid');
+          this.setPermissions(token);
+        } else {
+          console.log('No live session');
+          localStorage.removeItem('blog-token');
+        }
+      });
     } else {
       return;
     }
+  }
+
+  validateJWT(token: string): Observable<any> {
+    return this.http.post(this.origin + '/auth/jwtverification', { token });
   }
 }

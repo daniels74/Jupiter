@@ -1,5 +1,29 @@
 <div *ngIf="isBigScreen" class="user-profile-page">
-    <div *ngIf="chartToggler" [ngStyle]="{height: '100%', width: '100%', display: 'flex', flexDirection: 'column'}">
+    <user-large-page 
+    [chosenCrypto]="chosenCrypto"
+    [chartToggler]="chartToggler" 
+    [lineChartOptions]="lineChartOptions"
+    [lineChartLegend]="lineChartLegend"
+    [chartActive]="chartActive"
+    [counter]="counter"
+    (toggleDescription)="toggleDescription()"
+    [descriptionToggler]="descriptionToggler"
+    (closeChart)="closeChart()"
+    [isBigScreen]="isBigScreen"
+ 
+    (toggleSettings)="toggleSettings()"
+    [settingState]="settingState"
+    [user]="user"
+    [updateUserForm]="updateUserForm"
+    (updateUser)="updateUser()"
+ 
+    [collectionTypeToggle]="collectionTypeToggle"
+    [cryptoCollection]="cryptoCollection"
+    [nftCollection]="nftCollection"
+    (toggleChart)="toggleChart($event)"
+    (toggleCollectionType)="toggleCollectionType()"
+    /> 
+    <!-- <div *ngIf="chartToggler" [ngStyle]="{height: '100%', width: '100%', display: 'flex', flexDirection: 'column'}">
         <div [ngStyle]="{
              height: '100%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'
         }">
@@ -107,11 +131,9 @@
         </div>
         <div class="user-info-container">
             <div class="info-settings">
-                <!-- <button (click)="toggleSettings()">Update</button> -->
                 <button class="settings-btn" (click)="toggleSettings()" mat-raised-button
                     color="primary">Update</button>
             </div>
-            <!--! User Info  -->
             <div *ngIf="!settingState" class="user-info-wrapper">
                 <div class="user-info-box">
                     <div class="user-info-line">
@@ -124,13 +146,11 @@
                     </div>
                 </div>
             </div>
-            <!-- !Update user profile -->
             <div *ngIf="settingState" class="settings-wrapper">
                 <form [formGroup]="updateUserForm" action="" class="form-container" (ngSubmit)="updateUser()">
                     <div class="form-inner-container">
                         <input formControlName="username" placeholder="Username" type="text">
                         <input formControlName="name" placeholder="Name" type="text">
-                        <!-- <input placeholder="Email" type="text"> -->
                         <button type="submit" mat-raised-button color="primary">Submit</button>
                     </div>
                 </form>
@@ -138,7 +158,6 @@
         </div>
     </div>
     <div *ngIf="!isBigScreen" class="vertical-line"></div>
-    <!-- ! User Collections -->
     <div class="right-section" *ngIf="!chartToggler">
         <div class="collectionType-container">
             <h2 *ngIf="!collectionTypeToggle">Crypto Collection</h2>
@@ -163,7 +182,7 @@
             <button *ngIf="collectionTypeToggle" class="btn collection-btn" (click)="toggleCollectionType()">Crypto
                 Collection</button>
         </div>
-    </div>
+    </div> -->
 </div>
 <!-- ! Small Screen -->
 <div *ngIf="!isBigScreen" class="user-profile-page" [style.flexDirection]="'column'">

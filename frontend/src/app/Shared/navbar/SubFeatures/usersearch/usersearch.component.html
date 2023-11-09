@@ -1,0 +1,24 @@
+<div [ngStyle]="{
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: displayAlign,
+    justifyContent: 'center',
+}">
+    <h3>Find Users</h3>
+    <!-- <form [formGroup]="searchForm" action="">
+        <input type="text" formControlName="userinput" placeholder="Ex. theDarkNight" (keyup)="sendSearchRequest()">
+    </form> -->
+    <input #userSearch type="text" placeholder="Ex. Batman">
+</div>
+<div *ngIf="searchIsActive" class="user-results">
+    <div class="user-list">
+        <div [style.width]="'80%'" *ngFor="let users of results; let i = index ">
+            <!-- <div [ngStyle]="{width: '100vw'}"> -->
+            <app-user-card [isLast]="i === results.length-1 ? true : false" [name]="users.username" [email]="users.email" />
+            <!-- </div> -->
+
+        </div>
+    </div>
+</div>

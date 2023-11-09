@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login.component';
 import { LoginRoutingModule } from './login-routing.module';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
@@ -12,6 +12,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CommonModule,
     LoginRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     NgxSpinnerModule,
   ],
   exports: [RouterModule],

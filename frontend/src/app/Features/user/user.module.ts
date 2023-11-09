@@ -8,9 +8,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { CryptoCardComponent } from './Components/crypto-card/crypto-card.component';
 import { NgChartsModule } from 'ng2-charts';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { LargePageComponent } from './Components/PageSizes/large-page/large-page.component';
+import { SmallPageComponent } from './Components/PageSizes/small-page/small-page.component';
 
 @NgModule({
-  declarations: [UserComponent, CryptoCardComponent],
+  declarations: [
+    UserComponent,
+    CryptoCardComponent,
+    LargePageComponent,
+    SmallPageComponent,
+  ],
   imports: [
     MatButtonModule,
     FormsModule,
