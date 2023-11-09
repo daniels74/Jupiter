@@ -1,0 +1,32 @@
+.user-results {
+    position: absolute;
+    z-index: 9999;
+    top: 10vh;
+    left: 0;
+    height: auto;
+    min-height: 35vh;
+    width: 50vw;
+    background-color: rgba(2, 4, 38, 0.97);
+    color: lightblue;
+    border-style: solid;
+    border-left-style: none;
+    border-top-style: none;
+    border-color: blue;
+    border-width: thin;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-list {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}

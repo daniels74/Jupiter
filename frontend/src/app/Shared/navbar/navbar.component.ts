@@ -30,7 +30,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
   loader = false;
 
   // ? For sizing
-  logoWidth = window.innerWidth < 700 ? '70%' : '20%';
+  logoWidth = window.innerWidth < 700 ? '70%' : 'auto';
+  logoHeight = window.innerWidth < 700 ? 'auto' : '100%';
   screenSizeCheck = window.innerWidth < 700 ? false : true;
 
   constructor(

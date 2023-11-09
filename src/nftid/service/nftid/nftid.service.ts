@@ -18,6 +18,7 @@ export class NftidService {
   ) {}
 
   create(user: User, nftEntry: nftId): Observable<any> {
+    // Claim ownership of entry by user in it.
     nftEntry.user = user;
     return from(this.nftRepository.save(nftEntry)).pipe(
       switchMap((res) => {

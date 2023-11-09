@@ -22,7 +22,8 @@ import {
 import { JwtObj } from './model/jwt-obj.interface';
 import { error } from 'console';
 import { CryptoIdEnitity } from '../cryptoid/model/cryptoid.entity';
-import { NftIdEntity } from 'src/nftid/model/nftid.entity';
+import { NftIdEntity } from '../nftid/model/nftid.entity';
+import { PostEntity } from '../posting/models/post.entity';
 
 @Injectable()
 export class UserService {
@@ -62,6 +63,7 @@ export class UserService {
         newUser.role = user.role;
         newUser.cryptos = <CryptoIdEnitity[]>[];
         newUser.nfts = <NftIdEntity[]>[];
+        newUser.posts = <PostEntity[]>[];
 
         return from(this.userRepository.save(newUser)).pipe(
           map((user: User) => {
@@ -80,7 +82,7 @@ export class UserService {
     return from(
       this.userRepository.findOne({
         where: { id },
-        relations: ['cryptos', 'nfts'],
+        relations: ['cryptos', 'nfts', 'posts'],
       }),
     ).pipe(
       map((user: User) => {
@@ -117,18 +119,19 @@ export class UserService {
 
   paginateFilterByUsername(
     options: IPaginationOptions,
-    username: any,
+    username: string,
   ): Observable<Pagination<User>> {
     return from(
       this.userRepository.findAndCount({
-        skip: Number(options.page) * Number(options.limit) || 0,
-        take: Number(options.limit) || 10,
+        skip: 0, //Number(options.page) * Number(options.limit) || 0,
+        take: Number(options.limit) || 1,
         order: { id: 'ASC' },
         select: ['id', 'name', 'username', 'email', 'role'],
         where: [{ username: Like(`%${username}%`) }],
       }),
     ).pipe(
       map(([users, totalUsers]) => {
+        console.log('USers found: ', users);
         const usersPageable: Pagination<User> = {
           items: users,
           links: {
@@ -156,8 +159,25 @@ export class UserService {
     );
   }
 
-  deleteOne(id: number): Observable<any> {
-    return from(this.userRepository.delete(id));
+  deleteOne(id: any): Observable<any> {
+    // return from(this.userRepository.delete(id));
+    // return from(
+    //   this.userRepository.query('DELETE * FROM user_entity', [ where: id ]),
+    // );
+    return from(
+      this.userRepository
+        .createQueryBuilder('DeleteCertainUser')
+        .delete()
+        .from(NftIdEntity)
+        .where('user.id = :id', { id: id.id })
+        .delete()
+        .from(CryptoIdEnitity)
+        .where('user.id = :id', { id: id.id })
+        .delete()
+        .from(UserEntity)
+        .where('id = :id', { id: id.id })
+        .execute(),
+    );
   }
 
   updateOne(id: any, user: any): Observable<JwtObj> {
@@ -251,7 +271,7 @@ export class UserService {
     return from(
       this.userRepository.findOne({
         where: { email },
-        relations: ['cryptos', 'nfts'],
+        relations: ['cryptos', 'nfts', 'posts'],
       }),
     );
   }
