@@ -1,0 +1,11 @@
+<div [ngStyle]="{
+    position: 'relative',
+    display: 'flex', 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'center',
+}" [style.height]="height" [style.width]="width">
+    <canvas *ngIf="chartActive" baseChart [type]="'line'" [data]="lineChartData" [options]="lineChartOptions"
+        [legend]="lineChartLegend">
+    </canvas>
+</div>

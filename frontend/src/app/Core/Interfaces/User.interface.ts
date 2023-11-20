@@ -11,4 +11,5 @@ export interface User {
   cryptos: CryptoId[];
   nfts: NFTId[];
   posts: Post[];
+  profileImage: string;
 }

@@ -10,6 +10,10 @@ import { NgChartsModule } from 'ng2-charts';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LargePageComponent } from './Components/PageSizes/large-page/large-page.component';
 import { SmallPageComponent } from './Components/PageSizes/small-page/small-page.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { ChartComponent } from './Components/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +21,7 @@ import { SmallPageComponent } from './Components/PageSizes/small-page/small-page
     CryptoCardComponent,
     LargePageComponent,
     SmallPageComponent,
+    ChartComponent,
   ],
   imports: [
     MatButtonModule,
@@ -26,6 +31,9 @@ import { SmallPageComponent } from './Components/PageSizes/small-page/small-page
     UserRoutingModule,
     NgChartsModule,
     NgxSpinnerModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatCardModule,
   ],
 })
 export class UserModule {}

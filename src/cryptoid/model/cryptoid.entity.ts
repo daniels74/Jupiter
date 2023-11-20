@@ -9,6 +9,8 @@ export class CryptoIdEnitity {
   @Column({ nullable: true })
   cryptoid: string;
 
-  @ManyToOne((type) => UserEntity, (userentity) => userentity.cryptos)
+  @ManyToOne((type) => UserEntity, (userentity) => userentity.cryptos, {
+    onDelete: 'CASCADE',
+  })
   user: UserEntity;
 }

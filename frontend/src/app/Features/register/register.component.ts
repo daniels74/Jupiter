@@ -9,6 +9,10 @@ import { AuthService } from '../../Core/Services/auth.service';
 import { switchMap } from 'rxjs';
 import { JwtObj } from '../../Core/Interfaces/jwt-obj';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectUser } from '../../Shared/State/Selectors/users.selector';
+import { User } from '../../Core/Interfaces/User.interface';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +20,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
+  user!: User;
   loadingState = false;
 
   // ? Access width and height properties using "window."
@@ -28,7 +33,15 @@ export class RegisterComponent {
     public spinner: NgxSpinnerService,
     private authServ: AuthService,
     private formBuilder: FormBuilder,
+    private router: Router,
+    private store: Store,
   ) {}
+
+  ngOnInit() {
+    this.store.select(selectUser).subscribe((theuser) => {
+      this.user = theuser;
+    });
+  }
 
   registerForm: FormGroup = this.formBuilder.group({
     email: new FormControl('', [Validators.required]),
@@ -62,6 +75,7 @@ export class RegisterComponent {
           this.spinner.hide();
           this.loadingState = false;
           this.authServ.setPermissions(jwt.jwt);
+          this.router.navigate(['/user', this.user.id]);
         }, 3000);
       });
   }

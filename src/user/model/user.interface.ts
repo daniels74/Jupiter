@@ -12,6 +12,7 @@ export interface User {
   cryptos?: cryptoidEntry[];
   nfts?: nftId[];
   posts?: PostInterface[];
+  profileImage?: string;
 }
 
 export enum UserRole {

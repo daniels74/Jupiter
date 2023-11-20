@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,16 +16,18 @@ import { SelectionModel } from '@angular/cdk/collections';
   templateUrl: './paginator.component.html',
   styleUrls: ['./paginator.component.css'],
 })
-export class PaginatorComponent implements OnInit, AfterViewInit {
+export class PaginatorComponent implements OnInit {
   allCrypto!: BasicCrypto[];
-  dataSource!: MatTableDataSource<BasicCrypto>;
   sizeState = window.innerWidth < 700 ? false : true;
   // colorControl = 'warn' as ThemePalette;
   isAuth: any = false;
 
+  // displayedColumns!: any;
   displayedColumns = this.isAuth
     ? ['selected', 'id', 'name', 'symbol']
     : ['id', 'name', 'symbol'];
+
+  dataSource = new MatTableDataSource<BasicCrypto>(this.allCrypto);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -39,15 +41,17 @@ export class PaginatorComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    // Retrieve Authentication State
     this.Store.select(selectAuth).subscribe((authState) => {
       this.isAuth = authState;
+      console.log('In pagination auth state ', authState);
+      this.displayedColumns = authState
+        ? ['selected', 'id', 'name', 'symbol']
+        : ['id', 'name', 'symbol'];
     });
-  }
-
-  ngAfterViewInit() {
-    this.displayedColumns = this.isAuth
-      ? ['selected', 'id', 'name', 'symbol']
-      : ['id', 'name', 'symbol'];
+    // this.displayedColumns = this.isAuth
+    //   ? ['selected', 'id', 'name', 'symbol']
+    //   : ['id', 'name', 'symbol'];
 
     this.CoinGeckoService.allCrypto_O.subscribe((allcrypto) => {
       if (allcrypto.length !== 0) {
@@ -56,7 +60,9 @@ export class PaginatorComponent implements OnInit, AfterViewInit {
       }
     });
     this.dataSource = new MatTableDataSource<BasicCrypto>(this.allCrypto);
+  }
 
+  ngAfterViewInit() {
     if (!this.allCrypto) {
       this.spinner.show('primary');
     } else if (this.allCrypto) {

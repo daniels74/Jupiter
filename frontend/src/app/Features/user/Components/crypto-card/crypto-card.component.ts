@@ -16,7 +16,6 @@ export class CryptoCardComponent {
   @Input() collectionClassifcation!: string;
   @Output() chartStateOutput: EventEmitter<any> =
     new EventEmitter<SingleCoin>();
-  chartToggler = false;
 
   // ? Sizing
   isLargeScreen = window.innerWidth < 700 ? false : true;
@@ -54,9 +53,6 @@ export class CryptoCardComponent {
     this.coinGeckoApi.getChartData(stringId).subscribe((res) => {
       console.log('User Page Collection Card: getChartData RESPONSE: ', res);
     });
-
-    this.chartToggler = !this.chartToggler;
-
     this.chartStateOutput.emit(this.crypto);
   }
 }
