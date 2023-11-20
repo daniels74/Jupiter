@@ -9,7 +9,7 @@
             <div *ngIf="chartToggler" [ngStyle]="{backgroundColor: 'black', width: '70%', height: '90%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', borderRadius: '.5rem'
          }">
                 <div [ngStyle]="{
-                  height: '15%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'
+                 height: '15%', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'
              }">
                     <div [ngStyle]="{
                      height: '100%', width: '50%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flexStart'
@@ -60,12 +60,12 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="chartActive" [ngStyle]="{position: 'relative', width: '100%', height: '85%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}">
+                <div [ngStyle]="{ width: '100%', height: '85%'}">
                     <app-chart />
                 </div>
                 <div *ngIf="!chartActive" [ngStyle]="{
-                 height: '85%', width: '100%', borderRadius: '.5rem',
-                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                 height: '65%', width: 'auto', borderRadius: '.5rem',
+                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start', marginTop: '2rem',
              }">
                     <ngx-spinner class="spinner" size="medium" template="<img src='../../../../../../assets/805.gif' />"
                         [fullScreen]="false" bdColor="rgba(1,1,1,1)"></ngx-spinner>
@@ -107,7 +107,7 @@
     <div class="left-section" *ngIf="!chartToggler">
         <div class="user-picture-info">
             <div class="img-container">
-                <div *ngIf="settingState" [ngStyle]="{width: '100%'}">
+                <!-- <div *ngIf="settingState" [ngStyle]="{width: '100%'}">
                     <ul>
                         <li>
                             <mat-progress-bar [value]="file.progress"></mat-progress-bar>
@@ -119,7 +119,7 @@
                         </button>
                     </mat-card-actions>
                     <input #fileUpload type="file" accept="image/*" style="display: none;">
-                </div>
+                </div> -->
                 <div [ngStyle]="{height: '100%', width: '100%'}" *ngIf="!settingState">
                     <img [ngStyle]="{height: '100%', width: '100%'}" *ngIf="userProfileImg"
                         src="http://localhost:3000/user/profile-image/{{userProfileImg}}" alt="">

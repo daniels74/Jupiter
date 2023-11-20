@@ -9,15 +9,37 @@ import {
   UseGuards,
   Query,
   Patch,
+  UseInterceptors,
+  UploadedFile,
+  Request,
+  Res,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './model/user.interface';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { hasRoles } from 'src/auth/decorator/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles-guard';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { JwtObj } from './model/jwt-obj.interface';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { v4 as uuidv4 } from 'uuid';
+import path = require('path');
+import { join } from 'path';
+
+const storage = {
+  storage: diskStorage({
+    destination: './uploads/profileimages',
+    filename: (req, file, cb) => {
+      const filename =
+        path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
+      const extension: string = path.parse(file.originalname).ext;
+
+      cb(null, `${filename}${extension}`);
+    },
+  }),
+};
 
 @Controller('user')
 export class UserController {
@@ -116,5 +138,29 @@ export class UserController {
     @Body() user: any,
   ): Observable<JwtObj> {
     return this.userService.updateRoleOfUser(Number(id), user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file', storage))
+  uploadImage(@UploadedFile() file, @Request() req): Observable<any> {
+    const user: User = req.user;
+    // Post to database for current user
+    return this.userService
+      .updateOne(user.id, {
+        profileImage: file.filename,
+      })
+      .pipe(
+        tap((user: any) => console.log(user)),
+        map((user: any) => ({ profileImage: user.user.profileImage })),
+      );
+    // return of({ imagePath: file.filename });
+  }
+
+  @Get('profile-image/:imagename')
+  findProfileImage(@Param('imagename') imagename, @Res() res): Observable<any> {
+    return of(
+      res.sendFile(join(process.cwd(), 'uploads/profileimages/' + imagename)),
+    );
   }
 }

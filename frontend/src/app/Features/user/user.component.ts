@@ -187,6 +187,7 @@ export class UserComponent implements OnInit {
     this.collectionTypeToggle = !this.collectionTypeToggle;
   }
 
+  //! Updates selected coin and toggles chart
   toggleChart(crypto: SingleCoin) {
     this.chartToggler = !this.chartToggler;
     this.chosenCrypto = crypto;

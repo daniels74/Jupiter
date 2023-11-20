@@ -12,11 +12,11 @@
     </form> -->
     <input #userSearch type="text" placeholder="Ex. Batman">
 </div>
-<div *ngIf="searchIsActive" class="user-results">
+<div *ngIf="searchIsActive" class="user-results" [style.width]="isBigScreen ? '35vw':'100vw'">
     <div class="user-list">
         <div [style.width]="'80%'" *ngFor="let users of results; let i = index ">
             <!-- <div [ngStyle]="{width: '100vw'}"> -->
-            <app-user-card [isLast]="i === results.length-1 ? true : false" [name]="users.username" [email]="users.email" />
+            <app-user-card [isLast]="i === results.length-1 ? true : false" [profilePic]="users.profileImage" [name]="users.username" [email]="users.email" />
             <!-- </div> -->
 
         </div>

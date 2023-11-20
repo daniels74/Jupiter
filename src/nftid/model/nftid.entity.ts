@@ -9,6 +9,8 @@ export class NftIdEntity {
   @Column({ nullable: true })
   nftid: string;
 
-  @ManyToOne((type) => UserEntity, (userentity) => userentity.nfts)
+  @ManyToOne((type) => UserEntity, (userentity) => userentity.nfts, {
+    onDelete: 'CASCADE',
+  })
   user: UserEntity;
 }

@@ -29,6 +29,7 @@ export class UsersearchComponent {
 
   // Screen Size
   displayAlign = window.innerWidth < 700 ? 'center' : 'flex-start';
+  isBigScreen = window.innerWidth < 700 ? false : true;
 
   ngAfterViewInit() {
     fromEvent(this.userSearch.nativeElement, 'keyup')

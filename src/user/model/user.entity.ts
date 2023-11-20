@@ -39,6 +39,9 @@ export class UserEntity {
   @OneToMany(() => PostEntity, (post) => post.user)
   posts: PostEntity[];
 
+  @Column({ nullable: true })
+  profileImage: string;
+
   @BeforeInsert()
   emailToLowerCase() {
     this.email = this.email.toLocaleLowerCase();

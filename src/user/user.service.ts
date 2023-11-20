@@ -3,16 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './model/user.entity';
 import { Like, Repository } from 'typeorm';
 import { User } from './model/user.interface';
-import {
-  Observable,
-  catchError,
-  from,
-  map,
-  mergeMap,
-  of,
-  switchMap,
-  throwError,
-} from 'rxjs';
+import { Observable, catchError, from, map, switchMap, throwError } from 'rxjs';
 import { AuthService } from 'src/auth/auth.service';
 import {
   paginate,
@@ -20,7 +11,6 @@ import {
   IPaginationOptions,
 } from 'nestjs-typeorm-paginate';
 import { JwtObj } from './model/jwt-obj.interface';
-import { error } from 'console';
 import { CryptoIdEnitity } from '../cryptoid/model/cryptoid.entity';
 import { NftIdEntity } from '../nftid/model/nftid.entity';
 import { PostEntity } from '../posting/models/post.entity';
@@ -33,29 +23,12 @@ export class UserService {
     private AuthServ: AuthService, // @InjectRepository(CryptoIdEnitity) // private readonly cryptoRepository: Repository<CryptoIdEnitity>,
   ) {}
 
-  // cryptoposter(user: User, cryptoId: number): Observable<CryptoIdEnitity> {
-  //   const cryptoEntity = new CryptoIdEnitity();
-  //   const userentity = new UserEntity();
-  //   userentity.id = user.id;
-  //   cryptoEntity.cryptoid = cryptoId;
-  //   cryptoEntity.user = userentity;
-
-  //   return from(this.cryptoRepository.save(cryptoEntity)).pipe(
-  //     map((res) => {
-  //       return res;
-  //     }),
-  //   );
-  // }
-
-  // getAllCryptoIds(myuser: User): Observable<CryptoIdEnitity[]> {
-  //   return from(this.cryptoRepository.find());
-  // }
-
   create(user: User): Observable<User> {
     // return from(this.userRepository.save(user));
     return this.AuthServ.hashPassword(user.password).pipe(
       switchMap((passwordHash: string) => {
         const newUser = new UserEntity();
+        newUser.profileImage = '';
         newUser.name = user.name;
         newUser.username = user.username;
         newUser.email = user.email;
@@ -76,6 +49,10 @@ export class UserService {
       }),
     );
   }
+
+  // uploadProfileImage(): Observable<any> {
+  //   return from(this.userRepository.update(1, {}));
+  // }
 
   findOne(id: number): Observable<User> {
     // return from(this.userRepository.findOne({ where: { id } }));
@@ -101,6 +78,7 @@ export class UserService {
         users.forEach(function (v) {
           delete v.password;
         });
+        console.log('Users found', users);
         return users;
       }),
     );
@@ -126,7 +104,7 @@ export class UserService {
         skip: 0, //Number(options.page) * Number(options.limit) || 0,
         take: Number(options.limit) || 1,
         order: { id: 'ASC' },
-        select: ['id', 'name', 'username', 'email', 'role'],
+        select: ['id', 'name', 'profileImage', 'username', 'email', 'role'],
         where: [{ username: Like(`%${username}%`) }],
       }),
     ).pipe(
@@ -164,9 +142,13 @@ export class UserService {
     // return from(
     //   this.userRepository.query('DELETE * FROM user_entity', [ where: id ]),
     // );
+    console.log('DEleting id #', typeof id.id);
     return from(
       this.userRepository
         .createQueryBuilder('DeleteCertainUser')
+        .delete()
+        .from(PostEntity)
+        .where('user.id = :id', { id: +id.id })
         .delete()
         .from(NftIdEntity)
         .where('user.id = :id', { id: id.id })
@@ -180,23 +162,29 @@ export class UserService {
     );
   }
 
+  // Will update filled in pieces
   updateOne(id: any, user: any): Observable<JwtObj> {
     // return from(this.userRepository.update(id, user));
     // delete user.email;
     // delete user.password;
     console.log('USer update and id', user, id);
     return from(
-      this.userRepository.update(+id, {
-        name: user.name,
-        username: user.username,
-      }),
+      this.userRepository.update(
+        +id,
+        //   {
+        //   name: user.name,
+        //   username: user.username,
+        //   profileImage: user.profileImage
+        // }
+        user,
+      ),
     ).pipe<JwtObj>(
       switchMap(() => {
         return this.findOne(+id).pipe(
           switchMap((founduser) => {
             return this.AuthServ.generateJWT(founduser).pipe(
               map((jwt: string) => {
-                return { jwt: jwt };
+                return { jwt: jwt, user: founduser };
               }),
             );
           }),

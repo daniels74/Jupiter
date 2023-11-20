@@ -1,4 +1,7 @@
 <div class="user-card">
+    <div *ngIf="profilePic" class="profile-img-container">
+        <img [ngStyle]="{height: '80%', width: '80%'}" src="http://localhost:3000/user/profile-image/{{profilePic}}" alt="">
+    </div>
     <div class="basic-info">
         <div>
             {{name}}

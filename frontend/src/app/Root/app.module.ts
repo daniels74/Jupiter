@@ -21,6 +21,8 @@ import { authReducer } from '../Shared/State/Reducers/auth.reducer';
 import { usersReducer } from '../Shared/State/Reducers/users.reducer';
 import { userCryptoCollectionReducer } from '../Shared/State/Reducers/userCryptoCollection.reducer';
 import { userNftCollectionReducer } from '../Shared/State/Reducers/userNftCollection.reducer';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 export const BaseUrl = new InjectionToken<string>('');
 @NgModule({
@@ -41,6 +43,8 @@ export const BaseUrl = new InjectionToken<string>('');
     NgxSpinnerModule,
     IvyCarouselModule,
     BrowserAnimationsModule,
+    MatProgressBarModule,
+    MatIconModule,
   ],
   providers: [
     IvyCarouselModule,
@@ -48,7 +52,7 @@ export const BaseUrl = new InjectionToken<string>('');
     WINDOW_PROVIDERS,
     {
       provide: BaseUrl,
-      useValue: null, // 'http://localhost:3000',
+      useValue: null, // 'http://localhost:3000'
     },
   ],
   bootstrap: [AppComponent],

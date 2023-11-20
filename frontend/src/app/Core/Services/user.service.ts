@@ -1,5 +1,5 @@
 import { Inject, Injectable, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, take } from 'rxjs';
+import { Observable, Subscription, map, take } from 'rxjs';
 import { User } from '../Interfaces/User.interface';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -58,5 +58,20 @@ export class UserService implements OnInit, OnDestroy {
       this.origin + '/user/updaterole/' + user.id,
       newRole,
     );
+  }
+
+  uploadProfileImage(formmData: FormData): Observable<any> {
+    return this.http.post<FormData>(this.origin + '/user/upload', formmData, {
+      reportProgress: true,
+      observe: 'events',
+    });
+  }
+
+  getProfilePicture(imagename: string) {
+    return this.http.get(this.origin + '/user/profile-image/' + imagename);
+  }
+
+  findOne(id: number): Observable<any> {
+    return this.http.get(this.origin + '/user/' + id).pipe(map((user) => user));
   }
 }

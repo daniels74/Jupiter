@@ -1,0 +1,217 @@
+
+.small-page-container {
+    height: 90vh;
+    width: 100%;
+    background-color: rgb(21, 21, 31);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  .vertical-line {
+    border-left: 1px solid lightblue;
+    height: 80%;
+  }
+  
+  .left-section {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .img-container {
+    height: 25%;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border-color:lightblue;
+    border-width: thin;
+  }
+  
+  .user-info-container {
+    height: 45%;
+    width: 75%;
+    border-style: solid;
+    border-color:lightblue;
+    background-color: black;
+    border-width: thin;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .info-settings{
+    height: 15%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .settings-btn {
+    height: 60%;
+    width: 5%;
+    margin-right: .5rem;
+  }
+  
+  .user-info-wrapper {
+    height: 85%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .user-info-box {
+    height: 80%;
+    width: 50%;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+  }
+  
+  .user-info-line {
+    background-color: rgb(10, 12, 48);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .settings-wrapper {
+    height: 90%;
+    width: 100%;
+  }
+  
+  .form-container {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(34, 68, 104);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .form-inner-container {
+    height: 90%;
+    width: 75%;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 1rem;
+  }
+  
+  .right-section {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+  }
+  
+  .collectionConainer {
+    height:90vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    margin-bottom: 5rem;
+  }
+  
+  .right-button-container {
+    height: 5%;
+    width: 100%;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .btn {
+    min-height: 3rem;
+    width: auto;
+    /* flex: auto auto 1; */
+    /* margin: 10px; */
+    /* padding: 30px; */
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+   /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+  }
+  
+  .btn:hover {
+    background-position: right center; /* change the direction of the change here */
+  }
+  
+  .collection-btn {
+    /* min-height: 2rem;
+    width: 6rem; */
+    /* background-image: linear-gradient(to left, #f6d365 0%, #fda085 51%, #f6d365 100%); */
+    background-image: radial-gradient(circle, rgba(31,214,255,1) 0%, rgba(48,87,140,1) 34%, rgba(38,27,120,1) 65%, rgba(102,62,142,1) 87%, rgba(119,41,184,1) 100%);
+  }
+  
+  .crypto-list-container {
+      height: 75%;
+      width: 75%;
+      border-style: solid;
+      border-width: thin;
+      border-color: lightblue;
+  }
+  
+  .mycrypto-container{
+    background-color: rgb(64, 75, 108);
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 3rem;
+  }
+  
+  .random-numbers {
+    background-color: blue;
+    height: 50%;
+    width: 100%;
+  }
+  
+  .spinner {
+    height: 50%;
+    width: 50%;
+    position: relative;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
