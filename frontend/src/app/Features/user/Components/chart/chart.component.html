@@ -1,11 +1,39 @@
-<div [ngStyle]="{
-    position: 'relative',
-    display: 'flex', 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    justifyContent: 'center',
-}" [style.height]="height" [style.width]="width">
-    <canvas *ngIf="chartActive" baseChart [type]="'line'" [data]="lineChartData" [options]="lineChartOptions"
-        [legend]="lineChartLegend">
-    </canvas>
+<div
+  class="chart-fullpage-container"
+  [style.height]="height"
+  [style.width]="width"
+>
+  <div
+    *ngIf="!chartActive"
+    [ngStyle]="{
+      height: '85%',
+      width: '100%',
+      borderRadius: '.5rem',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      top: '2rem'
+    }"
+  >
+    <ngx-spinner
+      class="spinner"
+      size="medium"
+      template="<img src='../../../../../../assets/805.gif' />"
+      [fullScreen]="false"
+      bdColor="rgba(1,1,1,1)"
+    ></ngx-spinner>
+    <h3>API cooling down, please wait, and try again</h3>
+    <div>{{ counter }}</div>
+    <div *ngIf="counter === 0">Sending Request...</div>
+  </div>
+
+  <canvas
+  *ngIf="chartActive"
+    baseChart
+    [type]="'line'"
+    [data]="lineChartData"
+    [options]="lineChartOptions"
+    [legend]="lineChartLegend"
+  >
+  </canvas>
 </div>

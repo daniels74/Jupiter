@@ -14,6 +14,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { ChartComponent } from './Components/chart/chart.component';
+import { ChartViewComponent } from './Components/chart-view/chart-view.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ChartComponent } from './Components/chart/chart.component';
     LargePageComponent,
     SmallPageComponent,
     ChartComponent,
+    ChartViewComponent,
   ],
   imports: [
     MatButtonModule,

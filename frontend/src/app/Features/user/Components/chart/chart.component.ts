@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Subscription, timer } from 'rxjs';
+import { map, timer } from 'rxjs';
 import { CoinGeckoApiService } from '../../../../Core/Services/coin-gecko-api.service';
 
 @Component({
@@ -11,48 +11,56 @@ import { CoinGeckoApiService } from '../../../../Core/Services/coin-gecko-api.se
 })
 export class ChartComponent implements OnInit {
   public chart: any;
+
   cryptoChartData: any[] = [];
+
   public lineChartData: ChartConfiguration<'line'>['data'] = {
     datasets: [],
   };
+
   public lineChartOptions: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
   };
+
   public lineChartLegend = true;
   chartActive = false;
-  chartloading_timer = 0;
-  countDown_Sub!: Subscription;
+
+  // Counter
   counter = 30;
   tick = 1000;
+  countDown_Sub = timer(0, this.tick).pipe(
+    map(() => {
+      if(this.counter === 0){
+        this.counter = 30;
+      } else { this.counter-- }
+    }),
+  );
+
   // Screen Sizing
   isBigScreen = window.innerWidth < 700 ? false : true;
   height: string = this.isBigScreen ? '65vh' : '25vh';
   width: string = this.isBigScreen ? '70vw' : '100vw';
+
   constructor(
     private CoinGeckoApi: CoinGeckoApiService,
     private spinner: NgxSpinnerService,
   ) {}
 
   ngOnInit() {
-    //! See currrent chart data for selected crypto
+    // ! See currrent chart data for selected crypto
     this.CoinGeckoApi.marketChartData_O.subscribe((data) => {
-      console.log('Market Chart Data: ', data);
       this.cryptoChartData = data;
+      // Fetch Failure
       if (this.cryptoChartData.length <= 1) {
         this.chartActive = false;
         this.spinner.show('primary');
-        this.counter = 30;
-        this.countDown_Sub = timer(0, this.tick).subscribe(() => {
-          if (this.counter === 0) {
-            this.counter = 30;
-          } else {
-            --this.counter;
-          }
-        });
+        this.countDown_Sub.subscribe();
       } else {
-        this.spinner.hide();
+        // Fetch Successs
         this.setChart();
+        this.countDown_Sub.subscribe();
+        this.spinner.hide();
         this.chartActive = true;
       }
     });

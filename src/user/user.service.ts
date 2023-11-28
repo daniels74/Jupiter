@@ -28,7 +28,7 @@ export class UserService {
     return this.AuthServ.hashPassword(user.password).pipe(
       switchMap((passwordHash: string) => {
         const newUser = new UserEntity();
-        newUser.profileImage = '';
+        newUser.profileImage = user.profileImage;
         newUser.name = user.name;
         newUser.username = user.username;
         newUser.email = user.email;

@@ -1,31 +1,14 @@
-<div class="carousel-element">
-    <div [ngStyle]="{
-        height: '40%',
-        width: '100%',
-    }">
-        <img [ngStyle]="{
-            height: '100%',
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-        }" [src]="Item.item.small" alt="">
-    </div>
-    <div [ngStyle]="{
-        height: '60%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-around'
-    }">
-        <div>
-            {{Item.item.symbol}}
-        </div>
-        <div>
-            <div>Score | {{Item.item.score}}</div>
-            <div>Market Cap Rank | {{Item.item.market_cap_rank}}</div>
+<div appGlowify class="carousel-element">
+    <div class="img-container">
+        <img class="img-ele" [src]="Item.item.large" alt="">
+        <div class="crypto-info">
+            <div>
+                {{Item.item.symbol}}
+            </div>
+            <div>
+                <div>Score | {{Item.item.score}}</div>
+                <div>Market Cap Rank | {{Item.item.market_cap_rank}}</div>
+            </div>
         </div>
     </div>
 </div>

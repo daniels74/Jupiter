@@ -1,5 +1,46 @@
 .carousel-element {
-    height: 100%;
-    width: 30%;
-    /* background-color: red; */
+  height: 12rem;
+  width: 12rem;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: thin;
+  background-color: azure;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-container {
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-ele {
+  border-radius: 50%;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.crypto-info {
+  background-color: rgba(16, 26, 26, 0.474);
+  position: absolute;
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

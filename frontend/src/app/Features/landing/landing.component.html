@@ -1,21 +1,51 @@
 <div class="landing-page">
-    <div class="title-container" [style.width]="title_container_width" [style.height]="title_container_height">
-        <h1>CryptoZapp</h1>
-        <h3>See the market, make your list, and share it.</h3>
-    </div>
-    <div [ngStyle]="{zIndex: '1'}">
-        <carousel [loop]='true' [height]="200" [width]="1200" [cellsToShow]="2" [autoplay]="true" [autoplayInterval]="5000"
-        [transitionDuration]="2000" transitionTimingFunction="ease" [arrowsOutside]="true" [arrows]="false">
-        <div *ngFor="let item of trending_cryptos" class="carousel-cell" >
-            <app-carousel-element [Item]="item" [name]="item.name" />
-        </div>
+  <div
+    class="title-container"
+    [style.width]="title_container_width"
+    [style.height]="title_container_height"
+  >
+    <h1>CryptoZapp</h1>
+    <h3>See the market, make your list, and share it.</h3>
+  </div>
+  <div class="carousel-container">
+    <carousel
+      [loop]='true'
+      [borderRadius]="200"
+      [cellWidth]="1200"
+      [overflowCellsLimit]="7"
+      [autoplay]="true"
+      [height]="300"
+      [width]="1200"
+      [margin]="50"
+      [cellsToShow]="cellsToShow"
+      [autoplayInterval]="4000"
+      [transitionDuration]="2000"
+      transitionTimingFunction="ease-in-out"
+      [arrowsOutside]="true"
+      [arrows]="true"
+    >
+      <div *ngFor="let item of trending_cryptos" class="carousel-cell" [ngStyle]="{
+        height: '100%', width: '15vw', backgroundColor: 'transparent', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
+      }">
+        <app-carousel-element [Item]="item" [name]="item.name" />
+      </div>
+      <div *ngFor="let item of trending_cryptos" class="carousel-cell" [ngStyle]="{
+        height: '100%', width: '15vw', backgroundColor: 'transparent', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
+      }">
+        <app-carousel-element [Item]="item" [name]="item.name" />
+      </div>
     </carousel>
-    </div>
-    <div class="crpyoinfo-container" [style.width]="crpyoinfo_container_width"
-        [style.height]="crpyoinfo_container_height">
-        Crypto allows for self custody of trasferable energy, aka, work that was done. When you work, you
-        exchange time and enerygy for money in a proportional manner. However, overtime that money dissipates due to our
-        fiat
-        money's fundumantal solution to everything, inflation.
-    </div>
+  </div>
+  <div
+    class="crpyoinfo-container"
+    [style.width]="crpyoinfo_container_width"
+    [style.height]="crpyoinfo_container_height"
+  >
+    <p>
+      Crypto allows for self custody of trasferable energy, aka, work that was
+      done. When you work, you exchange time and enerygy for money in a
+      proportional manner. However, overtime that money dissipates due to our
+      fiat money's fundumantal solution to everything, inflation.
+    </p>
+  </div>
 </div>
