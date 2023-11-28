@@ -23,6 +23,7 @@ import { userCryptoCollectionReducer } from '../Shared/State/Reducers/userCrypto
 import { userNftCollectionReducer } from '../Shared/State/Reducers/userNftCollection.reducer';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
+import { GlowifyDirective } from '../Shared/CustomDirectives/glowify.directive';
 
 export const BaseUrl = new InjectionToken<string>('');
 @NgModule({
@@ -47,12 +48,13 @@ export const BaseUrl = new InjectionToken<string>('');
     MatIconModule,
   ],
   providers: [
+    GlowifyDirective,
     IvyCarouselModule,
     { provide: HTTP_INTERCEPTORS, useClass: UserRoleInterceptor, multi: true },
     WINDOW_PROVIDERS,
     {
       provide: BaseUrl,
-      useValue: null, // 'http://localhost:3000'
+      useValue: null, // 'http://localhost:3000',
     },
   ],
   bootstrap: [AppComponent],

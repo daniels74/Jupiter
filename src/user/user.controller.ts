@@ -157,6 +157,19 @@ export class UserController {
     // return of({ imagePath: file.filename });
   }
 
+  @Post('newimageupload')
+  uploadCompressedImg(@UploadedFile() file, @Request() req) {
+    const user = req.user;
+    return this.userService
+      .updateOne(user.id, {
+        profileImage: file.filename,
+      })
+      .pipe(
+        tap((user: any) => console.log(user)),
+        map((user: any) => ({ profileImage: user.user.profileImage })),
+      );
+  }
+
   @Get('profile-image/:imagename')
   findProfileImage(@Param('imagename') imagename, @Res() res): Observable<any> {
     return of(
