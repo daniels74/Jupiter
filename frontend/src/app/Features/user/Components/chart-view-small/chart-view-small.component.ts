@@ -6,7 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   selector: 'app-chart-view-small',
   // standalone: true,
   templateUrl: './chart-view-small.component.html',
-  styleUrl: './chart-view-small.component.css',
+  styleUrls: ['./chart-view-small.component.css'],
 })
 export class ChartViewSmallComponent {
   @Input() chosenCrypto!: SingleCoin;
