@@ -13,7 +13,6 @@ import { userCryptoCollectionAction } from '../../Shared/State/Actions/userCrypt
 import { User } from '../Interfaces/User.interface';
 import { CryptoService } from './UserCollection/crypto.service';
 import { BaseUrl } from '../../Root/app.module';
-import { NFTId } from '../Interfaces/singleNFT';
 import { UserNftCollectionService } from './UserCollection/user-nft-collection.service';
 import { userNftCollectionAction } from '../../Shared/State/Actions/userNftCollection.actions';
 import { UserPostService } from './UserPost/user-post.service';
@@ -27,15 +26,12 @@ export class AuthService {
     private store: Store,
     private http: HttpClient,
     private router: Router,
-    private userServ: UserService,
     private CryptoService: CryptoService,
     private NftService: UserNftCollectionService,
     @Inject(WINDOW) private window: Window,
     @Inject(BaseUrl) private local_origin: string,
   ) {}
 
-  // origin = 'http://localhost:3000';
-  // origin = this.window.location.origin;
   origin = this.local_origin ? this.local_origin : this.window.location.origin;
 
   logout() {
@@ -61,12 +57,11 @@ export class AuthService {
     });
   }
 
+  //! Sets authentication state, User general data, notes, crypto, and nfts
   setPermissions(token: string): void {
     localStorage.setItem('blog-token', token);
 
     const user: any = jwtDecode(token);
-
-    console.log('SettingPermissions from JWT: ', user.user);
 
     //// Set 1 hour timer for JWT
     const timer = 60000 * 60;
@@ -100,12 +95,12 @@ export class AuthService {
         nftCollection_ngrx,
       }),
     );
+
     // // Search each NFT and save in an observable of type [] in NFT service
     this.NftService.setUserFullNftCollection();
 
     // // Set users Posts
     this.userPostService.userPostsBehaviorSubject.next(user.user.posts);
-    //this.router.navigate(['/user', user.user.id]);
   }
 
   setSessionToken(token: string) {
@@ -117,7 +112,7 @@ export class AuthService {
     if (token) {
       this.validateJWT(token).subscribe((isValid) => {
         if (isValid) {
-          console.log('IS valid');
+          console.log('Live session');
           this.setPermissions(token);
         } else {
           console.log('No live session');

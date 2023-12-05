@@ -53,7 +53,7 @@
           <img
             [ngStyle]="{ height: '100%', width: 'auto' }"
             *ngIf="userProfileImg"
-            [src]="user.profileImage"
+            [src]="userProfileImg"
             alt=""
           />
           <div
@@ -61,19 +61,24 @@
             [ngStyle]="{ height: '100%', width: 'auto' }"
           >
             <img
-              src="'https://i.pinimg.com/736x/6c/e5/e6/6ce5e69ac9adc07d55d58cf7325b2e27.jpg'"
+              src="https://i.pinimg.com/736x/6c/e5/e6/6ce5e69ac9adc07d55d58cf7325b2e27.jpg"
               alt=""
             />
           </div>
         </div>
       </div>
       <div class="user-info-container">
-        <img
+        <!-- "https://usagif.com/wp-content/uploads/gifs/fire-14.gif" -->
+        <!-- <img
           class="userinfo-background"
           color="'green'"
-          src=" https://usagif.com/wp-content/uploads/gifs/fire-14.gif"
+          src="https://media4.giphy.com/media/oSaLJmbUgZQm4/giphy.gif?cid=ecf05e47xfxd5mnru1ipq82j64ad1m6muupl0ibwwzzh0bo5&ep=v1_gifs_related&rid=giphy.gif",
           alt=""
-        />
+        /> -->
+        <!-- <iframe class="userinfo-background giphy-embed" width="100%" src="https://giphy.com/embed/oSaLJmbUgZQm4" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/rain-raining-rainy-oSaLJmbUgZQm4">via GIPHY</a></p> -->
+        <div class="userinfo-background">
+
+        </div>
         <div class="info-settings">
           <!-- <button (click)="toggleSettings()">Update</button> -->
           <button
@@ -89,12 +94,12 @@
         <div *ngIf="!settingState" class="user-info-wrapper">
           <div class="user-info-box">
             <div class="user-info-line">
-              <h4>Username:</h4>
-              <h4>{{ user.username }}</h4>
+              <h1 *ngIf="user.name">{{ user.name }}</h1>
+              <h1 *ngIf="!user.username">No Name</h1>
             </div>
             <div class="user-info-line">
-              <h4>Name:</h4>
-              <h4>{{ user.name }}</h4>
+              <h4 *ngIf="user.username">{{ user.username }}</h4>
+              <h4 *ngIf="!user.username">No Usernamme</h4>
             </div>
           </div>
         </div>
@@ -149,9 +154,39 @@
 
       <div class="all-posts-container">
         <div *ngIf="!userPosts">No Posts Yet</div>
-        <div *ngIf="userPosts">
-          <div *ngFor="let post of userPosts">
-            {{ post.description }}
+        <div
+          *ngIf="userPosts"
+          [ngStyle]="{
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '2rem',
+          overflowY: 'scroll',
+        }"
+        >
+          <div
+            *ngFor="let post of userPosts"
+            [ngStyle]="{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          }"
+          >
+            <div
+              [ngStyle]="{
+              height: '15vh',
+              width: '90%',
+              backgroundColor: 'rgb(2, 2, 26)',
+              borderRadius: '1rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }"
+            >
+              <h3>{{ post.description }}</h3>
+            </div>
           </div>
         </div>
       </div>
@@ -161,12 +196,15 @@
   <!-- ! User Collections -->
   <div *ngIf="!chartState" class="right-section">
     <div class="collectionType-container">
-      <h2 *ngIf="!collectionTypeToggle">Crypto Collection</h2>
-      <h2 *ngIf="collectionTypeToggle">NFT Collection</h2>
+      <h1 *ngIf="!collectionTypeToggle">Crypto Collection</h1>
+      <h1 *ngIf="collectionTypeToggle">NFT Collection</h1>
     </div>
     <div class="crypto-list-container">
       <div *ngIf="!collectionTypeToggle" class="mycrypto-container">
-        <div *ngFor="let singleCoin of cryptoCollection">
+        <div
+          *ngFor="let singleCoin of cryptoCollection"
+          [ngStyle]="{ borderRadius: '1rem' }"
+        >
           <app-crypto-card
             [crypto]="singleCoin"
             [collectionClassifcation]="'crypto'"

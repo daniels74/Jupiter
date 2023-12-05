@@ -21,6 +21,14 @@ export class ChartComponent implements OnInit {
   public lineChartOptions: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
+    scales: {
+      y: {
+        ticks: { color: 'lightblue' },
+      },
+      x: {
+        ticks: { color: 'lightblue' },
+      },
+    },
   };
 
   public lineChartLegend = true;
@@ -31,9 +39,11 @@ export class ChartComponent implements OnInit {
   tick = 1000;
   countDown_Sub = timer(0, this.tick).pipe(
     map(() => {
-      if(this.counter === 0){
+      if (this.counter === 0) {
         this.counter = 30;
-      } else { this.counter-- }
+      } else {
+        this.counter--;
+      }
     }),
   );
 

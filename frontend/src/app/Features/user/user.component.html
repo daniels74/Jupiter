@@ -30,11 +30,13 @@
     (toggleSettings)="this.toggleSettings()"
     [settingState]="settingState"
     [user]="user"
+    [profilePic]="profilePic"
     [collectionTypeToggle]="collectionTypeToggle"
     [cryptoCollection]="cryptoCollection"
     (toggleChart)="this.selectCryptoChart($event)"
     (toggleCollectionType)="toggleCollectionType()"
     [nftCollection]="nftCollection"
+    (useCopresserOnImage)="useCopresserOnImage()"
     (updateUser)="updateUser()"
     [updateUserForm]="updateUserForm"
   />
