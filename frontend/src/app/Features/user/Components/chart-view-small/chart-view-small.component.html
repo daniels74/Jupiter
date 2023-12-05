@@ -1,0 +1,40 @@
+<div class="chart-view-page">
+  <div class="chart-basic-info-container">
+    <div class="basic-info-container">
+      <div class="img-container">
+        <img src="{{ chosenCrypto.image.small }}" alt="" />
+      </div>
+      <h2>
+        {{ chosenCrypto.name }}
+      </h2>
+      <button mat-raised-button color="warn" (click)="closeChart.emit()">Exit</button>
+    </div>
+    <div class="chart-container">
+      <app-chart />
+    </div>
+  </div>
+  <div class="extensive-data-container">
+    <div class="numerical-data-container">
+      <div class="numerical-data-pair">
+        <h3>Price</h3>
+        <h3>${{ chosenCrypto.market_data.current_price.usd }}</h3>
+      </div>
+      <div class="numerical-data-pair">
+        <h3>Market Cap</h3>
+        <h3>${{ chosenCrypto.market_data.market_cap.usd }}</h3>
+      </div>
+      <div class="numerical-data-pair">
+        <h3>Market Cap Rank</h3>
+        <h3>${{ chosenCrypto.market_data.market_cap_rank }}</h3>
+      </div>
+      <div class="numerical-data-pair">
+        <h3>24 hr %△</h3>
+        <h3>${{ chosenCrypto.market_data.price_change_percentage_24h_in_currency.usd }}</h3>
+      </div>
+    </div>
+    <div class="extensive-data">
+      <h3>What is {{ chosenCrypto.name }}?</h3>
+      <h5>{{ chosenCrypto.description.en }}</h5>
+    </div>
+  </div>
+</div>

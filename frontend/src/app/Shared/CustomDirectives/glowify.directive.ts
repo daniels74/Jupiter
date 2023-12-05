@@ -9,7 +9,7 @@ export class GlowifyDirective {
   chosenColor = 'blue';
 
   @HostListener('mouseenter') onMouseEnter() {
-    this.glow(this.chosenColor, '0px 0px 30px 5px #0ff');
+    this.glow(this.chosenColor, '0px 0px 30px 5px #6600FF');
   }
 
   @HostListener('mouseleave') onMouseLeave() {

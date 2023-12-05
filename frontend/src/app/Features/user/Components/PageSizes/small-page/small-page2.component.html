@@ -1,0 +1,139 @@
+<div class="small-page">
+  <div
+    *ngIf="chartToggler"
+    id="divChart"
+    [ngStyle]="{
+      position: 'absolute',
+      height: '90vh',
+      width: '100%',
+      zIndex: 10000
+    }"
+  >
+    <app-chart-view-small
+      [chosenCrypto]="chosenCrypto"
+      (closeChart)="closeChart.emit()"
+      [chartState]="chartToggler"
+    />
+  </div>
+  <div [ngClass]="chartToggler ? 'profile-blurred' : 'profile-solid'">
+    <div class="user-profile-img-container">
+      <div class="img-name-container">
+        <img
+          *ngIf="!imgSetting_State"
+          class="img-element"
+          [src]="profilePic"
+          alt=""
+          (click)="togggleImage_Setting()"
+        />
+        <div *ngIf="imgSetting_State">
+          <mat-card-actions>
+            <button
+              mat-button
+              color="warn"
+              (click)="useCopresserOnImage.emit()"
+            >
+              <mat-icon>cloud_upload</mat-icon>
+            </button>
+          </mat-card-actions>
+        </div>
+        <div class="user-name-container">
+          <div class="user-name-sub" *ngIf="user.name">
+            <h2 *ngIf="!nameSetting_State" (click)="togggleName_Setting()">
+              {{ user.name }}
+            </h2>
+            <form
+              *ngIf="nameSetting_State"
+              action=""
+              [formGroup]="updateUserForm"
+              (ngSubmit)="updateAndToggle()"
+              class="name-edit-form-container"
+            >
+              <input
+                class="name-input"
+                [formControlName]="'name'"
+                placeholder="Name"
+                type="text"
+              />
+              <div class="settings-button-options">
+                <button type="submit" mat-raised-button color="primary">
+                  Submit
+                </button>
+                <button mat-raised-button color="warn" (click)="cancelEdit()">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="user-name-sub" *ngIf="!user.name">
+            <h2 *ngIf="!nameSetting_State" (click)="togggleName_Setting()">
+              Anonymous Anonymous
+            </h2>
+            <form
+              *ngIf="nameSetting_State"
+              action=""
+              [formGroup]="updateUserForm"
+              (ngSubmit)="updateAndToggle()"
+            >
+              <input
+                [formControlName]="'name'"
+                placeholder="Name"
+                type="text"
+              />
+              <!-- <input placeholder="Email" type="text"> -->
+              <div [ngStyle]="{ display: 'flex', flexDirection: 'row' }">
+                <button type="submit" mat-raised-button color="primary">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="user-username-sub">
+            <p>UserUsername</p>
+          </div>
+        </div>
+        <button *ngIf="imgSetting_State" (click)="updateAndToggle()">
+          Submit
+        </button>
+      </div>
+      <div class="user-data">
+        <h3>World Idenitity:</h3>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda
+          sit repellat maiores voluptate numquam aperiam harum unde similique
+          cumque. Sequi repudiandae rem quisquam aperiam ut quae dolorum cumque
+          assumenda odit.
+        </p>
+      </div>
+    </div>
+    <div class="profile-options">
+      <button
+        appGlowify
+        mat-button
+        color="primary"
+        (click)="switchDataViews('crypto')"
+      >
+        Crypto
+      </button>
+      <button
+        appGlowify
+        mat-button
+        color="primary"
+        (click)="switchDataViews('nfts')"
+      >
+        NFTs
+      </button>
+      <button appGlowify mat-button color="primary">Posts</button>
+    </div>
+    <div class="profile-content-container">
+      <div *ngIf="selectedDataState === 'crypto'" class="data-slider">
+        <div *ngFor="let crypto of cryptoCollection">
+          <app-cryptodatacard
+            [primaryData]="crypto"
+            (activateChart)="toggleChart.emit($event)"
+          />
+        </div>
+      </div>
+      <div *ngIf="selectedDataState === 'nfts'">NFTS</div>
+    </div>
+  </div>
+</div>

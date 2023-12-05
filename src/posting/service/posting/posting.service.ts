@@ -23,8 +23,11 @@ export class PostingService {
       switchMap((res) => {
         return this.userService.findOne(user.id).pipe(
           switchMap((founduser) => {
-            return this.authService.generateJWT(founduser).pipe<any>(
+            console.log('founduser: ', founduser);
+            const { profileImage, password, ...restOfUser } = founduser;
+            return this.authService.generateJWT(restOfUser).pipe<any>(
               map((jwtres: string) => {
+                console.log('post jwtres.length: ', jwtres.length);
                 return { jwt: jwtres };
               }),
             );
