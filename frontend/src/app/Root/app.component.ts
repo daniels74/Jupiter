@@ -26,17 +26,16 @@ export class AppComponent implements OnInit {
     // Fetch all Crypto // ! Using BehaviorSubject
     this.coinGeckoService.getAllCrypto().subscribe((allcrypto) => {
       this.coinGeckoService.allCrypto_BS.next(allcrypto);
-      console.log('APP: Set All Crypto: ', allcrypto);
     });
 
-    // Fetching|Setting trending CRYPTO
+    // Fetching & Setting trending CRYPTO
     this.coinGeckoService.getTrendingCrypto().subscribe((cryptos) => {
-      console.log('Top tredning', cryptos);
       this.store.dispatch(
         cryptoCoinGeckoApiActions.setCryptoListState({ cryptos }),
       );
     });
-    // Fetching|Setting trending NFTS
+
+    // Fetching & Setting trending NFTS
     this.coinGeckoService.getTrendingNFT().subscribe((nfts) => {
       this.store.dispatch(
         nftCoinGeckoApiActions.setTrendingNFTSState({ nfts }),

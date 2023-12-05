@@ -1,5 +1,5 @@
 import { Inject, Injectable, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, map, take } from 'rxjs';
+import { Observable, Subscription, map, of, take } from 'rxjs';
 import { User } from '../Interfaces/User.interface';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -73,5 +73,13 @@ export class UserService implements OnInit, OnDestroy {
 
   findOne(id: number): Observable<any> {
     return this.http.get(this.origin + '/user/' + id).pipe(map((user) => user));
+  }
+
+  findUserImage(): Observable<any> {
+    return this.http.get(this.origin + '/user/uimg/userimg').pipe(
+      map((user) => {
+        return user;
+      }),
+    );
   }
 }

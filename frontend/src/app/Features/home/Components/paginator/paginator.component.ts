@@ -60,14 +60,22 @@ export class PaginatorComponent implements OnInit {
       }
     });
     this.dataSource = new MatTableDataSource<BasicCrypto>(this.allCrypto);
-  }
 
-  ngAfterViewInit() {
     if (!this.allCrypto) {
       this.spinner.show('primary');
     } else if (this.allCrypto) {
       this.spinner.hide();
     }
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
+  }
+
+  ngAfterViewInit() {
+    // if (!this.allCrypto) {
+    //   this.spinner.show('primary');
+    // } else if (this.allCrypto) {
+    //   this.spinner.hide();
+    // }
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

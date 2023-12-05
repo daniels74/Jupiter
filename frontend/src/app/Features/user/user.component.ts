@@ -31,6 +31,7 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 })
 export class UserComponent implements OnInit {
   user!: User;
+  profilePic = '';
   settingState = false;
   sub!: Subscription;
 
@@ -41,8 +42,6 @@ export class UserComponent implements OnInit {
   descriptionToggler = true; // Determines weather to show info of crypto in chart view
   collectionTypeToggle = false; //// Crypto list or Nft list
   chartState = false; // IMPORTANT
-
-  chartActive = false;
 
   chosenCrypto!: SingleCoin;
 
@@ -74,18 +73,21 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     // USER
     this.store.select(selectUser).subscribe((currentUser) => {
-      console.log('In user: ', currentUser);
       this.user = currentUser;
     });
+
+    // Profile Pic
+    this.userServ.findUserImage().subscribe((userimg) => {
+      this.profilePic = userimg.profileImage;
+    });
+
     // Crypto Collection
     this.cryptoService.cryptoCollection_O.subscribe((coinList) => {
       this.cryptoCollection = coinList;
-      console.log('My collection full: ', this.cryptoCollection);
     });
-    // Retrieve User NFt Collection
+    // NFt Collection
     this.UserNftCollectionService.nftCollection.subscribe((usernfts) => {
       this.nftCollection = usernfts;
-      console.log('User Nfts: ', this.nftCollection);
     });
   }
 
@@ -118,6 +120,13 @@ export class UserComponent implements OnInit {
       .updateUser(this.removeObjNulls(updates), this.user)
       .subscribe((res) => {
         this.authServ.setPermissions(res.jwt);
+
+        // Change current profile picture being displayed
+        // once the user submits change and only if they
+        // actually changed it
+        if (this.myimage) {
+          this.profilePic = this.myimage;
+        }
       });
     return;
   }

@@ -41,7 +41,7 @@ export class UserService {
         return from(this.userRepository.save(newUser)).pipe(
           map((user: User) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { password, ...result } = user;
+            const { password, profileImage, ...result } = user;
             return result;
           }),
           catchError((err) => throwError(() => new Error(err))),
@@ -50,12 +50,55 @@ export class UserService {
     );
   }
 
-  // uploadProfileImage(): Observable<any> {
-  //   return from(this.userRepository.update(1, {}));
-  // }
+  // Attepts login and returns user encoded through JWT string
+  login(user: User): Observable<string> {
+    return this.validateUser(user.email, user.password).pipe(
+      switchMap((user) => {
+        if (user) {
+          return this.AuthServ.generateJWT(user).pipe(
+            map((jwt: string) => jwt),
+          );
+        } else {
+          return 'Wrong Credentials';
+        }
+      }),
+    );
+  }
+
+  // Checks if user is registerd in database and holds correct password
+  // Excludes senstive and large data
+  validateUser(email: string, password: string): Observable<any> {
+    return this.findByMail(email).pipe(
+      switchMap((user: User) =>
+        this.AuthServ.comparePasswords(password, user.password).pipe(
+          map((match: boolean) => {
+            if (match) {
+              const { password, profileImage, ...result } = user;
+              return result;
+            } else {
+              throw Error;
+            }
+          }),
+        ),
+      ),
+      catchError((err) => {
+        return throwError(() => new Error('Password incorrect: ' + err));
+      }),
+    );
+  }
+
+  // Get user from database based on email
+  // Includes relted tables
+  findByMail(email: string): Observable<User> {
+    return from(
+      this.userRepository.findOne({
+        where: { email },
+        relations: ['cryptos', 'nfts', 'posts'],
+      }),
+    );
+  }
 
   findOne(id: number): Observable<User> {
-    // return from(this.userRepository.findOne({ where: { id } }));
     return from(
       this.userRepository.findOne({
         where: { id },
@@ -63,12 +106,93 @@ export class UserService {
       }),
     ).pipe(
       map((user: User) => {
-        // console.log('FindOne-Database: ', user);
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { password, ...result } = user;
+        const { password, profileImage, ...result } = user;
         return result;
       }),
     );
+  }
+
+  getUserImage(id: any): Observable<any> {
+    return from(
+      this.userRepository.findOne({
+        where: { id },
+      }),
+    ).pipe(
+      map((user: User) => {
+        const { profileImage, ...result } = user;
+        return { profileImage: profileImage };
+      }),
+    );
+  }
+
+  deleteOne(id: any): Observable<any> {
+    // return from(this.userRepository.delete(id));
+    // return from(
+    //   this.userRepository.query('DELETE * FROM user_entity', [ where: id ]),
+    // );
+    console.log('DEleting id #', typeof id.id);
+    return from(
+      this.userRepository
+        .createQueryBuilder('DeleteCertainUser')
+        .delete()
+        .from(PostEntity)
+        .where('user.id = :id', { id: +id.id })
+        .delete()
+        .from(NftIdEntity)
+        .where('user.id = :id', { id: id.id })
+        .delete()
+        .from(CryptoIdEnitity)
+        .where('user.id = :id', { id: id.id })
+        .delete()
+        .from(UserEntity)
+        .where('id = :id', { id: id.id })
+        .execute(),
+    );
+  }
+
+  // ! Will UPDATE filled in pieces and return new jwt object
+  updateOne(id: any, user: any): Observable<any> {
+    console.log('USer update and id', user, id);
+    return from(this.userRepository.update(+id, user)).pipe<JwtObj>(
+      switchMap(() => {
+        return this.findOne(+id).pipe(
+          switchMap((founduser) => {
+            return this.AuthServ.generateJWT(founduser).pipe(
+              map((jwt: string) => {
+                console.log('jwt.length: ', jwt.length);
+                return { jwt: jwt };
+              }),
+            );
+          }),
+        );
+      }),
+    );
+  }
+
+  updateRoleOfUser(id: any, user: any): Observable<JwtObj> {
+    // return from(this.userRepository.update(id, user));
+    // this.userRepository.update(id, user);
+    return from(this.userRepository.update(id, user)).pipe<JwtObj>(
+      switchMap(() => {
+        return this.findOne(id).pipe<JwtObj>(
+          switchMap((foundUpdatedUser: User) => {
+            return this.AuthServ.generateJWT(foundUpdatedUser).pipe(
+              map((jwt: string) => {
+                const obj: JwtObj = { jwt: jwt };
+                return obj;
+              }),
+            );
+          }),
+        );
+        // this.AuthServ.generateJWT(user).pipe(
+        //   map((jwt: string) => {
+        //     const obj: JwtObj = { jwt: jwt };
+        //     return obj;
+        //   }),
+        // );
+      }),
+    );
+    //this.AuthServ.generateJWT(user).pipe(map((jwt: string) => jwt));
   }
 
   findAll(): Observable<User[]> {
@@ -133,133 +257,6 @@ export class UserService {
           },
         };
         return usersPageable;
-      }),
-    );
-  }
-
-  deleteOne(id: any): Observable<any> {
-    // return from(this.userRepository.delete(id));
-    // return from(
-    //   this.userRepository.query('DELETE * FROM user_entity', [ where: id ]),
-    // );
-    console.log('DEleting id #', typeof id.id);
-    return from(
-      this.userRepository
-        .createQueryBuilder('DeleteCertainUser')
-        .delete()
-        .from(PostEntity)
-        .where('user.id = :id', { id: +id.id })
-        .delete()
-        .from(NftIdEntity)
-        .where('user.id = :id', { id: id.id })
-        .delete()
-        .from(CryptoIdEnitity)
-        .where('user.id = :id', { id: id.id })
-        .delete()
-        .from(UserEntity)
-        .where('id = :id', { id: id.id })
-        .execute(),
-    );
-  }
-
-  // Will update filled in pieces
-  updateOne(id: any, user: any): Observable<JwtObj> {
-    // return from(this.userRepository.update(id, user));
-    // delete user.email;
-    // delete user.password;
-    console.log('USer update and id', user, id);
-    return from(
-      this.userRepository.update(
-        +id,
-        //   {
-        //   name: user.name,
-        //   username: user.username,
-        //   profileImage: user.profileImage
-        // }
-        user,
-      ),
-    ).pipe<JwtObj>(
-      switchMap(() => {
-        return this.findOne(+id).pipe(
-          switchMap((founduser) => {
-            return this.AuthServ.generateJWT(founduser).pipe(
-              map((jwt: string) => {
-                return { jwt: jwt, user: founduser };
-              }),
-            );
-          }),
-        );
-      }),
-    );
-  }
-
-  updateRoleOfUser(id: any, user: any): Observable<JwtObj> {
-    // return from(this.userRepository.update(id, user));
-    // this.userRepository.update(id, user);
-    return from(this.userRepository.update(id, user)).pipe<JwtObj>(
-      switchMap(() => {
-        return this.findOne(id).pipe<JwtObj>(
-          switchMap((foundUpdatedUser: User) => {
-            return this.AuthServ.generateJWT(foundUpdatedUser).pipe(
-              map((jwt: string) => {
-                const obj: JwtObj = { jwt: jwt };
-                return obj;
-              }),
-            );
-          }),
-        );
-        // this.AuthServ.generateJWT(user).pipe(
-        //   map((jwt: string) => {
-        //     const obj: JwtObj = { jwt: jwt };
-        //     return obj;
-        //   }),
-        // );
-      }),
-    );
-    //this.AuthServ.generateJWT(user).pipe(map((jwt: string) => jwt));
-  }
-
-  login(user: User): Observable<string> {
-    return this.validateUser(user.email, user.password).pipe(
-      switchMap((user: User) => {
-        if (user) {
-          // console.log('LoggingIn: ', user);
-          return this.AuthServ.generateJWT(user).pipe(
-            map((jwt: string) => jwt),
-          );
-        } else {
-          return 'Wrong Credentials';
-        }
-      }),
-    );
-  }
-
-  validateUser(email: string, password: string): Observable<User> {
-    return this.findByMail(email).pipe(
-      switchMap((user: User) =>
-        this.AuthServ.comparePasswords(password, user.password).pipe(
-          map((match: boolean) => {
-            if (match) {
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              const { password, ...result } = user;
-              return result;
-            } else {
-              throw Error;
-            }
-          }),
-        ),
-      ),
-      catchError((err) => {
-        return throwError(() => new Error('ErrorBro' + err));
-      }),
-    );
-  }
-
-  findByMail(email: string): Observable<User> {
-    return from(
-      this.userRepository.findOne({
-        where: { email },
-        relations: ['cryptos', 'nfts', 'posts'],
       }),
     );
   }

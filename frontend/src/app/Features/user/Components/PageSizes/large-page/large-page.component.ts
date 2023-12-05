@@ -20,6 +20,8 @@ import { AuthService } from '../../../../../Core/Services/auth.service';
 import { UserService } from '../../../../../Core/Services/user.service';
 import { catchError, map, of } from 'rxjs';
 import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { selectUser } from '../../../../../Shared/State/Selectors/users.selector';
 
 export interface File {
   data: any;
@@ -37,6 +39,7 @@ export class LargePageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private postService: UserPostService,
     private userService: UserService,
+    private store: Store,
   ) {}
   // Chart things
   @Input() chosenCrypto: SingleCoin = <SingleCoin>{};
@@ -88,19 +91,20 @@ export class LargePageComponent implements OnInit {
       this.userPosts = allPosts;
     });
 
-    this.userService.findOne(this.user.id).subscribe((res) => {
+    this.userService.findUserImage().subscribe((res) => {
       this.userProfileImg = res.profileImage;
-      console.log('Image:   ', res.profileImage);
     });
+    // this.store.select(selectUser).subscribe((user) => {
+    //   this.userProfileImg = user.profileImage;
+    // });
   }
 
   savePost() {
-    console.log('USER NOTE: ', this.postForm.get('thePost')?.value);
-    this.postService
-      .saveNewPost(this.postForm.get('thePost')?.value)
-      .subscribe((jwtres) => {
-        this.authService.setPermissions(jwtres.jwt);
-      });
+    const currentPost = this.postForm.get('thePost')?.value;
+    console.log('Note: ', currentPost);
+    this.postService.saveNewPost(currentPost).subscribe((jwtres) => {
+      this.authService.setPermissions(jwtres.jwt);
+    });
   }
 
   onClick() {

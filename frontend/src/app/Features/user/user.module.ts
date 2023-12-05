@@ -15,6 +15,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { ChartComponent } from './Components/chart/chart.component';
 import { ChartViewComponent } from './Components/chart-view/chart-view.component';
+import { GlowifyModule } from '../../Shared/CustomDirectives/glowify.module';
+import { CryptodatacardComponent } from './Components/cryptodatacard/cryptodatacard.component';
+import { ChartViewSmallComponent } from './Components/chart-view-small/chart-view-small.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { ChartViewComponent } from './Components/chart-view/chart-view.component
     SmallPageComponent,
     ChartComponent,
     ChartViewComponent,
+    ChartViewSmallComponent
   ],
   imports: [
     MatButtonModule,
@@ -36,6 +40,8 @@ import { ChartViewComponent } from './Components/chart-view/chart-view.component
     MatProgressBarModule,
     MatIconModule,
     MatCardModule,
+    GlowifyModule,
+    CryptodatacardComponent,
   ],
 })
 export class UserModule {}

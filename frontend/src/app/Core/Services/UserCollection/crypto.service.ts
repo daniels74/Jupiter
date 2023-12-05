@@ -133,7 +133,6 @@ export class CryptoService implements OnInit {
       });
       this.cryptoCollection_BS.next(cryptoCollection_ngrx);
     });
-    console.log('Crypto Service , set single cryptos');
     return of(true);
   }
 }

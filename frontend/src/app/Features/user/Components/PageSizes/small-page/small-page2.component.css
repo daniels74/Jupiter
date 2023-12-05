@@ -1,0 +1,157 @@
+.small-page {
+  position: relative;
+  height: 90vh;
+  width: 100vw;
+  background-color: rgb(25, 25, 57);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-blurred {
+  height: 100%;
+  width: 100%;
+  filter: blur(10px);
+}
+
+.profile-solid {
+  height: 100%;
+  width: 100%;
+}
+
+/* PARENT */
+.user-profile-img-container {
+  height: 35%;
+  width: 100%;
+  background-color: rgb(3, 3, 36);
+  display: grid;
+  grid-template-rows: 50% 50%;
+}
+
+/* SUB */
+.img-name-container {
+  height: 100%;
+  width: 100%;
+  background-color: blue;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-image: url('../../../../../../assets/cool-background.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.img-element {
+  height: 100%;
+  width: auto;
+  max-width: 30%;
+  background-color: rgb(55, 0, 255);
+}
+
+.user-name-container {
+  height: 100%;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.user-name-sub {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  min-width: 5rem;
+  max-width: 20rem;
+  width: auto;
+  height: auto;
+}
+
+.user-name-sub > h2 {
+  width: auto;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.278);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.user-username-sub {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  min-width: 5rem;
+  max-width: 20rem;
+  width: auto;
+  height: auto;
+}
+
+.user-username-sub > p {
+  background-color: rgba(255, 255, 255, 0.144);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.name-edit-form-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.name-input {
+  height: 2rem;
+  width: 60%;
+}
+
+.settings-button-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/*  SUB */
+.user-data {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 2%;
+}
+
+/* PARENT */
+.profile-options {
+  height: 10%;
+  width: 100%;
+  background-color: rgb(3, 3, 36);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* PARENT */
+.profile-content-container {
+  height: 55%;
+  width: 100%;
+  background-color: rgb(3, 3, 36);
+}
+
+.data-slider {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+}

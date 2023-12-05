@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[592],{6570:(o,e,s)=>{s.d(e,{c:()=>c,d:()=>n});var t=s(2169);const n=(0,t.ZF)("cryptos"),c=(0,t.ZF)("nfts")}}]);
