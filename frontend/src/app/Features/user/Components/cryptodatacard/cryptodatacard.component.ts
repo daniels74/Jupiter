@@ -9,7 +9,7 @@ import { CoinGeckoApiService } from '../../../../Core/Services/coin-gecko-api.se
   standalone: true,
   imports: [CommonModule, MatButtonModule],
   templateUrl: './cryptodatacard.component.html',
-  styleUrl: './cryptodatacard.component.css',
+  styleUrls: ['./cryptodatacard.component.css'],
 })
 export class CryptodatacardComponent {
 
