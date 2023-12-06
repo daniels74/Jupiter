@@ -18,6 +18,7 @@ import { ChartViewComponent } from './Components/chart-view/chart-view.component
 import { GlowifyModule } from '../../Shared/CustomDirectives/glowify.module';
 import { CryptodatacardComponent } from './Components/cryptodatacard/cryptodatacard.component';
 import { ChartViewSmallComponent } from './Components/chart-view-small/chart-view-small.component';
+import { RouterLink } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ChartViewSmallComponent } from './Components/chart-view-small/chart-vie
     ChartViewSmallComponent
   ],
   imports: [
+    RouterLink,
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
