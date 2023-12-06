@@ -21,7 +21,11 @@
         <img
           *ngIf="!imgSetting_State"
           class="img-element"
-          [src]="profilePic"
+          [src]="
+            profilePic
+              ? profilePic
+              : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW_ta1iyjzaD9GD0j6LtM7bdUS2_tbI2ESRQ&usqp=CAU'
+          "
           alt=""
           (click)="togggleImage_Setting()"
         />
@@ -42,6 +46,7 @@
               {{ user.name }}
             </h2>
             <form
+              class="name-form-element"
               *ngIf="nameSetting_State"
               action=""
               [formGroup]="updateUserForm"
@@ -55,10 +60,20 @@
                 type="text"
               />
               <div class="settings-button-options">
-                <button type="submit" mat-raised-button color="primary">
+                <button
+                  class="name-update-btn"
+                  type="submit"
+                  mat-raised-button
+                  color="primary"
+                >
                   Submit
                 </button>
-                <button mat-raised-button color="warn" (click)="cancelEdit()">
+                <button
+                  class="name-update-btn"
+                  mat-raised-button
+                  color="warn"
+                  (click)="cancelEdit()"
+                >
                   Cancel
                 </button>
               </div>
@@ -69,6 +84,7 @@
               Anonymous Anonymous
             </h2>
             <form
+              class="name-form-element"
               *ngIf="nameSetting_State"
               action=""
               [formGroup]="updateUserForm"
@@ -80,9 +96,22 @@
                 type="text"
               />
               <!-- <input placeholder="Email" type="text"> -->
-              <div [ngStyle]="{ display: 'flex', flexDirection: 'row' }">
-                <button type="submit" mat-raised-button color="primary">
+              <div [ngStyle]="{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }">
+                <button
+                  class="name-update-btn"
+                  type="submit"
+                  mat-raised-button
+                  color="primary"
+                >
                   Submit
+                </button>
+                <button
+                  class="name-update-btn"
+                  (click)="cancelEdit()"
+                  mat-raised-button
+                  color="warn"
+                >
+                  Cancel
                 </button>
               </div>
             </form>
@@ -91,12 +120,46 @@
             <p>UserUsername</p>
           </div>
         </div>
-        <button *ngIf="imgSetting_State" (click)="updateAndToggle()">
-          Submit
-        </button>
+        <div
+          [ngStyle]="{
+            position: 'absolute',
+            right: 0,
+            bottom: 0,
+            height: '25%',
+            width: '40%',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+          }"
+          *ngIf="imgSetting_State"
+        >
+          <button
+            [ngStyle]="{
+              height: '100%',
+              width: '40%'
+            }"
+            mat-raised-button
+            color="primary"
+            (click)="updateAndToggle()"
+          >
+            Submit
+          </button>
+          <button
+            [ngStyle]="{
+              height: '100%',
+              width: '40%'
+            }"
+            mat-raised-button
+            color="warn"
+            (click)="cancelEdit()"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
       <div class="user-data">
-        <h3>World Idenitity:</h3>
+        <h3>World Idenitity: Coming Soon</h3>
         <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda
           sit repellat maiores voluptate numquam aperiam harum unde similique
@@ -122,7 +185,14 @@
       >
         NFTs
       </button>
-      <button appGlowify mat-button color="primary">Posts</button>
+      <button
+        appGlowify
+        mat-button
+        color="primary"
+        (click)="switchDataViews('posts')"
+      >
+        Posts
+      </button>
     </div>
     <div class="profile-content-container">
       <div *ngIf="selectedDataState === 'crypto'" class="data-slider">
@@ -130,10 +200,36 @@
           <app-cryptodatacard
             [primaryData]="crypto"
             (activateChart)="toggleChart.emit($event)"
+            [dataType]="'crypto'"
           />
         </div>
+        <div
+          *ngIf="!cryptoCollection[0]"
+          class="empty-list-instruction-container"
+        >
+          <h3>
+            Add to your crypto collection by selecting them in
+            <a routerLink="/home">Home</a>
+          </h3>
+        </div>
       </div>
-      <div *ngIf="selectedDataState === 'nfts'">NFTS</div>
+      <div *ngIf="selectedDataState === 'nfts'" class="data-slider">
+        <div *ngFor="let nft of nftCollection">
+          <app-cryptodatacard [nftData]="nft" [dataType]="'nft'" />
+        </div>
+        <div *ngIf="!nftCollection[0]" class="empty-list-instruction-container">
+          <h3>
+            Add to your nft collection by selecting them in
+            <a routerLink="/home">Home</a>
+          </h3>
+        </div>
+      </div>
+      <div *ngIf="selectedDataState === 'posts'" class="data-slider">
+        <div class="empty-list-instruction-container">
+          <h3>Coming soon for mobile 💎</h3>
+          <h5>Functional with Desktops ⚡️</h5>
+        </div>
+      </div>
     </div>
   </div>
 </div>

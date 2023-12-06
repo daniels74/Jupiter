@@ -51,7 +51,7 @@
             'border-radius': '0',
         }">
                 <div *ngFor="let nft of nfts$ | async">
-                    <app-card [collectionClassification]="'nft'" [dataImage]="nft.thumb" [dataName]="nft.name" />
+                    <app-card [collectionClassification]="'nft'" [dataImage]="nft.thumb" [dataName]="nft.name" [coinId]="nft.id"/>
                 </div>
             </div>
         </div>

@@ -64,11 +64,13 @@ export class UserNftCollectionService {
   setUserFullNftCollection(): Observable<boolean> {
     const nftCollection: Array<any> = [];
     this.store.select(selectUserNftCollection).subscribe((allNftIds) => {
+      console.log('NFT ids:', allNftIds);
       if (allNftIds) {
         allNftIds.forEach((ele: NFTId) => {
           if (ele.nftid) {
             this.CoinGeckoApiService.getSingleNFT(ele.nftid).subscribe(
               (res) => {
+                console.log('NFT looked up :', res);
                 const nft = {
                   ...res,
                   collectionId: ele.id,

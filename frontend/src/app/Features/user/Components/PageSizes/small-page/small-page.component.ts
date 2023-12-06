@@ -43,6 +43,7 @@ export class SmallPageComponent {
     // this.userService.findUserImage().subscribe((userimg) => {
     //   this.profilePic = userimg.profileImage;
     // });
+    console.log(this.nftCollection);
   }
 
   selectedDataState = 'crypto';

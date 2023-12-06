@@ -7,7 +7,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { AuthService } from '../../Core/Services/auth.service';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../Shared/State/Selectors/users.selector';
@@ -85,8 +85,16 @@ export class UserComponent implements OnInit {
     this.cryptoService.cryptoCollection_O.subscribe((coinList) => {
       this.cryptoCollection = coinList;
     });
+
+    // Set Nfts observable using current collection of nft Ids
+    // this.UserNftCollectionService.setUserFullNftCollection()
+    //   .pipe(take(1))
+    //   .subscribe((res) => {
+    //     console.log('Nfts fully loaded', res);
+    //   });
     // NFt Collection
     this.UserNftCollectionService.nftCollection.subscribe((usernfts) => {
+      console.log('Nfts in main user file:', usernfts);
       this.nftCollection = usernfts;
     });
   }
