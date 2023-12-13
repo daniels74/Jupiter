@@ -1,4 +1,5 @@
 <div class="landing-page">
+  <img class="cover-img" src='https://s7d2.scene7.com/is/image/TWCNews/nyc_lightning_strike1280x720esbgettyimages-629353120png' alt="">
   <div
     class="title-container"
     [style.width]="title_container_width"
@@ -9,7 +10,8 @@
   </div>
   <div class="carousel-container">
     <carousel
-      [loop]='true'
+      [pauseOnHover]="true"
+      [loop]="true"
       [borderRadius]="200"
       [cellWidth]="1200"
       [overflowCellsLimit]="7"
@@ -18,21 +20,33 @@
       [width]="1200"
       [margin]="50"
       [cellsToShow]="cellsToShow"
-      [autoplayInterval]="4000"
-      [transitionDuration]="2000"
+      [autoplayInterval]="6000"
+      [transitionDuration]="800"
       transitionTimingFunction="ease-in-out"
       [arrowsOutside]="true"
       [arrows]="true"
     >
-      <div *ngFor="let item of trending_cryptos" class="carousel-cell" [ngStyle]="{
-        height: '100%', width: '15vw', backgroundColor: 'transparent', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
-      }">
-        <app-carousel-element [Item]="item" [name]="item.name" />
-      </div>
-      <div *ngFor="let item of trending_cryptos" class="carousel-cell" [ngStyle]="{
-        height: '100%', width: '15vw', backgroundColor: 'transparent', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
-      }">
-        <app-carousel-element [Item]="item" [name]="item.name" />
+      <div
+        *ngFor="let item of trending_cryptos"
+        class="carousel-cell"
+        [ngStyle]="{
+          position: 'absolute',
+          height: '100%',
+          width: '15vw',
+          backgroundColor: 'transparent',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }"
+      >
+        <app-carousel-element
+          (click)="keepActive()"
+          (mouseenter)="toggleChart(true); setName(item.item)"
+          (mouseleave)="toggleChart(false)"
+          [Item]="item"
+          [name]="item.name"
+        />
       </div>
     </carousel>
   </div>
@@ -47,5 +61,79 @@
       proportional manner. However, overtime that money dissipates due to our
       fiat money's fundumantal solution to everything, inflation.
     </p>
+  </div>
+</div>
+<div *ngIf="miniChartState || chartActiveState">
+  <div
+    [ngStyle]="{
+      position: 'absolute',
+      top: 10,
+      right: 0,
+      zIndex: '99999',
+      marginTop: '1rem',
+      height: '25vh',
+      width: '25vw',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+
+    }"
+  >
+  <!-- backgroundColor: 'rgba(57, 57, 96, 0.5)', -->
+    <div
+      [ngStyle]="{
+      position: 'absolute',
+      height: '100%',
+      width: '100%',
+      
+      filter: 'blur(10px)',
+      zIndex: '99',
+      marginTop: '1rem',
+    }"
+    ></div>
+    <div
+      [ngStyle]="{ position: 'absolute', height: '100%', width: '100%', zIndex: '999999', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', }"
+    >
+      <div [ngStyle]="{ position: 'relative', height: '50%', width: '80%', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center'}">
+        <img [src]="cryptoimg" alt="" height="50%" [ngStyle]="{borderRadius: '50%'}"/>
+      </div>
+      <div [ngStyle]="{height: '50%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start'}">
+        <h1 [ngStyle]="{ color: 'white' }">{{ cryptoName }}</h1>
+      </div>
+    </div>
+  </div>
+  <div
+    [ngStyle]="{
+      position: 'absolute',
+      top: '7rem',
+      height: '25vh',
+      width: '25vw',
+      
+      filter: 'blur(10px)',
+      zIndex: '99999',
+    }"
+  ></div>
+  <div
+    [ngStyle]="{
+      position: 'absolute',
+      top: '7rem',
+      height: '25vh',
+      width: '25vw',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: '99999',
+    }"
+  >
+    <div
+      [ngStyle]="{
+        height: '100%',
+        width: '100%'
+      }"
+    >
+      <app-chart />
+    </div>
   </div>
 </div>

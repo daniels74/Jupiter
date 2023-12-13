@@ -1,4 +1,6 @@
+/* background-image: url('https://s7d2.scene7.com/is/image/TWCNews/nyc_lightning_strike1280x720esbgettyimages-629353120png'); */
 .landing-page {
+    position: absolute;
     background-color: rgb(32, 32, 67);
     color: white;
     height: 90vh;
@@ -8,26 +10,42 @@
     align-items: center;
     justify-content: space-around;
     overflow: hidden;
-    background-image: url('https://s7d2.scene7.com/is/image/TWCNews/nyc_lightning_strike1280x720esbgettyimages-629353120png');
+}
+
+.cover-img {
+    position: absolute;
+    height: 90vh;
+    width: 100%;
     background-size: cover;
+    opacity: 0.3;
 }
 
 .title-container {
     /* height: 35%;
     width: 50%; */
-    background-color: rgba(10, 12, 48, 0.75);
+    position: relative;
+    background-color: rgba(3, 5, 30, 0.8);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 1rem;
     border-radius: 1rem;
+    font-family: Copperplate;
+}
+
+.title-container > h1 {
+    font-size: 4rem;
 }
 
 .carousel-container {
+    position: relative;
     z-index: 1;
     height: 30%;
     width: 100vw;
-    background-color:  rgba(0, 140, 255, 0.2);
+    /* background-color:  rgba(0, 140, 255, 0.2); */
+    /* background-color: rgba(57, 57, 96, 0.5); */
+    background-color: rgba(3, 5, 30, 0.8);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,10 +55,19 @@
 .crpyoinfo-container {
     /* height: 35%;
     width: 75%; */
-    background-color: rgba(10, 12, 48, 0.8);
+    position: relative;
+    background-color: rgba(3, 5, 30, 0.8);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     border-radius: 1rem;
+    font-family: Papyrus;
+    box-sizing: border-box;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.crpyoinfo-container > p {
+    font-size: larger;
 }

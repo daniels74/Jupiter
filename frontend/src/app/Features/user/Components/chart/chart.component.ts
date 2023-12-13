@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { map, timer } from 'rxjs';
 import { CoinGeckoApiService } from '../../../../Core/Services/coin-gecko-api.service';
+import { NgChartsModule } from 'ng2-charts';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
+  imports: [NgChartsModule, NgxSpinnerModule, CommonModule],
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css'],
@@ -49,8 +53,10 @@ export class ChartComponent implements OnInit {
 
   // Screen Sizing
   isBigScreen = window.innerWidth < 700 ? false : true;
-  height: string = this.isBigScreen ? '65vh' : '25vh';
-  width: string = this.isBigScreen ? '70vw' : '100vw';
+  // height: string = this.isBigScreen ? '65vh' : '25vh';
+  // width: string = this.isBigScreen ? '70vw' : '100vw';
+  height: string = this.isBigScreen ? '100%' : '100%';
+  width: string = this.isBigScreen ? '100%' : '100%';
 
   constructor(
     private CoinGeckoApi: CoinGeckoApiService,
@@ -69,7 +75,6 @@ export class ChartComponent implements OnInit {
       } else {
         // Fetch Successs
         this.setChart();
-        this.countDown_Sub.subscribe();
         this.spinner.hide();
         this.chartActive = true;
       }

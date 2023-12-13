@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectCrypto } from '../../Shared/State/Selectors/crypto.selectors';
+import { CoinGeckoApiService } from '../../Core/Services/coin-gecko-api.service';
 
 @Component({
   selector: 'app-landing',
@@ -15,6 +16,14 @@ export class LandingComponent implements OnInit {
   crpyoinfo_container_height = window.innerWidth <= 700 ? '30%' : '30%';
 
   cellsToShow = window.innerWidth <= 700 ? 1 : 4;
+
+  miniChartState = false;
+
+  chartActiveState = false;
+
+  cryptoName = 'HELLO';
+
+  cryptoimg = '';
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
@@ -33,7 +42,10 @@ export class LandingComponent implements OnInit {
     // this.height = (event.target as Window).innerHeight;
   }
   images: any[] = [];
-  constructor(private store: Store) {}
+  constructor(
+    private coinGeckoApi: CoinGeckoApiService,
+    private store: Store,
+  ) {}
   ngOnInit() {
     this.store.select(selectCrypto).subscribe((trending_cryptos) => {
       this.trending_cryptos = trending_cryptos;
@@ -45,5 +57,23 @@ export class LandingComponent implements OnInit {
       });
       this.images.reverse();
     });
+  }
+
+  toggleChart(state: boolean) {
+    this.miniChartState = state;
+  }
+
+  keepActive() {
+    if (this.chartActiveState) {
+      this.chartActiveState = false;
+    } else {
+      this.chartActiveState = true;
+    }
+  }
+
+  setName(crypto: any) {
+    this.cryptoName = crypto.name;
+    this.cryptoimg = crypto.large;
+    console.log('crypto: ', crypto);
   }
 }

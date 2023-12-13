@@ -39,7 +39,7 @@
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             justifyContent: 'center'
           }"
           *ngIf="!settingState"
@@ -61,7 +61,8 @@
             [ngStyle]="{ height: '100%', width: 'auto' }"
           >
             <img
-              src="https://i.pinimg.com/736x/6c/e5/e6/6ce5e69ac9adc07d55d58cf7325b2e27.jpg"
+            [ngStyle]="{ height: '100%', width: 'auto', borderTopLeftRadius: '1rem', borderBottomLeftRadius: '1rem' }"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW_ta1iyjzaD9GD0j6LtM7bdUS2_tbI2ESRQ&usqp=CAU"
               alt=""
             />
           </div>
