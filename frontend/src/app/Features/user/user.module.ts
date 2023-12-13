@@ -26,9 +26,8 @@ import { RouterLink } from '@angular/router';
     CryptoCardComponent,
     LargePageComponent,
     SmallPageComponent,
-    ChartComponent,
     ChartViewComponent,
-    ChartViewSmallComponent
+    ChartViewSmallComponent,
   ],
   imports: [
     RouterLink,
@@ -44,6 +43,7 @@ import { RouterLink } from '@angular/router';
     MatCardModule,
     GlowifyModule,
     CryptodatacardComponent,
+    ChartComponent,
   ],
 })
 export class UserModule {}

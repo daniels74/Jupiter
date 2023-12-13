@@ -7,17 +7,20 @@ import { LandingComponent } from './landing.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CarouselElementComponent } from './Components/carousel-element/carousel-element.component';
-import { CarouselElementModule } from './Components/carousel-element/carousel-element.module';
+import { ChartComponent } from '../user/Components/chart/chart.component';
+// import { CarouselElementModule } from './Components/carousel-element/carousel-element.module';
 
 @NgModule({
   declarations: [LandingComponent],
   imports: [
     // BrowserModule,
     // FormsModule,
-    CarouselElementModule,
+    // CarouselElementModule,
     IvyCarouselModule,
     CommonModule,
     LandingRoutingModule,
+    CarouselElementComponent,
+    ChartComponent,
   ],
 })
 export class LandingModule {}
