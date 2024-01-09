@@ -1,12 +1,29 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
 .nav-page {
   height: 10vh;
   width: 100%;
-  background-color: black;
-  color: lightblue;
+  // background-color: black;
+  // color: lightblue;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+@mixin color($theme) {
+  .nav-page-component-theme {
+    // background-color: rgb(126, 159, 225);
+    background-color: mat.get-theme-color($theme, primary, darker);
+    // color: mat.get-theme-color($theme, primary, text);
+  }
+}
+
+@mixin theme($theme) {
+  @if mat.theme-has($theme, color) {
+    @include color($theme);
+  }
 }
 
 .logo-container {
@@ -59,7 +76,7 @@
   position: absolute;
   height: 90vh;
   width: 50%;
-  background-color: black;
+  // background-color: black;
   color: lightblue;
   z-index: 99;
   right: 0;

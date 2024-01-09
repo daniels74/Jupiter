@@ -1,75 +1,142 @@
 <!-- ! Big Screen Nav -->
-<div class="nav-page">
-    <div class="logo-container">
-        <div (click)="goToLanding()" class="logo">
-            <img src="../../../assets/darklogo.png" alt="" [style.height]="logoHeight" [style.width]="logoWidth">
-        </div>
+<div class="nav-page nav-page-component-theme">
+  <div class="logo-container">
+    <div (click)="goToLanding()" class="logo">
+      <img
+        [src]="
+          logoLightTheme === true
+            ? '../../../assets/lightlogo.png'
+            : '../../../assets/darklogo.png'
+        "
+        alt=""
+        [style.height]="logoHeight"
+        [style.width]="logoWidth"
+      />
     </div>
-    <div class="search-container" [style.alignItems]="!screenSizeCheck ? 'center':'flex-start'">
-        <app-usersearch />
-    </div>
-    <div *ngIf="screenSizeCheck" class="menu">
-        <h3 (click)="goHome()">Home</h3>
-        <h3 *ngIf="authState" routerLink="user/{{ id }}">{{userName}}</h3>
-        <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
-        <h3 *ngIf="!authState" (click)="login()">Login</h3>
-        <h3 *ngIf="!authState" (click)="register()">Register</h3>
-    </div>
-    <div *ngIf="!screenSizeCheck" class="menu-icon-container">
-        <img src="../../../assets/menu.png" alt="" (click)="toggleMenu()" [style.height]="'50%'" [style.width]="'auto'">
-    </div>
+  </div>
+  <div
+    class="search-container"
+    [style.alignItems]="!screenSizeCheck ? 'center' : 'flex-start'"
+  >
+    <app-usersearch />
+  </div>
+  <div *ngIf="screenSizeCheck" class="menu">
+    <mat-slide-toggle (change)="switchMode($event)" />
+    <h3 (click)="goHome()">Home</h3>
+    <h3 *ngIf="authState" routerLink="user/{{ id }}">{{ userName }}</h3>
+    <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
+    <h3 *ngIf="!authState" (click)="login()">Login</h3>
+    <h3 *ngIf="!authState" (click)="register()">Register</h3>
+  </div>
+  <div *ngIf="!screenSizeCheck" class="menu-icon-container">
+    <img
+      src="../../../assets/menu.png"
+      alt=""
+      (click)="toggleMenu()"
+      [style.height]="'50%'"
+      [style.width]="'auto'"
+    />
+  </div>
 </div>
-<div *ngIf="loader"
-    [ngStyle]="{position: 'absolute' , height: '90vh', width: '100%', backgroundColor: 'rgb(3, 3, 36)',zIndex: '1000000', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }">
+<div
+  *ngIf="loader"
+  [ngStyle]="{
+    position: 'absolute',
+    height: '90vh',
+    width: '100%',
+    backgroundColor: 'rgb(3, 3, 36)',
+    zIndex: '1000000',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }"
+>
+  <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium" template="<img src='../../../assets/bluedots-transparent.gif' />"
+        [fullScreen]="true" bdColor="transparent"></ngx-spinner> -->
+  <span class="loader"></span>
+</div>
+<!-- ! Small Screen Nav -->
+<div
+  *ngIf="menuToggler"
+  class="settingsTab nav-page-component-theme"
+  [ngStyle]="{
+    width: !screenSizeCheck ? '100%' : '50%',
+    zIndex: '1000000'
+  }"
+>
+  <div *ngIf="!loader" class="settingsTab" [style.width]="'100%'">
+    <h3 (click)="goHome()">Home</h3>
+    <h3 *ngIf="authState" routerLink="user/{{ id }}" (click)="toggleMenu()">
+      {{ userName }}
+    </h3>
+    <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
+    <h3 *ngIf="!authState" (click)="login()">Login</h3>
+    <h3 *ngIf="!authState" (click)="register()">Register</h3>
+    <mat-slide-toggle (change)="switchMode($event)" />
+  </div>
+  <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium"
+        template="<img src='../../../assets/bluedots-transparent.gif' />" [fullScreen]="false"
+        bdColor="transparent"></ngx-spinner> -->
+  <div
+    *ngIf="loader"
+    [ngStyle]="{
+      position: 'absolute',
+      height: '90vh',
+      width: '100%',
+      backgroundColor: 'rgb(3, 3, 36)',
+      zIndex: '1000000',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }"
+  >
     <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium" template="<img src='../../../assets/bluedots-transparent.gif' />"
         [fullScreen]="true" bdColor="transparent"></ngx-spinner> -->
     <span class="loader"></span>
-</div>
-<!-- ! Small Screen Nav -->
-<div *ngIf="menuToggler" class="settingsTab" [ngStyle]="{
-    'width': !screenSizeCheck ? '100%' : '50%', zIndex: '1000000'
-}">
-    <div *ngIf="!loader" class="settingsTab" [style.width]="'100%'">
-        <h3 (click)="goHome()">Home</h3>
-        <h3 *ngIf="authState" routerLink="user/{{ id }}" (click)="toggleMenu()">{{userName}}</h3>
-        <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
-        <h3 *ngIf="!authState" (click)="login()">Login</h3>
-        <h3 *ngIf="!authState" (click)="register()">Register</h3>
-    </div>
-    <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium"
-        template="<img src='../../../assets/bluedots-transparent.gif' />" [fullScreen]="false"
-        bdColor="transparent"></ngx-spinner> -->
-    <div *ngIf="loader"
-        [ngStyle]="{position: 'absolute' , height: '90vh', width: '100%', backgroundColor: 'rgb(3, 3, 36)',zIndex: '1000000', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }">
-        <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium" template="<img src='../../../assets/bluedots-transparent.gif' />"
-        [fullScreen]="true" bdColor="transparent"></ngx-spinner> -->
-        <span class="loader"></span>
-    </div>
+  </div>
 </div>
 <!-- !Settings options -->
-<div *ngIf="settingsToggle" class="settingsTab" [ngStyle]="{
-    'width': !screenSizeCheck ? '100%' : '50%',
-    'zIndex': '1000000'
-}">
-    <div [ngStyle]="{
-            'position': 'absolute',
-            'height': '5%',
-            'width': 'auto%',
-            'top': '.5rem',
-            'left': '.5rem'
-        }" (click)="toggleSettings()">
-        <img src="../../../assets/cross.png" alt="" [ngStyle]="{
-                'height': '100%',
-                'width': '100%' 
-            }">
-    </div>
-    <form *ngIf="userRole === 'admin' || 'user'" [formGroup]="roleSelectionForm" (ngSubmit)="changeRole()" action="">
-        <select formControlName="role">
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-        </select>
-        <button type="submit">Submit</button>
-    </form>
-    <h3 (click)="deleteAccount()">Delete Account</h3>
-    <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3>
+<div
+  *ngIf="settingsToggle"
+  class="settingsTab nav-page-component-theme"
+  [ngStyle]="{
+    width: !screenSizeCheck ? '100%' : '50%',
+    zIndex: '1000000'
+  }"
+>
+  <div
+    [ngStyle]="{
+      position: 'absolute',
+      height: '5%',
+      width: 'auto%',
+      top: '.5rem',
+      left: '.5rem'
+    }"
+    (click)="toggleSettings()"
+  >
+    <img
+      src="../../../assets/cross.png"
+      alt=""
+      [ngStyle]="{
+        height: '100%',
+        width: '100%'
+      }"
+    />
+  </div>
+  <form
+    *ngIf="userRole === 'admin' || 'user'"
+    [formGroup]="roleSelectionForm"
+    (ngSubmit)="changeRole()"
+    action=""
+  >
+    <select formControlName="role">
+      <option value="admin">Admin</option>
+      <option value="user">User</option>
+    </select>
+    <button type="submit">Submit</button>
+  </form>
+  <h3 (click)="deleteAccount()">Delete Account</h3>
+  <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3>
 </div>

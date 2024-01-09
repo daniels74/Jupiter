@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { AuthService } from '../../Core/Services/auth.service';
 import { UserService } from '../../Core/Services/user.service';
 import { Subscription } from 'rxjs';
@@ -10,11 +10,12 @@ import { selectUser } from '../State/Selectors/users.selector';
 import { User } from '../../Core/Interfaces/User.interface';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnDestroy, OnInit {
   authSub!: Subscription;
@@ -28,6 +29,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   menuToggler = false;
   settingsToggle = false;
   loader = false;
+  logoLightTheme = true;
 
   // ? For sizing
   logoWidth = window.innerWidth < 700 ? '70%' : 'auto';
@@ -35,6 +37,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
   screenSizeCheck = window.innerWidth < 700 ? false : true;
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private renderer: Renderer2,
     private store: Store,
     private fb: FormBuilder,
     private authServic: AuthService,
@@ -62,6 +66,14 @@ export class NavbarComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.authSub.unsubscribe();
+  }
+
+  switchMode(isDarkMode: any) {
+    const hostClass = isDarkMode.checked
+      ? 'mat-app-background theme-dark'
+      : 'mat-app-background theme-light';
+    this.renderer.setAttribute(this.document.body, 'class', hostClass);
+    this.logoLightTheme = !isDarkMode.checked;
   }
 
   toggleSettings() {

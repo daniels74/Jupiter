@@ -1,8 +1,11 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
 /* background-image: url('https://s7d2.scene7.com/is/image/TWCNews/nyc_lightning_strike1280x720esbgettyimages-629353120png'); */
 .landing-page {
     position: absolute;
-    background-color: rgb(32, 32, 67);
-    color: white;
+    // background-color: rgb(32, 32, 67);
+    // color: white;
     height: 90vh;
     width: 100%;
     display: flex;
@@ -17,14 +20,14 @@
     height: 90vh;
     width: 100%;
     background-size: cover;
-    opacity: 0.3;
+    opacity: 0.75;
 }
 
 .title-container {
     /* height: 35%;
     width: 50%; */
     position: relative;
-    background-color: rgba(3, 5, 30, 0.8);
+    // background-color: rgba(3, 5, 30, 0.8);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,22 +44,24 @@
 .carousel-container {
     position: relative;
     z-index: 1;
-    height: 30%;
-    width: 100vw;
-    /* background-color:  rgba(0, 140, 255, 0.2); */
+    min-height: 30%;
+    height: auto;
+    // width: 100vw;
+    // background-color:  rgba(0, 140, 255, 0.2);
     /* background-color: rgba(57, 57, 96, 0.5); */
-    background-color: rgba(3, 5, 30, 0.8);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    // background-color: rgba(3, 5, 30, 0.8);
+    // display: flex;
+    // flex-direction: row;
+    // align-items: center;
+    // justify-content: center;
+    
 }
 
 .crpyoinfo-container {
     /* height: 35%;
     width: 75%; */
     position: relative;
-    background-color: rgba(3, 5, 30, 0.8);
+    // background-color: rgba(3, 5, 30, 0.8);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -71,3 +76,20 @@
 .crpyoinfo-container > p {
     font-size: larger;
 }
+
+@mixin color($theme) {
+    .container-color {
+      // background-color: rgb(126, 159, 225);
+      background-color: mat.get-theme-color($theme, primary);
+      color: mat.get-theme-color($theme, primary, text);
+    }
+    .background-theme-color {
+        background-color: mat.get-theme-color($theme, primary, darker);
+    }
+  }
+  
+  @mixin theme($theme) {
+    @if mat.theme-has($theme, color) {
+      @include color($theme);
+    }
+  }

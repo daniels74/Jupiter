@@ -1,5 +1,5 @@
 <!-- Big Screen -->
-<div *ngIf="isBigScreen" class="user-profile-page">
+<div *ngIf="isBigScreen" class="user-profile-page primary-page-theme">
   <user-large-page
   [chosenCrypto]="chosenCrypto"
   [chartState]="chartState"
@@ -20,7 +20,7 @@
 <!-- ! Small Screen -->
 <div
   *ngIf="!isBigScreen"
-  class="user-profile-page"
+  class="user-profile-page component-theme"
   [style.flexDirection]="'column'"
 >
   <app-small-page

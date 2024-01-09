@@ -1,7 +1,7 @@
-<div class="landing-page">
+<div class="landing-page background-theme-color">
   <img class="cover-img" src='https://s7d2.scene7.com/is/image/TWCNews/nyc_lightning_strike1280x720esbgettyimages-629353120png' alt="">
   <div
-    class="title-container"
+    class="title-container container-color"
     [style.width]="title_container_width"
     [style.height]="title_container_height"
   >
@@ -9,15 +9,15 @@
     <h3>See the market, make your list, and share it.</h3>
   </div>
   <div class="carousel-container">
-    <carousel
+      <carousel
       [pauseOnHover]="true"
       [loop]="true"
       [borderRadius]="200"
       [cellWidth]="1200"
       [overflowCellsLimit]="7"
       [autoplay]="true"
-      [height]="300"
-      [width]="1200"
+      [height]="carouselHeight"
+      [width]="carouselWidth"
       [margin]="50"
       [cellsToShow]="cellsToShow"
       [autoplayInterval]="6000"
@@ -32,8 +32,7 @@
         [ngStyle]="{
           position: 'absolute',
           height: '100%',
-          width: '15vw',
-          backgroundColor: 'transparent',
+          width: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -51,7 +50,7 @@
     </carousel>
   </div>
   <div
-    class="crpyoinfo-container"
+    class="crpyoinfo-container container-color"
     [style.width]="crpyoinfo_container_width"
     [style.height]="crpyoinfo_container_height"
   >

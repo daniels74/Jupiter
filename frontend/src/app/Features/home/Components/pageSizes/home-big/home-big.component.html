@@ -1,12 +1,11 @@
 <div class="big-screen">
     <div class="top-trending-container" class="top-trending-container">
         <div class="title-container">
+            <img height="100%" src="../../../../../../assets/fire4.gif" alt="">
             <h2>
-                <img width="10%" [style.marginRIght]="'1rem'" src="../../../../../../assets/fire4.gif" alt="">
                 Trending {{selectedContent}}
-                <img width="10%" [style.marginLeft]="'1rem'" src="../../../../../../assets/fire4.gif" alt="">
-
             </h2>
+            <img height="100%" src="../../../../../../assets/fire4.gif" alt="">
         </div>
         <div class="top-trending">
             <div *ngIf="!trendingContent_state" class="listt-container" [ngStyle]="{
@@ -18,7 +17,7 @@
                     'overflowX': 'scroll',
                 }">
                 <div *ngFor="let coin of crypto$ | async">
-                    <app-card [collectionClassification]="'crypto'" [dataImage]="coin.item.small"
+                    <app-card [collectionClassification]="'crypto'" [dataImage]="coin.item.large"
                         [dataName]="coin.item.name" [dataMarketCapRank]="coin.item.market_cap_rank"
                         [coinId]="coin.item.id" />
                 </div>

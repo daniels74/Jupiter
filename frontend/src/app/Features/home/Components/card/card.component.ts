@@ -25,10 +25,10 @@ export class CardComponent implements OnInit {
     window.innerWidth < 700
       ? {
           height: '14rem',
-          width: '19rem',
-          marginLeft: '2rem',
+          width: '100vw',
           marginTop: '2rem',
           marginBottom: '2rem',
+          scrollSnapAlign: 'start',
         }
       : {
           height: '25vh',

@@ -1,31 +1,135 @@
 @use '@angular/material' as mat;
 
+@use './app/Shared/navbar/navbar.component.scss' as navbar;
+@use './app/Features/home/home.component.scss' as home;
+@use './app/Features/home/Components/pageSizes/home-big/home-big.component.scss' as home-big-page;
+@use './app/Features/home/Components/paginator/paginator.component.scss' as paginator;
+@use './app/Features/home/Components/card/card.component.scss' as home-card;
+@use './app/Features/landing/landing.component.scss' as landing;
+@use './app/Features/user/user.component.scss' as user;
+
 @include mat.core();
+// ! #9aaab0
+$light-bluski-palette: (
+  50: #e6f1f7,
+  100: #c2dbee,
+  200: #9fc6e2,
+  300: #81afd5,
+  400: #6d9fcc,
+  500: #5e90c4,
+  600: #5683b8,
+  700: #4b72a6,
+  800: #436293,
+  900: #344673,
+  A100: #c2e4ff,
+  A200: #addcff,
+  A400: #1f9eff,
+  A700: #00518f,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: white,
+    A700: white,
+  )
+);
+// ? Light Palletes
 
-// ! Palletes
-$my-primary: mat.define-palette(mat.$indigo-palette, 400, 700, 900);
-$my-accent: mat.define-palette(mat.$light-blue-palette, 100, 600, 900);
+// $my-primary-light: mat.define-palette(mat.$indigo-palette, 400, 700, 900);
+$my-primary-light: mat.define-palette($light-bluski-palette, 100, 50, 700, 900);
+$my-accent-light: mat.define-palette(mat.$light-blue-palette, 100, 600, 900);
 // The "warn" palette is optional and defaults to red if not specified.
-$my-warn: mat.define-palette(mat.$red-palette);
+$my-warn-light: mat.define-palette(mat.$red-palette);
 
-//! My theme
-$my-theme: mat.define-light-theme((
- color: (
-   primary: $my-primary,
-   accent: $my-accent,
-   warn: $my-warn,
- ),
- typography: mat.define-typography-config(),
- density: 0,
-));
+// ? Light theme
+$my-light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary-light,
+      accent: $my-accent-light,
+      warn: $my-warn-light,
+      // background: red
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
+$blue-dark-palette: (
+  50: #e3e6eb,
+  100: #b7c0cf,
+  200: #8a98af,
+  300: #5e718f,
+  400: #3e557a,
+  500: #183b68,
+  600: #113561,
+  700: #072d56,
+  800: #02244a,
+  900: #001533,
+  A100: #c2e4ff,
+  A200: #addcff,
+  A400: #1f9eff,
+  A700: #00518f,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: white,
+    A700: white,
+  )
+);
+// ? Dark Palette
+// $my-primary-dark: mat.define-palette(mat.$gray-palette, 900);
+$my-primary-dark: mat.define-palette($blue-dark-palette, 700, 300, 900, 100);
+$my-accent-dark: mat.define-palette(mat.$light-blue-palette, 500, 200, 900, 800);
+// The "warn" palette is optional and defaults to red if not specified.
+$my-warn-dark: mat.define-palette(mat.$red-palette);
+$background-color-dark: mat.define-palette($blue-dark-palette, 900, 300, 600, 100);
+
+// ? Dark theme
+$my-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $my-primary-dark,
+      accent: $my-accent-dark,
+      warn: $my-warn-dark,
+    ),
+    background-color: $background-color-dark,
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
+// Insert custom background color
+// $background: map-get($my-dark-theme, background);
+// $background: map_merge($background, (background: $background-color));
+// $my-dark-theme: map_merge($my-dark-theme, (background: $background));
 
 // Emit theme-dependent styles for common features used across multiple components.
-@include mat.core-theme($my-theme);
+@include mat.core-theme($my-light-theme);
 
 // Emit styles for MatButton based on `$my-theme`. Because the configuration
 // passed to `define-light-theme` omits typography, `button-theme` will not
 // emit any typography styles.
-@include mat.button-theme($my-theme);
+@include mat.button-theme($my-light-theme);
 
 //! Include the theme mixins for other components you use here.
 //// @include mat.form-field-theme($my-theme);
@@ -33,4 +137,28 @@ $my-theme: mat.define-light-theme((
 //// @include mat.paginator-theme($my-theme);
 
 //! Include all theme styles for the components.
-@include mat.all-component-themes($my-theme);
+.theme-light {
+  @include mat.all-component-themes($my-light-theme);
+  // ? In this way we make availbale the theme colors for access from specific components 
+  // Otherwise we cant use the colors 
+  @include navbar.theme($my-light-theme);
+  @include home.theme($my-light-theme);
+  @include home-big-page.theme($my-light-theme);
+  @include paginator.theme($my-light-theme);
+  @include home-card.theme($my-light-theme);
+  @include landing.theme($my-light-theme);
+  @include user.theme($my-light-theme);
+}
+
+.theme-dark {
+  @include mat.all-component-themes($my-dark-theme);
+  @include navbar.theme($my-dark-theme);
+  @include home.theme($my-dark-theme);
+  @include home-big-page.theme($my-dark-theme);
+  @include paginator.theme($my-dark-theme);
+  @include home-card.theme($my-dark-theme);
+  @include landing.theme($my-dark-theme);
+  @include user.theme($my-dark-theme);
+}
+
+// @include navbar.theme($my-dark-theme);

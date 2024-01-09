@@ -137,7 +137,7 @@
     <div class="user-posts-container">
       <!-- <input class="post-input" type="text-area" rows="2"> -->
       <form
-        class="new-post-container"
+        class="new-post-container secondary-component-theme"
         action=""
         [formGroup]="postForm"
         (ngSubmit)="savePost()"
@@ -153,7 +153,7 @@
         <button type="submit" mat-raised-button color="primary">Post</button>
       </form>
 
-      <div class="all-posts-container">
+      <div class="all-posts-container primary-component-theme">
         <div *ngIf="!userPosts">No Posts Yet</div>
         <div
           *ngIf="userPosts"
@@ -196,11 +196,11 @@
   <div *ngIf="!chartState" class="vertical-line"></div>
   <!-- ! User Collections -->
   <div *ngIf="!chartState" class="right-section">
-    <div class="collectionType-container">
+    <div class="collectionType-container secondary-component-theme">
       <h1 *ngIf="!collectionTypeToggle">Crypto Collection</h1>
       <h1 *ngIf="collectionTypeToggle">NFT Collection</h1>
     </div>
-    <div class="crypto-list-container">
+    <div class="crypto-list-container primary-component-theme">
       <div *ngIf="!collectionTypeToggle" class="mycrypto-container">
         <div
           *ngFor="let singleCoin of cryptoCollection"
