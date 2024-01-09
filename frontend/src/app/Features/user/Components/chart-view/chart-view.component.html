@@ -1,11 +1,12 @@
 <div
   [ngStyle]="{
-    height: '100%',
+    position:'relative',
+    height: '90vh',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   }"
 >
   <div
@@ -193,7 +194,9 @@
           justifyContent: 'center'
         }"
       >
-        <app-chart />
+        <div [ngStyle]="{position: 'absolute', height: '100%', width: '100%'}">
+          <app-chart />
+        </div>
       </div>
     </div>
     <!-- ! Chart right section (Info) -->

@@ -6,7 +6,7 @@ import { CoinGeckoApiService } from '../../Core/Services/coin-gecko-api.service'
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css'],
+  styleUrls: ['./landing.component.scss'],
 })
 export class LandingComponent implements OnInit {
   trending_cryptos: any = [];
@@ -16,6 +16,8 @@ export class LandingComponent implements OnInit {
   crpyoinfo_container_height = window.innerWidth <= 700 ? '30%' : '30%';
 
   cellsToShow = window.innerWidth <= 700 ? 1 : 4;
+  carouselWidth = window.innerWidth <= 700 ? 250 : 1000;
+  carouselHeight = window.innerWidth <= 700 ? 200 : 300;
 
   miniChartState = false;
 

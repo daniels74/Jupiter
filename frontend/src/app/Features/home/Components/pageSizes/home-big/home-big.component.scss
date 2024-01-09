@@ -1,8 +1,13 @@
-.crypto-page {
-  /* height: 90vh; */
-  height: auto;
-  width: 100%;
-  background-color: rgb(25, 25, 57);
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+.big-screen {
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .top-trending-container {
@@ -16,13 +21,13 @@
 
 .title-container {
   height: 10%;
-  width: 20%;
+  width: auto;
   /* background-color: aqua; */
   color: lightblue;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .top-trending {
@@ -38,7 +43,7 @@
 }
 
 .top_trending_options_container {
-  position: relative;
+  position: absolute;
   height: 36%;
   width: 10vw;
   right: 0;
@@ -56,27 +61,45 @@
   /* height: 40%;
     width: 70%; */
   color: black;
-  background-color: rgb(3, 3, 36);
+  /* background-color: rgb(3, 3, 36); */
   border-radius: 1rem;
   border-style: solid;
   border-width: thin;
   border-color: lightblue;
   display: flex;
   flex-direction: row;
-  /* align-items: center;
-  justify-content: flex-start; */
+  align-items: center;
+  justify-content: flex-start;
   overflow-x: scroll;
   gap: 8rem;
-  scroll-snap-type: x mandatory,
+}
+
+@mixin color($theme) {
+  .listt-container {
+    // background-color: rgb(126, 159, 225);
+    background-color: mat.get-theme-color($theme, primary);
+    color: mat.get-theme-color($theme, primary, text);
+  }
+
+  .table {
+    background-color: mat.get-theme-color($theme, primary);
+    color: mat.get-theme-color($theme, primary, text);
+  }
+}
+
+@mixin theme($theme) {
+  @if mat.theme-has($theme, color) {
+    @include color($theme);
+  }
 }
 
 .paginator-container {
   position: relative;
-  height: 100%;
+  height: 50%;
   /* min-height: 60vh; */
-  width: 100%;
+  width: 80%;
   /* min-width: 100vw; */
-  background-color: rgb(0, 0, 0);
+  /* background-color: rgb(0, 0, 0); */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,15 +125,7 @@
   position: relative;
   height: 100%;
   width: 100%;
-  background-color: rgb(3, 3, 36);
-}
-
-.paginator {
-  position: relative;
-  height: auto;
-  width: 100%;
-  background-color: rgb(43, 63, 110);
-  color: white;
+  // background-color: rgb(3, 3, 36);
 }
 
 .toggleButton {
@@ -140,8 +155,8 @@
   border-radius: 1rem;
 }
 
+/* // Small Screen */
 .small-screen-container {
-  min-height: 90vh;
   height: auto;
   width: 100%;
   display: flex;

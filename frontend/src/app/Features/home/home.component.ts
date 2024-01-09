@@ -11,7 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
   constructor(private store: Store, public spinner: NgxSpinnerService) {}

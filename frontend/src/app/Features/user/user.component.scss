@@ -1,0 +1,46 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+.user-profile-page {
+  position: relative;
+  height: 90vh;
+  width: 100%;
+  // background-color: rgb(21, 21, 31);
+  // color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@mixin color($theme) {
+  .primary-page-theme {
+    background-color: mat.get-theme-color($theme, primary, lighter);
+    // color:  mat.get-theme-color($theme, primary, text);
+  }
+
+  .secondary-page-theme {
+    background-color: mat.get-theme-color($theme, primary);
+    // color:  mat.get-theme-color($theme, primary, text);
+  }
+
+  .primary-component-theme {
+    background-color: mat.get-theme-color($theme, primary);
+    // color:  mat.get-theme-color($theme, primary, text);
+  }
+
+  .secondary-component-theme {
+    background-color: mat.get-theme-color($theme, primary, darker);
+    // color:  mat.get-theme-color($theme, primary, text);
+  }
+
+
+}
+
+@mixin theme($theme) {
+  @if mat.theme-has($theme, color) {
+    @include color($theme);
+  }
+}

@@ -9,7 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-home-big',
   templateUrl: './home-big.component.html',
-  styleUrls: ['./home-big.component.css'],
+  styleUrls: ['./home-big.component.scss'],
 })
 export class HomeBigComponent {
   @Output() toggleContentStateEvent = new EventEmitter();

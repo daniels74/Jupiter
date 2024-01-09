@@ -1,4 +1,5 @@
 .big-screen {
+  position: relative;
   height: 90vh;
   width: 100vw;
   display: flex;
@@ -18,7 +19,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: rgb(2, 2, 26);
+  /* background-color: rgb(2, 2, 26); */
 }
 
 /* Top section picturre and info */
@@ -173,6 +174,8 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
 }
 
 .post-input {
@@ -190,7 +193,7 @@
   height: 85%;
   width: 100%;
   /* background-color: rgb(2, 2, 26); */
-  background-color: black;
+  /* background-color: black; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -205,12 +208,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: black;
+  /* background-color: black; */
 }
 
 /* !1 */
 .collectionType-container {
-  background-color:rgb(2, 2, 26);
+  /* background-color:rgb(2, 2, 26); */
   height: 10%;
   width: auto;
   padding-left: 2rem;
@@ -241,7 +244,7 @@
 .crypto-list-container {
   height: 75%;
   width: 80%;
-  background-color: rgb(32, 51, 52);
+  /* background-color: rgb(32, 51, 52); */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -253,7 +256,7 @@
 }
 
 .mycrypto-container {
-  background-color: rgb(2, 2, 26);
+  /* background-color: rgb(2, 2, 26); */
   height: 95%;
   width: 95%;
   overflow-y: scroll;
@@ -319,6 +322,7 @@
 }
 
 .app-chart-container {
+  position: relative;
   height: 90vh;
   width: 100%;
   display: flex;
