@@ -22,11 +22,35 @@
   </div>
   <div *ngIf="screenSizeCheck" class="menu">
     <mat-slide-toggle (change)="switchMode($event)" />
-    <a (click)="goHome()" routerLink="/home" routerLinkActive="active-link">Home</a>
-    <a *ngIf="authState" routerLink="/user/{{ id }}" routerLinkActive="active-link">{{ userName }}</a>
-    <a *ngIf="authState" (click)="toggleSettings()" routerLinkActive="active-link">Settings</a>
-    <a *ngIf="!authState" (click)="login()" routerLink="/login" routerLinkActive="active-link">Login</a>
-    <a *ngIf="!authState" (click)="register()" routerLink="/register" routerLinkActive="active-link">Register</a>
+    <a (click)="goHome()" routerLink="/home" routerLinkActive="active-link"
+      >Home</a
+    >
+    <a
+      *ngIf="authState"
+      routerLink="/user/{{ id }}"
+      routerLinkActive="active-link"
+      >{{ userName }}</a
+    >
+    <a
+      *ngIf="authState"
+      (click)="toggleSettings()"
+      routerLinkActive="active-link"
+      >Settings</a
+    >
+    <a
+      *ngIf="!authState"
+      (click)="login()"
+      routerLink="/login"
+      routerLinkActive="active-link"
+      >Login</a
+    >
+    <a
+      *ngIf="!authState"
+      (click)="register()"
+      routerLink="/register"
+      routerLinkActive="active-link"
+      >Register</a
+    >
   </div>
   <div *ngIf="!screenSizeCheck" class="menu-icon-container">
     <img
@@ -66,13 +90,34 @@
   }"
 >
   <div *ngIf="!loader" class="settingsTab" [style.width]="'100%'">
-    <h3 (click)="goHome()">Home</h3>
-    <h3 *ngIf="authState" routerLink="user/{{ id }}" (click)="toggleMenu()">
+    <h3 (click)="goHome()" routerLink="/home" routerLinkActive="active-link">
+      Home
+    </h3>
+    <h3
+      *ngIf="authState"
+      routerLink="user/{{ id }}"
+      routerLinkActive="active-link"
+      (click)="toggleMenu()"
+    >
       {{ userName }}
     </h3>
     <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
-    <h3 *ngIf="!authState" (click)="login()">Login</h3>
-    <h3 *ngIf="!authState" (click)="register()">Register</h3>
+    <h3
+      *ngIf="!authState"
+      (click)="login()"
+      routerLink="/login"
+      routerLinkActive="active-link"
+    >
+      Login
+    </h3>
+    <h3
+      *ngIf="!authState"
+      (click)="register()"
+      routerLink="/register"
+      routerLinkActive="active-link"
+    >
+      Register
+    </h3>
     <mat-slide-toggle (change)="switchMode($event)" />
   </div>
   <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium"
