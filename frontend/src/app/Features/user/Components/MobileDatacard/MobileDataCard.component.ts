@@ -9,13 +9,13 @@ import { AuthService } from '../../../../Core/Services/auth.service';
 import { UserNftCollectionService } from '../../../../Core/Services/UserCollection/user-nft-collection.service';
 
 @Component({
-  selector: 'app-cryptodatacard',
+  selector: 'mobile-data-card',
   standalone: true,
   imports: [CommonModule, MatButtonModule],
-  templateUrl: './cryptodatacard.component.html',
-  styleUrls: ['./cryptodatacard.component.css'],
+  templateUrl: './MobileDataCard.html',
+  styleUrls: ['./MobileDataCard.component.css'],
 })
-export class CryptodatacardComponent {
+export class MobileDatacardComponent {
   @Input() primaryData!: SingleCoin;
   @Input() nftData!: SingleNFT;
   @Input() dataType!: string;
@@ -33,10 +33,12 @@ export class CryptodatacardComponent {
   }
 
   getChartData(stringId: string) {
-    this.coinGeckoApi.getChartData(stringId).subscribe((res) => {
-      console.log('User Page Collection Card: getChartData RESPONSE: ', res);
-    });
-    this.activateChart.emit(this.primaryData);
+    if (this.primaryData) {
+      this.coinGeckoApi.getChartData(stringId).subscribe((res) => {
+        console.log('User Page Collection Card: getChartData RESPONSE: ', res);
+      });
+      this.activateChart.emit(this.primaryData);
+    }
   }
 
   removeCrypto(stringId: any) {

@@ -7,6 +7,11 @@
 @use './app/Features/home/Components/card/card.component.scss' as home-card;
 @use './app/Features/landing/landing.component.scss' as landing;
 @use './app/Features/user/user.component.scss' as user;
+@use './app/Features/user/Components/PageSizes/large-page/large-page.component.scss' as largeUserPage;
+@use './app/Features/user/Components/crypto-card/crypto-card.component.scss' as dataCard;
+@use './app/Features/user/Components/PageSizes/large-page/components/note-card/note-card.component.scss' as userNoteCard;
+@use './app/Features/login/login.component.scss' as login;
+@use './app/Features/register/register.component.scss' as register;
 
 @include mat.core();
 // ! #9aaab0
@@ -148,6 +153,11 @@ $my-dark-theme: mat.define-dark-theme(
   @include home-card.theme($my-light-theme);
   @include landing.theme($my-light-theme);
   @include user.theme($my-light-theme);
+  @include largeUserPage.theme($my-light-theme);
+  @include dataCard.theme($my-light-theme);
+  @include userNoteCard.theme($my-light-theme);
+  @include login.theme($my-light-theme);
+  @include register.theme($my-light-theme);
 }
 
 .theme-dark {
@@ -159,6 +169,11 @@ $my-dark-theme: mat.define-dark-theme(
   @include home-card.theme($my-dark-theme);
   @include landing.theme($my-dark-theme);
   @include user.theme($my-dark-theme);
-}
+  @include largeUserPage.theme($my-dark-theme);
+  @include dataCard.theme($my-dark-theme);
+  @include userNoteCard.theme($my-dark-theme);
+  @include login.theme($my-dark-theme);
+  @include register.theme($my-dark-theme);
+ }
 
 // @include navbar.theme($my-dark-theme);

@@ -8,7 +8,7 @@ import { CoinGeckoApiService } from '../../../../Core/Services/coin-gecko-api.se
 @Component({
   selector: 'app-crypto-card',
   templateUrl: './crypto-card.component.html',
-  styleUrls: ['./crypto-card.component.css'],
+  styleUrls: ['./crypto-card.component.scss'],
 })
 export class CryptoCardComponent {
   @Input() crypto!: SingleCoin;
@@ -20,12 +20,18 @@ export class CryptoCardComponent {
   // ? Sizing
   isLargeScreen = window.innerWidth < 700 ? false : true;
 
+  extentionState = false;
+
   constructor(
     private coinGeckoApi: CoinGeckoApiService,
     private nftsService: UserNftCollectionService,
     private authService: AuthService,
     private cryptoService: CryptoService,
   ) {}
+
+  toggleExtentionState() {
+    this.extentionState = !this.extentionState;
+  }
 
   removeCrypto(stringId: string) {
     if (this.collectionClassifcation === 'crypto') {

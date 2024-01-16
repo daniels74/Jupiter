@@ -23,6 +23,10 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.authService.authState$.subscribe((state) => {
+      console.log('Auth State', state);
+    });
+
     //  Check if user has token
     this.authService.liveSessionCheck();
 

@@ -197,7 +197,7 @@
     <div class="profile-content-container">
       <div *ngIf="selectedDataState === 'crypto'" class="data-slider">
         <div *ngFor="let crypto of cryptoCollection">
-          <app-cryptodatacard
+          <mobile-data-card
             [primaryData]="crypto"
             (activateChart)="toggleChart.emit($event)"
             [dataType]="'crypto'"
@@ -215,7 +215,7 @@
       </div>
       <div *ngIf="selectedDataState === 'nfts'" class="data-slider">
         <div *ngFor="let nft of nftCollection">
-          <app-cryptodatacard [nftData]="nft" [dataType]="'nft'" />
+          <mobile-data-card [nftData]="nft" [dataType]="'nft'" />
         </div>
         <div *ngIf="!nftCollection[0]" class="empty-list-instruction-container">
           <h3>

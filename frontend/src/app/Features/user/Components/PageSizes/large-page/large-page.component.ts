@@ -22,6 +22,8 @@ import { catchError, map, of } from 'rxjs';
 import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../../../../Shared/State/Selectors/users.selector';
+import { NoteCardComponent } from './components/note-card/note-card.component';
+import { CommonModule } from '@angular/common';
 
 export interface File {
   data: any;
@@ -31,7 +33,7 @@ export interface File {
 @Component({
   selector: 'user-large-page',
   templateUrl: './large-page.component.html',
-  styleUrls: ['./large-page.component.css'],
+  styleUrls: ['./large-page.component.scss'],
 })
 export class LargePageComponent implements OnInit {
   constructor(

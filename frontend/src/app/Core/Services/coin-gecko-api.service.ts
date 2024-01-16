@@ -6,6 +6,7 @@ import {
   Observable,
   catchError,
   map,
+  of,
   retry,
   throwError,
 } from 'rxjs';
@@ -45,12 +46,50 @@ export class CoinGeckoApiService {
       .pipe(map((nft) => nft.nfts || []));
   }
 
-  getSingleCoin(coinId: string): Observable<SingleCoin> {
+  getSingleCoin(coinId: string): Observable<SingleCoin | null> {
+    const blank: SingleCoin = {
+      id: '',
+      symbol: '',
+      name: '',
+      asset_platform_id: '',
+      platforms: undefined,
+      detail_platforms: undefined,
+      block_time_in_minutes: 0,
+      hashing_algorithm: undefined,
+      categories: [],
+      preview_listing: false,
+      public_notice: undefined,
+      additional_notices: undefined,
+      localization: undefined,
+      description: undefined,
+      links: undefined,
+      image: {
+        thumb: '',
+        small: '',
+        large: '',
+      },
+      country_origin: '',
+      genesis_date: undefined,
+      contract_address: '',
+      sentiment_votes_up_percentage: 0,
+      sentiment_votes_down_percentage: 0,
+      watchlist_portfolio_users: 0,
+      market_cap_rank: 0,
+      coingecko_rank: 0,
+      coingecko_score: 0,
+      developer_score: 0,
+      community_score: 0,
+      liquidity_score: 0,
+      public_interest_score: 0,
+      market_data: undefined,
+      collectionId: 0,
+    };
     return this.http.get<SingleCoin>(
       'https://api.coingecko.com/api/v3/coins/' +
         coinId +
         '?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false',
     );
+    // .pipe(catchError((error) => of(null)));
   }
 
   getSingleNFT(nftId: string): Observable<SingleNFT> {

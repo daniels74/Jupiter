@@ -22,11 +22,11 @@
   </div>
   <div *ngIf="screenSizeCheck" class="menu">
     <mat-slide-toggle (change)="switchMode($event)" />
-    <h3 (click)="goHome()">Home</h3>
-    <h3 *ngIf="authState" routerLink="user/{{ id }}">{{ userName }}</h3>
-    <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
-    <h3 *ngIf="!authState" (click)="login()">Login</h3>
-    <h3 *ngIf="!authState" (click)="register()">Register</h3>
+    <a (click)="goHome()" routerLink="/home" routerLinkActive="active-link">Home</a>
+    <a *ngIf="authState" routerLink="/user/{{ id }}" routerLinkActive="active-link">{{ userName }}</a>
+    <a *ngIf="authState" (click)="toggleSettings()" routerLinkActive="active-link">Settings</a>
+    <a *ngIf="!authState" (click)="login()" routerLink="/login" routerLinkActive="active-link">Login</a>
+    <a *ngIf="!authState" (click)="register()" routerLink="/register" routerLinkActive="active-link">Register</a>
   </div>
   <div *ngIf="!screenSizeCheck" class="menu-icon-container">
     <img

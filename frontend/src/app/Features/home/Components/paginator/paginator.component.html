@@ -13,7 +13,7 @@
             
         }">Save Selected</button>
     </div>
-    <div *ngIf="allCrypto" class="crypto-table">
+    <div *ngIf="this.dataSource.paginator" class="crypto-table">
         <table mat-table [dataSource]="dataSource" class="table">
             <ng-container [ngStyle]="{backgroundColor: 'white', color: 'lightblue'}" *ngIf="isAuth" matColumnDef="selected">
                 <th mat-header-cell *matHeaderCellDef>
@@ -44,7 +44,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngStyle]="{color: 'white'}"></tr>
         </table>
     </div>
-    <div *ngIf="!allCrypto" class="crypto-table" [ngStyle]="{
+    <div *ngIf="!this.dataSource.paginator" class="crypto-table" [ngStyle]="{
         height: '100%',
         display: 'flex',
         flexDirection: 'column',

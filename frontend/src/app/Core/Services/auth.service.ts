@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Observable, map, of, take } from 'rxjs';
+import { BehaviorSubject, Observable, map, of, take } from 'rxjs';
 import { JwtObj } from '../Interfaces/jwt-obj';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
@@ -34,9 +34,13 @@ export class AuthService {
 
   origin = this.local_origin ? this.local_origin : this.window.location.origin;
 
+  authStateBehaviorSub$ = new BehaviorSubject<boolean>(false);
+  authState$ = this.authStateBehaviorSub$.asObservable();
+
   logout() {
     localStorage.removeItem('blog-token');
 
+    this.authStateBehaviorSub$.next(false);
     const authState_ngrx = false;
     this.store.dispatch(authAction.setAuthenticationState({ authState_ngrx }));
 
@@ -44,14 +48,14 @@ export class AuthService {
   }
 
   register(email: string, password: string) {
-    return this.http.post(this.origin + '/user/register', {
+    return this.http.post(this.origin + '/api/user/register', {
       email,
       password,
     });
   }
 
   login(email: string, password: string): Observable<JwtObj> {
-    return this.http.post<JwtObj>(this.origin + '/user/login', {
+    return this.http.post<JwtObj>(this.origin + '/api/user/login', {
       email,
       password,
     });
@@ -70,6 +74,7 @@ export class AuthService {
     }, timer);
 
     //// Set auth state
+    this.authStateBehaviorSub$.next(true);
     const authState_ngrx = true;
     this.store.dispatch(authAction.setAuthenticationState({ authState_ngrx }));
 
@@ -108,6 +113,7 @@ export class AuthService {
   }
 
   liveSessionCheck() {
+    console.log('CHECKING LIVE SESSION...');
     const token = localStorage.getItem('blog-token');
     if (token) {
       this.validateJWT(token).subscribe((isValid) => {
@@ -122,6 +128,26 @@ export class AuthService {
     } else {
       return;
     }
+  }
+
+  isAuthenticated(): Observable<boolean> {
+    // let auth = false;
+    const token = localStorage.getItem('blog-token');
+    if (token) {
+      return this.http.post<boolean>(this.origin + '/auth/jwtverification', {
+        token: token,
+      });
+      // .pipe(take(1))
+      // .subscribe((authState) => {
+      // console.log('auth service authState: ', authState);
+      // if (authState) {
+      //   auth = true;
+      //   console.log('auth service authState: ', typeof authState);
+      // } else auth = false;
+
+      // return of(true);
+      // });
+    } else return of(false); //auth = false;
   }
 
   validateJWT(token: string): Observable<any> {

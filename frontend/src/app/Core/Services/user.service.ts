@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, map, of, take } from 'rxjs';
 import { User } from '../Interfaces/User.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { WINDOW } from '../../../app/window-token';
 import { JwtObj } from '../Interfaces/jwt-obj';
@@ -38,7 +38,7 @@ export class UserService implements OnInit, OnDestroy {
   }
 
   deleteUser(user: User) {
-    return this.http.delete(this.origin + '/user/' + user.id);
+    return this.http.delete(this.origin + '/api/user/' + user.id);
   }
 
   // {name: string, username: string}
@@ -48,38 +48,50 @@ export class UserService implements OnInit, OnDestroy {
     //   ...userUpdate,
     // };
     return this.http.patch<JwtObj>(
-      this.origin + '/user/' + user.id,
+      this.origin + '/api/user/' + user.id,
       userUpdate,
     );
   }
 
   changeRole(newRole: any, user: User): Observable<JwtObj> {
     return this.http.put<JwtObj>(
-      this.origin + '/user/updaterole/' + user.id,
+      this.origin + '/api/user/updaterole/' + user.id,
       newRole,
     );
   }
 
   uploadProfileImage(formmData: FormData): Observable<any> {
-    return this.http.post<FormData>(this.origin + '/user/upload', formmData, {
-      reportProgress: true,
-      observe: 'events',
-    });
+    return this.http.post<FormData>(
+      this.origin + '/api/user/upload',
+      formmData,
+      {
+        reportProgress: true,
+        observe: 'events',
+      },
+    );
   }
 
   getProfilePicture(imagename: string) {
-    return this.http.get(this.origin + '/user/profile-image/' + imagename);
+    return this.http.get(this.origin + '/api/user/profile-image/' + imagename);
   }
 
   findOne(id: number): Observable<any> {
-    return this.http.get(this.origin + '/user/' + id).pipe(map((user) => user));
+    return this.http
+      .get(this.origin + '/api/user/' + id)
+      .pipe(map((user) => user));
   }
 
+  // In use for retrieving user profile picuture
   findUserImage(): Observable<any> {
-    return this.http.get(this.origin + '/user/uimg/userimg').pipe(
-      map((user) => {
-        return user;
-      }),
-    );
+    const token = localStorage.getItem('blog-token');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get(this.origin + '/api/user/uimg/userimg', { headers: headers })
+      .pipe(
+        map((user) => {
+          return user;
+        }),
+      );
   }
 }

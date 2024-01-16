@@ -131,8 +131,21 @@ export class CryptoService implements OnInit {
           cryptoCollection_ngrx.push(cryptoCoin);
         }
       });
+
+      // const newArr = this.moveNullsToEnd(cryptoCollection_ngrx);
+      // this.cryptoCollection_BS.next(newArr);
       this.cryptoCollection_BS.next(cryptoCollection_ngrx);
     });
     return of(true);
+  }
+
+  moveNullsToEnd(anArray: SingleCoin[]) {
+    const newArr = anArray;
+    anArray.forEach((e, index, []) => {
+      if (e === null) {
+        newArr.push(newArr.splice(index, 1)[0]);
+      }
+    });
+    return newArr;
   }
 }
