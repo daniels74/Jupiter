@@ -1,7 +1,12 @@
-.register-page {
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin color($theme) {
+  .register-page {
     height: 90vh;
     width: 100%;
-    background-color: rgb(65, 75, 86);
+    // background-color: rgb(65, 75, 86);
+    background-color: mat.get-theme-color($theme, primary, lighter);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,8 +17,9 @@
     position: relative;
     height: 50%;
     width: 50%;
-    background-color: black;
-    color: white;
+    // background-color: black;
+    background-color: mat.get-theme-color($theme, primary, darker);
+    color: mat.get-theme-color($theme, primary, text);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,7 +27,8 @@
     border-radius: 1rem;
     border-style: solid;
     border-width: thin;
-    border-color: blue;
+    border-color: mat.get-theme-color($theme, primary);
+    box-shadow: mat.get-theme-color($theme, primary, darker) 0px 0px 25px 10px;
   }
   
   .form-input-container {
@@ -83,7 +90,7 @@
     width: 5rem;
     background-color: rgb(12, 12, 44);
     color: lightblue;
-    border-radius: 1rem;
+    border-radius: .5rem;
     border-style: solid;
     border-width: thin;
     border-color: blue;
@@ -95,3 +102,10 @@
     position: absolute;
     border-radius: 1rem;
   }
+}
+
+@mixin theme($theme) {
+  @if mat.theme-has($theme, color) {
+    @include color($theme);
+  }
+}

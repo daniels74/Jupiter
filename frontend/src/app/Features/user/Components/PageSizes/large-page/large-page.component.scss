@@ -1,3 +1,6 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
 .big-screen {
   position: relative;
   height: 90vh;
@@ -12,6 +15,7 @@
 }
 
 /*! ----------------------------------------------------------------------LEFT SECTION Start*/
+/* // Layer 0 */
 .left-section {
   height: 100%;
   width: 50%;
@@ -19,44 +23,50 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  /* background-color: rgb(2, 2, 26); */
 }
 
-/* Top section picturre and info */
-.user-picture-info {
+/* // Layer 1 */
+/* Top section picture and info */
+.user-general-data-container {
+  position: relative;
   height: 20%;
-  width: 85%;
-  background-color: transparent;
+  width: 80%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   border-style: solid;
   border-color: lightblue;
   border-width: thin;
-  background-color: black;
   border-radius: 1rem;
+  transition: width 1s;
 }
 
+.user-general-data-container:hover {
+  width: 95%;
+}
+
+/* // Layer 2 */
 .img-container {
+  position: relative;
   height: 100%;
-  width: 25%;
+  width: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.user-info-container {
+/* // Layer 2 */
+.user-info-box {
   position: relative;
   height: 100%;
-  width: 75%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   border-radius: 1rem;
-  background-color: rgb(163, 150, 150);
 }
 
 .userinfo-background-container {
@@ -77,14 +87,15 @@
   transform: scaleX(-1);
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 1rem;
-  opacity: 0.9;
+  opacity: 0.5;
   background-size: cover;
 }
 
+/* // Layer 3 */
 .info-settings {
-  position: relative;
-  background-color: transparent;
-  height: 15%;
+  position: absolute;
+  bottom: 0;
+  height: 30%;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -98,38 +109,29 @@
   margin-right: 0.5rem;
 }
 
+/* // Layer 3 */
 .user-info-wrapper {
   position: relative;
-  background-color: transparent;
-  height: 85%;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   border-radius: 1rem;
-}
-
-.user-info-box {
-  height: 90%;
-  width: 75%;
-  /* background-color: rgba(10, 12, 48, .75); */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  border-radius: 1rem;
+  /* background-color: red; */
 }
 
 .user-info-line {
-  width: 50%;
+  position: relative;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
 }
 
+/* // Layer 3 */
 .settings-wrapper {
   position: relative;
   height: 85%;
@@ -137,6 +139,7 @@
   background-color: transparent;
 }
 
+/* // Layer 4 */
 .form-container {
   height: 100%;
   width: 100%;
@@ -164,6 +167,11 @@
   border-color: blue;
   border-style: solid;
   border-width: thin;
+  transition: width 1s;
+}
+
+.user-posts-container:hover {
+  width: 95%;
 }
 
 .new-post-container {
@@ -201,6 +209,51 @@
 }
 
 /*! ----------------------------------------------------------------------RIGHT SECTION STARTS */
+@mixin color($theme) {
+  .secondary-component-theme {
+    background-color: mat.get-theme-color($theme, primary, darker);
+    // color:  mat.get-theme-color($theme, primary, text);
+  }
+
+  .collectionType-container {
+    /* background-color:rgb(2, 2, 26); */
+    height: 10%;
+    width: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    border-style: solid;
+    border-width: thin;
+    border-color: mat.get-theme-color($theme, primary, darker);
+  }
+
+  /* ! 1 */
+  .superior-list-container {
+    height: 75%;
+    width: 80%;
+    /* background-color: rgb(32, 51, 52); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    border-style: solid;
+    border-width: thin;
+    border-color: mat.get-theme-color($theme, primary, darker);
+    transition: width 1s;
+  }
+}
+
+@mixin theme($theme) {
+  @if mat.theme-has($theme, color) {
+    @include color($theme);
+  }
+}
+
 .right-section {
   height: 100%;
   width: 50%;
@@ -212,53 +265,44 @@
 }
 
 /* !1 */
-.collectionType-container {
-  /* background-color:rgb(2, 2, 26); */
-  height: 10%;
-  width: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 1rem;
-  border-style: solid;
-  border-width: thin;
-  border-color: blue;
-}
+// .collectionType-container {
+//   /* background-color:rgb(2, 2, 26); */
+//   height: 10%;
+//   width: auto;
+//   padding-left: 2rem;
+//   padding-right: 2rem;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   border-radius: 1rem;
+//   border-style: solid;
+//   border-width: thin;
+//   border-color: blue;
+// }
 
-/* .collectionConainer {
-  height: 90vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5%;
-  margin-bottom: 5rem;
-} */
+// /* ! 1 */
+// .superior-list-container {
+//   height: 75%;
+//   width: 80%;
+//   /* background-color: rgb(32, 51, 52); */
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   border-radius: 1rem;
+//   border-style: solid;
+//   border-width: thin;
+//   border-color: blue;
+// }
 
-
-/* ! 1 */
-.crypto-list-container {
-  height: 75%;
-  width: 80%;
-  /* background-color: rgb(32, 51, 52); */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 1rem;
-  border-style: solid;
-  border-width: thin;
-  border-color: blue;
-}
-
-.mycrypto-container {
-  /* background-color: rgb(2, 2, 26); */
-  height: 95%;
+.superior-list-container:hover {
   width: 95%;
+}
+
+.card-group {
+  height: 100%;
+  width: 100%;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
@@ -267,7 +311,18 @@
   border-radius: 1rem;
   gap: 4rem;
   padding: 2.5%;
-  
+}
+
+.card-item {
+  border-radius: 1rem;
+  height: 20vh;
+  width: 90%;
+  background-color: red;
+  transition: height 1s;
+}
+
+.card-item:hover {
+  height: 40vh;
 }
 
 /* ! 1 */
@@ -313,7 +368,6 @@
     rgba(119, 41, 184, 1) 100%
   );
 }
-
 
 .random-numbers {
   background-color: blue;

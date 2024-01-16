@@ -1,0 +1,23 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin color($theme) {
+    .user-post-card-component {
+        height: 100%;
+        width: 100%;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: mat.get-theme-color($theme, primary, darker);
+    }
+  
+  }
+  
+  @mixin theme($theme) {
+    @if mat.theme-has($theme, color) {
+      @include color($theme);
+    }
+
+}

@@ -45,13 +45,13 @@ export class UserRoleInterceptor implements HttpInterceptor, OnDestroy {
     });
 
     const urlValid =
-      request.url.startsWith(this.origin + '/user/updaterole') ||
+      request.url.startsWith(this.origin + '/api/user/updaterole') ||
       request.url.startsWith(this.origin + '/cryptoid') ||
       request.url.startsWith(this.origin + '/cryptoid/entrydelete/cryptoid') ||
       request.url.startsWith(this.origin + '/nftid') ||
       request.url.startsWith(this.origin + '/posting') ||
-      request.url.startsWith(this.origin + '/user/upload') ||
-      request.url.startsWith(this.origin + '/user/uimg/userimg');
+      request.url.startsWith(this.origin + '/api/user/upload') ||
+      request.url.startsWith(this.origin + '/api/user/uimg/userimg');
 
     if (this.isAuth && urlValid) {
       const token = localStorage.getItem('blog-token');

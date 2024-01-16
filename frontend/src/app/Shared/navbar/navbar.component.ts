@@ -107,7 +107,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
       this.menuToggler = false;
       this.settingsToggle = false;
       this.loader = false;
-      this.router.navigate(['/login']);
+      // this.router.navigate(['/login']);
     }, 300);
   }
 
@@ -117,7 +117,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
       this.menuToggler = false;
       this.settingsToggle = false;
       this.loader = false;
-      this.router.navigate(['/register']);
+      // this.router.navigate(['/register']);
     }, 300);
   }
 
@@ -141,7 +141,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
       this.loader = false;
       this.menuToggler = false;
       // this.spinner.hide();
-      this.router.navigate(['home']);
+      // this.router.navigate(['home']);
     }, 300);
   }
 

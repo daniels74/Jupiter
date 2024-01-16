@@ -18,7 +18,7 @@ export class UserSearchService {
 
   getUsers(typedName: string): Observable<any> {
     // let results: any;
-    return this.http.get(this.origin + '/user', {
+    return this.http.get(this.origin + '/api/user', {
       params: { username: typedName },
     });
     //   .subscribe((res) => {

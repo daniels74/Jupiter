@@ -23,6 +23,8 @@ import { SingleCoin } from '../../Core/Interfaces/singleCoin.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
 Chart.register(...registerables);
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { NavigationStart, Router } from '@angular/router';
+import { LargePageComponent } from './Components/PageSizes/large-page/large-page.component';
 
 @Component({
   selector: 'app-user',
@@ -59,6 +61,8 @@ export class UserComponent implements OnInit {
 
   myimage = '';
 
+  browserRefresh = false;
+
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
@@ -68,7 +72,14 @@ export class UserComponent implements OnInit {
     private UserNftCollectionService: UserNftCollectionService,
     public spinner: NgxSpinnerService,
     private ngx: NgxImageCompressService,
-  ) {}
+    private router: Router,
+  ) {
+    router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.browserRefresh = !router.navigated;
+      }
+    });
+  }
 
   ngOnInit(): void {
     // USER

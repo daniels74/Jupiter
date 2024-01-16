@@ -1,0 +1,125 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin color($theme) {
+  .crypto-card {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    border-radius: 1rem;
+    /* margin-top: 2rem; */
+    margin-bottom: 2rem;
+    box-shadow: mat.get-theme-color($theme, primary, darker) 0px 0px 20px 10px;
+  }
+
+  .crypto-card:hover {
+    box-shadow: mat.get-theme-color($theme, accent, darker) 0px 0px 30px 5px
+  } 
+}
+
+@mixin theme($theme) {
+  @if mat.theme-has($theme, color) {
+    @include color($theme);
+  }
+}
+
+// .crypto-card {
+//   position: absolute;
+//   height: 100%;
+//   width: 100%;
+//   position: relative;
+//   border-radius: 1rem;
+//   /* margin-top: 2rem; */
+//   margin-bottom: 2rem;
+//   box-shadow: #4c299375 0px 0px 20px 10px;
+// }
+/* #29429375 */
+
+.img-container {
+  /* height: 100%; */
+  width: 100%;
+  background-color: rgb(41, 42, 52);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+/* .img-container:hover {
+    height: 40%;
+} */
+
+.image-cover {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  overflow: hidden;
+  object-fit: cover;
+  object-position: 100% 40%;
+  background-color: rgba(255, 255, 255, 0.5);
+  mask-image: radial-gradient(
+    circle,
+    black 15%,
+    rgba(0, 0, 0, 0.4) 15%,
+    black 15%,
+    rgba(0, 0, 0, 0.5) 15%
+  );
+}
+
+.img-element {
+  position: relative;
+  height: 100%;
+  width: auto;
+  background-color: snow;
+  border-radius: 50%;
+}
+
+.crypto-data-container {
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  /* background-color: rgb(2, 2, 26); */
+}
+
+.user-options {
+  height: 20%;
+  width: 100%;
+  /* background-color: black; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.delete-btn {
+  height: 60%;
+  width: auto;
+  background-color: rgb(214, 191, 191);
+  color: rgb(114, 8, 8);
+  border-radius: 0.5rem;
+  border-width: thin;
+  border-color: red;
+  margin-right: 2rem;
+}
+
+.chart-btn {
+  height: 60%;
+  width: auto;
+  min-width: 10%;
+  background-color: rgb(201, 192, 209);
+  color: rgb(43, 8, 114);
+  border-radius: 0.5rem;
+  border-width: thin;
+  border-color: rgb(148, 6, 250);
+  margin-right: 2rem;
+}

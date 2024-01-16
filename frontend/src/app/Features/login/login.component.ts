@@ -17,7 +17,7 @@ import { User } from '../../Core/Interfaces/User.interface';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loadingState = false;
@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
           this.authServ.setPermissions(ele.jwt);
           this.router.navigate(['/user', this.user.id]);
         }, 3000);
+        // this.router.navigate(['/user', this.user.id]);
       });
   }
 }

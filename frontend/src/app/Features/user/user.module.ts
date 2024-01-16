@@ -16,9 +16,10 @@ import { MatCardModule } from '@angular/material/card';
 import { ChartComponent } from './Components/chart/chart.component';
 import { ChartViewComponent } from './Components/chart-view/chart-view.component';
 import { GlowifyModule } from '../../Shared/CustomDirectives/glowify.module';
-import { CryptodatacardComponent } from './Components/cryptodatacard/cryptodatacard.component';
+import { MobileDatacardComponent } from './Components/MobileDatacard/MobileDataCard.component';
 import { ChartViewSmallComponent } from './Components/chart-view-small/chart-view-small.component';
 import { RouterLink } from '@angular/router';
+import { NoteCardComponent } from './Components/PageSizes/large-page/components/note-card/note-card.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { RouterLink } from '@angular/router';
     SmallPageComponent,
     ChartViewComponent,
     ChartViewSmallComponent,
+    NoteCardComponent,
   ],
   imports: [
     RouterLink,
@@ -42,7 +44,7 @@ import { RouterLink } from '@angular/router';
     MatIconModule,
     MatCardModule,
     GlowifyModule,
-    CryptodatacardComponent,
+    MobileDatacardComponent,
     ChartComponent,
   ],
 })

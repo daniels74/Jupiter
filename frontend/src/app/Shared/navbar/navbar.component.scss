@@ -18,6 +18,16 @@
     background-color: mat.get-theme-color($theme, primary, darker);
     // color: mat.get-theme-color($theme, primary, text);
   }
+  .menu > a {
+    text-decoration: none;
+    color: mat.get-theme-color($theme, primary, text);
+  }
+  .active-link {
+    box-shadow: 0px 0px 10px 10px mat.get-theme-color($theme, primary, lighter);
+    background-color: mat.get-theme-color($theme, primary, lighter);
+    color: mat.get-theme-color($theme, primary, text);
+
+  }
 }
 
 @mixin theme($theme) {
