@@ -7,7 +7,7 @@ import { Surfer } from '../../Core/Interfaces/surfer.interface';
 @Component({
   selector: 'app-surfer',
   templateUrl: './surfer.component.html',
-  styleUrl: './surfer.component.css',
+  styleUrls: ['./surfer.component.css'],
 })
 export class SurferComponent implements OnInit {
   surfer!: Surfer;
