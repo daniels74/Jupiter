@@ -35,6 +35,8 @@ export class UserComponent implements OnInit {
   user!: User;
   profilePic = '';
   settingState = false;
+  friendsListState = false;
+  userFriendRequestList: any[] = [];
   sub!: Subscription;
 
   allCryptoIds!: any;
@@ -108,6 +110,11 @@ export class UserComponent implements OnInit {
       console.log('Nfts in main user file:', usernfts);
       this.nftCollection = usernfts;
     });
+
+    // this.userServ.getFriendRequests().subscribe((res) => {
+    //   console.log('MY friend requests: ', res);
+    //   this.userFriendRequestList = res;
+    // });
   }
 
   updateUserForm: FormGroup = this.formBuilder.group({
@@ -119,6 +126,10 @@ export class UserComponent implements OnInit {
 
   toggleSettings() {
     this.settingState = !this.settingState;
+  }
+
+  toggleFriendsList() {
+    this.friendsListState = !this.friendsListState;
   }
 
   updateUser() {

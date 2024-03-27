@@ -10,8 +10,9 @@ import { CoinGeckoApiService } from '../../Core/Services/coin-gecko-api.service'
 })
 export class LandingComponent implements OnInit {
   trending_cryptos: any = [];
-  title_container_width = window.innerWidth <= 700 ? '60%' : '50%';
-  title_container_height = '30%';
+  title_container_width = window.innerWidth <= 700 ? '80%' : '50%';
+  title_container_height = window.innerWidth <= 700 ? '20%' : '30%';
+  titleFontSize: boolean = window.innerWidth <= 700 ? true : false;
   crpyoinfo_container_width = window.innerWidth <= 700 ? '90%' : '40%';
   crpyoinfo_container_height = window.innerWidth <= 700 ? '30%' : '30%';
 
@@ -51,13 +52,14 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
     this.store.select(selectCrypto).subscribe((trending_cryptos) => {
       this.trending_cryptos = trending_cryptos;
-      // Not in use because does not allow div elements, only imgages
-      this.trending_cryptos.forEach((element: any) => {
-        const obj = { path: element.item.large };
-        this.images.push(obj);
-        return;
-      });
-      this.images.reverse();
+      //   // Not in use because does not allow div elements, only imgages
+      //   this.trending_cryptos.forEach((element: any) => {
+      //     const obj = { path: element.item.large };
+      //     this.images.push(obj);
+      //     return;
+      //   });
+      //   this.images.reverse();
+      //   console.log('Images', this.images);
     });
   }
 

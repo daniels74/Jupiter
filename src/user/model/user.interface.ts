@@ -1,6 +1,7 @@
 import { nftId } from '../../nftid/model/nftid.interface';
 import { cryptoidEntry } from '../../cryptoid/model/cryptoid.interface';
 import { PostInterface } from '../../posting/models/post.interface';
+import { FriendRequest } from 'src/friend-requests/Model/friendRequest.interface';
 
 export interface User {
   id?: number;
@@ -12,6 +13,8 @@ export interface User {
   cryptos?: cryptoidEntry[];
   nfts?: nftId[];
   posts?: PostInterface[];
+  sentFriendRequests?: FriendRequest[];
+  recievedFriendRequests?: FriendRequest[];
   profileImage?: string;
 }
 

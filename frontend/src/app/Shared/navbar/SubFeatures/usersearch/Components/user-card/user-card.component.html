@@ -1,23 +1,23 @@
 <div class="user-card">
-    <div *ngIf="profilePic" class="profile-img-container">
-        <!-- <img [ngStyle]="{height: '80%', width: '80%'}" src="http://localhost:3000/user/profile-image/{{profilePic}}" alt=""> -->
-        <img *ngIf="profilePic" [ngStyle]="{height: '80%', width: 'auto'}" [src]="profilePic" alt="">
-        <img *ngIf="!profilePic" src="'https://i.pinimg.com/736x/6c/e5/e6/6ce5e69ac9adc07d55d58cf7325b2e27.jpg'" alt="">
+    <div class="profile-img-container">
+        <!-- <img [ngStyle]="{height: '80%', width: '80%'}" src="http://localhost:3000/user/profile-image/{{user.profileImage}}" alt=""> -->
+        <img *ngIf="user.profileImage" [ngStyle]="{height: '80%', width: 'auto'}" [src]="user.profileImage" alt="">
+        <img *ngIf="!user.profileImage" [ngStyle]="{height: '80%', width: 'auto'}" [src]="'https://i.pinimg.com/736x/6c/e5/e6/6ce5e69ac9adc07d55d58cf7325b2e27.jpg'" alt="">
     </div>
     <div class="basic-info">
         <div>
-            {{name}}
+            {{user.name}}
         </div>
         <div>
-            {{email}}
+            {{user.email}}
         </div>
     </div>
     <div class="buttons">
-        <button mat-raised-button color="primary" [ngStyle]="{height: '35%'}">
-            <h6>Message</h6>
+        <button (click)="this.goToSurferProfile()" routerLink="surfer/{{ user.id }}" mat-raised-button color="primary" [ngStyle]="{height: '35%'}">
+            <h6>Profile</h6>
         </button>
-        <button mat-raised-button color="primary" [ngStyle]="{height: '35%'}" >
-            <h6>Subscribe</h6>
+        <button (click)="sendFriendRequest(user.id)" mat-raised-button color="primary" [ngStyle]="{height: '35%'}" >
+            <h6>Add User</h6>
         </button>
     </div>
 </div>

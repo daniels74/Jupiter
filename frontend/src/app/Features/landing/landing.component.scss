@@ -15,11 +15,20 @@
     overflow: hidden;
 }
 
-.cover-img {
+.cover-img-small {
     position: absolute;
-    height: 90vh;
+    height:100%;
+    width: auto;
+    background-size:cover;
+    background-position: center center;
+    opacity: 0.75;
+}
+
+.cover-img-large {
+    position: absolute;
+    height:100%;
     width: 100%;
-    background-size: cover;
+    background-size: auto;
     opacity: 0.75;
 }
 
@@ -39,6 +48,10 @@
 
 .title-container > h1 {
     font-size: 4rem;
+}
+
+.title-container > h2 {
+    font-size: 3rem;
 }
 
 .carousel-container {

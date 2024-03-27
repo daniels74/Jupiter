@@ -49,4 +49,8 @@ export class UsersearchComponent {
         this.results = users.items;
       });
   }
+
+  closeSearch() {
+    this.searchIsActive = false;
+  }
 }

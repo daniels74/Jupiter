@@ -9,6 +9,7 @@ import { UserRole } from './user.interface';
 import { CryptoIdEnitity } from '../../cryptoid/model/cryptoid.entity';
 import { NftIdEntity } from 'src/nftid/model/nftid.entity';
 import { PostEntity } from 'src/posting/models/post.entity';
+import { FriendRequestEntity } from 'src/friend-requests/Model/friendRequest.entity';
 
 @Entity()
 export class UserEntity {
@@ -38,6 +39,12 @@ export class UserEntity {
 
   @OneToMany(() => PostEntity, (post) => post.user)
   posts: PostEntity[];
+
+  @OneToMany(() => FriendRequestEntity, (request) => request.creator)
+  sentFriendRequests: FriendRequestEntity[];
+
+  @OneToMany(() => FriendRequestEntity, (request) => request.reciever)
+  recievedFriendRequests: FriendRequestEntity[];
 
   @Column({ nullable: true })
   profileImage: string;

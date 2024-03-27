@@ -24,6 +24,8 @@ import { Store } from '@ngrx/store';
 import { selectUser } from '../../../../../Shared/State/Selectors/users.selector';
 import { NoteCardComponent } from './components/note-card/note-card.component';
 import { CommonModule } from '@angular/common';
+import { MatTableDataSource } from '@angular/material/table';
+import { FriendRequestsService } from '../../../../../Core/Services/friend-requests.service';
 
 export interface File {
   data: any;
@@ -42,7 +44,11 @@ export class LargePageComponent implements OnInit {
     private postService: UserPostService,
     private userService: UserService,
     private store: Store,
+    private FriendRequestService: FriendRequestsService,
   ) {}
+  friendsList: any = <any>[];
+  sentFriendRequests: any = <any>[];
+
   // Chart things
   @Input() chosenCrypto: SingleCoin = <SingleCoin>{};
   @Input() chartState = false;
@@ -53,6 +59,9 @@ export class LargePageComponent implements OnInit {
   // User things
   @Output() toggleSettings: EventEmitter<any> = new EventEmitter<any>();
   @Input() settingState!: boolean;
+  @Output() toggleFriendsList: EventEmitter<any> = new EventEmitter<any>();
+  @Input() friendsListState!: boolean;
+  @Input() userFriendRequestList!: any[];
   @Input() user!: User;
   @Input() updateUserForm!: FormGroup;
   @Input() name!: FormControl;
@@ -68,6 +77,8 @@ export class LargePageComponent implements OnInit {
   @Output() useCopresserOnImage: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild('fileUpload', { static: false }) fileUpload!: ElementRef;
+
+  sentOrRecieved_state = false; // false = recieved requests
 
   file: File = {
     data: null,
@@ -88,6 +99,12 @@ export class LargePageComponent implements OnInit {
     thePost: new FormControl(''),
   });
 
+  displayedColumns = ['Image', 'Name', 'Status', 'Options'];
+  dataSource = new MatTableDataSource<any>(this.friendsList);
+  sentFriendRequests_dataSource = new MatTableDataSource<any>(
+    this.sentFriendRequests,
+  );
+
   ngOnInit(): void {
     this.postService.userPostsSubject.subscribe((allPosts) => {
       this.userPosts = allPosts;
@@ -99,6 +116,24 @@ export class LargePageComponent implements OnInit {
     // this.store.select(selectUser).subscribe((user) => {
     //   this.userProfileImg = user.profileImage;
     // });
+    this.getFriendRequests();
+    this.getSentFriendRequests();
+  }
+
+  getFriendRequests() {
+    this.userService.getFriendRequests().subscribe((res) => {
+      console.log('MY RECIEVED friend requests: ', res);
+      this.friendsList = res;
+      this.dataSource.data = res;
+    });
+  }
+
+  getSentFriendRequests() {
+    this.userService.getSentFriendRequests().subscribe((res) => {
+      console.log('MY SENT friend requests: ', res);
+      this.sentFriendRequests = res;
+      this.sentFriendRequests_dataSource.data = res;
+    });
   }
 
   savePost() {
@@ -151,5 +186,34 @@ export class LargePageComponent implements OnInit {
           this.form.patchValue({ profileImage: event.body.profileImage });
         }
       });
+  }
+
+  toggle_SentOrRecieved() {
+    this.sentOrRecieved_state = !this.sentOrRecieved_state;
+  }
+
+  acceptFriendRequest(id: number) {
+    return this.FriendRequestService.acceptFriendRequest(id).subscribe(
+      (res) => {
+        this.getFriendRequests();
+        console.log(res);
+      },
+    );
+  }
+
+  denyFriendRequest(id: number) {
+    return this.FriendRequestService.denyFriendRequest(id).subscribe((res) => {
+      this.getFriendRequests();
+      console.log(res);
+    });
+  }
+
+  cancelFriendRequest(id: number) {
+    return this.FriendRequestService.cancelFriendRequest(id).subscribe(
+      (res) => {
+        this.getSentFriendRequests();
+        console.log(res);
+      },
+    );
   }
 }

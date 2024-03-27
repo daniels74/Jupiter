@@ -17,7 +17,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './model/user.interface';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable, catchError, from, map, of } from 'rxjs';
 import { hasRoles } from 'src/auth/decorator/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles-guard';
@@ -26,6 +26,7 @@ import { JwtObj } from './model/jwt-obj.interface';
 import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import path = require('path');
+import { Surfer } from './model/surfer.interface';
 // import { join } from 'path';
 // import { FileInterceptor } from '@nestjs/platform-express';
 
@@ -72,6 +73,12 @@ export class UserController {
   findOne(@Param() params): Observable<User> {
     return this.userService.findOne(params.id);
   }
+
+  @Get('surfer/:id')
+  findSurfer(@Param('id') id: string): Observable<any> {
+    return this.userService.findSurfer(Number(id));
+  }
+
   // ! GET USER PROFILE IMAGE
   @UseGuards(JwtAuthGuard)
   @Get('uimg/userimg')

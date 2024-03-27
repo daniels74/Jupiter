@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
@@ -20,6 +20,8 @@ import { MobileDatacardComponent } from './Components/MobileDatacard/MobileDataC
 import { ChartViewSmallComponent } from './Components/chart-view-small/chart-view-small.component';
 import { RouterLink } from '@angular/router';
 import { NoteCardComponent } from './Components/PageSizes/large-page/components/note-card/note-card.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,9 @@ import { NoteCardComponent } from './Components/PageSizes/large-page/components/
     GlowifyModule,
     MobileDatacardComponent,
     ChartComponent,
+    JsonPipe,
+    MatTableModule,
+    MatPaginatorModule,
   ],
 })
 export class UserModule {}

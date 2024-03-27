@@ -25,6 +25,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { GlowifyDirective } from '../Shared/CustomDirectives/glowify.directive';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { DataRetryInterceptor } from '../Core/Interceptors/data-retry.interceptor';
 
 export const BaseUrl = new InjectionToken<string>('');
 @NgModule({
@@ -53,6 +54,7 @@ export const BaseUrl = new InjectionToken<string>('');
     GlowifyDirective,
     IvyCarouselModule,
     { provide: HTTP_INTERCEPTORS, useClass: UserRoleInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: DataRetryInterceptor, multi: true },
     WINDOW_PROVIDERS,
     {
       provide: BaseUrl,

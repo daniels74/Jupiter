@@ -10,7 +10,7 @@ export class PostEntity {
   @Column({ nullable: true })
   description: string;
 
-  @ManyToOne((type) => UserEntity, (userentity) => userentity.profileImage, {
+  @ManyToOne((type) => UserEntity, (userentity) => userentity.posts, {
     onDelete: 'CASCADE',
   })
   user: User;

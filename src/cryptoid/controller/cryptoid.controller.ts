@@ -52,4 +52,9 @@ export class CryptoidController {
     const user = req.user;
     return this.cryptoService.deleteUserCryptoEntryById(user, +cryptoid);
   }
+
+  // @Get('cryptoimg')
+  // getImg(@Body('url') url: string) {
+  //   return this.http.get();
+  // }
 }

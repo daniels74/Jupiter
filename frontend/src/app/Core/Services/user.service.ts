@@ -94,4 +94,12 @@ export class UserService implements OnInit, OnDestroy {
         }),
       );
   }
+
+  getFriendRequests(): Observable<any> {
+    return this.http.get(this.origin + '/friendrequest/myfriendrequests');
+  }
+
+  getSentFriendRequests(): Observable<any> {
+    return this.http.get(this.origin + '/friendrequest/mysentfriendrequests');
+  }
 }

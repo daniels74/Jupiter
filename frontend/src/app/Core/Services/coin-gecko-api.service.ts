@@ -84,7 +84,7 @@ export class CoinGeckoApiService {
       market_data: undefined,
       collectionId: 0,
     };
-    return this.http.get<SingleCoin>(
+    return this.http.get<any>(
       'https://api.coingecko.com/api/v3/coins/' +
         coinId +
         '?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false',
@@ -126,5 +126,11 @@ export class CoinGeckoApiService {
   catchTheError(error: any): Observable<any> {
     console.log('ERROR: ', error);
     return throwError(error);
+  }
+
+  getImage(url: string): Observable<any> {
+    return this.http.post('https://localhost:3000/cryptoid/cryptoimg', {
+      url: url,
+    });
   }
 }
