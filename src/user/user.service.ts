@@ -14,6 +14,7 @@ import { JwtObj } from './model/jwt-obj.interface';
 import { CryptoIdEnitity } from '../cryptoid/model/cryptoid.entity';
 import { NftIdEntity } from '../nftid/model/nftid.entity';
 import { PostEntity } from '../posting/models/post.entity';
+import { Surfer } from './model/surfer.interface';
 
 @Injectable()
 export class UserService {
@@ -37,6 +38,8 @@ export class UserService {
         newUser.cryptos = <CryptoIdEnitity[]>[];
         newUser.nfts = <NftIdEntity[]>[];
         newUser.posts = <PostEntity[]>[];
+        newUser.sentFriendRequests = [];
+        newUser.recievedFriendRequests = [];
 
         return from(this.userRepository.save(newUser)).pipe(
           map((user: User) => {
@@ -93,7 +96,13 @@ export class UserService {
     return from(
       this.userRepository.findOne({
         where: { email },
-        relations: ['cryptos', 'nfts', 'posts'],
+        relations: [
+          'cryptos',
+          'nfts',
+          'posts',
+          'sentFriendRequests',
+          'recievedFriendRequests',
+        ],
       }),
     );
   }
@@ -102,11 +111,37 @@ export class UserService {
     return from(
       this.userRepository.findOne({
         where: { id },
-        relations: ['cryptos', 'nfts', 'posts'],
+        relations: [
+          'cryptos',
+          'nfts',
+          'posts',
+          'sentFriendRequests',
+          'recievedFriendRequests',
+        ],
       }),
     ).pipe(
       map((user: User) => {
         const { password, profileImage, ...result } = user;
+        return result;
+      }),
+    );
+  }
+
+  findSurfer(id: number): Observable<Surfer> {
+    return from(
+      this.userRepository.findOne({
+        where: { id },
+        relations: ['cryptos', 'nfts', 'posts'],
+      }),
+    ).pipe(
+      map((user) => {
+        const {
+          password,
+          role,
+          sentFriendRequests,
+          recievedFriendRequests,
+          ...result
+        } = user;
         return result;
       }),
     );

@@ -83,6 +83,14 @@
         <div class="info-settings">
           <button
             class="settings-btn"
+            (click)="toggleFriendsList.emit()"
+            mat-raised-button
+            color="primary"
+          >
+            Friend Requests
+          </button>
+          <button
+            class="settings-btn"
             (click)="toggleSettings.emit()"
             mat-raised-button
             color="primary"
@@ -169,12 +177,278 @@
         >
           <div
             *ngFor="let post of userPosts"
-            [ngStyle]="{height: '25%', width: '90%' }"
+            [ngStyle]="{ height: '25%', width: '90%' }"
           >
-            <user-note-card-large [note]="post.description"/>
+            <user-note-card-large [note]="post.description" />
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <!-- ! FRIEND REQUESTS -->
+  <div *ngIf="friendsListState" class="friendsListContainer">
+    <div
+      [style.position]="'absolute'"
+      [style.width]="'100%'"
+      [style.height]="'100%'"
+      [style.backgroundColor]="'rgba(0, 0, 0, 0.8)'"
+      [style.filter]="'blur(1rem)'"
+    ></div>
+    <!-- <div *ngFor="let friend of friendsList" [style.color]="'white'">
+      <div [ngStyle]="{position: 'relative', color: 'white', height: '5rem', width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center',  justifyContent: 'space-around'}">
+      <img [src]="friend.restOfUser.profileImage" alt="">
+        {{ friend.restOfUser.name }}
+        {{ friend.status }}
+        <button mat-raised-button color="primary">Accept</button>
+        <button mat-raised-button color="danger">Deny</button>
+      </div>
+    </div> -->
+    <!-- display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-around' -->
+    <div class="friendRequests-title-nav">
+      <div class="friendRequest-title-container">
+        <h2 *ngIf="!sentOrRecieved_state">Recieved Friend Requests</h2>
+        <h2 *ngIf="sentOrRecieved_state">Sent Friend Requests</h2>
+      </div>
+      <div class="nav-options">
+        <button
+          *ngIf="sentOrRecieved_state"
+          mat-raised-button
+          color="primary"
+          (click)="toggle_SentOrRecieved()"
+        >
+          Recieved
+        </button>
+        <button
+          *ngIf="!sentOrRecieved_state"
+          mat-raised-button
+          color="primary"
+          (click)="toggle_SentOrRecieved()"
+        >
+          Sent
+        </button>
+        <button
+          mat-raised-button
+          color="danger"
+          (click)="toggleFriendsList.emit()"
+        >
+          EXIT
+        </button>
+      </div>
+    </div>
+    <div class="friendRequests-table">
+      <!-- ! Recieved Requests -->
+      <table
+        *ngIf="!sentOrRecieved_state"
+        mat-table
+        [ngStyle]="{
+          backgroundColor: 'transparent',
+          color: 'white',
+        }"
+        [dataSource]="dataSource"
+        class="table"
+      >
+        <ng-container matColumnDef="Image">
+          <th
+            mat-header-cell
+            [ngStyle]="{
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-around'
+            }"
+            *matHeaderCellDef
+          >
+            Image
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div
+              [ngStyle]="{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }"
+            >
+              <img [src]="element.restOfUser.profileImage" alt="" />
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.restOfUser.name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.status }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Options">
+          <th
+            mat-header-cell
+            [ngStyle]="{
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-around'
+            }"
+            *matHeaderCellDef
+          >
+            Options
+          </th>
+          <td
+            mat-cell
+            [ngStyle]="{
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-around'
+            }"
+            color="danger"
+            *matCellDef="let element"
+          >
+            <button
+              (click)="acceptFriendRequest(element.id)"
+              mat-raised-button
+              color="primary"
+            >
+              Accept
+            </button>
+            <button
+              (click)="denyFriendRequest(element.id)"
+              mat-raised-button
+              color="danger"
+            >
+              Deny
+            </button>
+            <button mat-raised-button color="danger">X</button>
+          </td>
+        </ng-container>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns"
+          [ngStyle]="{ color: 'white' }"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          [ngStyle]="{ color: 'white' }"
+        ></tr>
+      </table>
+      <!-- ! Sent Requests -->
+      <table
+        *ngIf="sentOrRecieved_state"
+        mat-table
+        [ngStyle]="{
+          backgroundColor: 'transparent',
+          color: 'white',
+        }"
+        [dataSource]="sentFriendRequests_dataSource"
+        class="table"
+      >
+        <ng-container matColumnDef="Image">
+          <th
+            mat-header-cell
+            [ngStyle]="{
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-around'
+            }"
+            *matHeaderCellDef
+          >
+            PICture
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div
+              [ngStyle]="{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }"
+            >
+              <img [src]="element.restOfUser.profileImage" alt="" />
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.restOfUser.name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.status }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Options">
+          <th
+            mat-header-cell
+            [ngStyle]="{
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-around'
+            }"
+            *matHeaderCellDef
+          >
+            Options
+          </th>
+          <td
+            mat-cell
+            [ngStyle]="{
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-around'
+            }"
+            *matCellDef="let element"
+          >
+            <button mat-raised-button
+            (click)="cancelFriendRequest(element.restOfUser.id)"
+            color="danger">Cancel</button>
+            <!-- <button
+              (click)="acceptFriendRequest(element.id)"
+              mat-raised-button
+              color="primary"
+            >
+              Accept
+            </button>
+            <button
+              (click)="denyFriendRequest(element.id)"
+              mat-raised-button
+              color="danger"
+            >
+              Deny
+            </button>
+            <button mat-raised-button color="danger">X</button> -->
+          </td>
+        </ng-container>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns"
+          [ngStyle]="{ color: 'white' }"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          [ngStyle]="{ color: 'white' }"
+        ></tr>
+      </table>
     </div>
   </div>
   <div *ngIf="!chartState" class="vertical-line"></div>

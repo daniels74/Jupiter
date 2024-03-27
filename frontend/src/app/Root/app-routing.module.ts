@@ -5,6 +5,7 @@ import { LoginComponent } from '../Features/login/login.component';
 import { cryptoCollectionResolver } from '../Shared/resolvers/crypto-collection.resolver';
 import { nftCollectionResolver } from '../Shared/resolvers/nft-collection.resolver';
 import { allCryptoResolver } from '../Shared/resolvers/all-crypto.resolver';
+import { FourzerofourComponent } from '../Features/fourzerofour/fourzerofour.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,13 @@ const routes: Routes = [
       import('../Features/login/login.module').then((m) => m.LoginModule),
   },
   {
+    path: 'register',
+    loadChildren: () =>
+      import('../Features/register/register.module').then(
+        (m) => m.RegisterModule,
+      ),
+  },
+  {
     path: 'user/:id',
     // resolve: {
     //   crypto: cryptoCollectionResolver,
@@ -33,12 +41,11 @@ const routes: Routes = [
       import('../Features/user/user.module').then((m) => m.UserModule),
   },
   {
-    path: 'register',
+    path: 'surfer/:id',
     loadChildren: () =>
-      import('../Features/register/register.module').then(
-        (m) => m.RegisterModule,
-      ),
+      import('../Features/surfer/surfer.module').then((m) => m.SurferModule),
   },
+  { path: '**', component: FourzerofourComponent },
   // { path: 'a', loadChildren: () => import('./modulea/modulea.module').then(m => m.ModuleaModule) },
 ];
 

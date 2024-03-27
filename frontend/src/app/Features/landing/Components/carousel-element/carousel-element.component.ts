@@ -3,6 +3,7 @@ import { GlowifyModule } from '../../../../Shared/CustomDirectives/glowify.modul
 import { CoinGeckoApiService } from '../../../../Core/Services/coin-gecko-api.service';
 import { ChartComponent } from '../../../../Features/user/Components/chart/chart.component';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -12,8 +13,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./carousel-element.component.css'],
 })
 export class CarouselElementComponent {
-  @Input() Item!: any;
+  @Input() Item: any;
   @Input() name: any;
+
+  @Input() cryptoImg = '';
 
   cryptoname!: any;
 
@@ -21,8 +24,22 @@ export class CarouselElementComponent {
 
   curretnChartData = [];
 
-  constructor(private coinGeckoApi: CoinGeckoApiService) {
+  myImg!: any;
+
+  constructor(
+    private coinGeckoApi: CoinGeckoApiService,
+    private http: HttpClient,
+  ) {
     this.cryptoname = this.name;
+  }
+
+  ngOnInit() {
+    // this.http.get(this.cryptoImg).subscribe((res) => {
+    //   this.myImg = res;
+    // });
+    // this.coinGeckoApi.getImage(this.cryptoImg).subscribe((res) => {
+    //   this.myImg = res;
+    // });
   }
 
   toggleChart() {

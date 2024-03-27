@@ -1,10 +1,11 @@
 .user-results {
     position: absolute;
-    z-index: 9999;
+    z-index: 99999;
     top: 10vh;
     left: 0;
     height: auto;
     min-height: 35vh;
+    max-height: 50vh;
     width: 50vw;
     background-color: rgba(2, 4, 38, 0.97);
     color: lightblue;
@@ -17,12 +18,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: space-between; */
+}
+
+.exit-btn-container {
+    position: relative;
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .user-list {
     position: relative;
-    height: 100%;
+    height: 80%;
     width: 100%;
     display: flex;
     flex-direction: column;

@@ -1,0 +1,40 @@
+<div class="surfer-superior">
+  <!-- name: string;
+    username: string;
+    cryptos?: CryptoId[];
+    nfts?: NFTId[];
+    posts?: Post[];
+    profileImage?: string; -->
+  <!-- // - Top - Box -->
+  <div *ngIf="surfer" class="primary-content-container">
+    <div
+      class="surfer-general-data"
+      [style.width]="noteDisplayState ? '50%' : '100%'"
+    >
+      <div class="">
+        <img *ngIf="surfer.profileImage" [src]="surfer.profileImage" alt="" />
+        <h2>{{ surfer.username }}</h2>
+        <h4>{{ surfer.name }}</h4>
+        <div class="options">
+          <button mat-raised-button>Friend Request</button>
+          <button mat-raised-button>Message</button>
+        </div>
+      </div>
+      <div class="note-toggle-btn-container">
+        <!-- <button mat-raised-button (click)="toggleNotes()">Notes</button> -->
+        <button mat-raised-button (click)="toggleNotes()">Notes</button>
+      </div>
+    </div>
+    <div *ngIf="noteDisplayState" class="surfer-notes-container">
+      <div *ngFor="let note of surfer.posts">
+        {{ note.description }}
+      </div>
+    </div>
+  </div>
+  <!-- // Bottom Section toggle between Crypto and NFTs -->
+  <div class="secondary-content-container">
+    <div *ngFor="let Crypto of surfer.cryptos">
+      <h3>{{ Crypto.id }}</h3>
+    </div>
+  </div>
+</div>

@@ -1,24 +1,66 @@
-<div [ngStyle]="{
+<div
+  [ngStyle]="{
     height: '100%',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: displayAlign,
     justifyContent: 'center',
-}">
-    <h3>Find Users</h3>
-    <!-- <form [formGroup]="searchForm" action="">
+}"
+>
+  <h3>Find Users</h3>
+  <!-- <form [formGroup]="searchForm" action="">
         <input type="text" formControlName="userinput" placeholder="Ex. theDarkNight" (keyup)="sendSearchRequest()">
     </form> -->
-    <input #userSearch type="text" placeholder="Ex. Batman">
+  <input #userSearch type="text" placeholder="Ex. Batman" />
 </div>
-<div *ngIf="searchIsActive" class="user-results" [style.width]="isBigScreen ? '35vw':'100vw'">
-    <div class="user-list">
-        <div [style.width]="'80%'" *ngFor="let users of results; let i = index ">
-            <!-- <div [ngStyle]="{width: '100vw'}"> -->
-            <app-user-card [isLast]="i === results.length-1 ? true : false" [profilePic]="users.profileImage" [name]="users.username" [email]="users.email" />
-            <!-- </div> -->
-
-        </div>
+<div
+  *ngIf="searchIsActive"
+  class="user-results"
+  [style.width]="isBigScreen ? '45vw' : '100vw'"
+>
+  <div class="exit-btn-container">
+    <button
+      [ngStyle]="{ right: '1rem', height: '50%', width: '5rem' }"
+      mat-raised-button
+      color="danger"
+      (click)="closeSearch()"
+    >
+      Exit
+    </button>
+  </div>
+  <div *ngIf="results" class="user-list">
+    <div
+      [style.position]="'relative'"
+      [style.width]="'95%'"
+      *ngFor="let user of results; let i = index"
+    >
+      <!-- <div [ngStyle]="{width: '100vw'}"> -->
+      <app-user-card
+        [isLast]="i === results.length - 1 ? true : false"
+        [user]="user"
+        [profilePic]="user.profileImage"
+        [name]="user.username"
+        [email]="user.email"
+        (closeSearch)="closeSearch()"
+      />
+      <!-- </div> -->
     </div>
+  </div>
+  <div *ngIf="results.length === 0" class="user-list">
+    <div
+      [ngStyle]="{
+        position: 'relative',
+        width: '100%',
+        height: '10rem',
+        display: 'flex', 
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }"
+    >
+      <h2>No Users Found 🚫</h2>
+    </div>
+    <!-- <h2>No Users Found 🚫</h2> -->
+  </div>
 </div>

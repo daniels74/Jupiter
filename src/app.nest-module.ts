@@ -10,6 +10,7 @@ import { join } from 'path';
 import { CryptoidModule } from './cryptoid/cryptoid.module';
 import { NftidModule } from './nftid/nftid.module';
 import { PostingModule } from './posting/posting.module';
+import { FriendRequestsModule } from './friend-requests/friend-requests.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { PostingModule } from './posting/posting.module';
     CryptoidModule,
     NftidModule,
     PostingModule,
+    FriendRequestsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

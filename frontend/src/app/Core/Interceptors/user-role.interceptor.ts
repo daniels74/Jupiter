@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, Subscription, retry, timer } from 'rxjs';
+import { Observable, Subscription, delay, retry, timer } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectAuth } from '../../Shared/State/Selectors/auth.selector';
 import { WINDOW } from '../../window-token';
@@ -51,7 +51,8 @@ export class UserRoleInterceptor implements HttpInterceptor, OnDestroy {
       request.url.startsWith(this.origin + '/nftid') ||
       request.url.startsWith(this.origin + '/posting') ||
       request.url.startsWith(this.origin + '/api/user/upload') ||
-      request.url.startsWith(this.origin + '/api/user/uimg/userimg');
+      request.url.startsWith(this.origin + '/api/user/uimg/userimg') ||
+      request.url.startsWith(this.origin + '/friendrequest');
 
     if (this.isAuth && urlValid) {
       const token = localStorage.getItem('blog-token');
@@ -72,6 +73,12 @@ export class UserRoleInterceptor implements HttpInterceptor, OnDestroy {
       return next
         .handle(request)
         .pipe(retry({ count: 10, delay: this.shouldRetry }));
+    } else if (
+      request.url.startsWith('https://assets.coingecko.com/coins/images')
+    ) {
+      return next
+        .handle(request)
+        .pipe(retry({ count: 10, delay: delay(1000) }));
     }
 
     return next.handle(request);

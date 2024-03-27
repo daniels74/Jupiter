@@ -8,22 +8,22 @@
     <!-- <img class="img-ele back" [src]="Item.item.large" alt="" /> -->
     <div appGlowify class="img-ele container">
       <div class="cube">
-        <div class="face top"> <img class="img-ele" [src]="Item.item.large" alt="" /></div>
-        <div class="face bottom"> <img class="img-ele" [src]="Item.item.large" alt="" /></div>
-        <div class="face left"> <img class="img-ele" [src]="Item.item.large" alt="" /></div>
-        <div class="face right"> <img class="img-ele" [src]="Item.item.large" alt="" /></div>
-        <div class="face front"> <img class="img-ele" [src]="Item.item.large" alt="" /></div>
-        <div class="face back"> <img class="img-ele" [src]="Item.item.large" alt="" /></div>
+        <div class="face top"> <img class="img-ele" [src]="Item.item.large" cross-origin="" alt="" /></div>
+        <div class="face bottom"> <img class="img-ele" [src]="Item.item.large" cross-origin="" alt="" /></div>
+        <div class="face left"> <img class="img-ele" [src]="Item.item.large" cross-origin="" alt="" /></div>
+        <div class="face right"> <img class="img-ele" [src]="Item.item.large" cross-origin="" alt="" /></div>
+        <div class="face front"> <img class="img-ele" [src]="Item.item.large" cross-origin="" alt="" /></div>
+        <div class="face back"> <img class="img-ele" [src]="Item.item.large" cross-origin="" alt="" /></div>
       </div>
     </div>
     
     <div class="crypto-info">
-      <div>
+      <h1>
         {{ Item.item.symbol }}
-      </div>
+      </h1>
       <div>
-        <div>Score | {{ Item.item.score }}</div>
-        <div>Market Cap Rank | {{ Item.item.market_cap_rank }}</div>
+        <h4>Score | {{ Item.item.score }}</h4>
+        <h4>Market Cap Rank | {{ Item.item.market_cap_rank }}</h4>
       </div>
     </div>
   </div>

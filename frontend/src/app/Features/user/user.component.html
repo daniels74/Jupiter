@@ -1,21 +1,24 @@
 <!-- Big Screen -->
 <div *ngIf="isBigScreen" class="user-profile-page primary-page-theme">
   <user-large-page
-  [chosenCrypto]="chosenCrypto"
-  [chartState]="chartState"
-  (closeChart)="closeChart()"
-  (toggleSettings)="toggleSettings()"
-  [settingState]="settingState"
-  [user]="user"
-  (updateUser)="updateUser()"
-  [updateUserForm]="updateUserForm"
-  (useCopresserOnImage)="useCopresserOnImage()"
-  [cryptoCollection]="cryptoCollection"
-  [nftCollection]="nftCollection"
-  (toggleChart)="selectCryptoChart($event)"
-  [collectionTypeToggle]="collectionTypeToggle"
-  (toggleCollectionType)="toggleCollectionType()"
-/>
+    [chosenCrypto]="chosenCrypto"
+    [chartState]="chartState"
+    (closeChart)="closeChart()"
+    (toggleSettings)="toggleSettings()"
+    [settingState]="settingState"
+    (toggleFriendsList)="toggleFriendsList()"
+    [friendsListState]="friendsListState"
+    [userFriendRequestList]="userFriendRequestList"
+    [user]="user"
+    (updateUser)="updateUser()"
+    [updateUserForm]="updateUserForm"
+    (useCopresserOnImage)="useCopresserOnImage()"
+    [cryptoCollection]="cryptoCollection"
+    [nftCollection]="nftCollection"
+    (toggleChart)="selectCryptoChart($event)"
+    [collectionTypeToggle]="collectionTypeToggle"
+    (toggleCollectionType)="toggleCollectionType()"
+  />
 </div>
 <!-- ! Small Screen -->
 <div
