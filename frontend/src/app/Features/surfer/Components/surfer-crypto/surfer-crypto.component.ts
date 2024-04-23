@@ -11,7 +11,7 @@ import { SingleCoin } from '../../../../Core/Interfaces/singleCoin.interface';
   standalone: true,
   imports: [CommonModule, DataCardComponent],
   templateUrl: './surfer-crypto.component.html',
-  styleUrl: './surfer-crypto.component.scss',
+  styleUrls: ['./surfer-crypto.component.scss'],
 })
 export class SurferCryptoComponent {
   @Input() surfer!: any;
