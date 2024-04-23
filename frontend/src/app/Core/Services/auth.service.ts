@@ -80,6 +80,7 @@ export class AuthService {
 
     //// Set user data State
     const userState_ngrx: User = user.user;
+    console.log('USer:', user.user);
     this.store.dispatch(usersAction.setCurrentUserState({ userState_ngrx }));
 
     //// Set user's crypto ID collection

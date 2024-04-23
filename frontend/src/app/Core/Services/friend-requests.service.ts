@@ -61,4 +61,8 @@ export class FriendRequestsService {
       user,
     );
   }
+
+  getFriendsList(): Observable<any> {
+    return this.http.post(this.origin + '/friendrequest' + '/friendships', {});
+  }
 }

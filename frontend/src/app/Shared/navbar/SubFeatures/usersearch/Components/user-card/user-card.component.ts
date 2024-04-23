@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from '../../../../../../Core/Interfaces/User.interface';
-import { Router } from 'express';
+import { Router } from '@angular/router';
 import { SurferService } from '../../../../../../Core/Services/surfer.service';
 import { FriendRequestsService } from '../../../../../../Core/Services/friend-requests.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-card',
@@ -16,8 +17,14 @@ export class UserCardComponent implements OnInit {
   @Input() profilePic!: string;
   @Input() user!: User;
   @Output() closeSearch: EventEmitter<any> = new EventEmitter<any>();
+  @Output() spinnerSwitchOn: EventEmitter<any> = new EventEmitter<any>();
+  @Output() spinnerSwitchOff: EventEmitter<any> = new EventEmitter<any>();
+
+  loadingState = false;
 
   constructor(
+    private router: Router,
+    private spinner: NgxSpinnerService,
     private SurferService: SurferService,
     private friendRequestService: FriendRequestsService,
   ) {}
@@ -27,11 +34,15 @@ export class UserCardComponent implements OnInit {
   }
 
   goToSurferProfile() {
-    this.SurferService.getSurferData(this.user.id).subscribe((surfer) => {
-      console.log('Surfer Object arrived at SearchBar Card:', surfer);
+    this.spinnerSwitchOn.emit();
+    this.SurferService.getAndSetSurferData(this.user.id).subscribe((surfer) => {
+      setTimeout(() => {
+        console.log('Surfer Object set as an Observable: ', surfer);
+        this.router.navigate(['surfer/{{ user.id }}']);
+        this.spinnerSwitchOff.emit();
+        this.closeSearch.emit();
+      }, 500);
     });
-    console.log('USER ID in search bar: ', this.user.id);
-    this.closeSearch.emit();
   }
 
   sendFriendRequest(id: number) {

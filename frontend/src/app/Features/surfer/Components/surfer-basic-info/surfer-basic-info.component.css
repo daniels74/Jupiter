@@ -1,0 +1,39 @@
+.surfer-data-container {
+    width: 100%;
+    height: 100%;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.profile-picture-container {
+    width: 10%;
+    height: auto;    
+}
+
+.profile-picture {
+    height: 100%;
+    width: 100%;
+}
+
+.surfer-name-container {
+    height: 80%;
+    width: 45%;
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.options {
+    height: 50%;
+    width: 45%;
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}

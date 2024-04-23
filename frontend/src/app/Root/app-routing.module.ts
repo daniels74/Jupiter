@@ -6,6 +6,7 @@ import { cryptoCollectionResolver } from '../Shared/resolvers/crypto-collection.
 import { nftCollectionResolver } from '../Shared/resolvers/nft-collection.resolver';
 import { allCryptoResolver } from '../Shared/resolvers/all-crypto.resolver';
 import { FourzerofourComponent } from '../Features/fourzerofour/fourzerofour.component';
+import { surferResolver } from '../Shared/resolvers/surfer.resolver';
 
 const routes: Routes = [
   {
@@ -42,6 +43,9 @@ const routes: Routes = [
   },
   {
     path: 'surfer/:id',
+    // resolve: {
+    //   crypto: surferResolver,
+    // },
     loadChildren: () =>
       import('../Features/surfer/surfer.module').then((m) => m.SurferModule),
   },

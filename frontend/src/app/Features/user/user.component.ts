@@ -35,8 +35,9 @@ export class UserComponent implements OnInit {
   user!: User;
   profilePic = '';
   settingState = false;
-  friendsListState = false;
+  friendRequestList = false;
   userFriendRequestList: any[] = [];
+  friendsListState = false;
   sub!: Subscription;
 
   allCryptoIds!: any;
@@ -130,6 +131,10 @@ export class UserComponent implements OnInit {
 
   toggleFriendsList() {
     this.friendsListState = !this.friendsListState;
+  }
+
+  toggleFriendRequestList() {
+    this.friendRequestList = !this.friendRequestList;
   }
 
   updateUser() {

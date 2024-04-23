@@ -1,0 +1,22 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin color($theme) {
+  .content-container {
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: .5rem;
+    scrollbar-color: mat.get-theme-color($theme, primary) mat.get-theme-color($theme, primary, lighter);
+    background-color: mat.get-theme-color($theme, primary, lighter);
+  }
+}
+
+@mixin theme($theme) {
+  @if mat.theme-has($theme, color) {
+    @include color($theme);
+  }
+}

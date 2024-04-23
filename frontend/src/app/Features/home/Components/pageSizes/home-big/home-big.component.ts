@@ -25,6 +25,9 @@ export class HomeBigComponent {
   constructor(public spinner: NgxSpinnerService) {}
 
   toggleContentState() {
+    this.crypto$.subscribe((crypto) => {
+      console.log('Crypto collection: ', crypto);
+    });
     this.toggleContentStateEvent.emit();
   }
 }

@@ -10,6 +10,7 @@ import {
   map,
   switchMap,
 } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-usersearch',
@@ -20,6 +21,7 @@ export class UsersearchComponent {
   constructor(
     private fb: FormBuilder,
     private userSearchService: UserSearchService,
+    private spinner: NgxSpinnerService,
   ) {}
 
   @ViewChild('userSearch') userSearch!: ElementRef;
@@ -30,6 +32,8 @@ export class UsersearchComponent {
   // Screen Size
   displayAlign = window.innerWidth < 700 ? 'center' : 'flex-start';
   isBigScreen = window.innerWidth < 700 ? false : true;
+
+  loadingState = false;
 
   ngAfterViewInit() {
     fromEvent(this.userSearch.nativeElement, 'keyup')
@@ -52,5 +56,16 @@ export class UsersearchComponent {
 
   closeSearch() {
     this.searchIsActive = false;
+  }
+
+  spinnerSwitchOn() {
+    this.spinner.show('primary');
+    this.loadingState = true;
+  }
+
+  spinnerSwitchOff() {
+    this.loadingState = false;
+    this.spinner.hide();
+    console.log('SPinner switch off');
   }
 }
