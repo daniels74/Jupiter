@@ -9,11 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [CommonModule, MatButtonModule],
   templateUrl: './surfer-basic-info.component.html',
-  styleUrl: './surfer-basic-info.component.css'
+  styleUrls: ['./surfer-basic-info.component.css'],
 })
 export class SurferBasicInfoComponent {
-
   @Input() surfer!: Surfer;
   @Output() toggleNotes: EventEmitter<any> = new EventEmitter<any>();
-
 }

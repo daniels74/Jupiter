@@ -8,7 +8,7 @@ import { SingleCoin } from '../../../../Core/Interfaces/singleCoin.interface';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './data-card.component.html',
-  styleUrl: './data-card.component.scss',
+  styleUrls: ['./data-card.component.scss'],
 })
 // export interface SingleCoin {
 //   id: string;
