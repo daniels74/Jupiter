@@ -105,7 +105,7 @@
 
 .settings-btn {
   height: 60%;
-  width: 5%;
+  width: auto;
   margin-right: 0.5rem;
 }
 
@@ -209,7 +209,7 @@
   justify-content: space-around;
 }
 
-.friendsListContainer {
+.listContainer {
   position: absolute;
   z-index: 999;
   height: 70%;
@@ -217,14 +217,14 @@
   // filter: blur(1rem);
 }
 
-.friendRequests-title-nav {
+.title-nav-container {
   height: 10%;
   width: 100%;
   display: flex;
   flex-direction: row;
 }
 
-.friendRequest-title-container {
+.title-container {
   height: 100%;
   width: 75%;
   display: flex;
@@ -243,7 +243,7 @@
   justify-content: space-around;
 }
 
-.friendRequests-table {
+.table-container {
   position: relative;
   min-height: 65%;
   max-height: 70%;
@@ -263,7 +263,7 @@
 
 /*! ----------------------------------------------------------------------RIGHT SECTION STARTS */
 @mixin color($theme) {
-  .friendRequest-title-container {
+  .title-container {
     height: 100%;
     width: 75%;
     display: flex;
@@ -272,7 +272,7 @@
     justify-content: center;
   }
 
-  .friendRequest-title-container > h2 {
+  .title-container > h2 {
     color: mat.get-theme-color($theme, accent, text);
   }
 

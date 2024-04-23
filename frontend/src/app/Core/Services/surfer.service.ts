@@ -22,12 +22,12 @@ export class SurferService {
     private http: HttpClient,
   ) {}
 
-  getSurferData(id: any): Observable<any> {
+  getAndSetSurferData(id: any): Observable<any> {
     // const id = this.route.snapshot.paramMap.get('id');
-    console.log('this.origin: ', this.origin);
     return this.http.get<Surfer>(this.origin + '/api/user/surfer/' + id).pipe(
       map((surfer) => {
         this.surferBehaviorSubject.next(surfer);
+        console.log('SET SURFER OBSERVABLE:  ', this.origin);
         return surfer;
       }),
     );

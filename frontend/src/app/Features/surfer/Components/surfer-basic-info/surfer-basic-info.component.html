@@ -1,0 +1,21 @@
+<div class="surfer-data-container">
+  <div class="profile-picture-container">
+    <img
+      *ngIf="surfer.profileImage"
+      class="profile-picture"
+      [src]="surfer.profileImage"
+      alt=""
+    />
+  </div>
+  <div class="surfer-name-container">
+    <h2>{{ surfer.username }}</h2>
+    <h4>{{ surfer.name }}</h4>
+  </div>
+  <div class="options">
+    <button color="accent" mat-raised-button>Friend Request</button>
+    <button color="accent" mat-raised-button>Message</button>
+  </div>
+  <div class="note-toggle-btn-container">
+    <button mat-raised-button color="primary" (click)="toggleNotes.emit()">Notes</button>
+  </div>
+</div>

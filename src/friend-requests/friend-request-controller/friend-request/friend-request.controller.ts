@@ -53,4 +53,11 @@ export class FriendRequestController {
     const currentUser = req.user;
     return this.friendReqService.cancelFriendRequest(currentUser, otherUser);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('friendships')
+  getAllFriends(@Request() req) {
+    const currentUser = req.user.id;
+    return this.friendReqService.getAllFriends(currentUser);
+  }
 }

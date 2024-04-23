@@ -12,6 +12,9 @@
 @use './app/Features/user/Components/PageSizes/large-page/components/note-card/note-card.component.scss' as userNoteCard;
 @use './app/Features/login/login.component.scss' as login;
 @use './app/Features/register/register.component.scss' as register;
+@use './app/Features/surfer/surfer.component.scss' as surfer;
+@use './app/Features/surfer/Components/data-card/data-card.component.scss' as Surfer-DataCard;
+@use './app/Features/surfer/Components/surfer-crypto/surfer-crypto.component.scss' as surfer-cryptoCollection;
 
 @include mat.core();
 // ! #9aaab0
@@ -158,6 +161,9 @@ $my-dark-theme: mat.define-dark-theme(
   @include userNoteCard.theme($my-light-theme);
   @include login.theme($my-light-theme);
   @include register.theme($my-light-theme);
+  @include surfer.theme($my-light-theme);
+  @include surfer-cryptoCollection.theme($my-light-theme);
+  @include Surfer-DataCard.theme($my-light-theme);
 }
 
 .theme-dark {
@@ -174,6 +180,9 @@ $my-dark-theme: mat.define-dark-theme(
   @include userNoteCard.theme($my-dark-theme);
   @include login.theme($my-dark-theme);
   @include register.theme($my-dark-theme);
+  @include surfer.theme($my-dark-theme);
+  @include surfer-cryptoCollection.theme($my-dark-theme);
+  @include Surfer-DataCard.theme($my-dark-theme);
  }
 
 // @include navbar.theme($my-dark-theme);

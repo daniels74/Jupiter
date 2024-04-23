@@ -84,12 +84,18 @@ export class CoinGeckoApiService {
       market_data: undefined,
       collectionId: 0,
     };
-    return this.http.get<any>(
-      'https://api.coingecko.com/api/v3/coins/' +
-        coinId +
-        '?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false',
-    );
-    // .pipe(catchError((error) => of(null)));
+    return this.http
+      .get<any>(
+        'https://api.coingecko.com/api/v3/coins/' +
+          coinId +
+          '?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false',
+      )
+      .pipe(
+        map((res) => {
+          return res;
+        }),
+      )
+      .pipe(catchError((error) => of(null)));
   }
 
   getSingleNFT(nftId: string): Observable<SingleNFT> {

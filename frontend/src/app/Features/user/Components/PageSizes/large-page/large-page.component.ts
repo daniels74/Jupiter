@@ -48,6 +48,7 @@ export class LargePageComponent implements OnInit {
   ) {}
   friendsList: any = <any>[];
   sentFriendRequests: any = <any>[];
+  myfriendsList: any = <any>[];
 
   // Chart things
   @Input() chosenCrypto: SingleCoin = <SingleCoin>{};
@@ -59,9 +60,12 @@ export class LargePageComponent implements OnInit {
   // User things
   @Output() toggleSettings: EventEmitter<any> = new EventEmitter<any>();
   @Input() settingState!: boolean;
+  @Output() toggleFriendRequestList: EventEmitter<any> =
+    new EventEmitter<any>();
+  @Input() friendRequestList!: boolean;
+  @Input() userFriendRequestList!: any[];
   @Output() toggleFriendsList: EventEmitter<any> = new EventEmitter<any>();
   @Input() friendsListState!: boolean;
-  @Input() userFriendRequestList!: any[];
   @Input() user!: User;
   @Input() updateUserForm!: FormGroup;
   @Input() name!: FormControl;
@@ -104,8 +108,14 @@ export class LargePageComponent implements OnInit {
   sentFriendRequests_dataSource = new MatTableDataSource<any>(
     this.sentFriendRequests,
   );
+  myfriends_dataSource = new MatTableDataSource<any>(this.myfriendsList);
 
   ngOnInit(): void {
+    this.FriendRequestService.getFriendsList().subscribe((res) => {
+      console.log('my friends: ', res);
+      this.myfriends_dataSource.data = res;
+    });
+
     this.postService.userPostsSubject.subscribe((allPosts) => {
       this.userPosts = allPosts;
     });

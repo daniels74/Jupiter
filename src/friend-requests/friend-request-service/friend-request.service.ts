@@ -114,6 +114,32 @@ export class FriendRequestService {
     });
   }
 
+  getAllFriends(userID: number) {
+    return from(
+      this.friendRequestRepository
+        .find({
+          where: [
+            {
+              creator: { id: userID },
+              status: 'accepted',
+            },
+            { reciever: { id: userID }, status: 'accepted' },
+          ],
+          relations: { reciever: true },
+        })
+        .then((res) => {
+          return res.map((friendRequestBlock) => {
+            const { reciever, ...block } = friendRequestBlock;
+            const { password, role, ...restOfUser } =
+              friendRequestBlock.reciever;
+            const filteredSenstiveData = { ...block, restOfUser };
+            console.log(filteredSenstiveData);
+            return filteredSenstiveData;
+          });
+        }),
+    );
+  }
+
   // findFriendRequest(sender: User, reciever: User) {
   //   return this.friendRequestRepository.find({
   //     where: {

@@ -1,0 +1,9 @@
+<div *ngIf="data" class="card-container">
+  <div class="img-container">
+    <img class="data-img" [src]="data.image.large" alt="" />
+  </div>
+  <div class="coin-info">{{ data.name }}</div>
+</div>
+<!-- <div *ngIf="!coin" class="card-container">
+  none
+</div> -->
