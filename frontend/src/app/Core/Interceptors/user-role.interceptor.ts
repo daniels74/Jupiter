@@ -79,6 +79,12 @@ export class UserRoleInterceptor implements HttpInterceptor, OnDestroy {
       return next
         .handle(request)
         .pipe(retry({ count: 10, delay: delay(1000) }));
+    } else if (
+      request.url.startsWith('https://api.coingecko.com/api/v3/coins/')
+    ) {
+      return next
+        .handle(request)
+        .pipe(retry({ count: 10, delay: delay(10000) }));
     }
 
     return next.handle(request);

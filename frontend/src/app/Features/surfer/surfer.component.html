@@ -1,38 +1,21 @@
-<div class="surfer-superior">
-  <!-- name: string;
-    username: string;
-    cryptos?: CryptoId[];
-    nfts?: NFTId[];
-    posts?: Post[];
-    profileImage?: string; -->
-  <!-- //! - Top - Box -->
-  <div *ngIf="surfer" class="primary-content-container">
-    <div
-      class="surfer-general-data"
-      [style.width]="noteDisplayState ? '50%' : '100%'"
-    >
-      <surfer-basic-info
-        [ngStyle]="{ height: '95%', width: '95%' }"
-        [surfer]="surfer"
-        (toggleNotes)="toggleNotes()"
-      />
-    </div>
-    <div *ngIf="noteDisplayState" class="surfer-notes-container">
-      <div *ngFor="let note of surfer.posts">
-        {{ note.description }}
-      </div>
-    </div>
+<div>
+  <div *ngIf="pageSize">
+    <surfer-large-page
+    [surfer]="surfer"
+    [noteDisplayState]="noteDisplayState"
+    (toggleNotes)="toggleNotes()"
+    [surferPostStatus]="surferPostStatus"
+    [surferCryptoStatus]="surferCryptoStatus"
+  />
   </div>
-  <!-- // Bottom Section toggle between Crypto and NFTs -->
-  <div class="secondary-content-container">
-    <!-- <div *ngFor="let Crypto of surfer.cryptos">
-      <h3>{{ Crypto.id }}</h3>
-    </div> -->
-    <div class="surfer-crypto">
-      <surfer-crypto
-      [ngStyle]="{ height: '80%', width: '80%', scrollBarColor: 'auto' }"
-      [surfer]="surfer"
-    />
-    </div>
+  <div *ngIf="!pageSize">
+    <surfer-small-page
+    [surfer]="surfer"
+    [noteDisplayState]="noteDisplayState"
+    (toggleNotes)="toggleNotes()"
+    [surferPostStatus]="surferPostStatus"
+    [surferCryptoStatus]="surferCryptoStatus"
+  />
   </div>
+  
 </div>

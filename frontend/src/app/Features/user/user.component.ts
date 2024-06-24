@@ -88,6 +88,7 @@ export class UserComponent implements OnInit {
     // USER
     this.store.select(selectUser).subscribe((currentUser) => {
       this.user = currentUser;
+      console.log('Loacted in User: ', currentUser);
     });
 
     // Profile Pic
@@ -95,6 +96,9 @@ export class UserComponent implements OnInit {
       this.profilePic = userimg.profileImage;
     });
 
+    this.cryptoService.setCryptoSingleCoins().subscribe((res) => {
+      console.log('The signle coin response: ', res);
+    });
     // Crypto Collection
     this.cryptoService.cryptoCollection_O.subscribe((coinList) => {
       this.cryptoCollection = coinList;

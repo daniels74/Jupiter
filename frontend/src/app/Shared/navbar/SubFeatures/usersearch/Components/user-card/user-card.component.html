@@ -18,7 +18,7 @@
             <button (click)="this.goToSurferProfile()" mat-raised-button color="primary" [ngStyle]="{height: '35%'}">
             <h6>Profile</h6>
         </button>
-        <button (click)="sendFriendRequest(user.id)" mat-raised-button color="primary" [ngStyle]="{height: '35%'}" >
+        <button *ngIf="authState" (click)="sendFriendRequest(user.id)" mat-raised-button color="primary" [ngStyle]="{height: '35%'}" >
             <h6>Add User</h6>
         </button>
     </div>

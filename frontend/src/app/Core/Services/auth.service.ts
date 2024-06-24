@@ -92,7 +92,7 @@ export class AuthService {
     );
 
     // // Search each crypto and save in an observable of type [] in crypto service
-    this.CryptoService.setCryptoSingleCoins();
+    //this.CryptoService.setCryptoSingleCoins();
 
     //// Set user's nft ID collection
     const nftCollection_ngrx = userState_ngrx.nfts;

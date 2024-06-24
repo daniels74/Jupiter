@@ -2,9 +2,8 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataCardComponent } from '../data-card/data-card.component';
 import { CoinGeckoApiService } from '../../../../Core/Services/coin-gecko-api.service';
-import { Surfer } from '../../../../Core/Interfaces/surfer.interface';
-import { CryptoId } from '../../../../Core/Interfaces/top-trending';
 import { SingleCoin } from '../../../../Core/Interfaces/singleCoin.interface';
+import { SurferService } from '../../../../Core/Services/surfer.service';
 
 @Component({
   selector: 'surfer-crypto',
@@ -17,7 +16,10 @@ export class SurferCryptoComponent {
   @Input() surfer!: any;
   cryptoCollection_unfiltered: SingleCoin[] = [];
 
-  constructor(private coinGeckoService: CoinGeckoApiService) {}
+  constructor(
+    private coinGeckoService: CoinGeckoApiService,
+    private surferService: SurferService,
+  ) {}
   ngOnInit() {
     // ! Must search cryptos here for delay purposes. Use a spinner here.
     this.surfer.cryptos.forEach((cryptoo: any) => {
@@ -27,6 +29,9 @@ export class SurferCryptoComponent {
         }
       });
     });
+    // this.surferService.surferCryptos$.subscribe((res) => {
+    //   this.cryptoCollection_unfiltered = res;
+    // });
   }
 
   ngOnChanges() {
