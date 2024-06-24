@@ -15,7 +15,7 @@ import { SurferNftsComponent } from '../../surfer-nfts/surfer-nfts.component';
     MatButtonModule,
   ],
   templateUrl: './small-page.component.html',
-  styleUrl: './small-page.component.scss',
+  styleUrls: ['./small-page.component.scss'],
 })
 export class SmallPageComponent {
   @Input() surfer!: Surfer;

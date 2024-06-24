@@ -9,7 +9,7 @@ import { SurferCryptoComponent } from '../../surfer-crypto/surfer-crypto.compone
   standalone: true,
   imports: [CommonModule, SurferBasicInfoComponent, SurferCryptoComponent],
   templateUrl: './large-page.component.html',
-  styleUrl: './large-page.component.scss',
+  styleUrls: ['./large-page.component.scss'],
 })
 export class LargePageComponent {
   @Input() surfer!: Surfer;
