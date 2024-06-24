@@ -10,7 +10,7 @@ import { SurferService } from '../../../../Core/Services/surfer.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './surfer-nfts.component.html',
-  styleUrl: './surfer-nfts.component.css',
+  styleUrls: ['./surfer-nfts.component.css'],
 })
 export class SurferNftsComponent {
   @Input() surfer!: Surfer;
