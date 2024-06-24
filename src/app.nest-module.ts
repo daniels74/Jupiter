@@ -14,9 +14,9 @@ import { FriendRequestsModule } from './friend-requests/friend-requests.module';
 
 @Module({
   imports: [
-    // ServeStaticModule.forRoot({
-    //   rootPath: join(__dirname, '../../', 'front'),
-    // }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../', 'front'),
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
