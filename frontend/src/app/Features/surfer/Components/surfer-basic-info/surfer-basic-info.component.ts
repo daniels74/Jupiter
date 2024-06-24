@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EventEmitter } from '@angular/core';
 import { Surfer } from '../../../../Core/Interfaces/surfer.interface';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../../../Core/Services/auth.service';
 
 @Component({
   selector: 'surfer-basic-info',
@@ -14,4 +15,13 @@ import { MatButtonModule } from '@angular/material/button';
 export class SurferBasicInfoComponent {
   @Input() surfer!: Surfer;
   @Output() toggleNotes: EventEmitter<any> = new EventEmitter<any>();
+  authState = false;
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    this.authService.authState$.subscribe((res) => {
+      this.authState = res;
+    });
+  }
 }

@@ -12,8 +12,8 @@
     <h4>{{ surfer.name }}</h4>
   </div>
   <div class="options">
-    <button color="accent" mat-raised-button>Friend Request</button>
-    <button color="accent" mat-raised-button>Message</button>
+    <button *ngIf="authState" color="accent" mat-raised-button>Friend Request</button>
+    <button *ngIf="authState" color="accent" mat-raised-button>Message</button>
   </div>
   <div class="note-toggle-btn-container">
     <button mat-raised-button color="primary" (click)="toggleNotes.emit()">Notes</button>

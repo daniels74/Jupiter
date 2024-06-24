@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SurferService } from '../../../../../../Core/Services/surfer.service';
 import { FriendRequestsService } from '../../../../../../Core/Services/friend-requests.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from '../../../../../../Core/Services/auth.service';
 
 @Component({
   selector: 'app-user-card',
@@ -21,16 +22,21 @@ export class UserCardComponent implements OnInit {
   @Output() spinnerSwitchOff: EventEmitter<any> = new EventEmitter<any>();
 
   loadingState = false;
+  authState = false;
 
   constructor(
     private router: Router,
     private spinner: NgxSpinnerService,
     private SurferService: SurferService,
     private friendRequestService: FriendRequestsService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
     console.log('Profile img and name: ', this.name, this.profilePic);
+    this.authService.authState$.subscribe((res) => {
+      this.authState = res;
+    });
   }
 
   goToSurferProfile() {

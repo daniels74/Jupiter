@@ -3,7 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './model/user.entity';
 import { Like, Repository } from 'typeorm';
 import { User } from './model/user.interface';
-import { Observable, catchError, from, map, switchMap, throwError } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  from,
+  map,
+  of,
+  switchMap,
+  throwError,
+} from 'rxjs';
 import { AuthService } from 'src/auth/auth.service';
 import {
   paginate,
@@ -15,6 +23,7 @@ import { CryptoIdEnitity } from '../cryptoid/model/cryptoid.entity';
 import { NftIdEntity } from '../nftid/model/nftid.entity';
 import { PostEntity } from '../posting/models/post.entity';
 import { Surfer } from './model/surfer.interface';
+import { FriendRequestEntity } from 'src/friend-requests/Model/friendRequest.entity';
 
 @Injectable()
 export class UserService {
@@ -62,7 +71,7 @@ export class UserService {
             map((jwt: string) => jwt),
           );
         } else {
-          return 'Wrong Credentials';
+          return of('Wrong Credentials', user);
         }
       }),
     );
@@ -78,9 +87,10 @@ export class UserService {
             if (match) {
               const { password, profileImage, ...result } = user;
               return result;
-            } else {
-              throw Error;
             }
+            // else {
+            //   throw Error;
+            // }
           }),
         ),
       ),
@@ -169,6 +179,9 @@ export class UserService {
     return from(
       this.userRepository
         .createQueryBuilder('DeleteCertainUser')
+        .delete()
+        .from(FriendRequestEntity)
+        .where('creator.id = :id', { id: id.id })
         .delete()
         .from(PostEntity)
         .where('user.id = :id', { id: +id.id })

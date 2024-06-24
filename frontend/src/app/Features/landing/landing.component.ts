@@ -10,8 +10,8 @@ import { CoinGeckoApiService } from '../../Core/Services/coin-gecko-api.service'
 })
 export class LandingComponent implements OnInit {
   trending_cryptos: any = [];
-  title_container_width = window.innerWidth <= 700 ? '80%' : '50%';
-  title_container_height = window.innerWidth <= 700 ? '20%' : '30%';
+  title_container_width = window.innerWidth <= 700 ? 'auto' : '50%';
+  title_container_height = window.innerWidth <= 700 ? '25%' : '30%';
   titleFontSize: boolean = window.innerWidth <= 700 ? true : false;
   crpyoinfo_container_width = window.innerWidth <= 700 ? '90%' : '40%';
   crpyoinfo_container_height = window.innerWidth <= 700 ? '30%' : '30%';
@@ -32,14 +32,14 @@ export class LandingComponent implements OnInit {
   onResize(event: Event) {
     //this.width = (event.target as Window).innerWidth;
     if ((event.target as Window).innerWidth <= 699) {
-      this.title_container_width = '60%';
-      this.title_container_height = '30%';
+      this.title_container_width = 'auto';
+      this.title_container_height = '25%';
       this.crpyoinfo_container_width = '90%';
       this.crpyoinfo_container_height = '30%';
     } else if ((event.target as Window).innerWidth > 700) {
       this.title_container_width = '50%';
       this.title_container_height = '30%';
-      this.crpyoinfo_container_width = '90%';
+      this.crpyoinfo_container_width = '40%';
       this.crpyoinfo_container_height = '30%';
     }
     // this.height = (event.target as Window).innerHeight;
