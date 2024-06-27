@@ -590,7 +590,7 @@
         </div>
       </div>
       <div *ngIf="collectionTypeToggle" class="card-group">
-        <div *ngFor="let singleCoin of nftCollection">
+        <div *ngFor="let singleCoin of nftCollection" class="card-item">
           <app-crypto-card
             [nfts]="singleCoin"
             [collectionClassifcation]="'nft'"

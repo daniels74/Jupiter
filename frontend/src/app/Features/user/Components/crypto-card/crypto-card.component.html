@@ -1,6 +1,5 @@
 <div
   class="crypto-card secondary-component-theme"
-  
   (mouseenter)="toggleExtentionState()"
   (mouseleave)="toggleExtentionState()"
 >
@@ -11,7 +10,11 @@
         position: 'relative',
     height: '100%', width: '100%', }"
   >
-    <div class="img-container" [style.height]="extentionState ? '40%' : '100%'" [style.borderRadius]="extentionState ? '' : '1rem'">
+    <div
+      class="img-container"
+      [style.height]="extentionState ? '40%' : '100%'"
+      [style.borderRadius]="extentionState ? '' : '1rem'"
+    >
       <img
         class="image-cover"
         [style.borderRadius]="extentionState ? '' : '1rem'"
@@ -61,22 +64,41 @@
   <div
     *ngIf="nfts"
     [ngStyle]="{
+      position: 'relative',
         height: '100%', width: '100%', }"
   >
-    <div class="img-container">
-      <img *ngIf="nfts.image" src="{{ nfts.image.small }}" alt="" />
+    <div
+      class="img-container"
+      [style.height]="extentionState ? '40%' : '100%'"
+      [style.borderRadius]="extentionState ? '' : '1rem'"
+    >
+      <!-- <img class="img-element" *ngIf="nfts.image" src="*ngIf="nfts.image"" alt="" /> -->
+      <img
+        class="image-cover"
+        *ngIf="nfts.image"
+        [style.borderRadius]="extentionState ? '' : '1rem'"
+        src="{{ nfts.image.small }}"
+        alt=""
+      />
+      <img
+        class="img-element"
+        *ngIf="nfts.image"
+        src="{{ nfts.image.small }}"
+        alt=""
+      />
+      <!-- <img src="https://coin-images.coingecko.com/nft_contracts/images/279/small/pixelmon.gif?1707287249"/> -->
     </div>
-    <div class="crypto-data-container">
+    <div *ngIf="extentionState" class="crypto-data-container">
       <h2 *ngIf="nfts.name">{{ nfts.name }}</h2>
       <div *ngIf="nfts.market_data">Price USD: {{ nfts.floor_price.usd }}</div>
       <!-- <div *ngIf="nfts.coingecko_rank">Coin Gecko Rank: {{nfts.coingecko_rank}}</div>
             <div *ngIf="nfts.collectionId">Collection Number: {{crypto.collectionId}}</div> -->
     </div>
-    <div class="user-options">
+    <div *ngIf="extentionState" class="user-options">
       <button
         class="delete-btn"
         (click)="removeCrypto(nfts.id)"
-        [style.width]="!isLargeScreen ? '25%' : '10%'"
+        [style.minWidth]="!isLargeScreen ? '25%' : '10%'"
       >
         Remove
       </button>

@@ -7,6 +7,8 @@ import {
   selectNfts,
 } from '../../Shared/State/Selectors/crypto.selectors';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CryptoService } from '../../Core/Services/UserCollection/crypto.service';
+import { UserNftCollectionService } from '../../Core/Services/UserCollection/user-nft-collection.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +16,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  constructor(private store: Store, public spinner: NgxSpinnerService) {}
+  constructor(
+    private store: Store,
+    public spinner: NgxSpinnerService,
+    private cryptoService: CryptoService,
+    private nftService: UserNftCollectionService,
+  ) {}
 
   // ? Top trending Crypto
   crypto$: Observable<Array<CryptoCoinObj>> = this.store.select(selectCrypto);
@@ -30,6 +37,19 @@ export class HomeComponent {
 
   // ? Title for content displaying
   selectedContent = 'Crypto';
+
+  cryptoCollection!: any[];
+
+  nftCollection!: any[];
+
+  ngOnInit() {
+    this.cryptoService.cryptoCollection_O.subscribe((res) => {
+      this.cryptoCollection = res;
+    });
+    this.nftService.nftCollection.subscribe((res) => {
+      this.nftCollection = res;
+    });
+  }
 
   toggleContentState() {
     if (this.selectedContent === 'Crypto') {

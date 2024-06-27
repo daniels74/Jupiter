@@ -5,7 +5,9 @@
         [nfts$]="nfts$"
         [trendingContent_state]="trendingContent_state"
         [selectedContent]="selectedContent"
-        (toggleContentStateEvent)="toggleContentState()"/>
+        (toggleContentStateEvent)="toggleContentState()"
+        [cryptoCollection]="cryptoCollection"
+        [nftCollection]="nftCollection"/>
     </div>
     <div *ngIf="!sizeState" class="small-screen">
         <app-home-small 
@@ -13,6 +15,8 @@
         [nfts$]="nfts$"
         [trendingContent_state]="trendingContent_state"
         [selectedContent]="selectedContent"
-        (toggleContentStateEvent)="toggleContentState()"/>
+        (toggleContentStateEvent)="toggleContentState()"
+        [cryptoCollection]="cryptoCollection"
+        [nftCollection]="nftCollection"/>
     </div>
 </div>

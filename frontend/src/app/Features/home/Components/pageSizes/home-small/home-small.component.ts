@@ -28,6 +28,10 @@ export class HomeSmallComponent {
 
   @Input() selectedContent = 'Crypto';
 
+  @Input() cryptoCollection!: any[];
+
+  @Input() nftCollection!: any[];
+
   constructor(public spinner: NgxSpinnerService) {}
 
   toggleContentState() {
