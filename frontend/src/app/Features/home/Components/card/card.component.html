@@ -1,18 +1,30 @@
-<div gloww class="card" 
-[ngStyle]="cardClass">
-    <div class="coin-img-container">
-        <img class="img-item" src="{{dataImage}}" alt="">
-    </div>
-    <div class="coin-info-container">
-        <div class="coin-info">
-            <h3>{{dataName}}</h3>
+<div *ngIf="PopUpState === false && NFTPopUpState === false" gloww class="card" [ngStyle]="cardClass">
+  <div class="coin-img-container">
+    <img class="img-item" src="{{ dataImage }}" alt="" />
+  </div>
+  <div class="coin-info-container">
+    <div class="coin-info">
+      <h3>{{ dataName }}</h3>
 
-            <h3>{{ dataMarketCapRank}}</h3>
+      <h3>{{ dataMarketCapRank }}</h3>
 
-            <!-- <button (click)="getMoreInfo()">{{coinId}}</button> -->
-        </div>
+      <!-- <button (click)="getMoreInfo()">{{coinId}}</button> -->
     </div>
-    <div class="options">
-        <button *ngIf="authState" class="save-btn" [ngStyle]="btnClass" (click)="saveToCollection(coinId)">Save to Collection</button>
-    </div>
+  </div>
+  <div class="options">
+    <button
+      *ngIf="authState"
+      class="save-btn"
+      [ngStyle]="btnClass"
+      (click)="saveToCollection(coinId)"
+    >
+      Save to Collection
+    </button>
+  </div>
 </div>
+<div *ngIf="PopUpState === true" gloww class="card" [ngStyle]="cardClass">
+  <h2>Capacity Reached {{ this.cryptosCollection.length }}</h2>
+</div>
+<div *ngIf="NFTPopUpState === true" gloww class="card" [ngStyle]="cardClass">
+    <h2>Capacity Reached {{ this.nftCollection.length }}</h2>
+  </div>

@@ -19,7 +19,7 @@
                 <div *ngFor="let coin of crypto$ | async">
                     <app-card [collectionClassification]="'crypto'" [dataImage]="coin.item.large"
                         [dataName]="coin.item.name" [dataMarketCapRank]="coin.item.market_cap_rank"
-                        [coinId]="coin.item.id" />
+                        [coinId]="coin.item.id" [cryptosCollection]="cryptoCollection" [nftCollection]="nftCollection"/>
                 </div>
             </div>
 

@@ -22,7 +22,16 @@ export class HomeBigComponent {
 
   @Input() selectedContent = 'Crypto';
 
+  @Input() cryptoCollection!: any[];
+
+  @Input() nftCollection!: any[];
+
   constructor(public spinner: NgxSpinnerService) {}
+
+  ngOnInit() {
+    console.log('User Cryptos in home : ', this.cryptoCollection);
+    console.log('User NFTS in Home: ', this.nftCollection);
+  }
 
   toggleContentState() {
     this.crypto$.subscribe((crypto) => {

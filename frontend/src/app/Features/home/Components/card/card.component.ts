@@ -5,6 +5,7 @@ import { AuthService } from '../../../../Core/Services/auth.service';
 import { Store } from '@ngrx/store';
 import { selectAuth } from '../../../../Shared/State/Selectors/auth.selector';
 import { UserNftCollectionService } from '../../../../Core/Services/UserCollection/user-nft-collection.service';
+// import { CryptoCoinObj } from 'src/app/Core/Interfaces/top-trending';
 
 @Component({
   selector: 'app-card',
@@ -17,6 +18,11 @@ export class CardComponent implements OnInit {
   @Input() dataMarketCapRank!: any;
   @Input() coinId!: string;
   @Input() collectionClassification!: string;
+  @Input() cryptosCollection!: any[];
+  @Input() nftCollection: any[] = [];
+
+  PopUpState = false;
+  NFTPopUpState = false;
 
   //! Auth State
   authState: any = false;
@@ -49,10 +55,10 @@ export class CardComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private cryptoService: CryptoService,
     private nftService: UserNftCollectionService,
     private coinGeckoService: CoinGeckoApiService,
     private store: Store,
+    private cryptoService: CryptoService,
   ) {}
 
   ngOnInit() {
@@ -70,19 +76,42 @@ export class CardComponent implements OnInit {
   // // this id is later used to look up the coin for more info
   saveToCollection(coinId: string) {
     if (this.collectionClassification === 'crypto') {
-      console.log('crypto id saving to db: ', coinId);
-      // // Save Crypto ID string into database
-      this.cryptoService.postCryptoId(coinId).subscribe((postRes) => {
-        //this.authService.setPermissions(postRes.jwt);
-        this.authService.setSessionToken(postRes.jwt);
-      });
+      if (this.cryptosCollection.length < 3) {
+        // // Save Crypto ID string into database
+        console.log('crypto id saving to db: ', coinId);
+        console.log('crypto list length: ', this.cryptosCollection.length);
+        this.cryptoService.postCryptoId(coinId).subscribe((postRes) => {
+          //this.authService.setPermissions(postRes.jwt);
+          this.authService.setSessionToken(postRes.jwt);
+        });
+      } else {
+        console.log(
+          'Crypto cannot be saved, capacity reached: ',
+          this.cryptosCollection.length,
+        );
+        this.PopUpState = true;
+        setTimeout(() => {
+          this.PopUpState = false;
+        }, 5000);
+      }
     } else if (this.collectionClassification === 'nft') {
-      // // Save NFT ID string into database
-      console.log('id', coinId);
-      this.nftService.postNftId(coinId).subscribe((postRes) => {
-        // this.authService.setPermissions(postRes.jwt);
-        this.authService.setSessionToken(postRes.jwt);
-      });
+      if (this.nftCollection.length < 3) {
+        // // Save NFT ID string into database
+        console.log('id', coinId);
+        this.nftService.postNftId(coinId).subscribe((postRes) => {
+          // this.authService.setPermissions(postRes.jwt);
+          this.authService.setSessionToken(postRes.jwt);
+        });
+      } else {
+        console.log(
+          'NFT cannot be saved, capacity reached: ',
+          this.nftCollection.length,
+        );
+        this.NFTPopUpState = true;
+        setTimeout(() => {
+          this.NFTPopUpState = false;
+        }, 5000);
+      }
     }
   }
 }
