@@ -17,6 +17,7 @@
 @use './app/Features/surfer/Components/surfer-crypto/surfer-crypto.component.scss' as surfer-cryptoCollection;
 @use './app/Features/surfer/Components/PageSizes/small-page/small-page.component.scss' as surfer-small;
 @use './app/Features/surfer/Components/PageSizes/large-page/large-page.component.scss' as surfer-large;
+@use './app/Features/fourzerofour/fourzerofour.component.scss' as four-zero-four;
 
 @include mat.core();
 // ! #9aaab0
@@ -168,6 +169,7 @@ $my-dark-theme: mat.define-dark-theme(
   @include Surfer-DataCard.theme($my-light-theme);
   @include surfer-small.theme($my-light-theme);
   @include surfer-large.theme($my-light-theme);
+  @include four-zero-four.theme($my-light-theme);
 }
 
 .theme-dark {
@@ -189,6 +191,7 @@ $my-dark-theme: mat.define-dark-theme(
   @include Surfer-DataCard.theme($my-dark-theme);
   @include surfer-small.theme($my-dark-theme);
   @include surfer-large.theme($my-dark-theme);
+  @include four-zero-four.theme($my-dark-theme);
  }
 
 // @include navbar.theme($my-dark-theme);

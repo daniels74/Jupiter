@@ -7,7 +7,7 @@
     </div>
     <div class="basic-info">
         <div>
-            {{user.name}}
+            {{name}} 
         </div>
         <div>
             {{user.email}}
@@ -15,11 +15,11 @@
     </div>
     <div class="buttons">
         <!-- <button (click)="this.goToSurferProfile()" routerLink="surfer/{{ user.id }}" mat-raised-button color="primary" [ngStyle]="{height: '35%'}"> -->
-            <button (click)="this.goToSurferProfile()" mat-raised-button color="primary" [ngStyle]="{height: '35%'}">
-            <h6>Profile</h6>
+            <button (click)="this.goToSurferProfile()" mat-raised-button color="primary" [ngStyle]="{position: 'relative', height: '35%', width: '2rem'}">
+            <!-- <h6>Profile</h6> -->Profile
         </button>
-        <button *ngIf="authState" (click)="sendFriendRequest(user.id)" mat-raised-button color="primary" [ngStyle]="{height: '35%'}" >
-            <h6>Add User</h6>
+        <button *ngIf="authState" (click)="sendFriendRequest(user.id)" mat-raised-button color="primary" [ngStyle]="{position: 'relative', height: '35%', width: '2rem'}" >
+            <!-- <h6>Add User</h6> -->Add User
         </button>
     </div>
 </div>

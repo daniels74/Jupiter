@@ -21,7 +21,7 @@
 >
   <div class="exit-btn-container">
     <button
-      [ngStyle]="{ right: '1rem', height: '50%', width: '5rem' }"
+      [ngStyle]="{ right: '1rem', height: '70%', width: '5rem' }"
       mat-raised-button
       color="danger"
       (click)="closeSearch()"
@@ -33,7 +33,7 @@
     class="user-list"
     [ngStyle]="{ display: loadingState ? 'none' : 'flex' }"
   >
-    <div *ngIf="results" [style.position]="'relative'" [style.width]="'95%'">
+    <div *ngIf="results" [style.position]="'relative'" [style.width]="'95%'" [style.height]="'100%'" [style.display]="'flex-start'" [style.overflow-y]="'auto'">
       <div *ngFor="let user of results; let i = index">
         <app-user-card
           [isLast]="i === results.length - 1 ? true : false"

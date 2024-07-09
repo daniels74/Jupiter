@@ -15,6 +15,7 @@
     border-color: blue;
     border-width: thin;
     border-radius: 1rem;
+    border-top-left-radius: 0rem;
     display: flex;
     flex-direction: column;
     align-items: center;

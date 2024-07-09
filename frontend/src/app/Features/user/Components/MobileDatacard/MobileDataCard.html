@@ -1,8 +1,10 @@
 <!-- ! Crypto Cart -->
-<img
+<!-- <img
   *ngIf="dataType === 'crypto' && primaryData"
   [ngStyle]="{
     position: 'absolute',
+    top: 0,
+    left: 0,
     height: '100%',
     width: '100%',
     borderTopLeftRadius: '1rem',
@@ -15,14 +17,30 @@
   }"
   src="{{ primaryData.image.large }}"
   alt=""
-/>
+/> -->
 <div *ngIf="dataType === 'crypto' && primaryData" class="card-container">
+  <img
+    [ngStyle]="{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '100%',
+    width: '100%',
+    overflow: 'hidden',
+    objectFit: 'cover',
+    objectPosition: 'center',
+    backgroundColor: 'rgba(255,255,255,0.5)',
+    opacity: '0.35'
+  }"
+    src="{{ primaryData.image.large }}"
+    alt=""
+  />
   <div class="name-price-container">
     <h1>{{ primaryData.name }}</h1>
     <!-- <h1>Bitcoin</h1> -->
 
     <div
-    *ngIf = primaryData.market_data
+      *ngIf="primaryData.market_data"
       [ngStyle]="
         {
             display: 'flex',

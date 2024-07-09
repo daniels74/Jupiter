@@ -5,6 +5,7 @@ import { SurferService } from '../../../../../../Core/Services/surfer.service';
 import { FriendRequestsService } from '../../../../../../Core/Services/friend-requests.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../../../../../../Core/Services/auth.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-user-card',
