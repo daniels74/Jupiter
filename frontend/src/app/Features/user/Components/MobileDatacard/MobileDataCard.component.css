@@ -36,15 +36,14 @@
 }
 
 .button-options {
-    height: 12%;
-    width: auto;
-    min-width: 25%;
-    max-width: 50%;
+    position: absolute;
+    /* background-color: blue; */
+    height: 3rem;
+    width: 10rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    position: absolute;
     bottom: 0;
     right: 0;
 }

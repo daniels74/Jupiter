@@ -265,6 +265,13 @@ export class UserService {
         return usersPageable;
       }),
     );
+    // const queryBuilder = this.userRepository
+    //   .createQueryBuilder('user')
+    //   .select('user.username', username)
+    //   // .addSelect('SUM(user.liv)', 'totalLives')
+    //   .orderBy('user.username', 'ASC'); // Or whatever you need to do
+
+    // return from(paginate<User>(queryBuilder, options));
   }
 
   paginateFilterByUsername(
@@ -275,7 +282,7 @@ export class UserService {
       this.userRepository.findAndCount({
         skip: 0, //Number(options.page) * Number(options.limit) || 0,
         take: Number(options.limit) || 1,
-        order: { id: 'ASC' },
+        order: { username: 'ASC' },
         select: ['id', 'name', 'profileImage', 'username', 'email', 'role'],
         where: [{ username: Like(`%${username}%`) }],
       }),

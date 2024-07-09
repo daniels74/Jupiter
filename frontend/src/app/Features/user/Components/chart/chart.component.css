@@ -13,6 +13,8 @@
 }
 
 .spinner {
+  /* position: absolute;
+  top: 4rem; */
   height: 50%;
   width: 50%;
   position: relative;

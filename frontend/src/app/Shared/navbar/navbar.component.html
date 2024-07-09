@@ -170,7 +170,7 @@
       }"
     />
   </div>
-  <form
+  <!-- <form
     *ngIf="userRole === 'admin' || 'user'"
     [formGroup]="roleSelectionForm"
     (ngSubmit)="changeRole()"
@@ -181,7 +181,7 @@
       <option value="user">User</option>
     </select>
     <button type="submit">Submit</button>
-  </form>
+  </form> -->
   <h3 (click)="deleteAccount()">Delete Account</h3>
   <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3>
 </div>

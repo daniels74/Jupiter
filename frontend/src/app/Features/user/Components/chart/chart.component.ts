@@ -55,8 +55,8 @@ export class ChartComponent implements OnInit {
   isBigScreen = window.innerWidth < 700 ? false : true;
   // height: string = this.isBigScreen ? '65vh' : '25vh';
   // width: string = this.isBigScreen ? '70vw' : '100vw';
-  height: string = this.isBigScreen ? '100%' : '100%';
-  width: string = this.isBigScreen ? '100%' : '100%';
+  height: string = this.isBigScreen ? '100%' : '25vh';
+  width: string = this.isBigScreen ? '100%' : '90vw';
 
   constructor(
     private CoinGeckoApi: CoinGeckoApiService,

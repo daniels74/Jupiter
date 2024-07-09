@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-fourzerofour',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, MatButtonModule],
   templateUrl: './fourzerofour.component.html',
-  styleUrls: ['./fourzerofour.component.css'],
+  styleUrls: ['./fourzerofour.component.scss'],
 })
 export class FourzerofourComponent {}
