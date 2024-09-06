@@ -1,30 +1,30 @@
-<div class="landing-page background-theme-color">
+<div class="landing-page">
   <img
     *ngIf="titleFontSize"
     class="cover-img-small"
-    src="https://s7d2.scene7.com/is/image/TWCNews/nyc_lightning_strike1280x720esbgettyimages-629353120png"
+    src="https://www.itl.cat/pngfile/big/7-78757_dark-blue-wallpaper-desktop-full-hd-blue.jpg"
     alt=""
   />
   <img
     *ngIf="!titleFontSize"
     class="cover-img-large"
-    src="https://s7d2.scene7.com/is/image/TWCNews/nyc_lightning_strike1280x720esbgettyimages-629353120png"
+    src="https://www.itl.cat/pngfile/big/7-78757_dark-blue-wallpaper-desktop-full-hd-blue.jpg"
     alt=""
   />
   <div
     *ngIf="titleFontSize"
-    class="title-container container-color"
+    class="text-container"
     [style.width]="title_container_width"
     [style.height]="title_container_height"
   >
-    <h1>CryptoZapp</h1>
+    <h1 class="glow-text">CryptoZapp</h1>
     <h4 [style.paddingLeft]="'1rem'" [style.paddingRight]="'1rem'">
       See the market, make your list, and share it.
     </h4>
   </div>
   <div
     *ngIf="!titleFontSize"
-    class="title-container container-color"
+    class="text-container"
     [style.width]="title_container_width"
     [style.height]="title_container_height"
   >
@@ -75,36 +75,16 @@
     </carousel>
   </div>
   <div
-    class="crpyoinfo-container container-color"
+    class="usage-info-container"
     [style.width]="crpyoinfo_container_width"
     [style.height]="crpyoinfo_container_height"
   >
-    <p>
-      Crypto allows for self custody of global trasferable energy that is not
-      devauled by centralized entities and cannot be used for data collection
-      for the benifit of these centralized entites such as banks that closly
-      study the buying habits of people for they're investment decisions, but
-      claim to do it for the safety of the people. Crypto is a mechanisim that
-      values the time and therfore lives of people by allowing them to opt out
-      of a rigged system that keeps people traped in a life long cycle of work
-      by devaluing they're hard earned cash. Infinite work means infinite
-      products and therfore, infinite polution and landfills. Centralized
-      authorities are betting future generations will be wiser in order to solve
-      the increaing debt problem but the education system is not improving,
-      which means hard earned cash will continue to be devalued, and if you want
-      to invest it, it will be in a product that will further increase
-      pollution.
-    </p>
-    <p>
-      Investing in crypto means you take responsibility for where your money
-      should be at any given time based on market sentiment, news, and your
-      interests. In other words, its the freedom to own your money with no
-      strings attached. Central entites have proven over and over again that
-      they will send us to war regaurdless of how far the human race has come by
-      using theyre control on the money to control the common citizen,
-      preventing them from escaping with they're cash which is earned by endless
-      contributions to society. Trust no one. Validate.
-    </p>
+    <h2>
+      Share crypto alpha with your friends by creating crypto, nfts, and note
+      lists. Users who come across your profile will be able to view your lists.
+      If users like what they see, they can add you as a friend. This will allow
+      them to keep coming back to your profile.
+    </h2>
   </div>
 </div>
 <div *ngIf="miniChartState || chartActiveState">

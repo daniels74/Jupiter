@@ -1,43 +1,62 @@
 <div class="login-page">
-    <form *ngIf="!loadingState" action="" [formGroup]="loginForm" class="login-form" [style.width]="container_width" [style.height]="container_height" (ngSubmit)="loginUser()">
-        <div>
-            <h1>
-                Login
-            </h1>
-        </div>
-        <div class="form-input-container" [style.width]="form_input_container_width" [style.height]="form_input_container_height">
-            <div class="form-input">
-                <label class="input-label" for="email">Email</label>
-                <input id="email" class="input-box" placeholder="Email" name="email" [formControl]="emailInput"
-                    type="text" required>
-            </div>
-            <div class="input-errors">
-                <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">Email is required</div>
-            </div>
-        </div>
-        <div class="form-input-container" [style.width]="form_input_container_width" [style.height]="form_input_container_height">
-            <div class="form-input">
-                <label class="input-label" for="email">Password</label>
-                <input class="input-box" placeholder="Password" [formControl]="passwordInput" type="text" required>
-            </div>
-            <div class="input-errors">
-                <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">Password is
-                    required
-                </div>
-            </div>
-        </div>
-        <div class="btn-container">
-            <button class="submit-btn" type="submit">Login</button>
-        </div>
-    </form>
-    <div *ngIf="loadingState" class="login-form" [style.width]="container_width" [style.height]="container_height">
-        <ngx-spinner 
-            class="spinner"
-            size="small" 
-            template="<img src='../../../assets/bluedots-transparent.gif' />" 
-            [fullScreen] = "false"
-            bdColor="transparent"
-        ></ngx-spinner>
+  <form
+    *ngIf="!loadingState"
+    action=""
+    [formGroup]="loginForm"
+    class="login-form"
+    [style.width]="container_width"
+    [style.height]="container_height"
+    (ngSubmit)="loginUser()"
+  >
+    <div>
+      <h1>Login</h1>
     </div>
-    <!-- {{emailInput.value}} -->
+    <mat-form-field
+      class="form-field"
+      appearance="outline"
+      [style.width]="form_input_container_width"
+      [style.height]="form_input_container_height"
+      color="accent"
+    >
+      <mat-label>Email</mat-label>
+      <input matInput [formControl]="emailInput" type="text" required />
+      @if (emailInput.invalid) {
+      <mat-error>{{ emailErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field
+      class="form-field"
+      appearance="outline"
+      [style.width]="form_input_container_width"
+      [style.height]="form_input_container_height"
+      color="accent"
+    >
+      <mat-label>Password</mat-label>
+      <input matInput [formControl]="passwordInput" type="text" required />
+      @if (passwordInput.invalid) {
+      <mat-error>{{ passwordErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+    <div class="btn-container">
+      @if (emailInput.invalid) {
+      <button mat-raised-button color="warn" type="submit">Login</button>
+      } @else {
+      <button mat-raised-button color="primary" type="submit">Login</button>
+      }
+    </div>
+  </form>
+  <div
+    *ngIf="loadingState"
+    class="login-form"
+    [style.width]="container_width"
+    [style.height]="container_height"
+  >
+    <ngx-spinner
+      class="spinner"
+      size="small"
+      template="<img src='../../../assets/bluedots-transparent.gif' />"
+      [fullScreen]="false"
+      bdColor="transparent"
+    ></ngx-spinner>
+  </div>
 </div>

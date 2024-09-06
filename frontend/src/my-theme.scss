@@ -53,26 +53,75 @@ $light-bluski-palette: (
     A700: white,
   )
 );
-// ? Light Palletes
 
-// $my-primary-light: mat.define-palette(mat.$indigo-palette, 400, 700, 900);
-$my-primary-light: mat.define-palette($light-bluski-palette, 100, 50, 700, 900);
-$my-accent-light: mat.define-palette($light-bluski-palette, 100, 600, 900, 100);
-// The "warn" palette is optional and defaults to red if not specified.
-$my-warn-light: mat.define-palette(mat.$red-palette);
+/* For use in src/lib/core/theming/_palette.scss */
+$md-coolblue: (
+    50 : #edf2f7,
+    100 : #d2e0ec,
+    200 : #b4cbdf,
+    300 : #96b6d2,
+    400 : #80a6c9,
+    500 : #6996bf,
+    600 : #618eb9,
+    700 : #5683b1,
+    800 : #4c79a9,
+    900 : #3b689b,
+    A100 : #ebf4ff,
+    A200 : #b8d8ff,
+    A400 : #85bcff,
+    A700 : #6baeff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
 
-// ? Light theme
-$my-light-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $my-primary-light,
-      accent: $my-accent-light,
-      warn: $my-warn-light,
-      // background: red
-    ),
-    typography: mat.define-typography-config(),
-    density: 0,
-  )
+
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-bluelagoon: (
+    50 : #e2f2f5,
+    100 : #b7dde6,
+    200 : #88c7d5,
+    300 : #58b1c4,
+    400 : #34a0b8,
+    500 : #108fab,
+    600 : #0e87a4,
+    700 : #0c7c9a,
+    800 : #097291,
+    900 : #056080,
+    A100 : #aee7ff,
+    A200 : #7bd7ff,
+    A400 : #48c8ff,
+    A700 : #2fc0ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
 );
 
 $blue-dark-palette: (
@@ -107,13 +156,176 @@ $blue-dark-palette: (
     A700: white,
   )
 );
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-bluewhale: (
+    50 : #e1ebf1,
+    100 : #b3cedc,
+    200 : #80adc5,
+    300 : #4d8cae,
+    400 : #27739c,
+    500 : #015a8b,
+    600 : #015283,
+    700 : #014878,
+    800 : #013f6e,
+    900 : #002e5b,
+    A100 : #8cbcff,
+    A200 : #599eff,
+    A400 : #2680ff,
+    A700 : #0d71ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-devilred: (
+    50 : #efe1e1,
+    100 : #d8b3b3,
+    200 : #be8080,
+    300 : #a34d4d,
+    400 : #902727,
+    500 : #7c0101,
+    600 : #740101,
+    700 : #690101,
+    800 : #5f0101,
+    900 : #4c0000,
+    A100 : #ff8080,
+    A200 : #ff4d4d,
+    A400 : #ff1a1a,
+    A700 : #ff0000,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-ghostwhite: (
+    50 : #f7f8fa,
+    100 : #ebeef3,
+    200 : #dde3eb,
+    300 : #cfd8e3,
+    400 : #c5cfdd,
+    500 : #bbc7d7,
+    600 : #b5c1d3,
+    700 : #acbacd,
+    800 : #a4b3c7,
+    900 : #96a6be,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #f5f9ff,
+    A700 : #dbeaff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-midnight: (
+    50 : #e0e3e6,
+    100 : #b3b8c0,
+    200 : #808996,
+    300 : #4d5a6b,
+    400 : #26364c,
+    500 : #00132c,
+    600 : #001127,
+    700 : #000e21,
+    800 : #000b1b,
+    900 : #000610,
+    A100 : #5270ff,
+    A200 : #1f45ff,
+    A400 : #0028eb,
+    A700 : #0023d2,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+
+
+
+// ? Light Palletes
+
+// $my-primary-light: mat.define-palette(mat.$indigo-palette, 400, 700, 900);
+$my-primary-light: mat.define-palette($md-ghostwhite, 500, 200, 800, 900);
+$my-accent-light: mat.define-palette($md-bluewhale, 500, 200, 800, 900);
+// The "warn" palette is optional and defaults to red if not specified.
+$my-warn-light: mat.define-palette($md-devilred, 500, 200, 800, 900);
+
+// ? Light theme
+$my-light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary-light,
+      accent: $my-accent-light,
+      warn: $my-warn-light,
+      // background: red
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
 // ? Dark Palette
 // $my-primary-dark: mat.define-palette(mat.$gray-palette, 900);
-$my-primary-dark: mat.define-palette($blue-dark-palette, 700, 300, 900, 100);
-$my-accent-dark: mat.define-palette(mat.$light-blue-palette, 500, 200, 900, 800);
+// HUE Order -> (default, lighter, darker, text)
+$my-primary-dark: mat.define-palette($md-midnight, 500, 200, 800, 50);
+$my-accent-dark: mat.define-palette($md-bluelagoon, 500, 200, 800, 50);
 // The "warn" palette is optional and defaults to red if not specified.
-$my-warn-dark: mat.define-palette(mat.$red-palette);
-$background-color-dark: mat.define-palette($blue-dark-palette, 900, 300, 600, 100);
+$my-warn-dark: mat.define-palette($md-devilred, 500, 200, 800, 900);
+// $background-color-dark: mat.define-palette($blue-dark-palette, 900, 300, 600, 100);
 
 // ? Dark theme
 $my-dark-theme: mat.define-dark-theme(
@@ -123,7 +335,7 @@ $my-dark-theme: mat.define-dark-theme(
       accent: $my-accent-dark,
       warn: $my-warn-dark,
     ),
-    background-color: $background-color-dark,
+    // background-color: $background-color-dark,
     typography: mat.define-typography-config(),
     density: 0,
   )
@@ -152,6 +364,8 @@ $my-dark-theme: mat.define-dark-theme(
   @include mat.all-component-themes($my-light-theme);
   // ? In this way we make availbale the theme colors for access from specific components 
   // Otherwise we cant use the colors 
+  @include mat.input-theme($my-light-theme);
+  @include mat.button-theme($my-light-theme);
   @include navbar.theme($my-light-theme);
   @include home.theme($my-light-theme);
   @include home-big-page.theme($my-light-theme);
@@ -174,6 +388,8 @@ $my-dark-theme: mat.define-dark-theme(
 
 .theme-dark {
   @include mat.all-component-themes($my-dark-theme);
+  @include mat.input-theme($my-dark-theme);
+  @include mat.button-theme($my-dark-theme);
   @include navbar.theme($my-dark-theme);
   @include home.theme($my-dark-theme);
   @include home-big-page.theme($my-dark-theme);

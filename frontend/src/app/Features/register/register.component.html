@@ -1,11 +1,50 @@
 <div class="register-page">
-    <form *ngIf="!loadingState" action="" [formGroup]="registerForm" class="register-form" [style.width]="container_width" [style.height]="container_height" (ngSubmit)="registerUser()">
-        <div>
-            <h1>
-                Register
-            </h1>
-        </div>
-        <div class="form-input-container" [style.width]="form_input_container_width" [style.height]="form_input_container_height">
+  <form
+    *ngIf="!loadingState"
+    action=""
+    [formGroup]="registerForm"
+    class="register-form"
+    [style.width]="container_width"
+    [style.height]="container_height"
+    (ngSubmit)="registerUser()"
+  >
+    <div>
+      <h1>Register</h1>
+    </div>
+    <mat-form-field
+      class="form-field"
+      appearance="outline"
+      [style.width]="form_input_container_width"
+      [style.height]="form_input_container_height"
+      color="accent"
+    >
+      <mat-label>Email</mat-label>
+      <input matInput [formControl]="emailInput" type="text" required />
+      @if (emailInput.invalid) {
+      <mat-error>{{ emailErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field
+      class="form-field"
+      appearance="outline"
+      [style.width]="form_input_container_width"
+      [style.height]="form_input_container_height"
+      color="accent"
+    >
+      <mat-label>Password</mat-label>
+      <input matInput [formControl]="passwordInput" type="text" required />
+      @if (passwordInput.invalid) {
+      <mat-error>{{ passwordErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+    <div class="btn-container">
+      @if (emailInput.invalid) {
+      <button mat-raised-button color="warn" type="submit">Register</button>
+      } @else {
+      <button mat-raised-button color="primary" type="submit">Register</button>
+      }
+    </div>
+    <!-- <div class="form-input-container" [style.width]="form_input_container_width" [style.height]="form_input_container_height">
             <div class="form-input">
                 <label class="input-label" for="email">Email</label>
                 <input id="email" class="input-box" placeholder="Email" name="email" type="text"
@@ -26,18 +65,23 @@
                     required
                 </div>
             </div>
-        </div>
-        <div class="btn-container">
-            <button class="submit-btn" type="submit">Register</button>
-        </div>
-    </form>
-    <div *ngIf="loadingState" class="login-form" [style.width]="container_width" [style.height]="container_height">
-        <ngx-spinner 
-            class="spinner"
-            size="medium" 
-            template="<img src='../../../assets/bluedots-transparent.gif' />" 
-            [fullScreen] = "false"
-            bdColor="transparent"
-        ></ngx-spinner>
-    </div>
+        </div> -->
+    <!-- <div class="btn-container">
+      <button class="submit-btn" type="submit">Register</button>
+    </div> -->
+  </form>
+  <div
+    *ngIf="loadingState"
+    class="login-form"
+    [style.width]="container_width"
+    [style.height]="container_height"
+  >
+    <ngx-spinner
+      class="spinner"
+      size="medium"
+      template="<img src='../../../assets/bluedots-transparent.gif' />"
+      [fullScreen]="false"
+      bdColor="transparent"
+    ></ngx-spinner>
+  </div>
 </div>

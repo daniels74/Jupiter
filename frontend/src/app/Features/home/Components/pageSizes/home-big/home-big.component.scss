@@ -23,7 +23,7 @@
   height: 10%;
   width: auto;
   /* background-color: aqua; */
-  color: lightblue;
+  // color: lightblue;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -78,7 +78,7 @@
   .listt-container {
     // background-color: rgb(126, 159, 225);
     background-color: mat.get-theme-color($theme, primary);
-    color: mat.get-theme-color($theme, primary, text);
+    color: mat.get-theme-color($theme, accent, text);
   }
 
   .table {
