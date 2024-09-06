@@ -22,7 +22,6 @@
     >
       <h2
         [ngStyle]="{
-                'color': 'lightblue',
                 'height': '10%',
                 'width': '100%',
                 'display': 'flex',
@@ -31,19 +30,19 @@
                 'justifyContent': 'center',
             }"
       >
-        <img
+        <!-- <img
           width="10%"
           [style.marginRIght]="'1rem'"
           src="../../../../../../assets/fire4.gif"
           alt=""
-        />
+        /> -->
         Trending {{ selectedContent }}
-        <img
+        <!-- <img
           width="10%"
           [style.marginLeft]="'1rem'"
           src="../../../../../../assets/fire4.gif"
           alt=""
-        />
+        /> -->
       </h2>
       <div
         *ngIf="!trendingContent_state"

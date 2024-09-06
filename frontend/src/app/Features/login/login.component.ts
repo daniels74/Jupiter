@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../Core/Services/auth.service';
-import { catchError, take, throwError } from 'rxjs';
+import { catchError, merge, take, throwError } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Store } from '@ngrx/store';
 import { selectAuth } from '../../Shared/State/Selectors/auth.selector';
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { selectUser } from '../../Shared/State/Selectors/users.selector';
 import { User } from '../../Core/Interfaces/User.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-login',
@@ -27,8 +28,8 @@ export class LoginComponent implements OnInit {
   // ? Access width and height properties using "window."
   container_width = window.innerWidth <= 700 ? '95%' : '50%';
   container_height = window.innerWidth <= 700 ? '75%' : '50%';
-  form_input_container_width = window.innerWidth <= 700 ? '100%' : '50%';
-  form_input_container_height = window.innerWidth <= 700 ? '20%' : '20%';
+  form_input_container_width = window.innerWidth <= 700 ? '80%' : '50%';
+  form_input_container_height = window.innerWidth <= 700 ? '10%' : '20%';
 
   constructor(
     private router: Router,
@@ -36,7 +37,18 @@ export class LoginComponent implements OnInit {
     public spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
     private authServ: AuthService,
-  ) {}
+  ) {
+    merge(this.emailInput.statusChanges, this.emailInput.valueChanges)
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => {
+        this.updateEmailErrorMsg();
+      });
+    merge(this.passwordInput.statusChanges, this.passwordInput.valueChanges)
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => {
+        this.updatePasswordErrorMesg();
+      });
+  }
 
   ngOnInit(): void {
     this.store.select(selectUser).subscribe((theuser) => {
@@ -57,22 +69,26 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password') as FormControl;
   }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error);
+  emailErrorMessage = signal('');
+
+  passwordErrorMessage = signal('');
+
+  updateEmailErrorMsg() {
+    if (this.emailInput.hasError('required')) {
+      this.emailErrorMessage.set('You must enter a value');
+    } else if (this.emailInput.hasError('email')) {
+      this.emailErrorMessage.set('Not a valid email');
     } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
-      console.error(
-        `Backend returned code ${error.status}, body was: `,
-        error.error,
-      );
+      this.emailErrorMessage.set('');
     }
-    // Return an observable with a user-facing error message.
-    return throwError(
-      () => new Error('Something bad happened; please try again later.'),
-    );
+  }
+
+  updatePasswordErrorMesg() {
+    if (this.passwordInput.hasError('required')) {
+      this.passwordErrorMessage.set('You must enter a value');
+    } else {
+      this.passwordErrorMessage.set('');
+    }
   }
 
   loginUser() {
@@ -95,5 +111,23 @@ export class LoginComponent implements OnInit {
         }, 3000);
         // this.router.navigate(['/user', this.user.id]);
       });
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error,
+      );
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(
+      () => new Error('Something bad happened; please try again later.'),
+    );
   }
 }

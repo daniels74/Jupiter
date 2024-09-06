@@ -13,7 +13,7 @@ export class LandingComponent implements OnInit {
   title_container_width = window.innerWidth <= 700 ? 'auto' : '50%';
   title_container_height = window.innerWidth <= 700 ? '25%' : '30%';
   titleFontSize: boolean = window.innerWidth <= 700 ? true : false;
-  crpyoinfo_container_width = window.innerWidth <= 700 ? '90%' : '40%';
+  crpyoinfo_container_width = window.innerWidth <= 700 ? '90%' : 'auto';
   crpyoinfo_container_height = window.innerWidth <= 700 ? '30%' : '30%';
 
   cellsToShow = window.innerWidth <= 700 ? 1 : 4;

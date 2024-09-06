@@ -8,6 +8,8 @@ import { UsersearchComponent } from './SubFeatures/usersearch/usersearch.compone
 import { UserCardComponent } from './SubFeatures/usersearch/Components/user-card/user-card.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [NavbarComponent, UsersearchComponent, UserCardComponent],
@@ -20,6 +22,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     NgxSpinnerModule,
     MatButtonModule,
     MatSlideToggleModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   exports: [NavbarComponent],
 })

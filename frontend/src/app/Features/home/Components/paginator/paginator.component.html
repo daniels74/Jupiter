@@ -1,6 +1,6 @@
 <div class="paginator-component component-theme">
     <div class="input-container">
-        <mat-form-field appearance="fill" [color]="'primary'" 
+        <mat-form-field appearance="outline" [color]="'accent'" 
         class="mat-form-field"
         [ngStyle]="{
         width: sizeState ? '25%' : '65%',
@@ -15,7 +15,7 @@
     </div>
     <div *ngIf="this.dataSource.paginator" class="crypto-table">
         <table mat-table [dataSource]="dataSource" class="table">
-            <ng-container [ngStyle]="{backgroundColor: 'white', color: 'lightblue'}" *ngIf="isAuth" matColumnDef="selected">
+            <ng-container *ngIf="isAuth" matColumnDef="selected">
                 <th mat-header-cell *matHeaderCellDef>
                     <mat-checkbox [color]="'warn'" (change)="$event ? toggleAllRows() : null"
                         [checked]="selection.hasValue() && isAllSelected()"
@@ -40,8 +40,8 @@
                 <th mat-header-cell *matHeaderCellDef> Symbol </th>
                 <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
             </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns" [ngStyle]="{color: 'white'}"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngStyle]="{color: 'white'}"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
     <div *ngIf="!this.dataSource.paginator" class="crypto-table" [ngStyle]="{
@@ -59,7 +59,7 @@
         </div>
     </div>
     <div class="paginator-container">
-        <mat-paginator class="paginator" [color]="'primary'" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
+        <mat-paginator class="paginator" [color]="'accent'" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
         showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
     </div>

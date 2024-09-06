@@ -5,6 +5,9 @@ import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [RegisterComponent],
@@ -14,6 +17,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     CommonModule,
     RegisterRoutingModule,
     NgxSpinnerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
   ],
 })
 export class RegisterModule {}

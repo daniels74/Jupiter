@@ -5,6 +5,9 @@ import { LoginRoutingModule } from './login-routing.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -14,6 +17,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ReactiveFormsModule,
     FormsModule,
     NgxSpinnerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
   ],
   exports: [RouterModule],
 })

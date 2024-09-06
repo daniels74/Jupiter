@@ -1,25 +1,42 @@
-<!-- ! Big Screen Nav -->
 <div class="nav-page nav-page-component-theme">
+  @if (screenSizeCheck) {
   <div class="logo-container">
     <div (click)="goToLanding()" class="logo">
       <img
         [src]="
           logoLightTheme === true
-            ? '../../../assets/lightlogo.png'
-            : '../../../assets/darklogo.png'
+            ? '../../../assets/Light-Logo.png'
+            : '../../../assets/Dark-Crypto.png'
         "
-        alt=""
-        [style.height]="logoHeight"
         [style.width]="logoWidth"
+        [style.height]="logoHeight"
+        alt=""
       />
     </div>
   </div>
+  } @else {
+    <div class="logo-container">
+      <div (click)="goToLanding()" class="logo">
+        <img
+          [src]="
+            logoLightTheme === true
+              ? '../../../assets/Light-Logo.png'
+              : '../../../assets/Dark-Crypto.png'
+          "
+          [style.width]="logoWidth"
+          [style.height]="logoHeight"
+          alt=""
+        />
+      </div>
+    </div>
+  }
   <div
     class="search-container"
     [style.alignItems]="!screenSizeCheck ? 'center' : 'flex-start'"
   >
     <app-usersearch />
   </div>
+  <!--! Big Screen Menu -->
   <div *ngIf="screenSizeCheck" class="menu">
     <mat-slide-toggle (change)="switchMode($event)" />
     <a (click)="goHome()" routerLink="/home" routerLinkActive="active-link"
@@ -62,6 +79,9 @@
     />
   </div>
 </div>
+<div class="glow-line">
+  
+</div>
 <div
   *ngIf="loader"
   [ngStyle]="{
@@ -83,41 +103,40 @@
 <!-- ! Small Screen Nav -->
 <div
   *ngIf="menuToggler"
-  class="settingsTab nav-page-component-theme"
+  class="settingsTab-container nav-page-component-theme"
   [ngStyle]="{
     width: !screenSizeCheck ? '100%' : '50%',
-    zIndex: '1000000'
   }"
 >
   <div *ngIf="!loader" class="settingsTab" [style.width]="'100%'">
-    <h3 (click)="goHome()" routerLink="/home" routerLinkActive="active-link">
+    <h2 (click)="goHome()" routerLink="/home" routerLinkActive="active-link">
       Home
-    </h3>
-    <h3
+    </h2>
+    <h2
       *ngIf="authState"
       routerLink="user/{{ id }}"
       routerLinkActive="active-link"
       (click)="toggleMenu()"
     >
       {{ userName }}
-    </h3>
-    <h3 *ngIf="authState" (click)="toggleSettings()">Settings</h3>
-    <h3
+    </h2>
+    <h2 *ngIf="authState" (click)="toggleSettings()">Settings</h2>
+    <h2
       *ngIf="!authState"
       (click)="login()"
       routerLink="/login"
       routerLinkActive="active-link"
     >
       Login
-    </h3>
-    <h3
+    </h2>
+    <h2
       *ngIf="!authState"
       (click)="register()"
       routerLink="/register"
       routerLinkActive="active-link"
     >
       Register
-    </h3>
+    </h2>
     <mat-slide-toggle (change)="switchMode($event)" />
   </div>
   <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium"

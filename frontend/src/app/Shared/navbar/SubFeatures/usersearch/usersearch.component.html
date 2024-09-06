@@ -8,11 +8,14 @@
     justifyContent: 'center',
 }"
 >
-  <h3>Find Users</h3>
   <!-- <form [formGroup]="searchForm" action="">
         <input type="text" formControlName="userinput" placeholder="Ex. theDarkNight" (keyup)="sendSearchRequest()">
     </form> -->
-  <input #userSearch type="text" placeholder="Ex. Batman" />
+  <!-- <input #userSearch type="text" placeholder="Ex. Batman" /> -->
+   <mat-form-field class="mat-form-field" appearance="outline" color="accent">
+    <mat-label>User Search</mat-label>
+    <input #userSearch matInput type="text">
+   </mat-form-field>
 </div>
 <div
   *ngIf="searchIsActive"
