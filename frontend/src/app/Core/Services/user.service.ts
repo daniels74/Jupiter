@@ -47,6 +47,7 @@ export class UserService implements OnInit, OnDestroy {
     //   ...user,
     //   ...userUpdate,
     // };
+    // return this.http.put<JwtObj>(
     return this.http.patch<JwtObj>(
       this.origin + '/api/user/' + user.id,
       userUpdate,

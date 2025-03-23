@@ -131,7 +131,7 @@ export class UserService {
       }),
     ).pipe(
       map((user: User) => {
-        const { password, profileImage, ...result } = user;
+        const { password, ...result } = user;
         return result;
       }),
     );
@@ -163,7 +163,7 @@ export class UserService {
         where: { id },
       }),
     ).pipe(
-      map((user: User) => {
+      map((user: any) => {
         const { profileImage, ...result } = user;
         return { profileImage: profileImage };
       }),
@@ -199,12 +199,13 @@ export class UserService {
   }
 
   // ! Will UPDATE filled in pieces and return new jwt object
-  updateOne(id: any, user: any): Observable<any> {
-    console.log('USer update and id', user, id);
-    return from(this.userRepository.update(+id, user)).pipe<JwtObj>(
+  updateOne(id: any, userupdates: any): Observable<any> {
+    console.log('User updates and user id', userupdates, id);
+    return from(this.userRepository.update(+id, userupdates)).pipe<JwtObj>(
       switchMap(() => {
         return this.findOne(+id).pipe(
           switchMap((founduser) => {
+            console.log('User found based on Id during update: ', founduser);
             return this.AuthServ.generateJWT(founduser).pipe(
               map((jwt: string) => {
                 console.log('jwt.length: ', jwt.length);
