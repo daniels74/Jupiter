@@ -25,7 +25,7 @@
     "angular-responsive-carousel-ng16": "^1.0.5",
     "chart.js": "^4.4.0",
     "jwt-decode": "^3.1.2",
-    "ng2-charts": "^5.0.3",
+    "ng2-charts": "^5.0.4",
     "ngx-image-compress": "^15.1.6",
     "ngx-spinner": "^16.0.2",
     "rxjs": "~7.8.0",

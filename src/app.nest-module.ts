@@ -11,16 +11,26 @@ import { CryptoidModule } from './cryptoid/cryptoid.module';
 import { NftidModule } from './nftid/nftid.module';
 import { PostingModule } from './posting/posting.module';
 import { FriendRequestsModule } from './friend-requests/friend-requests.module';
+// import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
+    // ! if running locally, Make sure you comment this out.
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../', 'front'),
     }),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
+      ssl: true,
       url: process.env.DATABASE_URL,
+      // ! used for local db on mac, doesnt work with SSL locally.
+      // type: 'postgres',
+      // host: 'localhost',
+      // port: 5432,
+      // username: 'charlie',
+      // password: 'DanielCE4774!',
+      // database: 'zappupp',
       autoLoadEntities: true,
       synchronize: true,
     }),
@@ -34,4 +44,6 @@ import { FriendRequestsModule } from './friend-requests/friend-requests.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  // constructor(private dataSource: DataSource) {}
+}

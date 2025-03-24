@@ -71,6 +71,7 @@ export class UserController {
   // ! GET USER COMMON DATA
   @Get(':id')
   findOne(@Param() params): Observable<User> {
+    console.log('Looking for user with ID: ', typeof params.id);
     return this.userService.findOne(params.id);
   }
 
@@ -89,12 +90,15 @@ export class UserController {
   }
 
   // ! UPDATE user data
+  // @UseGuards(JwtAuthGuard)
   @Patch(':id')
   updateOne(
-    @Param('id') userid: any,
+    // @Param('id') userid: number,
+    @Param() params,
     @Body() userupdates: any,
   ): Observable<JwtObj> {
-    return this.userService.updateOne(userid, userupdates);
+    console.log('In controller User updates: ', userupdates);
+    return this.userService.updateOne(Number(params.id), userupdates);
   }
 
   // ! UPDATE USER ROLE
@@ -117,7 +121,7 @@ export class UserController {
   // ! Get all Users without pagination
   // @hasRoles('admin')
   // @UseGuards(JwtAuthGuard, RolesGuard)
-  // @Get()
+  // @Get('getall')
   // findAll(): Observable<User[]> {
   //   return this.userService.findAll();
   // }
