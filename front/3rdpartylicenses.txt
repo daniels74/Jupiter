@@ -134,9 +134,6 @@ https://github.com/cartant/rxjs-etc by Nicholas Jamieson, MIT licensed. See the
 file header for details.
 
 
-angular-responsive-carousel-ng16
-Apache License 2.0
-
 chart.js
 MIT
 The MIT License (MIT)

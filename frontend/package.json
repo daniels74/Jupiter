@@ -22,7 +22,6 @@
     "@angular/router": "^17.0.4",
     "@nestjs/platform-express": "^10.2.8",
     "@ngrx/store": "^17.0.1",
-    "angular-responsive-carousel-ng16": "^1.0.5",
     "chart.js": "^4.4.0",
     "jwt-decode": "^3.1.2",
     "ng2-charts": "^5.0.4",
