@@ -52,7 +52,7 @@ export const BaseUrl = new InjectionToken<string>('');
   ],
   providers: [
     GlowifyDirective,
-    IvyCarouselModule,
+    // IvyCarouselModule,
     { provide: HTTP_INTERCEPTORS, useClass: UserRoleInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: DataRetryInterceptor, multi: true },
     WINDOW_PROVIDERS,
