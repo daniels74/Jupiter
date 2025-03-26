@@ -14,7 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { cryptoReducer } from '../Shared/State/Reducers/cryptoList.reducer';
 import { nftReducer } from '../Shared/State/Reducers/nftList.reducer';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { IvyCarouselModule } from 'angular-responsive-carousel-ng16';
+// import { IvyCarouselModule } from 'angular-responsive-carousel-ng16';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserRoleInterceptor } from '../Core/Interceptors/user-role.interceptor';
 import { authReducer } from '../Shared/State/Reducers/auth.reducer';
@@ -44,7 +44,7 @@ export const BaseUrl = new InjectionToken<string>('');
     NavbarModule,
     HttpClientModule,
     NgxSpinnerModule,
-    IvyCarouselModule,
+    // IvyCarouselModule,
     BrowserAnimationsModule,
     MatProgressBarModule,
     MatIconModule,
