@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectCrypto } from '../../Shared/State/Selectors/crypto.selectors';
 import { CoinGeckoApiService } from '../../Core/Services/coin-gecko-api.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-landing',
@@ -9,6 +10,34 @@ import { CoinGeckoApiService } from '../../Core/Services/coin-gecko-api.service'
   styleUrls: ['./landing.component.scss'],
 })
 export class LandingComponent implements OnInit {
+  customOptions: OwlOptions = {
+    autoplay: true,
+    smartSpeed: 200,
+    autoplayHoverPause: true,
+    autoplaySpeed: 1200,
+    loop: true,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1,
+      },
+      400: {
+        items: 2,
+      },
+      740: {
+        items: 3,
+      },
+      940: {
+        items: 4,
+      },
+    },
+    nav: true,
+  };
   trending_cryptos: any = [];
   title_container_width = window.innerWidth <= 700 ? 'auto' : '50%';
   title_container_height = window.innerWidth <= 700 ? '25%' : '30%';

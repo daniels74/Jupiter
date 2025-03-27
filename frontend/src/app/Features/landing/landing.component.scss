@@ -4,81 +4,85 @@
 /* background-image: url('https://s7d2.scene7.com/is/image/TWCNews/nyc_lightning_strike1280x720esbgettyimages-629353120png'); */
 
 .text-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .landing-page {
-    position: absolute;
-    height: 90vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    overflow: hidden;
+  position: absolute;
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  overflow: hidden;
 }
 
 .cover-img-small {
-    position: absolute;
-    height:100%;
-    width: auto;
-    background-size:cover;
-    background-position: center center;
-    opacity: 0.9;
+  position: absolute;
+  height: 100%;
+  width: auto;
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.9;
 }
 
 .cover-img-large {
-    position: absolute;
-    height:100%;
-    width: 100%;
-    background-size: auto;
-    opacity: 0.9;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-size: auto;
+  opacity: 0.9;
 }
 
 .carousel-container {
-    position: relative;
-    z-index: 1;
-    min-height: 30%;
-    height: auto;
+  position: relative;
+//   background-color: blue;
+  z-index: 1;
+  min-height: 30%;
+  height: auto;
+  width: 80%; /* Adjust to your preference */
+//   margin: 0 auto; /* Center it on the screen */
 }
 
 .usage-info-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: space-around;
-    justify-content: space-around;
-    text-align: center;
-    border-radius: 1rem;
-    // font-family: Papyrus;
-    box-sizing: border-box;
-    padding: 2rem;
-    overflow-y: auto;
-    scroll-behavior: smooth;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+  justify-content: space-around;
+  text-align: center;
+  border-radius: 1rem;
+  // font-family: Papyrus;
+  box-sizing: border-box;
+  padding: 2rem;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 @mixin color($theme) {
-    .text-container {
-        color: mat.get-theme-color($theme, primary, text);
-    }
-
-    .text-container > h1 {
-        font-size: 3rem;
-        text-shadow: mat.get-theme-color($theme, accent, lighter) 0px 0px 20px;
-    }
-
-    .usage-info-container {
-        color: mat.get-theme-color($theme, primary, text);
-        scrollbar-color: mat.get-theme-color($theme, accent)  mat.get-theme-color($theme, primary);
-    }
+  .text-container {
+    color: mat.get-theme-color($theme, primary, text);
   }
-  
-  @mixin theme($theme) {
-    @if mat.theme-has($theme, color) {
-      @include color($theme);
-    }
+
+  .text-container > h1 {
+    font-size: 3rem;
+    text-shadow: mat.get-theme-color($theme, accent, lighter) 0px 0px 20px;
   }
+
+  .usage-info-container {
+    color: mat.get-theme-color($theme, primary, text);
+    scrollbar-color: mat.get-theme-color($theme, accent)
+      mat.get-theme-color($theme, primary);
+  }
+}
+
+@mixin theme($theme) {
+  @if mat.theme-has($theme, color) {
+    @include color($theme);
+  }
+}

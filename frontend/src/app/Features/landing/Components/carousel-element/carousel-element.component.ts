@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
   imports: [GlowifyModule, ChartComponent, CommonModule],
   selector: 'app-carousel-element',
   templateUrl: './carousel-element.component.html',
-  styleUrls: ['./carousel-element.component.css'],
+  styleUrls: ['./carousel-element.component.scss'],
 })
 export class CarouselElementComponent {
   @Input() Item: any;
