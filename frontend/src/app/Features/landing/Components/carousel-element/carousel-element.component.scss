@@ -3,12 +3,15 @@
 
 
 .carousel-element {
-  height: 12rem;
-  width: 12rem;
+  height: 8rem;
+  width: 8rem;
+  position: relative;
+  // height: 100%;
+  // width: 100%;
   border-radius: 50%;
   border-style: none;
   border-width: thin;
-  /* background-color: azure; */
+  // background-color: red;
   display: flex;
   flex-direction: column;
   align-items: center;

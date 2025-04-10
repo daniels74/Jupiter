@@ -79,6 +79,7 @@
       <ng-container *ngFor="let item of trending_cryptos">
         <ng-template carouselSlide>
           <app-carousel-element
+            class="carousel-cell"
             (click)="keepActive()"
             (mouseenter)="toggleChart(true); setName(item.item)"
             (mouseleave)="toggleChart(false)"
