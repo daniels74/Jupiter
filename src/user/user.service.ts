@@ -206,7 +206,8 @@ export class UserService {
         return this.findOne(+id).pipe(
           switchMap((founduser) => {
             console.log('User found based on Id during update: ', founduser);
-            return this.AuthServ.generateJWT(founduser).pipe(
+            const { password, profileImage, ...result } = founduser;
+            return this.AuthServ.generateJWT(result).pipe(
               map((jwt: string) => {
                 console.log('jwt.length: ', jwt.length);
                 return { jwt: jwt };

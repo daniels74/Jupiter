@@ -10,46 +10,34 @@
   <!-- ! User Info and Posts -->
   <div *ngIf="!chartState" class="left-section">
     <div class="user-general-data-container secondary-component-theme">
-      <div class="img-container">
-        <div *ngIf="settingState" [ngStyle]="{ width: '100%' }">
-          <ul>
-            <li>
-              <mat-progress-bar [value]="file.progress"></mat-progress-bar>
-            </li>
-          </ul>
-          <mat-card-actions>
-            <button
-              mat-button
-              color="warn"
-              (click)="useCopresserOnImage.emit()"
-            >
-              <mat-icon>cloud_upload</mat-icon>
-            </button>
-          </mat-card-actions>
-          <input
-            #fileUpload
-            type="file"
-            accept="image/*"
-            style="display: none"
-          />
-        </div>
+      <div
+        *ngIf="settingState"
+        [ngStyle]="{ position: 'relative', height: '100%', width: '100%' }"
+      >
+        <app-settings-view
+          (updateUser)="updateUser.emit()"
+          [updateUserForm]="updateUserForm"
+          [user]="user"
+          (useCopresserOnImage)="useCopresserOnImage.emit()"
+          (toggleSettings)="toggleSettings.emit()"
+        >
+        </app-settings-view>
+      </div>
+      <div
+        *ngIf="!settingState"
+        [ngStyle]="{ position: 'relative', height: '100%', width: '25%'}"
+      >
         <div
           [ngStyle]="{
             height: '100%',
             width: '100%',
-            display: 'flex',
+            display: 'flex-start',
             flexDirection: 'column',
-            alignItems: 'flex-start',
+            alignItems: 'center',
             justifyContent: 'center'
           }"
           *ngIf="!settingState"
         >
-          <!-- <img
-            [ngStyle]="{ height: '100%', width: '100%' }"
-            *ngIf="userProfileImg"
-            src="http://localhost:3000/user/profile-image/{{ userProfileImg }}"
-            alt=""
-          /> -->
           <img
             [ngStyle]="{
               height: '100%',
@@ -57,14 +45,10 @@
               borderTopLeftRadius: '1rem',
               borderBottomLeftRadius: '1rem'
             }"
-            *ngIf="userProfileImg"
-            [src]="userProfileImg"
+            *ngIf="profilePic"
+            [src]="profilePic"
             alt=""
           />
-          <!-- <div
-            *ngIf="!userProfileImg"
-            [ngStyle]="{ height: '100%', width: 'auto' }"
-          > -->
           <img
             [ngStyle]="{
               height: '100%',
@@ -72,17 +56,18 @@
               borderTopLeftRadius: '1rem',
               borderBottomLeftRadius: '1rem'
             }"
-            *ngIf="!userProfileImg"
+            *ngIf="!profilePic"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW_ta1iyjzaD9GD0j6LtM7bdUS2_tbI2ESRQ&usqp=CAU"
             alt=""
           />
-          <!-- </div> -->
         </div>
       </div>
-      <div class="user-info-box">
-        <div class="info-settings">
+      <div class="user-info-background">
+        <img class="img" *ngIf="profilePic" [src]="profilePic" alt="" />
+      </div>
+      <div *ngIf="!settingState" class="user-info-container">
+        <div class="btn-container">
           <button
-            class="settings-btn"
             (click)="toggleFriendsList.emit()"
             mat-raised-button
             color="primary"
@@ -90,7 +75,6 @@
             Friends
           </button>
           <button
-            class="settings-btn"
             (click)="toggleFriendRequestList.emit()"
             mat-raised-button
             color="primary"
@@ -98,7 +82,6 @@
             Friend Requests
           </button>
           <button
-            class="settings-btn"
             (click)="toggleSettings.emit()"
             mat-raised-button
             color="primary"
@@ -107,45 +90,15 @@
           </button>
         </div>
         <!--! User Info  -->
-        <div *ngIf="!settingState" class="user-info-wrapper">
-          <!-- <div class="user-info-box"> -->
+        <div class="names-section">
           <div class="user-info-line">
-            <h1 *ngIf="user.name">{{ user.name }}</h1>
-            <h1 *ngIf="!user.username">No Name</h1>
+            <h2 *ngIf="user.name">{{ user.name }}</h2>
+            <h2 *ngIf="!user.username">No Name</h2>
           </div>
           <div class="user-info-line">
-            <h4 *ngIf="user.username">{{ user.username }}</h4>
-            <h4 *ngIf="!user.username">No Usernamme</h4>
+            <h6 *ngIf="user.username"> &#64;{{ user.username }}</h6>
+            <h6 *ngIf="!user.username">No Usernamme</h6>
           </div>
-          <!-- </div> -->
-        </div>
-        <!-- !Update user profile -->
-        <div *ngIf="settingState" class="settings-wrapper">
-          <form
-            [formGroup]="updateUserForm"
-            action=""
-            class="form-container"
-            (ngSubmit)="updateUser.emit()"
-          >
-            <div class="form-inner-container">
-              <input
-                [formControlName]="'username'"
-                placeholder="Username"
-                type="text"
-              />
-              <input
-                [formControlName]="'name'"
-                placeholder="Name"
-                type="text"
-              />
-              <!-- <input placeholder="Email" type="text"> -->
-              <div [ngStyle]="{ display: 'flex', flexDirection: 'row' }">
-                <button type="submit" mat-raised-button color="primary">
-                  Submit
-                </button>
-              </div>
-            </div>
-          </form>
         </div>
       </div>
     </div>
@@ -170,23 +123,20 @@
 
       <div class="all-posts-container primary-component-theme">
         <div *ngIf="!userPosts">No Posts Yet</div>
-        <div
-          *ngIf="userPosts"
-          [ngStyle]="{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '2rem',
-          overflowY: 'scroll',
-        }"
-        >
+        <div *ngIf="userPosts" [ngStyle]="{}">
           <div
             *ngFor="let post of userPosts"
-            [ngStyle]="{ height: '25%', width: '90%' }"
+            [ngStyle]="{
+              minHeight: '20%',
+              height: 'auto',
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center'
+            }"
           >
+            <!-- [ngStyle]="{ height: '25%', width: '100%', backgroundColor: 'yellow', display: 'flex-start', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }" -->
+            <!-- [ngStyle]="{ height: '25%', width: '90%', backgroundColor: 'yellow' }" -->
             <user-note-card-large [note]="post.description" />
           </div>
         </div>
@@ -207,7 +157,13 @@
         <h2>Friends</h2>
       </div>
       <div class="nav-options">
-        <button mat-raised-button color="danger" (click)="toggleFriendsList.emit()">Exit</button>
+        <button
+          mat-raised-button
+          color="danger"
+          (click)="toggleFriendsList.emit()"
+        >
+          Exit
+        </button>
       </div>
     </div>
     <div class="table-container">
@@ -599,16 +555,25 @@
       </div>
     </div>
     <div class="right-button-container">
-      <button
+      <!-- <button
         *ngIf="!collectionTypeToggle"
         class="btn collection-btn"
+        (click)="toggleCollectionType.emit()"
+      >
+        NFT Collection
+      </button> -->
+      <button
+        *ngIf="!collectionTypeToggle"
+        mat-raised-button
+        color="primary"
         (click)="toggleCollectionType.emit()"
       >
         NFT Collection
       </button>
       <button
         *ngIf="collectionTypeToggle"
-        class="btn collection-btn"
+        mat-raised-button
+        color="primary"
         (click)="toggleCollectionType.emit()"
       >
         Crypto Collection

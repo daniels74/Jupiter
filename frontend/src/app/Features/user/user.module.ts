@@ -22,6 +22,7 @@ import { RouterLink } from '@angular/router';
 import { NoteCardComponent } from './Components/PageSizes/large-page/components/note-card/note-card.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { SettingsViewComponent } from './Components/PageSizes/large-page/components/settings-view/settings-view.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     NoteCardComponent,
   ],
   imports: [
+    SettingsViewComponent,
     RouterLink,
     MatButtonModule,
     FormsModule,

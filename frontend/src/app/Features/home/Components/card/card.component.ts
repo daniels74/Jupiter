@@ -38,7 +38,7 @@ export class CardComponent implements OnInit {
         }
       : {
           height: '25vh',
-          width: '15vw',
+          width: '25vw',
           marginLeft: '2rem',
         };
 

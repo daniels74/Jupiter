@@ -12,12 +12,14 @@ import {
   // UseInterceptors,
   // UploadedFile,
   Request,
+  UseInterceptors,
+  UploadedFile,
   // Res,
   // Req,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './model/user.interface';
-import { Observable, catchError, from, map, of } from 'rxjs';
+import { Observable, catchError, from, map, of, tap } from 'rxjs';
 import { hasRoles } from 'src/auth/decorator/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles-guard';
@@ -42,6 +44,7 @@ import { Surfer } from './model/surfer.interface';
 //     },
 //   }),
 // };
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('api/user')
 export class UserController {
@@ -88,6 +91,11 @@ export class UserController {
     // console.log('USer ', user);
     return this.userService.getUserImage(user.id);
   }
+
+  //! Upload user Img
+  // @UseGuards(JwtAuthGuard)
+  // @Post('uploadImage')
+  // uploadUserImage():
 
   // ! UPDATE user data
   // @UseGuards(JwtAuthGuard)
@@ -157,20 +165,18 @@ export class UserController {
   }
 
   // @UseGuards(JwtAuthGuard)
-  // @Post('upload')
-  // @UseInterceptors(FileInterceptor('file', storage))
-  // uploadImage(@UploadedFile() file, @Request() req): Observable<any> {
-  //   const user: User = req.user;
-  //   // Post to database for current user
-  //   return this.userService
-  //     .updateOne(user.id, {
-  //       profileImage: file.filename,
-  //     })
-  //     .pipe(
-  //       tap((user: any) => console.log(user)),
-  //       map((user: any) => ({ profileImage: user.user.profileImage })),
-  //     );
-  // }
+  @Post('upload/:id')
+  @UseInterceptors(FileInterceptor('profileImage'))
+  uploadFile(
+    @UploadedFile() file,
+    @Param() id: any,
+    @Body() userupdates: any,
+  ): Observable<any> {
+    // const user: User = req.user;
+    console.log('USER ID:', id.id);
+    // Post to database for current user
+    return this.userService.updateOne(id.id, userupdates);
+  }
 
   // @Post('newimageupload')
   // uploadCompressedImg(@UploadedFile() file, @Request() req) {

@@ -58,20 +58,27 @@
 }
 
 .listt-container {
-  /* height: 40%;
-    width: 70%; */
-  color: black;
-  /* background-color: rgb(3, 3, 36); */
-  border-radius: 1rem;
-  border-style: solid;
-  border-width: thin;
-  border-color: lightblue;
+  // /* height: 40%;
+  //   width: 70%; */
+  // color: black;
+  // /* background-color: rgb(3, 3, 36); */
+  // border-radius: 1rem;
+  // border-style: solid;
+  // border-width: thin;
+  // border-color: lightblue;
+  // display: flex;
+  // flex-direction: row;
+  // align-items: center;
+  // justify-content: flex-start;
+  // overflow-x: scroll;
   display: flex;
+  height: 100%;
+  width: 80%;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  overflow-y: hidden;
   overflow-x: scroll;
-  gap: 8rem;
 }
 
 @mixin color($theme) {

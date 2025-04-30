@@ -3,7 +3,7 @@
 
 
 .card {
-  margin-right: 3rem;
+  // margin-right: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,24 +34,29 @@
 }
 
 .coin-info-container {
-  height: 45%;
+  height: 30%;
   width: 100%;
   // background-color: rgb(43, 58, 91);
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .coin-info {
-  height: 75%;
-  width: 90%;
-//   background-color: yellow;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  // background-color: yellow;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  //white-space: nowrap; /* Prevent text from wrapping */
+  //overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis (...) for overflowing text */
+  max-width: 100%; /* Ensure it respects the container's width */
 }
 
 .options {
@@ -61,7 +66,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .save-btn {
