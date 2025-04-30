@@ -85,43 +85,29 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // USER
+    // USER excludes profile img
     this.store.select(selectUser).subscribe((currentUser) => {
       this.user = currentUser;
-      console.log('Loacted in User: ', currentUser);
     });
-
     // Profile Pic
     this.userServ.findUserImage().subscribe((userimg) => {
       this.profilePic = userimg.profileImage;
     });
-
+    // Top 7 coin research
     this.cryptoService.setCryptoSingleCoins().subscribe((res) => {
-      console.log('The signle coin response: ', res);
+      console.log('Looked up top 7 coins and set info: ', res);
     });
     // Crypto Collection
     this.cryptoService.cryptoCollection_O.subscribe((coinList) => {
       this.cryptoCollection = coinList;
     });
-
-    // Set Nfts observable using current collection of nft Ids
-    // this.UserNftCollectionService.setUserFullNftCollection()
-    //   .pipe(take(1))
-    //   .subscribe((res) => {
-    //     console.log('Nfts fully loaded', res);
-    //   });
-    // NFt Collection
+    // Nft Collection
     this.UserNftCollectionService.nftCollection.subscribe((usernfts) => {
-      console.log('Nfts in main user file:', usernfts);
       this.nftCollection = usernfts;
     });
-
-    // this.userServ.getFriendRequests().subscribe((res) => {
-    //   console.log('MY friend requests: ', res);
-    //   this.userFriendRequestList = res;
-    // });
   }
-
+  // Declare user update form, this form will be passed to child components and changed.
+  // Update Function will take values from this form to be submitted to database.
   updateUserForm: FormGroup = this.formBuilder.group({
     name: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
@@ -165,6 +151,10 @@ export class UserComponent implements OnInit {
         // actually changed it
         if (this.myimage) {
           this.profilePic = this.myimage;
+          console.log('NewImageUpload:', this.profilePic);
+          // this.userServ.findUserImage().subscribe((res) => {
+          //   this.profilePic = res;
+          // });
         }
       });
     return;

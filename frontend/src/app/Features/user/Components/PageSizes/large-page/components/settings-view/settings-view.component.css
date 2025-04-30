@@ -1,0 +1,52 @@
+.settings-container {
+  position: relative;
+  z-index: 1;
+  /* background-color: blueviolet; */
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 1rem;
+}
+
+.image-update-container {
+  height: 100%;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  /* background-color: chartreuse; */
+}
+
+.form-container {
+  height: 100%;
+  width: 80%;
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.form-fields {
+  height: 65%;
+  width: 100%;
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.submit-btn-container {
+height: 35%;
+  width: 100%;
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  justify-content: center;
+}

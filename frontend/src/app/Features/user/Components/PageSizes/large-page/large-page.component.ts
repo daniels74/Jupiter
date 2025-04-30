@@ -67,6 +67,7 @@ export class LargePageComponent implements OnInit {
   @Output() toggleFriendsList: EventEmitter<any> = new EventEmitter<any>();
   @Input() friendsListState!: boolean;
   @Input() user!: User;
+  @Input() profilePic: any;
   @Input() updateUserForm!: FormGroup;
   @Input() name!: FormControl;
   @Input() username!: FormControl;
@@ -78,6 +79,9 @@ export class LargePageComponent implements OnInit {
   @Input() nftCollection!: any[];
   @Output() toggleChart: EventEmitter<any> = new EventEmitter<any>();
   @Output() toggleCollectionType: EventEmitter<any> = new EventEmitter<any>();
+  // Image gets compressed and initalized in a variable.
+  // It gets saved upon hitting submit which triggers updateUser function
+  // which retrieves the variable holding the image, puts it in the form, and submits it.
   @Output() useCopresserOnImage: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild('fileUpload', { static: false }) fileUpload!: ElementRef;
@@ -112,7 +116,6 @@ export class LargePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.FriendRequestService.getFriendsList().subscribe((res) => {
-      console.log('my friends: ', res);
       this.myfriends_dataSource.data = res;
     });
 
@@ -121,6 +124,7 @@ export class LargePageComponent implements OnInit {
     });
 
     this.userService.findUserImage().subscribe((res) => {
+      console.log('profileImg:', res.profileImage);
       this.userProfileImg = res.profileImage;
     });
     // this.store.select(selectUser).subscribe((user) => {
@@ -154,49 +158,52 @@ export class LargePageComponent implements OnInit {
     });
   }
 
-  onClick() {
-    const fileInput = this.fileUpload.nativeElement;
-    fileInput.click();
-    fileInput.onchange = () => {
-      this.file = {
-        data: fileInput.files[0],
-        inProgress: false,
-        progress: 0,
-      };
-      this.fileUpload.nativeElement.value = '';
-      this.uploadFile();
-    };
-  }
+  // onFileInput() {
+  //   const fileInput = this.fileUpload.nativeElement;
+  //   fileInput.click();
+  //   fileInput.onchange = () => {
+  //     this.file = {
+  //       data: fileInput.files[0],
+  //       inProgress: false,
+  //       progress: 0,
+  //     };
+  //     this.fileUpload.nativeElement.value = '';
+  //     this.uploadFile();
+  //   };
+  // }
 
-  uploadFile() {
-    const formData = new FormData();
-    formData.append('file', this.file.data);
-    this.file.inProgress = true;
-    this.userService
-      .uploadProfileImage(formData)
-      .pipe(
-        map((event: any) => {
-          switch (event.type) {
-            case HttpEventType.UploadProgress:
-              this.file.progress = Math.round(
-                (event.loaded * 100) / event.total,
-              );
-              break;
-            case HttpEventType.Response:
-              return event;
-          }
-        }),
-        catchError((Error: HttpErrorResponse) => {
-          this.file.inProgress = false;
-          return of('Upload Failed');
-        }),
-      )
-      .subscribe((event: any) => {
-        if (typeof event === 'object') {
-          this.form.patchValue({ profileImage: event.body.profileImage });
-        }
-      });
-  }
+  // uploadFile() {
+  //   const formData = new FormData();
+  //   formData.append('file', this.file.data);
+  //   this.file.inProgress = true;
+  //   this.userService
+  //     .uploadProfileImage(formData)
+  //     .pipe(
+  //       map((event: any) => {
+  //         switch (event.type) {
+  //           case HttpEventType.UploadProgress:
+  //             this.file.progress = Math.round(
+  //               (event.loaded * 100) / event.total,
+  //             );
+  //             break;
+  //           case HttpEventType.Response:
+  //             return event;
+  //         }
+  //       }),
+  //       catchError((Error: HttpErrorResponse) => {
+  //         this.file.inProgress = false;
+  //         return of('Upload Failed');
+  //       }),
+  //     )
+  //     .subscribe((event: any) => {
+  //       if (typeof event === 'object') {
+  //         this.form.patchValue({ profileImage: event.body.profileImage });
+  //       }
+  //       this.userService.findUserImage().subscribe((res) => {
+  //         this.userProfileImg = res.profileImage;
+  //       });
+  //     });
+  // }
 
   toggle_SentOrRecieved() {
     this.sentOrRecieved_state = !this.sentOrRecieved_state;

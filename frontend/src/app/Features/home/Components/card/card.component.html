@@ -4,21 +4,22 @@
   </div>
   <div class="coin-info-container">
     <div class="coin-info">
-      <h3>{{ dataName }}</h3>
+      <h3 [ngStyle]="{ 'position': 'absolute','text-align': 'left'}">{{ dataName }}</h3>
 
-      <h3>{{ dataMarketCapRank }}</h3>
+      <!-- <h3>{{ dataMarketCapRank }}</h3> -->
 
       <!-- <button (click)="getMoreInfo()">{{coinId}}</button> -->
     </div>
   </div>
   <div class="options">
+    <!-- class="save-btn" -->
     <button
       *ngIf="authState"
-      class="save-btn"
-      [ngStyle]="btnClass"
+      mat-raised-button
+      color="primary"
       (click)="saveToCollection(coinId)"
     >
-      Save to Collection
+      Save
     </button>
   </div>
 </div>

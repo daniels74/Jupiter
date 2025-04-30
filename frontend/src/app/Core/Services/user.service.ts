@@ -73,7 +73,9 @@ export class UserService implements OnInit, OnDestroy {
   }
 
   getProfilePicture(imagename: string) {
-    return this.http.get(this.origin + '/api/user/profile-image/' + imagename);
+    return this.http.get(this.origin + '/api/user/profile-image/' + imagename, {
+      withCredentials: true,
+    });
   }
 
   findOne(id: number): Observable<any> {
@@ -85,10 +87,14 @@ export class UserService implements OnInit, OnDestroy {
   // In use for retrieving user profile picuture
   findUserImage(): Observable<any> {
     const token = localStorage.getItem('blog-token');
+    console.log('JWT-token', token);
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', 'Bearer ' + token);
     return this.http
-      .get(this.origin + '/api/user/uimg/userimg', { headers: headers })
+      .get(this.origin + '/api/user/uimg/userimg', {
+        headers: headers,
+        withCredentials: true,
+      })
       .pipe(
         map((user) => {
           return user;
