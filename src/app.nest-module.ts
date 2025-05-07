@@ -22,14 +22,14 @@ import { FriendRequestsModule } from './friend-requests/friend-requests.module';
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DATABASE_URL,
-      // username: 'avnadmin',
-      // password: process.env.password,
-      // host: 'coldjupiter-coldjup.k.aivencloud.com',
-      // port: 12878,
-      // database: 'defaultdb',
+      //url: process.env.DATABASE_URL,
+      username: 'avnadmin',
+      password: process.env.password,
+      host: 'coldjupiter-coldjup.k.aivencloud.com',
+      port: 12878,
+      database: 'defaultdb',
       ssl: {
-        rejectUnauthorized: true,
+        rejectUnauthorized: false,
         ca: process.env.CA,
       },
       // ! used for local db on mac, doesnt work with SSL locally.
