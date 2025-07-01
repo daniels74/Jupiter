@@ -22,16 +22,16 @@ import { FriendRequestsModule } from './friend-requests/friend-requests.module';
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      //url: process.env.DATABASE_URL,
-      username: 'avnadmin',
-      password: process.env.password,
-      host: 'coldjupiter-coldjup.k.aivencloud.com',
-      port: 12878,
-      database: 'defaultdb',
-      ssl: {
-        rejectUnauthorized: false,
-        ca: process.env.CA,
-      },
+      url: process.env.DATABASE_URL,
+      // username: 'wolf',
+      // password: process.env.password,
+      // host: 'dpg-d1i47jre5dus73f3grdg-a',
+      // port: 5432,
+      // database: 'zappup-db',
+      // ssl: {
+      //   rejectUnauthorized: false,
+      //   ca: process.env.CA,
+      // },
       // ! used for local db on mac, doesnt work with SSL locally.
       // type: 'postgres',
       // host: 'localhost',
@@ -41,6 +41,9 @@ import { FriendRequestsModule } from './friend-requests/friend-requests.module';
       // database: 'zappupp',
       autoLoadEntities: true,
       synchronize: true,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     }),
     UserModule,
     AuthModule,
