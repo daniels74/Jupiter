@@ -1,39 +1,17 @@
-<div class="nav-page nav-page-component-theme">
-  @if (screenSizeCheck) {
+<!-- <div class="nav-page-component-theme">
+</div> -->
+<div class="nav-page">
   <div class="logo-container">
     <div (click)="goToLanding()" class="logo">
       <img
-        [src]="
-          logoLightTheme === true
-            ? '../../../assets/Light-Logo.png'
-            : '../../../assets/Dark-Crypto.png'
-        "
-        [style.width]="logoWidth"
-        [style.height]="logoHeight"
+        [src]="'../../../assets/cryptozapp.png'"
+        [style.width]="'90%'"
+        [style.height]="'70%'"
         alt=""
       />
     </div>
   </div>
-  } @else {
-    <div class="logo-container">
-      <div (click)="goToLanding()" class="logo">
-        <img
-          [src]="
-            logoLightTheme === true
-              ? '../../../assets/Light-Logo.png'
-              : '../../../assets/Dark-Crypto.png'
-          "
-          [style.width]="logoWidth"
-          [style.height]="logoHeight"
-          alt=""
-        />
-      </div>
-    </div>
-  }
-  <div
-    class="search-container"
-    [style.alignItems]="!screenSizeCheck ? 'center' : 'flex-start'"
-  >
+  <div class="search-container">
     <app-usersearch />
   </div>
   <!--! Big Screen Menu -->
@@ -86,6 +64,7 @@
   *ngIf="loader"
   [ngStyle]="{
     position: 'absolute',
+    bottom: '0',
     height: '90vh',
     width: '100%',
     backgroundColor: 'rgb(3, 3, 36)',
@@ -105,6 +84,8 @@
   *ngIf="menuToggler"
   class="settingsTab-container nav-page-component-theme"
   [ngStyle]="{
+    position: 'absolute',
+    top: '10vh',
     width: !screenSizeCheck ? '100%' : '50%',
   }"
 >

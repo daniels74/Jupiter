@@ -1,0 +1,20 @@
+<div class="crypto-overlay-container">
+  <div class="crypto-overlay-blur"></div>
+  <div class="crypto-overlay-foreground">
+    <div class="crypto-image-container">
+      <img [src]="cryptoimg" alt="" class="crypto-image" />
+    </div>
+    <div class="crypto-name-container">
+      <h1 class="crypto-name">{{ cryptoName }}</h1>
+    </div>
+  </div>
+</div>
+
+<div class="chart-blur-background"></div>
+
+<div class="chart-overlay">
+  <div class="chart-container">
+    <app-chart></app-chart>
+  </div>
+</div>
+

@@ -3,9 +3,11 @@
 
 @mixin color($theme) {
   .login-page {
+    position: absolute;
+    top: 10vh;
     height: 90vh;
     width: 100%;
-    background-color: mat.get-theme-color($theme, primary, lighter);
+    // background-color: mat.get-theme-color($theme, primary, lighter);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,7 +16,7 @@
 
   .login-form {
     position: relative;
-    background-color: mat.get-theme-color($theme, primary);
+    background-color: mat.get-theme-color($theme, primary, dark);
     color: mat.get-theme-color($theme, accent, text);
     display: flex;
     flex-direction: column;
@@ -48,6 +50,41 @@
     position: absolute;
     border-radius: 1rem;
   }
+}
+
+.wallpaper-login {
+  position: absolute;
+  height: 100vh;
+  width: 100vw; /* use vw instead of % to prevent horizontal overflow */
+  top: 0;
+  left: 0;
+  overflow: hidden; /* prevent image overflow */
+  z-index: -1; /* optional: to push behind content */
+}
+
+.big-screen-wallpaper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+}
+
+.wallpaper-img-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: black;
+}
+
+.wallpaper-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* THIS is the key to behave like a background */
+  display: block;
 }
 
 @mixin theme($theme) {

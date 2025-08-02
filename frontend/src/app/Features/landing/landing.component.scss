@@ -13,21 +13,28 @@
 
 .landing-page {
   position: absolute;
-  height: 90vh;
+  height: 100vh;
+  width: 100%;
+}
+
+.landing-container {
+  position: relative;
+  height: 90%;
+  top: 10vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   overflow: hidden;
 }
 
 .cover-img-small {
   position: absolute;
-  height: 100%;
-  width: auto;
+  height: 100vh;
+  width: 100%;
   background-size: cover;
-  background-position: center center;
+  // background-position: center center;
   opacity: 0.9;
 }
 
@@ -39,18 +46,25 @@
   opacity: 0.9;
 }
 
-.carousel-container {
-  position: relative;
+.carousel-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40%;
+  width: 100%;
+}
+
+owl-carousel-o {
+  width: 100%;
+}
+
+.carousel-cell {
+  width: auto; // or whatever fixed width you want per cell
+  height: 35vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   // background-color: blue;
-  z-index: 1;
-  height: 30%;
-  // height: auto;
-  width: 80%; /* Adjust to your preference */
-//   margin: 0 auto; /* Center it on the screen */
-// display: flex;
-// flex-direction: row;
-// align-items: center;
-// justify-content: center;
 }
 
 .usage-info-container {
@@ -68,10 +82,13 @@
   scroll-behavior: smooth;
 }
 
-.carousel-cell {
-  // background-color: rgb(255, 0, 225);
-  height: 100%;
-  width: 100%;
+.aboutSite-wrapper {
+  position: absolute;
+  z-index: 1000000;
+  left: 0;
+  bottom: 0;
+  height: 90vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,10 +98,12 @@
 @mixin color($theme) {
   .text-container {
     color: mat.get-theme-color($theme, primary, text);
+    width: auto;
+    // background-color:red;
   }
 
   .text-container > h1 {
-    font-size: 3rem;
+    // font-size: 3rem;
     text-shadow: mat.get-theme-color($theme, accent, lighter) 0px 0px 20px;
   }
 

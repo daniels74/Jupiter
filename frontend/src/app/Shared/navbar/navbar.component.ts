@@ -11,6 +11,7 @@ import { User } from '../../Core/Interfaces/User.interface';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DOCUMENT } from '@angular/common';
+import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.service';
 
 @Component({
   selector: 'app-navbar',
@@ -44,11 +45,17 @@ export class NavbarComponent implements OnDestroy, OnInit {
     private fb: FormBuilder,
     private authServic: AuthService,
     private userService: UserService,
+    private siteAdjustments: SiteAdjustmentService,
     private router: Router,
     private spinner: NgxSpinnerService,
   ) {}
 
   ngOnInit(): void {
+    this.siteAdjustments.myValue$.subscribe((val) => {
+      this.logoLightTheme = val;
+    });
+
+    // this.renderer.addClass(this.document.body, 'custom-opacity');
     this.settingsToggle = false;
 
     this.store.select(selectUser).subscribe((currentUser) => {
@@ -74,7 +81,9 @@ export class NavbarComponent implements OnDestroy, OnInit {
       ? 'mat-app-background theme-dark'
       : 'mat-app-background theme-light';
     this.renderer.setAttribute(this.document.body, 'class', hostClass);
-    this.logoLightTheme = !isDarkMode.checked;
+
+    // this.logoLightTheme = !isDarkMode.checked;
+    this.siteAdjustments.updateValue(!isDarkMode.checked);
   }
 
   toggleSettings() {

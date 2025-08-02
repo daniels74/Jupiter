@@ -23,22 +23,6 @@ import { FriendRequestsModule } from './friend-requests/friend-requests.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
-      // username: 'wolf',
-      // password: process.env.password,
-      // host: 'dpg-d1i47jre5dus73f3grdg-a',
-      // port: 5432,
-      // database: 'zappup-db',
-      // ssl: {
-      //   rejectUnauthorized: false,
-      //   ca: process.env.CA,
-      // },
-      // ! used for local db on mac, doesnt work with SSL locally.
-      // type: 'postgres',
-      // host: 'localhost',
-      // port: 5432,
-      // username: 'charlie',
-      // password: 'DanielCE4774!',
-      // database: 'zappupp',
       autoLoadEntities: true,
       synchronize: true,
       ssl: {
@@ -55,6 +39,4 @@ import { FriendRequestsModule } from './friend-requests/friend-requests.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-  // constructor(private dataSource: DataSource) {}
-}
+export class AppModule {}

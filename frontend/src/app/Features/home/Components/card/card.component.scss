@@ -90,7 +90,7 @@
   }
 
   .coin-info-container {
-    background-color: mat.get-theme-color($theme, primary, darker);
+    background-color: mat.get-theme-color($theme, primary, lighter);
     color: mat.get-theme-color($theme, accent, text);
   }
 }

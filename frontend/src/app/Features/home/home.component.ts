@@ -9,6 +9,7 @@ import {
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CryptoService } from '../../Core/Services/UserCollection/crypto.service';
 import { UserNftCollectionService } from '../../Core/Services/UserCollection/user-nft-collection.service';
+import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.service';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomeComponent {
     public spinner: NgxSpinnerService,
     private cryptoService: CryptoService,
     private nftService: UserNftCollectionService,
+    private siteAdjustments: SiteAdjustmentService,
   ) {}
 
   // ? Top trending Crypto
@@ -42,7 +44,13 @@ export class HomeComponent {
 
   nftCollection!: any[];
 
+  lightTheme = true;
+
   ngOnInit() {
+    this.siteAdjustments.myValue$.subscribe((val) => {
+      this.lightTheme = val;
+    });
+
     this.cryptoService.cryptoCollection_O.subscribe((res) => {
       this.cryptoCollection = res;
     });

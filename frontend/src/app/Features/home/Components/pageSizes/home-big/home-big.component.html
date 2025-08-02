@@ -1,26 +1,11 @@
+<div class="home-background-top"></div>
 <div class="big-screen">
-  <div class="top-trending-container" class="top-trending-container">
+  <div class="top-trending-section">
     <div class="title-container">
-      <!-- <img height="100%" src="../../../../../../assets/fire4.gif" alt=""> -->
       <h2>Trending {{ selectedContent }}</h2>
-      <!-- <img height="100%" src="../../../../../../assets/fire4.gif" alt=""> -->
     </div>
-    <div class="top-trending">
-      <!-- class="listt-container" -->
-      <!-- [ngStyle]="{
-        'display': 'flex',
-        'height': '100%', 
-        'width': '80%',
-        'flexDirection': 'row',
-        'align-items': 'center',
-        'justify-content': 'flex-start',
-        'overflowY': 'hidden',
-        'overflowX': 'scroll',
-    }" -->
-      <div
-        *ngIf="!trendingContent_state"
-        class="listt-container"
-      >
+    <div class="top-trending-outer-layer">
+      <div *ngIf="!trendingContent_state" class="top-trending-inner-layer">
         <div *ngFor="let coin of crypto$ | async">
           <app-card
             [collectionClassification]="'crypto'"
@@ -33,19 +18,8 @@
           />
         </div>
       </div>
-
-      <div
-        *ngIf="trendingContent_state"
-        class="listt-container"
-        [ngStyle]="{
-                    'display': 'flex',
-                    'height': '100%', 
-                    'width': '80%',
-                    'flexDirection': 'row',
-                    'overflowY': 'hidden',
-                    'overflowX': 'scroll',
-                }"
-      >
+      <!-- //! class="listt-container" -->
+      <div *ngIf="trendingContent_state" class="top-trending-inner-layer">
         <div *ngFor="let nft of nfts$ | async">
           <app-card
             [collectionClassification]="'nft'"
@@ -78,6 +52,16 @@
     </div>
   </div>
   <div class="paginator-container">
-    <app-paginator [ngStyle]="{ height: '100%', width: '100%' }" />
+    <app-paginator
+      [ngStyle]="{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }"
+    />
+    <!-- <app-paginator /> -->
   </div>
 </div>

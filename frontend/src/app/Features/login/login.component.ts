@@ -15,6 +15,7 @@ import { selectUser } from '../../Shared/State/Selectors/users.selector';
 import { User } from '../../Core/Interfaces/User.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.service';
 
 @Component({
   selector: 'app-login',
@@ -31,12 +32,18 @@ export class LoginComponent implements OnInit {
   form_input_container_width = window.innerWidth <= 700 ? '80%' : '50%';
   form_input_container_height = window.innerWidth <= 700 ? '10%' : '20%';
 
+  // ? Small screen = false / Big Screen = true
+  sizeState = window.innerWidth < 700 ? false : true;
+
+  lightTheme = true;
+
   constructor(
     private router: Router,
     private store: Store,
     public spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
     private authServ: AuthService,
+    private siteAdjustments: SiteAdjustmentService,
   ) {
     merge(this.emailInput.statusChanges, this.emailInput.valueChanges)
       .pipe(takeUntilDestroyed())
@@ -53,6 +60,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.store.select(selectUser).subscribe((theuser) => {
       this.user = theuser;
+    });
+
+    this.siteAdjustments.myValue$.subscribe((val) => {
+      this.lightTheme = val;
     });
   }
 

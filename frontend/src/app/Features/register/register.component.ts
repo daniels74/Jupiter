@@ -14,6 +14,7 @@ import { Store } from '@ngrx/store';
 import { selectUser } from '../../Shared/State/Selectors/users.selector';
 import { User } from '../../Core/Interfaces/User.interface';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.service';
 
 @Component({
   selector: 'app-register',
@@ -34,12 +35,18 @@ export class RegisterComponent {
 
   passwordErrorMessage = signal('');
 
+  // ? Small screen = false / Big Screen = true
+  sizeState = window.innerWidth < 700 ? false : true;
+
+  lightTheme = true;
+
   constructor(
     public spinner: NgxSpinnerService,
     private authServ: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
     private store: Store,
+    private siteAdjustments: SiteAdjustmentService,
   ) {
     merge(this.emailInput.statusChanges, this.emailInput.valueChanges)
       .pipe(takeUntilDestroyed())
@@ -56,6 +63,10 @@ export class RegisterComponent {
   ngOnInit() {
     this.store.select(selectUser).subscribe((theuser) => {
       this.user = theuser;
+    });
+
+    this.siteAdjustments.myValue$.subscribe((val) => {
+      this.lightTheme = val;
     });
   }
 

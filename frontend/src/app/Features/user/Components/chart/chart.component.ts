@@ -5,6 +5,7 @@ import { map, timer } from 'rxjs';
 import { CoinGeckoApiService } from '../../../../Core/Services/coin-gecko-api.service';
 import { NgChartsModule } from 'ng2-charts';
 import { CommonModule } from '@angular/common';
+import { SiteAdjustmentService } from '../../../../Core/Services/UX/site-adjustment.service';
 
 @Component({
   standalone: true,
@@ -20,6 +21,22 @@ export class ChartComponent implements OnInit {
 
   public lineChartData: ChartConfiguration<'line'>['data'] = {
     datasets: [],
+  };
+
+  lightModeColors = {
+    pointBackgroundColor: 'darkblue',
+    pointBorderColor: 'black',
+    backgroundColor: 'blue',
+    borderColor: 'black',
+    tickColor: 'black',
+  };
+
+  darkModeColors = {
+    pointBackgroundColor: 'white',
+    pointBorderColor: 'white',
+    backgroundColor: 'darkblue',
+    borderColor: 'white',
+    tickColor: 'white',
   };
 
   public lineChartOptions: ChartOptions<'line'> = {
@@ -58,9 +75,11 @@ export class ChartComponent implements OnInit {
   height: string = this.isBigScreen ? '100%' : '25vh';
   width: string = this.isBigScreen ? '100%' : '90vw';
 
+  mode = true; // true = light mode, false = dark mode
   constructor(
     private CoinGeckoApi: CoinGeckoApiService,
     private spinner: NgxSpinnerService,
+    private siteAdjustment: SiteAdjustmentService,
   ) {}
 
   ngOnInit() {
@@ -79,9 +98,32 @@ export class ChartComponent implements OnInit {
         this.chartActive = true;
       }
     });
+
+    this.siteAdjustment.myValue$.subscribe((mode) => {
+      this.mode = mode;
+      if (this.cryptoChartData.length > 1) {
+        this.setChart(); // Re-render chart with new mode
+      }
+    });
   }
 
+  // colors = this.mode ? this.lightModeColors : this.darkModeColors;
+
   setChart() {
+    const colors = this.mode ? this.lightModeColors : this.darkModeColors;
+    // Update chart options with tick color
+    this.lineChartOptions = {
+      ...this.lineChartOptions,
+      scales: {
+        x: {
+          ticks: { color: colors.tickColor },
+        },
+        y: {
+          ticks: { color: colors.tickColor },
+        },
+      },
+    };
+
     this.lineChartData = {
       labels: this.cryptoChartData.map((ele) => {
         const eleDate = new Date(ele[0]);
@@ -100,12 +142,12 @@ export class ChartComponent implements OnInit {
           label: 'USD Price',
           pointRadius: 0,
           pointHitRadius: 4,
-          pointBackgroundColor: 'darkblue',
-          pointBorderColor: 'lightblue',
+          pointBackgroundColor: colors.pointBackgroundColor,
+          pointBorderColor: colors.pointBorderColor,
           fill: false,
           tension: 0.5,
-          backgroundColor: 'blue', // for chart toolbox
-          borderColor: 'lightblue', // for line
+          backgroundColor: colors.backgroundColor, // Fill color
+          borderColor: colors.borderColor, // Line color
           borderWidth: 1,
         },
       ],

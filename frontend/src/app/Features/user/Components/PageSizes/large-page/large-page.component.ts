@@ -26,6 +26,7 @@ import { NoteCardComponent } from './components/note-card/note-card.component';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { FriendRequestsService } from '../../../../../Core/Services/friend-requests.service';
+import { SiteAdjustmentService } from '../../../../../Core/Services/UX/site-adjustment.service';
 
 export interface File {
   data: any;
@@ -45,6 +46,7 @@ export class LargePageComponent implements OnInit {
     private userService: UserService,
     private store: Store,
     private FriendRequestService: FriendRequestsService,
+    private siteAdjustments: SiteAdjustmentService,
   ) {}
   friendsList: any = <any>[];
   sentFriendRequests: any = <any>[];
@@ -114,6 +116,11 @@ export class LargePageComponent implements OnInit {
   );
   myfriends_dataSource = new MatTableDataSource<any>(this.myfriendsList);
 
+  // ? Small screen = false / Big Screen = true
+  sizeState = window.innerWidth < 700 ? false : true;
+
+  lightTheme = true;
+
   ngOnInit(): void {
     this.FriendRequestService.getFriendsList().subscribe((res) => {
       this.myfriends_dataSource.data = res;
@@ -132,6 +139,10 @@ export class LargePageComponent implements OnInit {
     // });
     this.getFriendRequests();
     this.getSentFriendRequests();
+
+    this.siteAdjustments.myValue$.subscribe((val) => {
+      this.lightTheme = val;
+    });
   }
 
   getFriendRequests() {

@@ -6,7 +6,9 @@ import { LandingComponent } from './landing.component';
 import { CarouselElementComponent } from './Components/carousel-element/carousel-element.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ChartComponent } from '../user/Components/chart/chart.component';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MiniChartComponent } from './Components/mini-chart/mini-chart.component';
+import { AboutComponent } from './Components/about/about.component';
 @NgModule({
   declarations: [LandingComponent],
   imports: [
@@ -16,6 +18,9 @@ import { ChartComponent } from '../user/Components/chart/chart.component';
     CarouselModule,
     CarouselElementComponent,
     ChartComponent,
-  ],
+    MatButtonModule,
+    MiniChartComponent,
+    AboutComponent
+],
 })
 export class LandingModule {}
