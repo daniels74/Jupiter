@@ -4,7 +4,7 @@
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: displayAlign,
+    alignItems: 'center',
     justifyContent: 'center',
 }"
 >
@@ -12,9 +12,10 @@
         <input type="text" formControlName="userinput" placeholder="Ex. theDarkNight" (keyup)="sendSearchRequest()">
     </form> -->
   <!-- <input #userSearch type="text" placeholder="Ex. Batman" /> -->
-   <mat-form-field class="mat-form-field" appearance="outline" color="accent">
+   <mat-form-field class="mat-form-field" appearance="outline" color="primary">
     <mat-label>User Search</mat-label>
     <input #userSearch matInput type="text">
+    <!-- <mat-hint><button mat-raised-button color="accent">Recommended</button></mat-hint> -->
    </mat-form-field>
 </div>
 <div

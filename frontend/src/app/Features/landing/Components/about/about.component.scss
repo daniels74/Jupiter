@@ -1,0 +1,49 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+.aboutPage-wallpaper {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  opacity: .75;
+  z-index: -1;
+}
+
+.aboutPage {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-wrapper {
+  height: 50%;
+  width: 50%;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+@mixin color($theme) {
+
+  .aboutPage-wallpaper {
+    background-color: mat.get-theme-color($theme, primary, lighter);
+  }
+  .aboutPage {
+    color: mat.get-theme-color($theme, primary, text);
+  }
+
+  .about-wrapper {
+    background-color: mat.get-theme-color($theme, primary, lighter);
+    color: mat.get-theme-color($theme, primary, text);
+    scrollbar-color: mat.get-theme-color($theme, accent)
+      mat.get-theme-color($theme, primary);
+  }
+}
+
+@mixin theme($theme) {
+  @if mat.theme-has($theme, color) {
+    @include color($theme);
+  }
+}

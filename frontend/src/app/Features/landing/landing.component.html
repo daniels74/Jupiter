@@ -1,204 +1,92 @@
 <div class="landing-page">
-  <img
-    *ngIf="titleFontSize"
+  <div *ngIf="titleFontSize">
+    <img
+    *ngIf="!daylightMode"
     class="cover-img-small"
     src="https://wallpapercave.com/wp/wp3272404.jpg"
     alt=""
   />
   <img
-    *ngIf="!titleFontSize"
-    class="cover-img-large"
-    src="https://wallpapercave.com/wp/wp3272404.jpg"
+    *ngIf="daylightMode"
+    class="cover-img-small"
+    [src]='"../../../assets/daylight.png"'
     alt=""
   />
-  <div
-    *ngIf="titleFontSize"
-    class="text-container"
-    [style.width]="title_container_width"
-    [style.height]="title_container_height"
-  >
-    <h1 class="glow-text">CryptoZapp</h1>
-    <h4 [style.paddingLeft]="'1rem'" [style.paddingRight]="'1rem'">
-      See the market, make your list, and share it.
-    </h4>
   </div>
-  <div
-    *ngIf="!titleFontSize"
-    class="text-container"
-    [style.width]="title_container_width"
-    [style.height]="title_container_height"
-  >
-    <h1>CryptoZapp</h1>
-    <h3>See the market, make your list, and share it.</h3>
+  <div *ngIf="!titleFontSize">
+    <img
+      *ngIf="!daylightMode"
+      class="cover-img-large"
+      src="https://wallpapercave.com/wp/wp3272404.jpg"
+      alt=""
+    />
+    <img
+      *ngIf="daylightMode"
+      class="cover-img-large"
+      [src]='"../../../assets/daylight.png"'
+      alt=""
+    />
   </div>
-  <!-- <div class="carousel-container">
-    <carousel
-      [pauseOnHover]="true"
-      [loop]="true"
-      [borderRadius]="200"
-      [cellWidth]="1200"
-      [overflowCellsLimit]="7"
-      [autoplay]="true"
-      [height]="carouselHeight"
-      [width]="carouselWidth"
-      [margin]="50"
-      [cellsToShow]="cellsToShow"
-      [autoplayInterval]="6000"
-      [transitionDuration]="800"
-      transitionTimingFunction="ease-in-out"
-      [arrowsOutside]="true"
-      [arrows]="true"
+  <div class="landing-container">
+    <div
+      *ngIf="titleFontSize"
+      class="text-container"
+      [style.width]="title_container_width"
+      [style.height]="title_container_height"
     >
-      <div
-        *ngFor="let item of trending_cryptos"
-        class="carousel-cell"
-        [ngStyle]="{
-          position: 'absolute',
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'transparent',
-        }"
-      >
-        <app-carousel-element
-          (click)="keepActive()"
-          (mouseenter)="toggleChart(true); setName(item.item)"
-          (mouseleave)="toggleChart(false)"
-          [Item]="item"
-          [name]="item.name"
-          [cryptoImg]="item.item.large"
-        />
-      </div>
-    </carousel>
-  </div> -->
-  <div class="carousel-container">
-    <owl-carousel-o [options]="customOptions">
-      <ng-container *ngFor="let item of trending_cryptos">
-        <ng-template carouselSlide>
-          <app-carousel-element
-            class="carousel-cell"
-            (click)="keepActive()"
-            (mouseenter)="toggleChart(true); setName(item.item)"
-            (mouseleave)="toggleChart(false)"
-            [Item]="item"
-            [name]="item.name"
-            [cryptoImg]="item.item.large"
-          />
-        </ng-template>
-      </ng-container>
-    </owl-carousel-o>
-  </div>
-  <div
-    class="usage-info-container"
-    [style.width]="crpyoinfo_container_width"
-    [style.height]="crpyoinfo_container_height"
-  >
-    <h2>
-      Share crypto alpha with your friends by creating crypto, nfts, and note
-      lists. Users who come across your profile will be able to view your lists.
-      If users like what they see, they can add you as a friend. This will allow
-      them to keep coming back to your profile.
-    </h2>
+      <h1 class="glow-text">CryptoZapp</h1>
+      <h4 [style.paddingLeft]="'1rem'" [style.paddingRight]="'1rem'">
+        See the market, make your list, and share it.
+      </h4>
+    </div>
+    <div
+      *ngIf="!titleFontSize"
+      class="text-container"
+      [style.width]="title_container_width"
+      [style.height]="title_container_height"
+    >
+      <h1>CryptoZapp</h1>
+      <h3>See the market, make your list, and share it.</h3>
+    </div>
+    <div class="carousel-wrapper">
+      <owl-carousel-o [options]="customOptions">
+        <ng-container *ngFor="let item of trending_cryptos">
+          <ng-template carouselSlide>
+            <app-carousel-element
+              class="carousel-cell"
+              (click)="keepActive()"
+              (mouseenter)="toggleChart(true); setName(item.item)"
+              (mouseleave)="toggleChart(false)"
+              [Item]="item"
+              [name]="item.name"
+              [cryptoImg]="item.item.large"
+            />
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
+    </div>
+    <div
+      [ngStyle]="{
+        position: 'absolute',
+        left: 0,
+        bottom: '0',
+        zIndex: '10000000',
+        height: '4rem',
+        width: '6rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }"
+    >
+      <button mat-raised-button color="accent" (click)="toggleSiteinfo()">
+        <h1>?</h1>
+      </button>
+    </div>
+    <div *ngIf="siteInfo" class="aboutSite-wrapper">
+      <app-about />
+    </div>
   </div>
 </div>
 <div *ngIf="miniChartState || chartActiveState">
-  <div
-    [ngStyle]="{
-      position: 'absolute',
-      top: 10,
-      right: 0,
-      zIndex: '99999',
-      marginTop: '1rem',
-      height: '25vh',
-      width: '25vw',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-
-    }"
-  >
-    <!-- backgroundColor: 'rgba(57, 57, 96, 0.5)', -->
-    <div
-      [ngStyle]="{
-      position: 'absolute',
-      height: '100%',
-      width: '100%',
-      
-      filter: 'blur(10px)',
-      zIndex: '99',
-      marginTop: '1rem',
-    }"
-    ></div>
-    <div
-      [ngStyle]="{ position: 'absolute', height: '100%', width: '100%', zIndex: '999999', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', }"
-    >
-      <div
-        [ngStyle]="{
-          position: 'relative',
-          height: '50%',
-          width: '80%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-end',
-          justifyContent: 'center'
-        }"
-      >
-        <img
-          [src]="cryptoimg"
-          alt=""
-          height="50%"
-          [ngStyle]="{ borderRadius: '50%' }"
-        />
-      </div>
-      <div
-        [ngStyle]="{
-          height: '50%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'flex-start'
-        }"
-      >
-        <h1 [ngStyle]="{ color: 'white' }">{{ cryptoName }}</h1>
-      </div>
-    </div>
-  </div>
-  <div
-    [ngStyle]="{
-      position: 'absolute',
-      top: '7rem',
-      height: '25vh',
-      width: '25vw',
-      
-      filter: 'blur(10px)',
-      zIndex: '99999',
-    }"
-  ></div>
-  <div
-    [ngStyle]="{
-      position: 'absolute',
-      top: '7rem',
-      height: '25vh',
-      width: '25vw',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: '99999',
-    }"
-  >
-    <div
-      [ngStyle]="{
-        height: '100%',
-        width: '100%'
-      }"
-    >
-      <app-chart />
-    </div>
-  </div>
+  <app-mini-chart [cryptoimg]="cryptoimg" [cryptoName]="cryptoName" />
 </div>

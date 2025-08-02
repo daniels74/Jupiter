@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { selectCrypto } from '../../Shared/State/Selectors/crypto.selectors';
 import { CoinGeckoApiService } from '../../Core/Services/coin-gecko-api.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.service';
 
 @Component({
   selector: 'app-landing',
@@ -39,7 +40,7 @@ export class LandingComponent implements OnInit {
     nav: true,
   };
   trending_cryptos: any = [];
-  title_container_width = window.innerWidth <= 700 ? 'auto' : '50%';
+  title_container_width = window.innerWidth <= 700 ? '100%' : '50%';
   title_container_height = window.innerWidth <= 700 ? '25%' : '30%';
   titleFontSize: boolean = window.innerWidth <= 700 ? true : false;
   crpyoinfo_container_width = window.innerWidth <= 700 ? '90%' : 'auto';
@@ -56,6 +57,10 @@ export class LandingComponent implements OnInit {
   cryptoName = 'HELLO';
 
   cryptoimg = '';
+
+  siteInfo = false;
+
+  daylightMode = true;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
@@ -77,6 +82,7 @@ export class LandingComponent implements OnInit {
   constructor(
     private coinGeckoApi: CoinGeckoApiService,
     private store: Store,
+    private siteAdjustments: SiteAdjustmentService,
   ) {}
   ngOnInit() {
     this.store.select(selectCrypto).subscribe((trending_cryptos) => {
@@ -90,6 +96,14 @@ export class LandingComponent implements OnInit {
       //   this.images.reverse();
       //   console.log('Images', this.images);
     });
+
+    this.siteAdjustments.myValue$.subscribe((val) => {
+      this.daylightMode = val;
+    });
+  }
+
+  toggleSiteinfo() {
+    this.siteInfo = !this.siteInfo;
   }
 
   toggleChart(state: boolean) {

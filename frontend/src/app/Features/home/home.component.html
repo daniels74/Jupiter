@@ -1,3 +1,21 @@
+<div class="wallpaper-home">
+    <div *ngIf="sizeState" class="big-screen-wallpaper">
+        <div *ngIf="!lightTheme" class="wallpaper-img-wrapper">
+            <img class="wallpaper-img" src="assets/darkmode.webp" alt="">
+        </div>
+        <div *ngIf="lightTheme" class="wallpaper-img-wrapper">
+            <img class="wallpaper-img" src="assets/daylight.png" alt="">
+        </div>
+    </div>
+    <div *ngIf="!sizeState" class="small-screen">
+        <div *ngIf="!lightTheme">
+            <img src="assets/darkmode.webp" alt="">
+        </div>
+        <div *ngIf="lightTheme">
+            <img src="assets/daylight.png" alt="">
+        </div>
+    </div>
+</div>
 <div class="crypto-page">
     <div *ngIf="sizeState" class="big-screen">
         <app-home-big 

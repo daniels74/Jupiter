@@ -1,6 +1,41 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 
+// .wallpaper-user {
+//   position: absolute;
+//   height: 100vh;
+//   width: 100vw; /* use vw instead of % to prevent horizontal overflow */
+//   top: 0;
+//   left: 0;
+//   overflow: hidden; /* prevent image overflow */
+//   z-index: -1; /* optional: to push behind content */
+// }
+
+// .big-screen-wallpaper {
+//   position: relative;
+//   height: 100%;
+//   width: 100%;
+//   background-color: black;
+// }
+
+// .wallpaper-img-wrapper {
+//   position: relative;
+//   height: 100%;
+//   width: 100%;
+//   overflow: hidden;
+//   background-color: black;
+// }
+
+// .wallpaper-img {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   height: 100%;
+//   width: 100%;
+//   object-fit: cover; /* THIS is the key to behave like a background */
+//   display: block;
+// }
+
 .big-screen {
   position: relative;
   height: 90vh;
@@ -145,16 +180,14 @@
 .user-posts-container {
   height: 65%;
   width: 80%;
-  border-radius: 1rem;
-  // border-color: blue;
-  border-style: solid;
-  border-width: thin;
-  transition: width 1s;
-  border-color: lightblue;
+  // background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: width 1s;
 }
 
 .user-posts-container:hover {
@@ -192,7 +225,6 @@
   height: 70%;
   width: 75%;
   // filter: blur(1rem);
-  
 }
 
 .title-nav-container {
@@ -240,6 +272,16 @@
 
 /*! ----------------------------------------------------------------------RIGHT SECTION STARTS */
 @mixin color($theme) {
+  .home-background-top {
+    position: absolute;
+    // top: 10vh;
+    height: 90vh;
+    width: 100vw;
+    background-color: mat.get-theme-color($theme, primary, lighter);
+    z-index: -1;
+    opacity: 0.5;
+  }
+
   .title-container {
     height: 100%;
     width: 75%;
@@ -253,57 +295,49 @@
     color: mat.get-theme-color($theme, primary, text);
   }
 
-  .all-posts-container {
+  .all-posts-container-outer {
     // background-color: red;
+    backdrop-filter: blur(10px);
     position: relative;
     overflow-y: auto;
     height: 85%;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
     border-radius: 1rem;
     border-width: 1rem;
     scrollbar-color: mat.get-theme-color($theme, accent)
-    mat.get-theme-color($theme, primary);
+      mat.get-theme-color($theme, primary);
+  }
+
+  .all-posts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(130, 88, 88);
+  }
+
+  .post-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .primary-component-theme {
+    background-color: transparent;
   }
 
   .secondary-component-theme {
-    background-color: mat.get-theme-color($theme, primary, darker);
+    background-color: transparent;
+    // background-color: mat.get-theme-color($theme, primary, darker);
     // color:  mat.get-theme-color($theme, primary, text);
   }
 
   .collectionType-container {
-    /* background-color:rgb(2, 2, 26); */
-    height: 10%;
-    width: auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 1rem;
-    border-style: solid;
-    border-width: thin;
-    border-color: mat.get-theme-color($theme, primary, darker);
-  }
-
-  /* ! 1 */
-  .superior-list-container {
-    height: 75%;
-    width: 80%;
-    /* background-color: rgb(32, 51, 52); */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 1rem;
-    border-style: solid;
-    border-width: thin;
-    border-color: mat.get-theme-color($theme, primary, darker);
-    transition: width 1s;
+    color: mat.get-theme-color($theme, primary, text);
   }
 }
 
@@ -323,37 +357,33 @@
   /* background-color: black; */
 }
 
-/* !1 */
-// .collectionType-container {
-//   /* background-color:rgb(2, 2, 26); */
-//   height: 10%;
-//   width: auto;
-//   padding-left: 2rem;
-//   padding-right: 2rem;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   border-radius: 1rem;
-//   border-style: solid;
-//   border-width: thin;
-//   border-color: blue;
-// }
+.collectionType-container {
+  // background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  height: 10%;
+  width: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-// /* ! 1 */
-// .superior-list-container {
-//   height: 75%;
-//   width: 80%;
-//   /* background-color: rgb(32, 51, 52); */
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   border-radius: 1rem;
-//   border-style: solid;
-//   border-width: thin;
-//   border-color: blue;
-// }
+/* ! 1 */
+.superior-list-container {
+  height: 75%;
+  width: 80%;
+  // background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: width 1s;
+}
 
 .superior-list-container:hover {
   width: 95%;
@@ -377,7 +407,6 @@
   border-radius: 1rem;
   height: 20vh;
   width: 90%;
-  background-color: red;
   transition: height 1s;
 }
 

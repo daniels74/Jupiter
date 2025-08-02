@@ -25,6 +25,7 @@ Chart.register(...registerables);
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { NavigationStart, Router } from '@angular/router';
 import { LargePageComponent } from './Components/PageSizes/large-page/large-page.component';
+import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.service';
 
 @Component({
   selector: 'app-user',
@@ -66,6 +67,11 @@ export class UserComponent implements OnInit {
 
   browserRefresh = false;
 
+  // ? Small screen = false / Big Screen = true
+  sizeState = window.innerWidth < 700 ? false : true;
+
+  lightTheme = true;
+
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
@@ -76,6 +82,7 @@ export class UserComponent implements OnInit {
     public spinner: NgxSpinnerService,
     private ngx: NgxImageCompressService,
     private router: Router,
+    private siteAdjustments: SiteAdjustmentService,
   ) {
     router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -104,6 +111,10 @@ export class UserComponent implements OnInit {
     // Nft Collection
     this.UserNftCollectionService.nftCollection.subscribe((usernfts) => {
       this.nftCollection = usernfts;
+    });
+
+    this.siteAdjustments.myValue$.subscribe((val) => {
+      this.lightTheme = val;
     });
   }
   // Declare user update form, this form will be passed to child components and changed.

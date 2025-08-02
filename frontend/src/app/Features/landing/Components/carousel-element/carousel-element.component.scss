@@ -1,76 +1,75 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 
-
+/* ───── Layout & Containers ───── */
 .carousel-element {
   height: 8rem;
   width: 8rem;
   position: relative;
-  // height: 100%;
-  // width: 100%;
   border-radius: 50%;
   border-style: none;
   border-width: thin;
-  // background-color: red;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.img-container {
-  border-radius: 50%;
+.carousel-cell {
+  width: 250px;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-wrapper {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  position: relative;
-  z-index: 9999;
+}
+
+.container {
+  width: 4rem;
+  height: 4rem;
+  margin: 4rem;
+  border-radius: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: transparent;;
-  /* perspective: 250px; */
+}
+
+/* ───── Images ───── */
+.img-container {
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+  position: relative;
+  // z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
 }
 
 .img-ele {
   border-radius: 50%;
   position: absolute;
-  height: 100%;
-  width: 100%;
+  height: 4rem;
+  width: 4rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  /* animation: rotation 10s infinite linear; */
-}
-
-/* @keyframes rotation {
-  from {
-    transform: rotateY(0deg);
-  }
-  to {
-    transform: rotateY(-360deg);
-  }
-} */
-
-.container {
-  width: 100px;
-  height: 100px;
-  /* perspective: 500px; */
-  margin: 100px;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+/* ───── 3D Cube ───── */
 .cube {
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 4rem;
+  height: 4rem;
   transform-style: preserve-3d;
-  transform: rotate3d(0, 0, 0, 0deg);
+  animation: turn 15s linear infinite;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -79,9 +78,8 @@
 }
 
 .face {
-  width: 150px;
-  height: 150px;
-  /* background: skyblue; */
+  width: 4rem;
+  height: 4rem;
   border: 2px solid black;
   position: absolute;
   opacity: 0.6;
@@ -93,78 +91,16 @@
   border-radius: 50%;
 }
 
-.front {
-  transform: translateZ(75px);
-}
+/* ───── Face Positions ───── */
+.front  { transform: translateZ(75px); }
+.back   { transform: translateZ(-75px) rotateY(180deg); }
+.left   { transform: translateX(-75px) rotateY(-90deg); }
+.right  { transform: translateX(75px) rotateY(90deg); }
+.top    { transform: translateY(-75px) rotateX(90deg); }
+.bottom { transform: translateY(75px) rotateX(-90deg); }
 
-.back {
-  transform: translateZ(-75px) rotateY(180deg);
-}
-
-.left {
-  transform: translateX(-75px) rotateY(-90deg);
-}
-
-.right {
-  transform: translateX(75px) rotateY(90deg);
-}
-
-.top {
-  transform: translateY(-75px) rotateX(90deg);
-}
-
-.bottom {
-  transform: translateY(75px) rotateX(-90deg);
-}
-
-/* TURNING */
-/* @keyframes turn {
-  from {
-    transform: rotate3d(0, 0, 0, 0);
-  }
-  to {
-    transform: rotate3d(1, -1, -1, 360deg);
-  }
-  to {
-    transform: rotate3d(0, 1, 0, 360deg);
-  }
-} */
-@keyframes turn {
-  0% {
-    transform: rotate3d(0, 0, 0, 0);
-  }
-  /* 25% {
-    transform: rotate3d(1, 1, 1, 90deg);
-  }
-  50% {
-    transform: rotate3d(1, 1, 1, 180deg);
-  } */
-  75% {
-    transform: rotate3d(1, 1, 1, 360deg);
-  }
-  100% {
-    transform: rotate3d(1, 0, 0, 90deg);
-  }
-}
-
-.cube {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  transform-style: preserve-3d;
-  animation: turn 15s linear infinite;
-}
-
-/* IF user has certain settings disabled it will display tilted cube */
-@media (prefers-reduced-motion: reduce) {
-  .cube {
-    animation: none;
-    transform: rotate3d(1, 1, 0, 45deg);
-  }
-}
-
+/* ───── Crypto Info ───── */
 .crypto-info {
-  /* background-color: rgba(16, 26, 26, 0.474); */
   position: absolute;
   height: 50%;
   width: 100%;
@@ -175,18 +111,48 @@
   border-radius: 25%;
 }
 
+/* ───── Animations ───── */
+@keyframes turn {
+  0%   { transform: rotate3d(0, 0, 0, 0); }
+  75%  { transform: rotate3d(1, 1, 1, 360deg); }
+  100% { transform: rotate3d(1, 0, 0, 90deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cube {
+    animation: none;
+    transform: rotate3d(1, 1, 0, 45deg);
+  }
+}
+
+/* ───── Material Theme Glow ───── */
 @mixin color($theme) {
   .glow {
     color: mat.get-theme-color($theme, primary, text);
-    // text-shadow: mat.get-theme-color($theme, primary, lighter) 0px 10px 20px;
     animation: glow 3s ease-in-out infinite alternate;
   }
+
   @keyframes glow {
     from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px mat.get-theme-color($theme, primary), 0 0 40px mat.get-theme-color($theme, primary), 0 0 50px mat.get-theme-color($theme, primary), 0 0 60px mat.get-theme-color($theme, primary), 0 0 70px mat.get-theme-color($theme, primary);
+      text-shadow:
+        0 0 10px #fff,
+        0 0 20px #fff,
+        0 0 30px mat.get-theme-color($theme, primary, darker),
+        0 0 40px mat.get-theme-color($theme, primary, darker),
+        0 0 50px mat.get-theme-color($theme, primary, darker),
+        0 0 60px mat.get-theme-color($theme, primary, darker),
+        0 0 70px mat.get-theme-color($theme, primary, darker);
     }
+
     to {
-      text-shadow: 0 0 20px #fff, 0 0 30px #4d5fff, 0 0 40px #4d5fff, 0 0 50px #4d5fff, 0 0 60px #4d5fff, 0 0 70px #4d5fff, 0 0 80px #4d5fff;
+      text-shadow:
+        0 0 20px #fff,
+        0 0 30px #0077e5,
+        0 0 40px #0077e5,
+        0 0 50px #0077e5,
+        0 0 60px #0077e5,
+        0 0 70px #0077e5,
+        0 0 80px #0077e5;
     }
   }
 }
