@@ -22,12 +22,12 @@ import { FriendRequestsModule } from './friend-requests/friend-requests.module';
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      // url: process.env.DATABASE_URL,
-      host: 'dpg-d2753p6uk2gs73d787p0-a',
-      port: 5432,
-      username: 'zapp',
-      password: 'uR4xnnLea759DYuU4tgwDm9xDgAiSD84',
-      database: 'dbzappup',
+      url: process.env.DATABASE_URL,
+      // host: 'dpg-d2753p6uk2gs73d787p0-a',
+      // port: 5432,
+      // username: 'zapp',
+      // password: 'uR4xnnLea759DYuU4tgwDm9xDgAiSD84',
+      // database: 'dbzappup',
       autoLoadEntities: true,
       synchronize: true,
       ssl: {
