@@ -23,6 +23,10 @@ import { NoteCardComponent } from './Components/PageSizes/large-page/components/
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { SettingsViewComponent } from './Components/PageSizes/large-page/components/settings-view/settings-view.component';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -53,6 +57,9 @@ import { SettingsViewComponent } from './Components/PageSizes/large-page/compone
     JsonPipe,
     MatTableModule,
     MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
 })
 export class UserModule {}

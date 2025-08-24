@@ -1,4 +1,4 @@
-<div class="home-background-top"></div>
+<div class="user-background-top"></div>
 <div class="big-screen">
   <!-- !Chart -->
   <div *ngIf="chartState" class="app-chart-container">
@@ -10,7 +10,9 @@
   </div>
   <!-- ! User Info and Posts -->
   <div *ngIf="!chartState" class="left-section">
+    <!-- ? PROFILE -->
     <div class="user-general-data-container">
+      <div class="primary-component-theme"></div>
       <div
         *ngIf="settingState"
         [ngStyle]="{ position: 'relative', height: '100%', width: '100%' }"
@@ -71,21 +73,21 @@
           <button
             (click)="toggleFriendsList.emit()"
             mat-raised-button
-            color="primary"
+            color="accent"
           >
             Friends
           </button>
           <button
             (click)="toggleFriendRequestList.emit()"
             mat-raised-button
-            color="primary"
+            color="accent"
           >
             Friend Requests
           </button>
           <button
             (click)="toggleSettings.emit()"
             mat-raised-button
-            color="primary"
+            color="accent"
           >
             Update
           </button>
@@ -103,35 +105,30 @@
         </div>
       </div>
     </div>
+<!--? POSTS -->
     <div class="user-posts-container">
-      <!-- <input class="post-input" type="text-area" rows="2"> -->
+      <div class="primary-component-theme"></div>
       <form
         class="new-post-container"
-        action=""
         [formGroup]="postForm"
         (ngSubmit)="savePost()"
       >
-        <textarea
-          formControlName="thePost"
-          class="post-input"
-          name=""
-          id=""
-          cols="50"
-          rows="2"
-        ></textarea>
-        <button type="submit" mat-raised-button color="primary">Post</button>
-      </form>
+        <mat-form-field color="primary" appearance="outline" style="width: 50%; height: 80%;">
+          <mat-label>Write your post</mat-label>
+          <input matInput formControlName="thePost" />
+        </mat-form-field>
 
+        <button type="submit" mat-raised-button color="accent">Post</button>
+      </form>
       <div class="all-posts-container-outer">
         <div *ngIf="!userPosts">No Posts Yet</div>
-        <div *ngIf="userPosts">
-          <div *ngFor="let post of userPosts" class="all-posts-container">
-            <div class="post-container">
-              <div [ngStyle]="{ width: '100%' }">
-                <user-note-card-large [note]="post.description" />
-              </div>
-              <!-- <user-note-card-large [note]="post.description" /> -->
-            </div>
+
+        <div *ngIf="userPosts" class="all-posts-container">
+          <div *ngFor="let post of userPosts" class="post-container">
+            <user-note-card-large
+              class="user-post-card-component"
+              [note]="post.description"
+            ></user-note-card-large>
           </div>
         </div>
       </div>
@@ -522,14 +519,16 @@
       </table>
     </div>
   </div>
-  <div *ngIf="!chartState" class="vertical-line"></div>
+  <!-- <div *ngIf="!chartState" class="vertical-line"></div> -->
   <!-- ! User Collections -->
   <div *ngIf="!chartState" class="right-section">
-    <div class="collectionType-container secondary-component-theme">
+    <div class="collectionType-container">
+      <div class="secondary-component-theme"></div>
       <h1 *ngIf="!collectionTypeToggle">Crypto Collection</h1>
       <h1 *ngIf="collectionTypeToggle">NFT Collection</h1>
     </div>
-    <div class="superior-list-container primary-component-theme">
+    <div class="superior-list-container">
+      <div class="primary-component-theme"></div>
       <div *ngIf="!collectionTypeToggle" class="card-group">
         <div *ngFor="let singleCoin of cryptoCollection" class="card-item">
           <app-crypto-card
@@ -549,13 +548,6 @@
       </div>
     </div>
     <div class="right-button-container">
-      <!-- <button
-        *ngIf="!collectionTypeToggle"
-        class="btn collection-btn"
-        (click)="toggleCollectionType.emit()"
-      >
-        NFT Collection
-      </button> -->
       <button
         *ngIf="!collectionTypeToggle"
         mat-raised-button

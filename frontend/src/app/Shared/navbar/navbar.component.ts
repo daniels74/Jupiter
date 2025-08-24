@@ -77,13 +77,15 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   switchMode(isDarkMode: any) {
-    const hostClass = isDarkMode.checked
-      ? 'mat-app-background theme-dark'
-      : 'mat-app-background theme-light';
-    this.renderer.setAttribute(this.document.body, 'class', hostClass);
+    // const hostClass = isDarkMode.checked
+    //   ? 'theme-dark dark-cover'
+    //   : 'theme-light light-cover';
+    // this.renderer.setAttribute(this.document.body, 'class', hostClass);
 
     // this.logoLightTheme = !isDarkMode.checked;
-    this.siteAdjustments.updateValue(!isDarkMode.checked);
+    // this.siteAdjustments.updateValue(!isDarkMode.checked);
+
+    this.siteAdjustments.toggleTheme();
   }
 
   toggleSettings() {

@@ -27,7 +27,6 @@ import { CommonModule } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { FriendRequestsService } from '../../../../../Core/Services/friend-requests.service';
 import { SiteAdjustmentService } from '../../../../../Core/Services/UX/site-adjustment.service';
-
 export interface File {
   data: any;
   progress: number;

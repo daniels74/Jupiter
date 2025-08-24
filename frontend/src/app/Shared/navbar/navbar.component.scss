@@ -22,7 +22,6 @@
     height: 10vh;
     width: 100%;
     background-color: mat.get-theme-color($theme, primary, darker);
-    opacity: 0.95;
     color: mat.get-theme-color($theme, primary, text);
   }
   .menu > a {

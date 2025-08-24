@@ -30,16 +30,13 @@ export class CardComponent implements OnInit {
   cardClass =
     window.innerWidth < 700
       ? {
-          height: '14rem',
+          height: '100%',
           width: '100vw',
-          marginTop: '2rem',
-          marginBottom: '2rem',
           scrollSnapAlign: 'start',
         }
       : {
           height: '25vh',
           width: '25vw',
-          marginLeft: '2rem',
         };
 
   btnClass =

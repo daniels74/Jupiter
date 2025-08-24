@@ -12,4 +12,7 @@ import { ChartComponent } from '../../../../Features/user/Components/chart/chart
 export class MiniChartComponent {
   @Input() cryptoimg = '';
   @Input() cryptoName = '';
+
+  //  true= small false = big
+  screenMode = window.innerWidth <= 769 ? true : false;
 }

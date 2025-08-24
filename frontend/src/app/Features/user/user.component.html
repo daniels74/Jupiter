@@ -1,67 +1,48 @@
-<div class="wallpaper-login">
-    <div *ngIf="sizeState" class="big-screen-wallpaper">
-        <div *ngIf="!lightTheme" class="wallpaper-img-wrapper">
-            <img class="wallpaper-img" src="assets/darkmode.webp" alt="">
-        </div>
-        <div *ngIf="lightTheme" class="wallpaper-img-wrapper">
-            <img class="wallpaper-img" src="assets/daylight.png" alt="">
-        </div>
-    </div>
-    <div *ngIf="!sizeState" class="small-screen">
-        <div *ngIf="!lightTheme">
-            <img src="assets/darkmode.webp" alt="">
-        </div>
-        <div *ngIf="lightTheme">
-            <img src="assets/daylight.png" alt="">
-        </div>
-    </div>
-</div>
-<!-- Big Screen -->
-<div *ngIf="isBigScreen" class="user-profile-page primary-page-theme">
-  <user-large-page
-    [chosenCrypto]="chosenCrypto"
-    [chartState]="chartState"
-    (closeChart)="closeChart()"
-    (toggleSettings)="toggleSettings()"
-    [settingState]="settingState"
-    (toggleFriendsList)="toggleFriendsList()"
-    [friendsListState]="friendsListState"
-    (toggleFriendRequestList)="toggleFriendRequestList()"
-    [friendRequestList]="friendRequestList"
-    [userFriendRequestList]="userFriendRequestList"
-    [user]="user"
-    (updateUser)="updateUser()"
-    [updateUserForm]="updateUserForm"
-    [profilePic] = "profilePic"
-    (useCopresserOnImage)="useCopresserOnImage()"
-    [cryptoCollection]="cryptoCollection"
-    [nftCollection]="nftCollection"
-    (toggleChart)="selectCryptoChart($event)"
-    [collectionTypeToggle]="collectionTypeToggle"
-    (toggleCollectionType)="toggleCollectionType()"
-  />
-</div>
-<!-- ! Small Screen -->
-<div
-  *ngIf="!isBigScreen"
-  class="user-profile-page component-theme"
-  [style.flexDirection]="'column'"
->
-  <app-small-page
-    [chartToggler]="chartState"
-    [chosenCrypto]="chosenCrypto"
-    (closeChart)="this.closeChart()"
-    (toggleSettings)="this.toggleSettings()"
-    [settingState]="settingState"
-    [user]="user"
-    [profilePic]="profilePic"
-    [collectionTypeToggle]="collectionTypeToggle"
-    [cryptoCollection]="cryptoCollection"
-    (toggleChart)="this.selectCryptoChart($event)"
-    (toggleCollectionType)="toggleCollectionType()"
-    [nftCollection]="nftCollection"
-    (useCopresserOnImage)="useCopresserOnImage()"
-    (updateUser)="updateUser()"
-    [updateUserForm]="updateUserForm"
-  />
+<!-- <div class="primary-page-theme"></div> -->
+<div class="user-profile-page">
+  <!-- Big Screen -->
+  <div *ngIf="isBigScreen">
+    <user-large-page
+      [chosenCrypto]="chosenCrypto"
+      [chartState]="chartState"
+      (closeChart)="closeChart()"
+      (toggleSettings)="toggleSettings()"
+      [settingState]="settingState"
+      (toggleFriendsList)="toggleFriendsList()"
+      [friendsListState]="friendsListState"
+      (toggleFriendRequestList)="toggleFriendRequestList()"
+      [friendRequestList]="friendRequestList"
+      [userFriendRequestList]="userFriendRequestList"
+      [user]="user"
+      (updateUser)="updateUser()"
+      [updateUserForm]="updateUserForm"
+      [profilePic]="profilePic"
+      (useCopresserOnImage)="useCopresserOnImage()"
+      [cryptoCollection]="cryptoCollection"
+      [nftCollection]="nftCollection"
+      (toggleChart)="selectCryptoChart($event)"
+      [collectionTypeToggle]="collectionTypeToggle"
+      (toggleCollectionType)="toggleCollectionType()"
+    />
+  </div>
+  <!-- ! Small Screen -->
+  <div *ngIf="!isBigScreen" [style.flexDirection]="'column'">
+    <app-small-page
+      [chartToggler]="chartState"
+      [chosenCrypto]="chosenCrypto"
+      (closeChart)="this.closeChart()"
+      (toggleSettings)="this.toggleSettings()"
+      [settingState]="settingState"
+      [user]="user"
+      [profilePic]="profilePic"
+      [collectionTypeToggle]="collectionTypeToggle"
+      [cryptoCollection]="cryptoCollection"
+      (toggleChart)="this.selectCryptoChart($event)"
+      (toggleCollectionType)="toggleCollectionType()"
+      [nftCollection]="nftCollection"
+      (useCopresserOnImage)="useCopresserOnImage()"
+      (updateUser)="updateUser()"
+      [updateUserForm]="updateUserForm"
+    />
+  </div>
 </div>

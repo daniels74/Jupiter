@@ -1,47 +1,19 @@
 <div class="landing-page">
-  <div *ngIf="titleFontSize">
-    <img
-    *ngIf="!daylightMode"
-    class="cover-img-small"
-    src="https://wallpapercave.com/wp/wp3272404.jpg"
-    alt=""
-  />
-  <img
-    *ngIf="daylightMode"
-    class="cover-img-small"
-    [src]='"../../../assets/daylight.png"'
-    alt=""
-  />
-  </div>
-  <div *ngIf="!titleFontSize">
-    <img
-      *ngIf="!daylightMode"
-      class="cover-img-large"
-      src="https://wallpapercave.com/wp/wp3272404.jpg"
-      alt=""
-    />
-    <img
-      *ngIf="daylightMode"
-      class="cover-img-large"
-      [src]='"../../../assets/daylight.png"'
-      alt=""
-    />
-  </div>
   <div class="landing-container">
     <div
-      *ngIf="titleFontSize"
       class="text-container"
+      *ngIf="titleFontSize"
       [style.width]="title_container_width"
       [style.height]="title_container_height"
     >
       <h1 class="glow-text">CryptoZapp</h1>
-      <h4 [style.paddingLeft]="'1rem'" [style.paddingRight]="'1rem'">
+      <h3 [style.paddingLeft]="'1rem'" [style.paddingRight]="'1rem'">
         See the market, make your list, and share it.
-      </h4>
+      </h3>
     </div>
     <div
-      *ngIf="!titleFontSize"
       class="text-container"
+      *ngIf="!titleFontSize"
       [style.width]="title_container_width"
       [style.height]="title_container_height"
     >
@@ -52,6 +24,15 @@
       <owl-carousel-o [options]="customOptions">
         <ng-container *ngFor="let item of trending_cryptos">
           <ng-template carouselSlide>
+            <!-- <app-carousel-element
+              class="carousel-cell"
+              (click)="keepActive()"
+              (mouseenter)="toggleChart(true); setName(item.item)"
+              (mouseleave)="toggleChart(false)"
+              [Item]="item"
+              [name]="item.name"
+              [cryptoImg]="item.item.large"
+            /> -->
             <app-carousel-element
               class="carousel-cell"
               (click)="keepActive()"

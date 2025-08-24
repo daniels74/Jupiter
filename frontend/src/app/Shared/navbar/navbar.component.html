@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="search-container">
-    <app-usersearch />
+    <app-usersearch></app-usersearch>
   </div>
   <!--! Big Screen Menu -->
   <div *ngIf="screenSizeCheck" class="menu">
@@ -47,19 +47,20 @@
       >Register</a
     >
   </div>
-  <div *ngIf="!screenSizeCheck" class="menu-icon-container">
+  <div
+    *ngIf="!screenSizeCheck"
+    class="menu-icon-container"
+    (click)="toggleMenu()"
+  >
     <img
       src="../../../assets/menu.png"
       alt=""
-      (click)="toggleMenu()"
       [style.height]="'50%'"
       [style.width]="'auto'"
     />
   </div>
 </div>
-<div class="glow-line">
-  
-</div>
+<div class="glow-line"></div>
 <div
   *ngIf="loader"
   [ngStyle]="{
@@ -95,9 +96,8 @@
     </h2>
     <h2
       *ngIf="authState"
-      routerLink="user/{{ id }}"
+      [routerLink]="['/user', id]"
       routerLinkActive="active-link"
-      (click)="toggleMenu()"
     >
       {{ userName }}
     </h2>
@@ -157,7 +157,7 @@
       height: '5%',
       width: 'auto%',
       top: '.5rem',
-      left: '.5rem'
+      right: '.5rem'
     }"
     (click)="toggleSettings()"
   >
