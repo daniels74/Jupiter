@@ -72,6 +72,34 @@ export class UserComponent implements OnInit {
 
   lightTheme = true;
 
+  mockCryptoData = [
+    {
+      id: 'solana',
+
+      name: 'Solana',
+      image: {
+        large:
+          'https://coin-images.coingecko.com/coins/images/4128/large/solana.png?1718769756',
+        small:
+          'https://coin-images.coingecko.com/coins/images/4128/small/solana.png?1718769756',
+        thumb:
+          'https://coin-images.coingecko.com/coins/images/4128/thumb/solana.png?1718769756',
+      },
+    },
+    {
+      id: 'aerodrome-finance',
+      name: 'Aerodrome Finance',
+      image: {
+        large:
+          'https://coin-images.coingecko.com/coins/images/31745/large/token.png?1696530564',
+        small:
+          'https://coin-images.coingecko.com/coins/images/31745/small/token.png?1696530564',
+        thumb:
+          'https://coin-images.coingecko.com/coins/images/31745/thumb/token.png?1696530564',
+      },
+    },
+  ];
+
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
@@ -100,13 +128,14 @@ export class UserComponent implements OnInit {
     this.userServ.findUserImage().subscribe((userimg) => {
       this.profilePic = userimg.profileImage;
     });
-    // Top 7 coin research
+    // Get and Set crypto data from crypto id list.
     this.cryptoService.setCryptoSingleCoins().subscribe((res) => {
-      console.log('Looked up top 7 coins and set info: ', res);
+      console.log('Get and Set Crypto data: ', res);
     });
     // Crypto Collection
     this.cryptoService.cryptoCollection_O.subscribe((coinList) => {
-      this.cryptoCollection = coinList;
+      this.cryptoCollection = this.mockCryptoData; //coinList;
+      console.log('Full Coin Data: ', coinList);
     });
     // Nft Collection
     this.UserNftCollectionService.nftCollection.subscribe((usernfts) => {

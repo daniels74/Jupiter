@@ -1,7 +1,9 @@
+<!-- (mouseenter)="toggleExtentionState()" (mouseleave)="toggleExtentionState()" -->
+<!-- (click)="toggleExtentionState()" -->
 <div
   class="crypto-card"
-  (mouseenter)="toggleExtentionState()"
-  (mouseleave)="toggleExtentionState()"
+  [class.expanded]="isExpanded"
+  (click)="isExpanded = !isExpanded"
 >
   <!-- !Crypto card -->
   <div
@@ -10,14 +12,10 @@
         position: 'relative',
     height: '100%', width: '100%', }"
   >
-    <div
-      class="img-container"
-      [style.height]="extentionState ? '40%' : '100%'"
-      [style.borderRadius]="extentionState ? '' : '1rem'"
-    >
+    <!-- [style.height]="extentionState ? '40%' : '100%'" -->
+    <div class="img-container" [style.height]="isExpanded ? '40%' : '100%'">
       <img
         class="image-cover"
-        [style.borderRadius]="extentionState ? '' : '1rem'"
         *ngIf="crypto.image"
         src="{{ crypto.image.large }}"
         alt=""
@@ -29,7 +27,7 @@
         alt=""
       />
     </div>
-    <div *ngIf="extentionState" class="crypto-data-container">
+    <div *ngIf="isExpanded" class="crypto-data-container">
       <h2 *ngIf="crypto.name">{{ crypto.name }}</h2>
       <div *ngIf="crypto.market_data">
         Price USD: {{ crypto.market_data.current_price.usd }}
@@ -41,20 +39,20 @@
         Collection Number: {{ crypto.collectionId }}
       </div>
     </div>
-    <div *ngIf="extentionState" class="user-options">
+    <div *ngIf="isExpanded" class="user-options">
       <button
         appGlowify
-        class="chart-btn"
+        mat-raised-button
+        color="accent"
         (click)="getChartData(crypto.id)"
-        [style.width]="!isLargeScreen ? '25%' : '10%'"
       >
         Chart
       </button>
       <button
         appGlowify
-        class="delete-btn"
+        mat-raised-button
+        color="warn"
         (click)="removeCrypto(crypto.id)"
-        [style.minWidth]="!isLargeScreen ? '25%' : '10%'"
       >
         Remove
       </button>
@@ -67,16 +65,11 @@
       position: 'relative',
         height: '100%', width: '100%', }"
   >
-    <div
-      class="img-container"
-      [style.height]="extentionState ? '40%' : '100%'"
-      [style.borderRadius]="extentionState ? '' : '1rem'"
-    >
+    <div class="img-container" [style.height]="isExpanded ? '40%' : '100%'">
       <!-- <img class="img-element" *ngIf="nfts.image" src="*ngIf="nfts.image"" alt="" /> -->
       <img
         class="image-cover"
         *ngIf="nfts.image"
-        [style.borderRadius]="extentionState ? '' : '1rem'"
         src="{{ nfts.image.small }}"
         alt=""
       />
@@ -86,17 +79,15 @@
         src="{{ nfts.image.small }}"
         alt=""
       />
-      <!-- <img src="https://coin-images.coingecko.com/nft_contracts/images/279/small/pixelmon.gif?1707287249"/> -->
     </div>
-    <div *ngIf="extentionState" class="crypto-data-container">
+    <div *ngIf="isExpanded" class="crypto-data-container">
       <h2 *ngIf="nfts.name">{{ nfts.name }}</h2>
       <div *ngIf="nfts.market_data">Price USD: {{ nfts.floor_price.usd }}</div>
-      <!-- <div *ngIf="nfts.coingecko_rank">Coin Gecko Rank: {{nfts.coingecko_rank}}</div>
-            <div *ngIf="nfts.collectionId">Collection Number: {{crypto.collectionId}}</div> -->
     </div>
-    <div *ngIf="extentionState" class="user-options">
+    <div *ngIf="isExpanded" class="user-options">
       <button
-        class="delete-btn"
+        mat-raised-button
+        color="warn"
         (click)="removeCrypto(nfts.id)"
         [style.minWidth]="!isLargeScreen ? '25%' : '10%'"
       >

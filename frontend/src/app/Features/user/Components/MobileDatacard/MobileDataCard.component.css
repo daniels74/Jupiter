@@ -1,55 +1,87 @@
 .card-container {
   scroll-snap-align: start;
   position: relative;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.55),
+  /* background-color: rgba(0, 0, 0, 0.55); */
+}
+
+.card-background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 0.35;
+  background-size: 700%; /* zoom */
+  background-position: 50% 50%; /* focus area */
+  background-repeat: no-repeat;
 }
 
 .name-price-container {
   height: 20%;
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-around;
   border-bottom-style: solid;
   border-width: thin;
   border-color: blue;
-  background-color: rgba(0, 0, 0, 0.325);
+  /* background-color: rgba(0, 0, 0, 0.325); */
+  /* background-color: blueviolet; */
+}
+
+.data-name {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.data-name span {
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
 }
 
 .data-img-container {
+  /* background-color: red; */
   position: relative;
-  height: 80%;
+  height: 60%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .data-img-element {
-  margin-top: 2rem;
-  height: 50%;
+  /* margin-top: 2rem; */
+  background-color: black;
+  height: 70%;
   width: auto;
   border-radius: 50%;
+  box-shadow: rgb(84, 145, 211) 0px 0px 7px 4px;
 }
 
 .button-options {
-    position: absolute;
-    /* background-color: blue; */
-    height: 3rem;
-    width: 10rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    bottom: 0;
-    right: 0;
-}
-
-.btn-style {
-    height: 70%;
-    width: auto;
-    max-width: 40%;
+  position: relative;
+  /* background-color: black; */
+  height: 15%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }

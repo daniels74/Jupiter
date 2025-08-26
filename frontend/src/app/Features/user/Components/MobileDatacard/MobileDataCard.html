@@ -1,52 +1,24 @@
 <!-- ! Crypto Cart -->
-<!-- <img
-  *ngIf="dataType === 'crypto' && primaryData"
-  [ngStyle]="{
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100%',
-    width: '100%',
-    borderTopLeftRadius: '1rem',
-    borderTopRightRadius: '1rem',
-    overflow: 'hidden',
-    objectFit: 'cover',
-    objectPosition: 'center',
-    backgroundColor: 'rgba(255,255,255,0.5)',
-    opacity: '0.35'
-  }"
-  src="{{ primaryData.image.large }}"
-  alt=""
-/> -->
 <div *ngIf="dataType === 'crypto' && primaryData" class="card-container">
-  <img
-    [ngStyle]="{
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100%',
-    width: '100%',
-    overflow: 'hidden',
-    objectFit: 'cover',
-    objectPosition: 'center',
-    backgroundColor: 'rgba(255,255,255,0.5)',
-    opacity: '0.35'
-  }"
-    src="{{ primaryData.image.large }}"
-    alt=""
-  />
+  <div
+    class="card-background-container"
+    [style.background-image]="'url(' + primaryData.image.large + ')'"
+  ></div>
   <div class="name-price-container">
-    <h1>{{ primaryData.name }}</h1>
-    <!-- <h1>Bitcoin</h1> -->
-
+    <div class="data-name">
+      <span>
+        <h1>{{ primaryData.name }}</h1>
+      </span>
+    </div>
     <div
       *ngIf="primaryData.market_data"
       [ngStyle]="
         {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
+          height: '20%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
         }
       "
     >
@@ -56,84 +28,68 @@
   </div>
   <div class="data-img-container">
     <img class="data-img-element" src="{{ primaryData.image.large }}" alt="" />
-    <div class="button-options">
-      <button
-        mat-raised-button
-        color="primary"
-        class="btn-style"
-        (click)="getChartData(primaryData.id)"
-      >
-        Chart
-      </button>
-      <button
-        mat-raised-button
-        color="warn"
-        class="btn-style"
-        (click)="removeCrypto(primaryData.id)"
-      >
-        Delete
-      </button>
-    </div>
+  </div>
+  <div class="button-options">
+    <button
+      mat-raised-button
+      color="primary"
+      class="btn-style"
+      (click)="getChartData(primaryData.id)"
+    >
+      Chart
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      class="btn-style"
+      (click)="removeCrypto(primaryData.id)"
+    >
+      Delete
+    </button>
   </div>
 </div>
 
 <!-- ! NFT Cart -->
-<img
-  *ngIf="dataType === 'nft'"
-  [ngStyle]="{
-    position: 'absolute',
-    height: '100%',
-    width: '100%',
-    borderTopLeftRadius: '1rem',
-    borderTopRightRadius: '1rem',
-    overflow: 'hidden',
-    objectFit: 'cover',
-    objectPosition: 'center',
-    backgroundColor: 'rgba(255,255,255,0.5)',
-    opacity: '0.35'
-  }"
-  src="{{ nftData.image ? nftData.image.small : '' }}"
-  alt=""
-/>
+
 <div *ngIf="dataType === 'nft'" class="card-container">
+  <div
+    class="card-background-container"
+    [style.background-image]="'url(' + nftData.image.small + ')'"
+  ></div>
   <div class="name-price-container">
-    <h1>{{ nftData.name }}</h1>
-    <!-- <h1>Bitcoin</h1> -->
-  </div>
-  <div class="data-img-container">
+    <div class="data-name">
+      <span>
+        <h1>{{ nftData.name }}</h1>
+      </span>
+    </div>
     <div
       [ngStyle]="
         {
-          position: 'absolute',
-          right: 0,
-          top: 0,
+          height: '20%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '40%',
-          width: '30%',
         }
       "
     >
-      <h4>Price:</h4>
-      <h3>{{ nftData.floor_price.usd }}</h3>
+      <h4>Price: {{ nftData.floor_price.usd }}</h4>
     </div>
+  </div>
+  <div class="data-img-container">
     <img
       class="data-img-element"
       src="{{ nftData.image ? nftData.image.small : '' }}"
       alt=""
     />
-    <div class="button-options">
-      <!-- <button mat-raised-button color="primary" class="btn-style" (click)="getChartData(primaryData.id)">Chart</button> -->
-      <button
-        mat-raised-button
-        color="warn"
-        (click)="removeCrypto(nftData.id)"
-        class="btn-style"
-      >
-        Delete
-      </button>
-    </div>
+  </div>
+  <div class="button-options">
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="removeCrypto(nftData.id)"
+    >
+      Delete
+    </button>
   </div>
 </div>

@@ -22,6 +22,8 @@ export class CryptoCardComponent {
 
   extentionState = false;
 
+  isExpanded = false;
+
   constructor(
     private coinGeckoApi: CoinGeckoApiService,
     private nftsService: UserNftCollectionService,
