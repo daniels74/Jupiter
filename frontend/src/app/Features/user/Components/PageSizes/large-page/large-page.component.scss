@@ -1,40 +1,7 @@
 @use 'sass:map';
+@use 'sass:color';
+
 @use '@angular/material' as mat;
-
-// .wallpaper-user {
-//   position: absolute;
-//   height: 100vh;
-//   width: 100vw; /* use vw instead of % to prevent horizontal overflow */
-//   top: 0;
-//   left: 0;
-//   overflow: hidden; /* prevent image overflow */
-//   z-index: -1; /* optional: to push behind content */
-// }
-
-// .big-screen-wallpaper {
-//   position: relative;
-//   height: 100%;
-//   width: 100%;
-//   background-color: black;
-// }
-
-// .wallpaper-img-wrapper {
-//   position: relative;
-//   height: 100%;
-//   width: 100%;
-//   overflow: hidden;
-//   background-color: black;
-// }
-
-// .wallpaper-img {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   height: 100%;
-//   width: 100%;
-//   object-fit: cover; /* THIS is the key to behave like a background */
-//   display: block;
-// }
 
 .big-screen {
   position: relative;
@@ -71,15 +38,15 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  border-style: solid;
-  border-color: lightblue;
-  border-width: thin;
+  backdrop-filter: blur(20px);
   border-radius: 1rem;
-  transition: width 1s;
+  transition: width 1s, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .user-general-data-container:hover {
   width: 95%;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
 }
 
 /* // Layer 2 */
@@ -178,6 +145,7 @@
 }
 
 .user-posts-container {
+  position: relative;
   height: 65%;
   width: 80%;
   // background-color: #ffffff;
@@ -188,6 +156,7 @@
   align-items: center;
   justify-content: center;
   transition: width 1s;
+  overflow: hidden;
 }
 
 .user-posts-container:hover {
@@ -195,25 +164,26 @@
 }
 
 .new-post-container {
-  height: 15%;
+  height: auto;
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  border-top-right-radius: 1rem;
-  border-top-left-radius: 1rem;
-  overflow-y: auto;
+  // border-top-right-radius: 1rem;
+  // border-top-left-radius: 1rem;
+  border-radius: inherit;
+  overflow-y: hidden;
 }
 
 .post-input {
-  height: 60%;
+  height: 80%;
   width: 50%;
   // border-color: blue;
-  border-color: lightblue;
-  border-style: solid;
-  border-width: medium;
+  // border-color: lightblue;
+  border-style: hidden;
+  // border-width: medium;
   border-radius: 1rem;
   background-color: snow;
   margin-inline-start: 2rem;
@@ -225,6 +195,71 @@
   height: 70%;
   width: 75%;
   // filter: blur(1rem);
+}
+
+.all-posts-container-outer {
+  position: relative;
+  display: flex; /* must be flex or grid */
+  flex-direction: column; /* stack vertically */
+  overflow-y: auto;
+  backdrop-filter: blur(20px);
+  position: relative;
+  height: 85%;
+  width: 100%;
+  border-radius: inherit;
+}
+
+.all-posts-container {
+  height: 100%;
+  position: relative;
+  // background-color: green;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-radius: inherit;
+}
+
+.all-posts-container-outer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.all-posts-container-outer::-webkit-scrollbar-track {
+  background: transparent; /* no hard edge */
+  margin-block: 4px; /* avoids touching top/bottom edges */
+}
+
+.all-posts-container-outer::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 9999px; /* perfect pill shape */
+}
+
+.all-posts-container-outer::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.card-item {
+  border-radius: 1rem;
+  height: 20vh;
+  width: 90%;
+  transition: height 1s;
+}
+
+.card-item:hover {
+  height: 40vh;
+}
+
+.post-container {
+  position: relative;
+  flex: 0 0 20vh; /* fixed height: won't stretch or shrink */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-post-card-component {
+  height: 100%;
+  width: 100%;
 }
 
 .title-nav-container {
@@ -272,14 +307,14 @@
 
 /*! ----------------------------------------------------------------------RIGHT SECTION STARTS */
 @mixin color($theme) {
-  .home-background-top {
+  .user-background-top {
     position: absolute;
     // top: 10vh;
     height: 90vh;
     width: 100vw;
     background-color: mat.get-theme-color($theme, primary, lighter);
     z-index: -1;
-    opacity: 0.5;
+    opacity: 0.3;
   }
 
   .title-container {
@@ -295,49 +330,37 @@
     color: mat.get-theme-color($theme, primary, text);
   }
 
-  .all-posts-container-outer {
-    // background-color: red;
-    backdrop-filter: blur(10px);
-    position: relative;
-    overflow-y: auto;
-    height: 85%;
-    width: 100%;
-    border-radius: 1rem;
-    border-width: 1rem;
-    scrollbar-color: mat.get-theme-color($theme, accent)
-      mat.get-theme-color($theme, primary);
-  }
-
-  .all-posts-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(130, 88, 88);
-  }
-
-  .post-container {
-    position: relative;
+  .primary-component-theme {
+    position: absolute;
+    background-color: mat.get-theme-color($theme, primary, lighter);
+    opacity: 0.2;
     height: 100%;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .primary-component-theme {
-    background-color: transparent;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(1rem);
   }
 
   .secondary-component-theme {
-    background-color: transparent;
-    // background-color: mat.get-theme-color($theme, primary, darker);
-    // color:  mat.get-theme-color($theme, primary, text);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    background-color: mat.get-theme-color($theme, accent);
+    opacity: 0.75;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    z-index: -1;
   }
 
   .collectionType-container {
     color: mat.get-theme-color($theme, primary, text);
+  }
+
+  .new-post-container {
+    $theme-color: mat.get-theme-color($theme, accent); // base color
+    background-color: color.change($theme-color, $alpha: 0.5);
+    // background-color:  mat.get-theme-color($theme, accent);
   }
 }
 
@@ -358,8 +381,7 @@
 }
 
 .collectionType-container {
-  // background-color: #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  position: relative;
   border-radius: 12px;
   height: 10%;
   width: auto;
@@ -369,10 +391,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 /* ! 1 */
 .superior-list-container {
+  backdrop-filter: blur(20px);
+  z-index: 1;
+  position: relative;
   height: 75%;
   width: 80%;
   // background-color: #ffffff;
@@ -383,6 +409,7 @@
   align-items: center;
   justify-content: center;
   transition: width 1s;
+  overflow: hidden; /* This is key */
 }
 
 .superior-list-container:hover {
@@ -390,6 +417,7 @@
 }
 
 .card-group {
+  position: relative;
   height: 100%;
   width: 100%;
   overflow-y: auto;
@@ -397,10 +425,31 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  border-radius: 1rem;
-  gap: 4rem;
-  padding: 2.5%;
-  // background-color: greenyellow;
+  gap: 2rem;
+  padding-top: 1rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* or auto if needed */
+  white-space: nowrap; /* if horizontal scrolling */
+  border-radius: inherit;
+  z-index: 1;
+}
+
+.card-group::-webkit-scrollbar {
+  width: 6px;
+}
+
+.card-group::-webkit-scrollbar-track {
+  background: transparent; /* no hard edge */
+  margin-block: 4px; /* avoids touching top/bottom edges */
+}
+
+.card-group::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 9999px; /* perfect pill shape */
+}
+
+.card-group::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .card-item {
@@ -408,6 +457,7 @@
   height: 20vh;
   width: 90%;
   transition: height 1s;
+  z-index: 1;
 }
 
 .card-item:hover {

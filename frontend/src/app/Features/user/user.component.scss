@@ -1,48 +1,11 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 
-.wallpaper-user {
-  position: absolute;
-  height: 100vh;
-  width: 100vw; /* use vw instead of % to prevent horizontal overflow */
-  top: 0;
-  left: 0;
-  overflow: hidden; /* prevent image overflow */
-  z-index: -1; /* optional: to push behind content */
-}
-
-.big-screen-wallpaper {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  background-color: black;
-}
-
-.wallpaper-img-wrapper {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  background-color: black;
-}
-
-.wallpaper-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: cover; /* THIS is the key to behave like a background */
-  display: block;
-}
-
 .user-profile-page {
   position: absolute;
   top: 10vh;
   height: 90vh;
   width: 100%;
-  // background-color: rgb(21, 21, 31);
-  // color: white;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -53,26 +16,14 @@
 
 @mixin color($theme) {
   .primary-page-theme {
-    // background-color: mat.get-theme-color($theme, primary, lighter);
-    // color:  mat.get-theme-color($theme, primary, text);
+    position: absolute;
+    // top: 10vh;
+    height: 90vh;
+    width: 100vw;
+    background-color: mat.get-theme-color($theme, primary, lighter);
+    z-index: -1;
+    opacity: 0.5;
   }
-
-  .secondary-page-theme {
-    background-color: mat.get-theme-color($theme, primary);
-    // color:  mat.get-theme-color($theme, primary, text);
-  }
-
-  .primary-component-theme {
-    background-color: mat.get-theme-color($theme, primary);
-    // color:  mat.get-theme-color($theme, primary, text);
-  }
-
-  .secondary-component-theme {
-    background-color: mat.get-theme-color($theme, primary, darker);
-    // color:  mat.get-theme-color($theme, primary, text);
-  }
-
-
 }
 
 @mixin theme($theme) {

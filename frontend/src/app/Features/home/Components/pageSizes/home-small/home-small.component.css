@@ -1,73 +1,30 @@
-.crypto-page {
-  /* height: 90vh; */
+.small-screen-container {
+  min-height: 90vh;
   height: auto;
   width: 100%;
-  background-color: rgb(25, 25, 57);
-}
-
-.top-trending-container {
-  height: 40%;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-}
-
-.title-container {
-  height: 10%;
-  width: 20%;
-  /* background-color: aqua; */
-  color: lightblue;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.top-trending {
-  height: 80%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  /* background-color: blue; */
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.top_trending_options_container {
-  position: relative;
-  height: 36%;
-  width: 10vw;
-  right: 0;
-  top: 12vh;
-  /* border-width: thin;
-    border-style: solid;
-    border-color: red; */
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: 2rem;
 }
 
 .listt-container {
   /* height: 40%;
     width: 70%; */
-  color: black;
-  background-color: rgb(3, 3, 36);
+  display: flex;
+  height: auto;
+  width: 100%;
+  flex-direction: row;
+  background-color: rgb(52, 196, 27);
   border-radius: 1rem;
   border-style: solid;
   border-width: thin;
   border-color: lightblue;
-  display: flex;
-  flex-direction: row;
-  /* align-items: center;
-  justify-content: flex-start; */
   overflow-x: scroll;
+  overflow-y: hidden;
   gap: 8rem;
-  scroll-snap-type: x mandatory,
+  scroll-snap-type: x mandatory;
 }
 
 .paginator-container {
@@ -76,41 +33,19 @@
   /* min-height: 60vh; */
   width: 100%;
   /* min-width: 100vw; */
-  background-color: rgb(0, 0, 0);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-}
-
-/* .crypto-table-contianer {
-    position: relative;
-    height: 90%;
-    width: 100%;
-    background-color:  red;
-    overflow: auto;
-  } */
-
-.crypto-table {
-  position: relative;
-  height: 90%;
-  width: 100%;
-  overflow-y: auto;
-}
-
-.table {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  background-color: rgb(3, 3, 36);
+  justify-content: center;
 }
 
 .paginator {
-  position: relative;
-  height: auto;
+  height: 60vh;
   width: 100%;
-  background-color: rgb(43, 63, 110);
-  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .toggleButton {
@@ -131,22 +66,4 @@
   border-style: solid;
   border-width: thin;
   border-color: blue;
-}
-
-.spinner {
-  height: 50%;
-  width: 50%;
-  position: relative;
-  border-radius: 1rem;
-}
-
-.small-screen-container {
-  min-height: 90vh;
-  height: auto;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 2rem;
 }

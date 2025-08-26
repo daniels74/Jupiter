@@ -1,10 +1,11 @@
-import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CoinGeckoApiService } from '../Core/Services/coin-gecko-api.service';
 import { Store } from '@ngrx/store';
 import { cryptoCoinGeckoApiActions } from '../Shared/State/Actions/coingecko.actions';
 import { nftCoinGeckoApiActions } from '../Shared/State/Actions/nftList.actions';
 import { AuthService } from '../Core/Services/auth.service';
-import { DOCUMENT } from '@angular/common';
+// import { DOCUMENT } from '@angular/common';
+import { SiteAdjustmentService } from '../Core/Services/UX/site-adjustment.service';
 
 @Component({
   selector: 'app-root',
@@ -15,14 +16,17 @@ export class AppComponent implements OnInit {
   title = 'frontend';
 
   constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private renderer: Renderer2,
+    // @Inject(DOCUMENT) private document: Document,
+    // private renderer: Renderer2,
     private authService: AuthService,
     private coinGeckoService: CoinGeckoApiService,
     private store: Store,
+    private themeService: SiteAdjustmentService,
   ) {}
 
   ngOnInit() {
+    this.themeService.initTheme();
+
     this.authService.authState$.subscribe((state) => {
       console.log('Auth State', state);
     });
@@ -50,10 +54,10 @@ export class AppComponent implements OnInit {
     });
   }
 
-  switchMode(isDarkMode: any) {
-    const hostClass = isDarkMode.checked
-      ? 'mat-app-background theme-dark'
-      : 'mat-app-background theme-light';
-    this.renderer.setAttribute(this.document.body, 'class', hostClass);
-  }
+  // switchMode(isDarkMode: any) {
+  //   const hostClass = isDarkMode.checked
+  //     ? 'mat-app-background theme-dark'
+  //     : 'mat-app-background theme-light';
+  //   this.renderer.setAttribute(this.document.body, 'class', hostClass);
+  // }
 }

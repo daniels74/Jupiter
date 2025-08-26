@@ -10,5 +10,21 @@ body {
 body {
   margin: 0;
   /* font-family: Copperplate, Papyrus, sans-serif; */
-  font-family: "Besley", serif;
+  font-family: 'Besley', serif;
+}
+
+body {
+  margin: 0;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  transition: background-image 0.3s ease;
+}
+
+body.light-cover {
+  background-image: url('/assets/daylight.png');
+}
+
+body.dark-cover {
+  background-image: url('/assets/darkmode.webp');
 }

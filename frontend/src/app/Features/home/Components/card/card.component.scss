@@ -4,14 +4,12 @@
 
 .card {
   // margin-right: 3rem;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   border-radius: 1rem;
-  border-style: solid;
-  border-width: thin;
-  border-color: lightblue;
   scroll-snap-align: start;
 }
 
@@ -83,6 +81,16 @@
   border-width: thin;
 }
 
+@media (min-width: 768px) {
+
+
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+
+  
+}
 
 @mixin color($theme) {
   .card {

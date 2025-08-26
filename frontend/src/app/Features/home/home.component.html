@@ -1,23 +1,5 @@
-<div class="wallpaper-home">
-    <div *ngIf="sizeState" class="big-screen-wallpaper">
-        <div *ngIf="!lightTheme" class="wallpaper-img-wrapper">
-            <img class="wallpaper-img" src="assets/darkmode.webp" alt="">
-        </div>
-        <div *ngIf="lightTheme" class="wallpaper-img-wrapper">
-            <img class="wallpaper-img" src="assets/daylight.png" alt="">
-        </div>
-    </div>
-    <div *ngIf="!sizeState" class="small-screen">
-        <div *ngIf="!lightTheme">
-            <img src="assets/darkmode.webp" alt="">
-        </div>
-        <div *ngIf="lightTheme">
-            <img src="assets/daylight.png" alt="">
-        </div>
-    </div>
-</div>
 <div class="crypto-page">
-    <div *ngIf="sizeState" class="big-screen">
+  <!-- <div *ngIf="sizeState" class="big-screen">
         <app-home-big 
         [crypto$]="crypto$"
         [nfts$]="nfts$"
@@ -36,5 +18,68 @@
         (toggleContentStateEvent)="toggleContentState()"
         [cryptoCollection]="cryptoCollection"
         [nftCollection]="nftCollection"/>
+    </div> -->
+  <div class="list-outer-container">
+    <div class="list-inner-container">
+      <div class="header-container">
+        <h2
+          [ngStyle]="{
+                'height': '10%',
+                'width': '100%',
+                'display': 'flex',
+                'flexDirection': 'row',
+                'alignItems': 'center',
+                'justifyContent': 'center',
+            }"
+        >
+          Trending {{ selectedContent }}
+        </h2>
+      </div>
+      <div *ngIf="!trendingContent_state" class="listt-container">
+        <div *ngFor="let coin of crypto$ | async">
+          <app-card
+            [collectionClassification]="'crypto'"
+            [dataImage]="coin.item.small"
+            [dataName]="coin.item.name"
+            [dataMarketCapRank]="coin.item.market_cap_rank"
+            [coinId]="coin.item.id"
+            [cryptosCollection]="cryptoCollection"
+            [nftCollection]="nftCollection"
+          />
+        </div>
+      </div>
+
+      <div *ngIf="trendingContent_state" class="listt-container">
+        <div *ngFor="let nft of nfts$ | async">
+          <app-card
+            [collectionClassification]="'nft'"
+            [dataImage]="nft.thumb"
+            [dataName]="nft.name"
+            [coinId]="nft.id"
+          />
+        </div>
+      </div>
     </div>
+    <div class="button-container">
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="!trendingContent_state"
+        (click)="toggleContentState()"
+      >
+        NFTs
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="trendingContent_state"
+        (click)="toggleContentState()"
+      >
+        Crypto
+      </button>
+    </div>
+  </div>
+  <div class="paginator-container">
+    <app-paginator class="paginator" />
+  </div>
 </div>
