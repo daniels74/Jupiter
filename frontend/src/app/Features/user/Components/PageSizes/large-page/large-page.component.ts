@@ -99,7 +99,7 @@ export class LargePageComponent implements OnInit {
     profileImage: [null, [Validators.required]],
   });
 
-  userProfileImg!: string;
+  // userProfileImg!: string;
 
   // User Posts
   userPosts!: any[];
@@ -129,10 +129,10 @@ export class LargePageComponent implements OnInit {
       this.userPosts = allPosts;
     });
 
-    this.userService.findUserImage().subscribe((res) => {
-      console.log('profileImg:', res.profileImage);
-      this.userProfileImg = res.profileImage;
-    });
+    // this.userService.findUserImage().subscribe((res) => {
+    //   console.log('profileImg:', res.profileImage);
+    //   this.userProfileImg = res.profileImage;
+    // });
     // this.store.select(selectUser).subscribe((user) => {
     //   this.userProfileImg = user.profileImage;
     // });

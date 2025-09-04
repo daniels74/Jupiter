@@ -6,7 +6,9 @@ export const userCryptoCollectionAction = createActionGroup({
   source: 'Postgres Database',
   events: {
     'Set User Crypto Collection': props<{
-      cryptoCollection_ngrx: Array<any>;
+      cryptoCollection_ngrx: SingleCoin[] | any;
     }>(),
+    'Add Crypto': props<{ newCoin: SingleCoin }>(),
+    'Remove Crypto Id': props<{ idToRemove: string }>(), // new action
   },
 });

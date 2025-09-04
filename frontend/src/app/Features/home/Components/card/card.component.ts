@@ -73,13 +73,14 @@ export class CardComponent implements OnInit {
   // // this id is later used to look up the coin for more info
   saveToCollection(coinId: string) {
     if (this.collectionClassification === 'crypto') {
-      if (this.cryptosCollection.length < 3) {
+      if (this.cryptosCollection.length < 6) {
         // // Save Crypto ID string into database
         console.log('crypto id saving to db: ', coinId);
         console.log('crypto list length: ', this.cryptosCollection.length);
         this.cryptoService.postCryptoId(coinId).subscribe((postRes) => {
           //this.authService.setPermissions(postRes.jwt);
-          this.authService.setSessionToken(postRes.jwt);
+          // !this.authService.setSessionToken(postRes.jwt);
+          console.log('Crypto Post response:', postRes);
         });
       } else {
         console.log(
@@ -92,7 +93,7 @@ export class CardComponent implements OnInit {
         }, 5000);
       }
     } else if (this.collectionClassification === 'nft') {
-      if (this.nftCollection.length < 3) {
+      if (this.nftCollection.length < 6) {
         // // Save NFT ID string into database
         console.log('id', coinId);
         this.nftService.postNftId(coinId).subscribe((postRes) => {

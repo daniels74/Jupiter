@@ -2,8 +2,10 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Post,
+  Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -16,6 +18,11 @@ import { nftId } from 'src/nftid/model/nftid.interface';
 @Controller('nftid')
 export class NftidController {
   constructor(private nftService: NftidService) {}
+
+  @Get()
+  findNftIds(@Query('userId') userId: string): Observable<nftId[]> {
+    return this.nftService.findByUser(Number(userId));
+  }
 
   @UseGuards(JwtAuthGuard)
   @Post()

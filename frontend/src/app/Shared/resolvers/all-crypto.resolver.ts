@@ -8,16 +8,12 @@ import { BasicCrypto } from '../../Core/Interfaces/CoinGecko/BasicCrypto.interfa
 })
 export class Nft_Collection_Retrieval {
   constructor(private coinGeckoService: CoinGeckoApiService) {}
-  all!: BasicCrypto[];
-  getAllCrypto(): BasicCrypto[] {
-    this.coinGeckoService.getAllCrypto().subscribe((res) => {
-      this.all = res;
-    });
-    console.log('ALL CRYPTO RESOLVER: ', this.all);
-    return this.all;
+  getAllCrypto(): void {
+    this.coinGeckoService.getAllCrypto();
+    return;
   }
 }
 
-export const allCryptoResolver: ResolveFn<BasicCrypto[]> = (route, state) => {
+export const allCryptoResolver: ResolveFn<void> = (route, state) => {
   return inject(Nft_Collection_Retrieval).getAllCrypto();
 };

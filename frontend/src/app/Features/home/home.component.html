@@ -56,30 +56,48 @@
             [dataImage]="nft.thumb"
             [dataName]="nft.name"
             [coinId]="nft.id"
-          />
+          ></app-card>
+        </div>
+        <div
+          *ngIf="title.length === 0"
+          [ngStyle]="{
+            position: 'relative',
+            height: '25vh',
+            width: '100vw',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }"
+        >
+          <h3>
+            Trending NFTs data is currently unavailable. Please check back
+            later.
+          </h3>
         </div>
       </div>
+      <div class="button-container">
+        <button
+          mat-raised-button
+          color="accent"
+          *ngIf="!trendingContent_state"
+          (click)="toggleContentState()"
+        >
+          NFTs
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          *ngIf="trendingContent_state"
+          (click)="toggleContentState()"
+        >
+          Crypto
+        </button>
+      </div>
     </div>
-    <div class="button-container">
-      <button
-        mat-raised-button
-        color="accent"
-        *ngIf="!trendingContent_state"
-        (click)="toggleContentState()"
-      >
-        NFTs
-      </button>
-      <button
-        mat-raised-button
-        color="accent"
-        *ngIf="trendingContent_state"
-        (click)="toggleContentState()"
-      >
-        Crypto
-      </button>
+    <div class="paginator-container">
+      <app-paginator class="paginator" />
     </div>
-  </div>
-  <div class="paginator-container">
-    <app-paginator class="paginator" />
   </div>
 </div>

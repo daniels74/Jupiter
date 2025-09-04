@@ -22,7 +22,7 @@ import { FriendRequestsModule } from './friend-requests/friend-requests.module';
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DATABASE_URL,
+      url: process.env.HEROKU_POSTGRESQL_JADE_URL,
       autoLoadEntities: true,
       synchronize: true,
       ssl: {

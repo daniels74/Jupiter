@@ -54,6 +54,7 @@ export const BaseUrl = new InjectionToken<string>('');
     GlowifyDirective,
     // IvyCarouselModule,
     { provide: HTTP_INTERCEPTORS, useClass: UserRoleInterceptor, multi: true },
+    // ?  Upon failure of a request, a retry is attempted shortly after.
     { provide: HTTP_INTERCEPTORS, useClass: DataRetryInterceptor, multi: true },
     WINDOW_PROVIDERS,
     {

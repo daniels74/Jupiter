@@ -17,6 +17,21 @@ export class NftidService {
     private readonly nftRepository: Repository<NftIdEntity>,
   ) {}
 
+  findByUser(userId: number): Observable<nftId[]> {
+    return from(
+      this.nftRepository.find({
+        where: {
+          user: {
+            id: userId,
+          },
+        },
+        relations: {
+          user: true,
+        },
+      }),
+    );
+  }
+
   create(user: User, nftEntry: nftId): Observable<any> {
     // Claim ownership of entry by user in it.
     nftEntry.user = user;
