@@ -1,12 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '../Features/home/home.component';
-import { LoginComponent } from '../Features/login/login.component';
-import { cryptoCollectionResolver } from '../Shared/resolvers/crypto-collection.resolver';
-import { nftCollectionResolver } from '../Shared/resolvers/nft-collection.resolver';
-import { allCryptoResolver } from '../Shared/resolvers/all-crypto.resolver';
 import { FourzerofourComponent } from '../Features/fourzerofour/fourzerofour.component';
-import { surferResolver } from '../Shared/resolvers/surfer.resolver';
 
 const routes: Routes = [
   {

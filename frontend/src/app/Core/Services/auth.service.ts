@@ -80,33 +80,30 @@ export class AuthService {
 
     //// Set user data State
     const userState_ngrx: User = user.user;
-    console.log('USer:', user.user);
     this.store.dispatch(usersAction.setCurrentUserState({ userState_ngrx }));
 
-    //// Set user's crypto ID collection
-    const cryptoCollection_ngrx = userState_ngrx.cryptos;
-    this.store.dispatch(
-      userCryptoCollectionAction.setUserCryptoCollection({
-        cryptoCollection_ngrx,
-      }),
-    );
+    //// Set user's crypto collection NGRX
+    this.CryptoService.getUserCryptoIds(user.user.id).subscribe((cryptoIds) => {
+      this.CryptoService.setCryptoSingleCoins(cryptoIds);
+    });
 
-    // // Search each crypto and save in an observable of type [] in crypto service
-    //this.CryptoService.setCryptoSingleCoins();
-
-    //// Set user's nft ID collection
-    const nftCollection_ngrx = userState_ngrx.nfts;
-    this.store.dispatch(
-      userNftCollectionAction.setUserNftCollection({
-        nftCollection_ngrx,
-      }),
-    );
-
+    //// Set user's nft collection in NGRX
+    this.NftService.getAllNftIds(user.user.id).subscribe((nftIds) => {
+      const nftCollection_ngrx = nftIds;
+      console.log('Did we get NFT IDS?', nftCollection_ngrx);
+      this.store.dispatch(
+        userNftCollectionAction.setUserNftCollection({
+          nftCollection_ngrx,
+        }),
+      );
+    });
     // // Search each NFT and save in an observable of type [] in NFT service
-    this.NftService.setUserFullNftCollection();
+    // this.NftService.setUserFullNftCollection();
 
     // // Set users Posts
-    this.userPostService.userPostsBehaviorSubject.next(user.user.posts);
+    // ! must remove posts from jwt token too
+    //this.userPostService.userPostsBehaviorSubject.next(user.user.posts);
+    this.userPostService.getAllUserPosts();
   }
 
   setSessionToken(token: string) {

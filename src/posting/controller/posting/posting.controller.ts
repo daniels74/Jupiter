@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { PostingService } from '../../../posting/service/posting/posting.service';
 import { User } from '../../../user/model/user.interface';
 import { PostInterface } from '../../../posting/models/post.interface';
@@ -17,5 +24,12 @@ export class PostingController {
   ): Observable<any> {
     const user = req.user;
     return this.postingService.saveNewPost(user, userPost);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  getUserPosts(@Request() req): Observable<PostInterface[]> {
+    const user: User = req.user;
+    return this.postingService.getUserPosts(user.id);
   }
 }

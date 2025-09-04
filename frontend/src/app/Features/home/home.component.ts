@@ -46,6 +46,8 @@ export class HomeComponent {
 
   lightTheme = true;
 
+  title = [];
+
   ngOnInit() {
     this.siteAdjustments.myValue$.subscribe((val) => {
       this.lightTheme = val;
@@ -55,6 +57,7 @@ export class HomeComponent {
       this.cryptoCollection = res;
     });
     this.nftService.nftCollection.subscribe((res) => {
+      console.log('User NFT Collection in HomeComponent: ', res);
       this.nftCollection = res;
     });
   }

@@ -1,5 +1,3 @@
-<!-- (mouseenter)="toggleExtentionState()" (mouseleave)="toggleExtentionState()" -->
-<!-- (click)="toggleExtentionState()" -->
 <div
   class="crypto-card"
   [class.expanded]="isExpanded"
@@ -9,26 +7,35 @@
   <div
     *ngIf="crypto"
     [ngStyle]="{
-        position: 'relative',
-    height: '100%', width: '100%', }"
+      position: 'relative',
+      height: '100%',
+      width: '100%',
+      borderRadius: '1rem',
+    }"
   >
-    <!-- [style.height]="extentionState ? '40%' : '100%'" -->
-    <div class="img-container" [style.height]="isExpanded ? '40%' : '100%'">
-      <img
-        class="image-cover"
+    <div
+      class="img-container"
+      [style.height]="isExpanded ? '40%' : '100%'"
+      [style.borderBottomLeftRadius]="isExpanded ? '0' : '1rem'"
+      [style.borderBottomRightRadius]="isExpanded ? '0' : '1rem'"
+    >
+      <div
         *ngIf="crypto.image"
-        src="{{ crypto.image.large }}"
-        alt=""
-      />
+        class="image-cover"
+        [style.background-image]="'url(' + crypto?.image?.large + ')'"
+        [style.borderBottomLeftRadius]="isExpanded ? '0' : '1rem'"
+        [style.borderBottomRightRadius]="isExpanded ? '0' : '1rem'"
+      ></div>
       <img
         class="img-element"
         *ngIf="crypto.image"
-        src="{{ crypto.image.large }}"
+        src="{{ crypto?.image?.large }}"
         alt=""
       />
     </div>
     <div *ngIf="isExpanded" class="crypto-data-container">
-      <h2 *ngIf="crypto.name">{{ crypto.name }}</h2>
+      <h2 *ngIf="crypto.name">{{ crypto?.name }}</h2>
+      <h2 *ngIf="!crypto.name">{{crypto.id}}</h2>
       <div *ngIf="crypto.market_data">
         Price USD: {{ crypto.market_data.current_price.usd }}
       </div>
@@ -70,13 +77,13 @@
       <img
         class="image-cover"
         *ngIf="nfts.image"
-        src="{{ nfts.image.small }}"
+        src="{{ nfts?.image?.small }}"
         alt=""
       />
       <img
         class="img-element"
         *ngIf="nfts.image"
-        src="{{ nfts.image.small }}"
+        src="{{ nfts?.image?.small }}"
         alt=""
       />
     </div>

@@ -2,12 +2,13 @@
 <div *ngIf="dataType === 'crypto' && primaryData" class="card-container">
   <div
     class="card-background-container"
-    [style.background-image]="'url(' + primaryData.image.large + ')'"
+    [style.background-image]="'url(' + primaryData.image?.large + ')'"
   ></div>
   <div class="name-price-container">
     <div class="data-name">
       <span>
-        <h1>{{ primaryData.name }}</h1>
+        <h1 *ngIf="primaryData.name">{{ primaryData.name }}</h1>
+        <h1 *ngIf="!primaryData.name">{{ primaryData.id }}</h1>
       </span>
     </div>
     <div
@@ -22,8 +23,7 @@
         }
       "
     >
-      <h4>Price:</h4>
-      <h3>${{ primaryData.market_data.current_price.usd }}</h3>
+      <h4>Price: ${{ primaryData.market_data.current_price.usd }}</h4>
     </div>
   </div>
   <div class="data-img-container">

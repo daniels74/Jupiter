@@ -16,13 +16,13 @@ import { FriendRequestsModule } from './friend-requests/friend-requests.module';
 @Module({
   imports: [
     // ! if running locally, Make sure you comment this out.
-    // ServeStaticModule.forRoot({
-    //   rootPath: join(__dirname, '../../', 'front'),
-    // }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../', 'front'),
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DATABASE_URL,
+      url: process.env.HEROKU_POSTGRESQL_JADE_URL,
       autoLoadEntities: true,
       synchronize: true,
       ssl: {

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DOCUMENT } from '@angular/common';
 import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.service';
+import { set } from 'lodash';
 
 @Component({
   selector: 'app-navbar',
@@ -142,6 +143,16 @@ export class NavbarComponent implements OnDestroy, OnInit {
       this.menuToggler = false;
       // this.spinner.hide();
       this.router.navigate(['']);
+    }, 300);
+  }
+
+  goToUserProfile() {
+    this.loader = true;
+    setTimeout(() => {
+      this.settingsToggle = false;
+      this.loader = false;
+      this.menuToggler = false;
+      this.router.navigate(['/user', this.user.id]);
     }, 300);
   }
 

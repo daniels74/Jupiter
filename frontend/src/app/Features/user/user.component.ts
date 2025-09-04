@@ -7,7 +7,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Subscription, take } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, take } from 'rxjs';
 import { AuthService } from '../../Core/Services/auth.service';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../../Shared/State/Selectors/users.selector';
@@ -26,6 +26,8 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 import { NavigationStart, Router } from '@angular/router';
 import { LargePageComponent } from './Components/PageSizes/large-page/large-page.component';
 import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.service';
+import { userCryptoCollectionAction } from '../../Shared/State/Actions/userCryptoCollection.actions';
+import { selectUserCryptoCollection } from '../../Shared/State/Selectors/userCryptoCollection.selector';
 
 @Component({
   selector: 'app-user',
@@ -106,6 +108,7 @@ export class UserComponent implements OnInit {
     private userServ: UserService,
     private authServ: AuthService,
     private cryptoService: CryptoService,
+    private nftService: UserNftCollectionService,
     private UserNftCollectionService: UserNftCollectionService,
     public spinner: NgxSpinnerService,
     private ngx: NgxImageCompressService,
@@ -119,29 +122,33 @@ export class UserComponent implements OnInit {
     });
   }
 
+  userCryptoCollection$!: Observable<SingleCoin[]>;
+
   ngOnInit(): void {
     // USER excludes profile img
     this.store.select(selectUser).subscribe((currentUser) => {
       this.user = currentUser;
+      console.log('NGRX User State:', this.user);
     });
     // Profile Pic
     this.userServ.findUserImage().subscribe((userimg) => {
       this.profilePic = userimg.profileImage;
     });
-    // Get and Set crypto data from crypto id list.
-    this.cryptoService.setCryptoSingleCoins().subscribe((res) => {
-      console.log('Get and Set Crypto data: ', res);
-    });
-    // Crypto Collection
-    this.cryptoService.cryptoCollection_O.subscribe((coinList) => {
-      this.cryptoCollection = this.mockCryptoData; //coinList;
-      console.log('Full Coin Data: ', coinList);
-    });
+
+    this.userCryptoCollection$ = this.store.select(selectUserCryptoCollection);
+    this.userCryptoCollection$.subscribe(
+      (val) => (this.cryptoCollection = val),
+    );
+
+    // Get and set Nft data from ID
+    this.nftService.setUserFullNftCollection();
+
     // Nft Collection
     this.UserNftCollectionService.nftCollection.subscribe((usernfts) => {
       this.nftCollection = usernfts;
     });
 
+    // THEME
     this.siteAdjustments.myValue$.subscribe((val) => {
       this.lightTheme = val;
     });

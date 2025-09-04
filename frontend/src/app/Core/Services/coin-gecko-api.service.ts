@@ -8,6 +8,7 @@ import {
   map,
   of,
   retry,
+  tap,
   throwError,
 } from 'rxjs';
 import { SingleCoin } from '../Interfaces/singleCoin.interface';
@@ -24,78 +25,129 @@ export class CoinGeckoApiService {
   allCrypto_BS = new BehaviorSubject<BasicCrypto[]>([]);
   allCrypto_O = this.allCrypto_BS.asObservable();
 
+  cached = localStorage.getItem('cryptoData');
+  lastFetch = Number(localStorage.getItem('cryptoDataTime') || 0);
+  private ttl = 20 * 60 * 1000; // 20 minutes in ms
+
   constructor(private http: HttpClient) {}
 
   getAllCrypto(): Observable<BasicCrypto[]> {
-    return this.http.get<BasicCrypto[]>(
-      'https://api.coingecko.com/api/v3/coins/list?include_platform=false',
-    );
+    if (this.cached && Date.now() - this.lastFetch < this.ttl) {
+      console.log(
+        'Serving coingecko crypto data from cache: ',
+        JSON.parse(this.cached),
+      );
+      const cachedData = JSON.parse(this.cached);
+      this.allCrypto_BS.next(cachedData);
+      return of(cachedData); // ✅ serve cached
+    } else {
+      console.log('Serving coingecko crypto data from API');
+      return this.http
+        .get<BasicCrypto[]>(
+          'https://api.coingecko.com/api/v3/coins/list?include_platform=false',
+        )
+        .pipe(
+          tap((data: BasicCrypto[]) => {
+            localStorage.setItem('cryptoData', JSON.stringify(data));
+            localStorage.setItem('cryptoDataTime', Date.now().toString());
+            this.cached = JSON.stringify(data); // keep memory in sync
+            this.lastFetch = Date.now();
+            this.allCrypto_BS.next(data);
+            console.log('Fetched coingecko crypto data: ', data);
+          }),
+        );
+    }
   }
+
+  // getTrendingCrypto(): Observable<Array<CryptoCoinObj>> {
+  //   return this.http
+  //     .get<{ coins: CryptoCoinObj[] }>(
+  //       'https://api.coingecko.com/api/v3/search/trending',
+  //     )
+  //     .pipe(map((cry) => cry.coins || []));
+  // }
+  private trendingCacheKey = 'trendingCrypto';
+  private trendingCacheTimeKey = 'trendingCryptoTime';
+  private trendingTTL = 20 * 60 * 1000; // 10 minutes
 
   getTrendingCrypto(): Observable<Array<CryptoCoinObj>> {
-    return this.http
-      .get<{ coins: CryptoCoinObj[] }>(
-        'https://api.coingecko.com/api/v3/search/trending',
-      )
-      .pipe(map((cry) => cry.coins || []));
+    const cached = localStorage.getItem(this.trendingCacheKey);
+    const cachedTime = Number(
+      localStorage.getItem(this.trendingCacheTimeKey) || 0,
+    );
+
+    if (cached && Date.now() - cachedTime < this.trendingTTL) {
+      console.log('Serving trending crypto from cache');
+      return of(JSON.parse(cached));
+    } else {
+      console.log('Fetching trending crypto from API');
+      return this.http
+        .get<{ coins: CryptoCoinObj[] }>(
+          'https://api.coingecko.com/api/v3/search/trending',
+        )
+        .pipe(
+          map((res) => res.coins || []),
+          tap((data) => {
+            localStorage.setItem(this.trendingCacheKey, JSON.stringify(data));
+            localStorage.setItem(
+              this.trendingCacheTimeKey,
+              Date.now().toString(),
+            );
+          }),
+        );
+    }
   }
 
-  getTrendingNFT(): Observable<Array<NFT>> {
-    return this.http
-      .get<{ nfts: NFT[] }>('https://api.coingecko.com/api/v3/search/trending')
-      .pipe(map((nft) => nft.nfts || []));
+  // getTrendingNFT(): Observable<Array<NFT>> {
+  //   return this.http
+  //     .get<{ nfts: NFT[] }>('https://api.coingecko.com/api/v3/search/trending')
+  //     .pipe(map((nft) => nft.nfts || []));
+  // }
+  private trendingNFTCacheKey = 'trendingNFTs';
+  private trendingNFTCacheTimeKey = 'trendingNFTsTime';
+  private trendingNFTTTL = 20 * 60 * 1000; // 10 minutes
+
+  getTrendingNFT(): Observable<NFT[]> {
+    const cached = localStorage.getItem(this.trendingNFTCacheKey);
+    const cachedTime = Number(
+      localStorage.getItem(this.trendingNFTCacheTimeKey) || 0,
+    );
+
+    if (cached && Date.now() - cachedTime < this.trendingNFTTTL) {
+      console.log('Serving trending NFTs from cache');
+      return of(JSON.parse(cached));
+    } else {
+      console.log('Fetching trending NFTs from API');
+      return this.http
+        .get<{ nfts: NFT[] }>('https://api.coingecko.com/api/v3/nfts/list')
+        .pipe(
+          map((res) => res.nfts || []),
+          tap((data) => {
+            localStorage.setItem(
+              this.trendingNFTCacheKey,
+              JSON.stringify(data),
+            );
+            localStorage.setItem(
+              this.trendingNFTCacheTimeKey,
+              Date.now().toString(),
+            );
+          }),
+        );
+    }
   }
 
-  getSingleCoin(coinId: string): Observable<SingleCoin | null> {
-    const blank: SingleCoin = {
-      id: '',
-      symbol: '',
-      name: '',
-      asset_platform_id: '',
-      platforms: undefined,
-      detail_platforms: undefined,
-      block_time_in_minutes: 0,
-      hashing_algorithm: undefined,
-      categories: [],
-      preview_listing: false,
-      public_notice: undefined,
-      additional_notices: undefined,
-      localization: undefined,
-      description: undefined,
-      links: undefined,
-      image: {
-        thumb: '',
-        small: '',
-        large: '',
-      },
-      country_origin: '',
-      genesis_date: undefined,
-      contract_address: '',
-      sentiment_votes_up_percentage: 0,
-      sentiment_votes_down_percentage: 0,
-      watchlist_portfolio_users: 0,
-      market_cap_rank: 0,
-      coingecko_rank: 0,
-      coingecko_score: 0,
-      developer_score: 0,
-      community_score: 0,
-      liquidity_score: 0,
-      public_interest_score: 0,
-      market_data: undefined,
-      collectionId: 0,
-    };
-    return this.http
-      .get<any>(
-        'https://api.coingecko.com/api/v3/coins/' +
-          coinId +
-          '?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false',
-      )
-      .pipe(
-        map((res) => {
-          return res;
-        }),
-      )
-      .pipe(catchError((error) => of(null)));
+  getSingleCoin(coinId: string): Observable<SingleCoin | any> {
+    return this.http.get<any>(
+      'https://api.coingecko.com/api/v3/coins/' +
+        coinId +
+        '?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false',
+    );
+    // .pipe(
+    //   catchError((error) => {
+    //     console.error(`Error fetching coin ${coinId}:`, error);
+    //     return of({ id: coinId }); // mark failed coin
+    //   }),
+    // );
   }
 
   getSingleNFT(nftId: string): Observable<SingleNFT> {

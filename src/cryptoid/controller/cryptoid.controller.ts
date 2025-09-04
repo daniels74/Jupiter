@@ -13,30 +13,23 @@ import { cryptoidEntry } from '../model/cryptoid.interface';
 import { Observable } from 'rxjs';
 import { CryptoidService } from '../service/cryptoid.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
-import { CryptoIdEnitity } from '../model/cryptoid.entity';
-import { User } from '../../user/model/user.interface';
 
 @Controller('cryptoid')
 export class CryptoidController {
   constructor(private cryptoService: CryptoidService) {}
+
+  @Get()
+  findCryptoidEntries(
+    @Query('userId') userId: string,
+  ): Observable<cryptoidEntry[]> {
+    return this.cryptoService.findByUser(Number(userId));
+  }
 
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() cryptoid: cryptoidEntry, @Request() req): Observable<any> {
     const user = req.user;
     return this.cryptoService.create(user, cryptoid);
-  }
-
-  @Get()
-  findCryptoidEntries(
-    @Query('userId') userId: number,
-  ): Observable<cryptoidEntry[]> {
-    if (userId == null) {
-      console.log('hello');
-      return this.cryptoService.findAll();
-    }
-    console.log('helloo');
-    return this.cryptoService.findByUser(userId);
   }
 
   @UseGuards(JwtAuthGuard)
