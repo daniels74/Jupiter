@@ -35,6 +35,8 @@ export class SmallPageComponent {
   @Output() toggleCollectionType: EventEmitter<any> = new EventEmitter<any>();
   @Input() nftCollection: any;
 
+  aboutIsActive = false;
+
   // profilePic!: string;
 
   constructor(private userService: UserService) {}

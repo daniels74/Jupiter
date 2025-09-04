@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { BaseUrl } from '../../../Root/app.module';
 import { WINDOW } from '../../../window-token';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +22,19 @@ export class UserPostService {
     return this.http.post(this.origin + '/posting', {
       description: post,
     });
+  }
+
+  // Get Posts for current user
+  getAllUserPosts(): void {
+    this.http
+      .get(this.origin + `/posting`)
+      .pipe(
+        tap((posts: any) => {
+          this.userPostsBehaviorSubject.next(posts);
+          console.log('User Posts from Backend:', posts);
+          return;
+        }),
+      )
+      .subscribe();
   }
 }

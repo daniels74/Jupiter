@@ -41,9 +41,12 @@
           </mat-card-actions>
         </div>
         <div class="user-name-container">
-          <div class="user-name-sub" *ngIf="user.name">
-            <h2 *ngIf="!nameSetting_State" (click)="togggleName_Setting()">
+          <div class="user-name-sub">
+            <h2 *ngIf="!nameSetting_State && user.name" (click)="togggleName_Setting()">
               {{ user.name }}
+            </h2>
+             <h2 *ngIf="!nameSetting_State && !user.name" (click)="togggleName_Setting()">
+              Anonymous Anonymous
             </h2>
             <form
               class="name-form-element"
@@ -79,7 +82,7 @@
               </div>
             </form>
           </div>
-          <div class="user-name-sub" *ngIf="!user.name">
+          <!-- <div class="user-name-sub" *ngIf="!user.name">
             <h2 *ngIf="!nameSetting_State" (click)="togggleName_Setting()">
               Anonymous Anonymous
             </h2>
@@ -95,8 +98,8 @@
                 placeholder="Name"
                 type="text"
               />
-              <!-- <input placeholder="Email" type="text"> -->
-              <div [ngStyle]="{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }">
+              
+              <div class="img-name-container">
                 <button
                   class="name-update-btn"
                   type="submit"
@@ -115,7 +118,7 @@
                 </button>
               </div>
             </form>
-          </div>
+          </div> -->
           <div class="user-username-sub">
             <p>UserUsername</p>
           </div>
@@ -158,7 +161,8 @@
           </button>
         </div>
       </div>
-      <div class="user-data">
+    </div>
+    <div class="user-data" [style.height]="this.aboutIsActive ? '17vh' : '8vh'" (click)="this.aboutIsActive = !this.aboutIsActive">
         <h3>World Idenitity: Coming Soon</h3>
         <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda
@@ -167,12 +171,11 @@
           assumenda odit.
         </p>
       </div>
-    </div>
     <div class="profile-options">
       <button
         appGlowify
         mat-button
-        color="primary"
+        color="accent"
         (click)="switchDataViews('crypto')"
       >
         Crypto
@@ -180,7 +183,7 @@
       <button
         appGlowify
         mat-button
-        color="primary"
+        color="accent"
         (click)="switchDataViews('nfts')"
       >
         NFTs
@@ -188,13 +191,13 @@
       <button
         appGlowify
         mat-button
-        color="primary"
+        color="accent"
         (click)="switchDataViews('posts')"
       >
         Posts
       </button>
     </div>
-    <div class="profile-content-container">
+    <div class="profile-content-container" [style.height]="this.aboutIsActive ? '55%': '65%'">
       <div *ngIf="selectedDataState === 'crypto'" class="data-slider">
         <div *ngFor="let crypto of cryptoCollection">
           <mobile-data-card

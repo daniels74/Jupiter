@@ -21,19 +21,20 @@ export class CryptoidService {
   create(user: User, cryptoEntry: cryptoidEntry): Observable<any> {
     // Claim ownership of entry by user in it.
     cryptoEntry.user = user;
-    return from(this.cryptoRepository.save(cryptoEntry)).pipe(
-      switchMap((res) => {
-        return this.userService.findOne(user.id).pipe<any>(
-          switchMap((founduser) => {
-            return this.authService.generateJWT(founduser).pipe<any>(
-              map((jwtres: string) => {
-                return { jwt: jwtres };
-              }),
-            );
-          }),
-        );
-      }),
-    );
+    return from(this.cryptoRepository.save(cryptoEntry));
+    // .pipe(
+    //   switchMap((res) => {
+    //     return this.userService.findOne(user.id).pipe<any>(
+    //       switchMap((founduser) => {
+    //         return this.authService.generateJWT(founduser).pipe<any>(
+    //           map((jwtres: string) => {
+    //             return { jwt: jwtres };
+    //           }),
+    //         );
+    //       }),
+    //     );
+    //   }),
+    // );
   }
 
   findAll(): Observable<cryptoidEntry[]> {
@@ -56,19 +57,21 @@ export class CryptoidService {
   }
 
   deleteUserCryptoEntry(user: User, cryptoid: string): Observable<any> {
-    return from(this.cryptoRepository.delete({ cryptoid: cryptoid })).pipe(
-      switchMap((deleteRes) => {
-        return this.userService.findOne(user.id).pipe(
-          switchMap((foundUser) => {
-            return this.authService.generateJWT(foundUser).pipe(
-              map((jwt: string) => {
-                return { jwt: jwt };
-              }),
-            );
-          }),
-        );
-      }),
-    );
+    return from(this.cryptoRepository.delete({ cryptoid: cryptoid }));
+    //.pipe(
+    // switchMap((deleteRes) => {
+    //  return this.userService.findOne(user.id);
+    // .pipe(
+    //   switchMap((foundUser) => {
+    //     return this.authService.generateJWT(foundUser).pipe(
+    //       map((jwt: string) => {
+    //         return { jwt: jwt };
+    //       }),
+    //     );
+    //   }),
+    // );
+    // }),
+    //);
   }
 
   deleteUserCryptoEntryById(user: User, entryId: number): Observable<any> {

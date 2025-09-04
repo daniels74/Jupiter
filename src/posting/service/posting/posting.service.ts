@@ -36,4 +36,13 @@ export class PostingService {
       }),
     );
   }
+
+  getUserPosts(userid: number): Observable<PostInterface[]> {
+    return from(
+      this.postingRepository.find({
+        where: { user: { id: userid } },
+        relations: { user: true },
+      }),
+    );
+  }
 }

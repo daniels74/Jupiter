@@ -78,7 +78,8 @@
 >
   <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium" template="<img src='../../../assets/bluedots-transparent.gif' />"
         [fullScreen]="true" bdColor="transparent"></ngx-spinner> -->
-  <span class="loader"></span>
+  <!-- <span class="loader"></span> -->
+  <img src="assets/dragonspin.gif" alt="" />
 </div>
 <!-- ! Small Screen Nav -->
 <div
@@ -96,6 +97,7 @@
     </h2>
     <h2
       *ngIf="authState"
+      (click)="goToUserProfile()"
       [routerLink]="['/user', id]"
       routerLinkActive="active-link"
     >
@@ -139,7 +141,8 @@
   >
     <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium" template="<img src='../../../assets/bluedots-transparent.gif' />"
         [fullScreen]="true" bdColor="transparent"></ngx-spinner> -->
-    <span class="loader"></span>
+    <!-- <span class="loader"></span> -->
+    <img src="assets/dragonspin.gif" alt="" />
   </div>
 </div>
 <!-- !Settings options -->

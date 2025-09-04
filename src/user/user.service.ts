@@ -67,7 +67,21 @@ export class UserService {
     return this.validateUser(user.email, user.password).pipe(
       switchMap((user) => {
         if (user) {
-          return this.AuthServ.generateJWT(user).pipe(
+          const {
+            name,
+            username,
+            email,
+            password,
+            role,
+            cryptos,
+            nfts,
+            posts,
+            sentFriendRequests,
+            recievedFriendRequests,
+            profileImage,
+            ...shortUser
+          } = user;
+          return this.AuthServ.generateJWT(shortUser).pipe(
             map((jwt: string) => jwt),
           );
         } else {
@@ -85,7 +99,17 @@ export class UserService {
         this.AuthServ.comparePasswords(password, user.password).pipe(
           map((match: boolean) => {
             if (match) {
-              const { password, profileImage, ...result } = user;
+              const {
+                email,
+                password,
+                cryptos,
+                nfts,
+                posts,
+                sentFriendRequests,
+                recievedFriendRequests,
+                profileImage,
+                ...result
+              } = user;
               return result;
             }
             // else {

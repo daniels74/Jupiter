@@ -6,6 +6,7 @@ import { nftCoinGeckoApiActions } from '../Shared/State/Actions/nftList.actions'
 import { AuthService } from '../Core/Services/auth.service';
 // import { DOCUMENT } from '@angular/common';
 import { SiteAdjustmentService } from '../Core/Services/UX/site-adjustment.service';
+import { CryptoService } from '../Core/Services/UserCollection/crypto.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ import { SiteAdjustmentService } from '../Core/Services/UX/site-adjustment.servi
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'frontend';
+  title = [];
 
   constructor(
     // @Inject(DOCUMENT) private document: Document,
@@ -22,21 +23,21 @@ export class AppComponent implements OnInit {
     private coinGeckoService: CoinGeckoApiService,
     private store: Store,
     private themeService: SiteAdjustmentService,
-  ) {}
+    private cryptoService: CryptoService,
+  ) {
+    // RETRY LOOP FOR CRYPTO COLLECTION
+    this.cryptoService.startRetryLoop();
+  }
 
   ngOnInit() {
     this.themeService.initTheme();
-
-    this.authService.authState$.subscribe((state) => {
-      console.log('Auth State', state);
-    });
 
     //  Check if user has token
     this.authService.liveSessionCheck();
 
     // Fetch all Crypto // ! Using BehaviorSubject
-    this.coinGeckoService.getAllCrypto().subscribe((allcrypto) => {
-      this.coinGeckoService.allCrypto_BS.next(allcrypto);
+    this.coinGeckoService.getAllCrypto().subscribe((cryptos: any) => {
+      console.log('All Crypto from AppComponent: ', cryptos);
     });
 
     // Fetching & Setting trending CRYPTO
@@ -46,8 +47,9 @@ export class AppComponent implements OnInit {
       );
     });
 
-    // Fetching & Setting trending NFTS
+    // ! Fetching & Setting trending NFTS (No longer available for free on coingecko)
     this.coinGeckoService.getTrendingNFT().subscribe((nfts) => {
+      console.log('Trending NFTs from AppComponent: ', nfts);
       this.store.dispatch(
         nftCoinGeckoApiActions.setTrendingNFTSState({ nfts }),
       );

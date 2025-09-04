@@ -8,6 +8,7 @@ import { NFT } from '../../Interfaces/top-trending';
 import { CoinGeckoApiService } from '../coin-gecko-api.service';
 import { Store } from '@ngrx/store';
 import { selectUserNftCollection } from '../../../Shared/State/Selectors/userNftCollection.selector';
+import { User } from '../../Interfaces/User.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,14 @@ export class UserNftCollectionService {
 
   nftCollectionBehaviorSubject = new BehaviorSubject<SingleNFT[]>([]);
   nftCollection = this.nftCollectionBehaviorSubject.asObservable();
+
+  getAllNftIds(userId: number): Observable<any> {
+    return this.http.get(this.origin + '/nftid', {
+      params: {
+        userId: userId,
+      },
+    });
+  }
 
   postNftId(nftId: string): Observable<any> {
     //1 First Save NFT Id into DB

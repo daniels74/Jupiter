@@ -11,7 +11,7 @@ import { CoinGeckoApiService } from '../../../../Core/Services/coin-gecko-api.se
   styleUrls: ['./crypto-card.component.scss'],
 })
 export class CryptoCardComponent {
-  @Input() crypto!: SingleCoin;
+  @Input() crypto!: any; //SingleCoin;
   @Input() nfts!: any;
   @Input() collectionClassifcation!: string;
   @Output() chartStateOutput: EventEmitter<any> =
@@ -21,6 +21,8 @@ export class CryptoCardComponent {
   isLargeScreen = window.innerWidth < 700 ? false : true;
 
   extentionState = false;
+
+  isExpanded = false;
 
   constructor(
     private coinGeckoApi: CoinGeckoApiService,
@@ -36,7 +38,7 @@ export class CryptoCardComponent {
   removeCrypto(stringId: string) {
     if (this.collectionClassifcation === 'crypto') {
       this.cryptoService.deleteCryptoId(stringId).subscribe((res) => {
-        this.authService.setSessionToken(res.jwt);
+        //this.authService.setSessionToken(res.jwt);
         console.log('Crypto Removed from Collection using crypto ID: ', res);
       });
     } else if (this.collectionClassifcation === 'nft') {
