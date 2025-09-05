@@ -43,7 +43,10 @@
     "@nestjs/platform-express": "^10.2.8",
     "@nestjs/serve-static": "^4.0.0",
     "@nestjs/typeorm": "^10.0.0",
-    "@ngrx/store": "^17.0.1",
+    "@ngrx/effects": "^17.2.0",
+    "@ngrx/entity": "^17.2.0",
+    "@ngrx/router-store": "^17.2.0",
+    "@ngrx/store": "^17.2.0",
     "bcrypt": "^5.1.1",
     "chart.js": "^4.4.0",
     "jwt-decode": "^3.1.2",
@@ -51,6 +54,7 @@
     "nestjs-typeorm-paginate": "^4.0.4",
     "ng2-charts": "^5.0.4",
     "ngx-image-compress": "^15.1.6",
+    "ngx-owl-carousel-o": "^17.0.0",
     "ngx-spinner": "^16.0.2",
     "node-gyp": "^9.4.0",
     "passport-jwt": "^4.0.1",
@@ -61,8 +65,7 @@
     "tslib": "^2.3.0",
     "typeorm": "^0.3.17",
     "uuid": "^9.0.1",
-    "zone.js": "~0.14.2",
-    "ngx-owl-carousel-o": "^17.0.0"
+    "zone.js": "~0.14.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

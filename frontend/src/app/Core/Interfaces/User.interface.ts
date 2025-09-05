@@ -1,4 +1,4 @@
-import { Post } from './post';
+import { Note } from './post';
 import { NFTId } from './singleNFT';
 import { CryptoId } from './top-trending';
 
@@ -10,6 +10,6 @@ export interface User {
   username: string;
   cryptos: CryptoId[];
   nfts: NFTId[];
-  posts: Post[];
+  posts: Note[];
   profileImage: string;
 }

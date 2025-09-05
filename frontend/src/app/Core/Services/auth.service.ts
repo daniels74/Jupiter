@@ -103,7 +103,7 @@ export class AuthService {
     // // Set users Posts
     // ! must remove posts from jwt token too
     //this.userPostService.userPostsBehaviorSubject.next(user.user.posts);
-    this.userPostService.getAllUserPosts();
+    this.userPostService.fetchUserNotes();
   }
 
   setSessionToken(token: string) {

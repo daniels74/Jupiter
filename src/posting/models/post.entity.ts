@@ -1,6 +1,13 @@
 import { UserEntity } from 'src/user/model/user.entity';
 import { User } from 'src/user/model/user.interface';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('post_entry')
 export class PostEntity {
@@ -14,4 +21,10 @@ export class PostEntity {
     onDelete: 'CASCADE',
   })
   user: User;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date; // 👈 auto-filled when note is created
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date; // 👈 auto-updated whenever note changes
 }

@@ -1,6 +1,13 @@
 <div class="user-post-card-component">
-  <div class="inner">
+  <div class="inner" appGlowify>
     <div class="card-background"></div>
-    {{ note }}
+    <h6>{{ note.description }}</h6>
+    <p>Created At: {{ note.createdAt | date:'short' }}</p>
+    <p>Updated At: {{ note.updatedAt | date:'short' }}</p>
+    <div class="card-actions">
+      <button mat-icon-button color="warn" (click)="deleteNote(note.id!)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </div>
 </div>

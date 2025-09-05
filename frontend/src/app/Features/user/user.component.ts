@@ -28,6 +28,8 @@ import { LargePageComponent } from './Components/PageSizes/large-page/large-page
 import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.service';
 import { userCryptoCollectionAction } from '../../Shared/State/Actions/userCryptoCollection.actions';
 import { selectUserCryptoCollection } from '../../Shared/State/Selectors/userCryptoCollection.selector';
+import { UserPostService } from '../../Core/Services/UserPost/user-post.service';
+import { selectAllNotes } from '../../Shared/State/Selectors/note.selectors';
 
 @Component({
   selector: 'app-user',
@@ -102,6 +104,8 @@ export class UserComponent implements OnInit {
     },
   ];
 
+  notes$!: Observable<any[]>;
+
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
@@ -110,6 +114,7 @@ export class UserComponent implements OnInit {
     private cryptoService: CryptoService,
     private nftService: UserNftCollectionService,
     private UserNftCollectionService: UserNftCollectionService,
+    private userPostService: UserPostService,
     public spinner: NgxSpinnerService,
     private ngx: NgxImageCompressService,
     private router: Router,
@@ -134,6 +139,8 @@ export class UserComponent implements OnInit {
     this.userServ.findUserImage().subscribe((userimg) => {
       this.profilePic = userimg.profileImage;
     });
+
+    // this.notes$ = this.store.select(selectAllNotes);
 
     this.userCryptoCollection$ = this.store.select(selectUserCryptoCollection);
     this.userCryptoCollection$.subscribe(
