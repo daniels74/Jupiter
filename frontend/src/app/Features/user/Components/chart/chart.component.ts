@@ -24,19 +24,19 @@ export class ChartComponent implements OnInit {
   };
 
   lightModeColors = {
-    pointBackgroundColor: 'darkblue',
-    pointBorderColor: 'black',
-    backgroundColor: 'blue',
-    borderColor: 'black',
-    tickColor: 'black',
+    pointBackgroundColor: 'white',
+    pointBorderColor: 'white',
+    backgroundColor: 'grey',
+    borderColor: 'grey',
+    tickColor: 'grey',
   };
 
   darkModeColors = {
     pointBackgroundColor: 'white',
     pointBorderColor: 'white',
-    backgroundColor: 'darkblue',
-    borderColor: 'white',
-    tickColor: 'white',
+    backgroundColor: 'grey',
+    borderColor: 'grey',
+    tickColor: 'grey',
   };
 
   public lineChartOptions: ChartOptions<'line'> = {
@@ -98,7 +98,7 @@ export class ChartComponent implements OnInit {
         this.chartActive = true;
       }
     });
-
+    // ! 
     this.siteAdjustment.myValue$.subscribe((mode) => {
       this.mode = mode;
       if (this.cryptoChartData.length > 1) {
@@ -144,7 +144,7 @@ export class ChartComponent implements OnInit {
           pointHitRadius: 4,
           pointBackgroundColor: colors.pointBackgroundColor,
           pointBorderColor: colors.pointBorderColor,
-          fill: false,
+          fill: true,
           tension: 0.5,
           backgroundColor: colors.backgroundColor, // Fill color
           borderColor: colors.borderColor, // Line color
@@ -152,5 +152,7 @@ export class ChartComponent implements OnInit {
         },
       ],
     };
+
+    this.chart?.update();
   }
 }
