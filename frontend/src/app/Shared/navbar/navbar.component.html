@@ -15,7 +15,7 @@
     <app-usersearch></app-usersearch>
   </div>
   <!--! Big Screen Menu -->
-  <div *ngIf="screenSizeCheck" class="menu">
+  <ul *ngIf="screenSizeCheck" class="menu">
     <mat-slide-toggle (change)="switchMode($event)" />
     <a (click)="goHome()" routerLink="/home" routerLinkActive="active-link"
       >Home</a
@@ -46,7 +46,7 @@
       routerLinkActive="active-link"
       >Register</a
     >
-  </div>
+  </ul>
   <div
     *ngIf="!screenSizeCheck"
     class="menu-icon-container"

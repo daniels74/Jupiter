@@ -26,19 +26,25 @@ import { MatIconModule } from '@angular/material/icon';
 import { GlowifyDirective } from '../Shared/CustomDirectives/glowify.directive';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DataRetryInterceptor } from '../Core/Interceptors/data-retry.interceptor';
+import { noteReducer } from '../Shared/State/Reducers/note.reducer';
+import { EffectsModule } from '@ngrx/effects';
+// import { NoteEffects } from '../Shared/State/Effects/note.effects';
 
 export const BaseUrl = new InjectionToken<string>('');
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    // // REDUX
     StoreModule.forRoot({
+      notes: noteReducer,
       nftCollection_ngrx: userNftCollectionReducer,
       cryptoCollection_ngrx: userCryptoCollectionReducer,
       userState_ngrx: usersReducer,
       authState_ngrx: authReducer,
       cryptos: cryptoReducer,
       nfts: nftReducer,
-    }), // // REDUX
+    }),
+    // EffectsModule.forRoot([NoteEffects]),
     BrowserModule,
     AppRoutingModule,
     NavbarModule,
