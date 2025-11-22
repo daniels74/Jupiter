@@ -71,4 +71,30 @@ export class PostingService {
       }),
     );
   }
+
+  updatePost(
+    postId: number,
+    updatedPost: PostInterface,
+    userId: number,
+  ): Observable<any> {
+    return from(
+      this.postingRepository.findOne({
+        where: { id: postId },
+        relations: { user: true },
+      }),
+    ).pipe(
+      mergeMap((post) => {
+        if (!post) {
+          return throwError(() => new Error('Post not found'));
+        }
+        if (post.user.id !== userId) {
+          return throwError(
+            () => new Error('Unauthorized: You can only edit your own posts'),
+          );
+        }
+        post.description = updatedPost.description;
+        return from(this.postingRepository.save(post));
+      }),
+    );
+  }
 }

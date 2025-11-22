@@ -1,5 +1,5 @@
-<div class="user-post-card-component">
-  <div class="inner" appGlowify>
+<div class="user-post-card-component" (click)="toggleEdit()">
+  <div class="inner" *ngIf="!noteEditorOpen">
     <div class="card-background"></div>
     <h6>{{ note.description }}</h6>
     <p>Created At: {{ note.createdAt | date:'short' }}</p>
@@ -9,5 +9,21 @@
         <mat-icon>delete</mat-icon>
       </button>
     </div>
+  </div>
+  <div *ngIf="noteEditorOpen">
+    <!-- Note editor content goes here -->
+    <form #editForm="ngForm" (ngSubmit)="saveNoteEdit(noteEdit)" (click)="$event.stopPropagation()">
+      <mat-form-field appearance="outline" style="width:100%">
+        <input matInput name="description" placeholder="{{note.description}}" [(ngModel)]="noteEdit" required />
+      </mat-form-field>
+
+      <div class="card-actions">
+        <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid">Save</button>
+        <button mat-button type="button" (click)="toggleEdit(); $event.stopPropagation()">Cancel</button>
+        <button mat-icon-button color="warn" (click)="deleteNote(note.id!); $event.stopPropagation();">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </form>
   </div>
 </div>

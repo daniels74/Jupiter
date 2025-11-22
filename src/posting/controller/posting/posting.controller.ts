@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Req,
   Request,
   UseGuards,
@@ -41,5 +42,16 @@ export class PostingController {
   deletePost(@Param('id') postId: number, @Req() req) {
     const userId = req.user.id;
     return this.postingService.deletePost(+postId, userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put(':id')
+  updatePost(
+    @Param('id') postId: number,
+    @Body() updatedPost: PostInterface,
+    @Req() req,
+  ) {
+    const userId = req.user.id;
+    return this.postingService.updatePost(+postId, updatedPost, userId);
   }
 }

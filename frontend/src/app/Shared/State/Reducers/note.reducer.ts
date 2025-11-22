@@ -25,4 +25,8 @@ export const noteReducer = createReducer(
     ...state,
     notes: [...notes],
   })),
+  on(NoteActions.updateNote, (state, { note }) => ({
+    ...state,
+    notes: state.notes.map((n) => (n.id === note.id ? { ...n, ...note } : n)),
+  })),
 );

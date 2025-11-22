@@ -2,16 +2,10 @@ import { createAction, props } from '@ngrx/store';
 import { Note } from '../../../Core/Interfaces/post';
 
 // load notes
-// export const loadNotes = createAction(
-//   '[Note] Load Notes',
-//   props<{ userId: string }>(),
-// );
-// note.actions.ts
 export const loadNotes = createAction(
   '[Notes] Load Notes',
   props<{ notes: Note[] }>(), // ✅ expects array of notes
 );
-
 export const loadNotesSuccess = createAction(
   '[Note] Load Notes Success',
   props<{ notes: Note[] }>(),
@@ -44,4 +38,26 @@ export const deleteNoteSuccess = createAction(
 export const deleteNoteFailure = createAction(
   '[Note] Delete Note Failure',
   props<{ error: string }>(),
+);
+
+// edit note
+export const updateNote = createAction(
+  '[Note] Update Note',
+  props<{ note: Note }>()
+);
+
+// Optional: if you prefer the common pattern with server round-trip:
+export const updateNoteRequest = createAction(
+  '[Note] Update Note Request',
+  props<{ note: Note }>()
+);
+
+export const updateNoteSuccess = createAction(
+  '[Note] Update Note Success',
+  props<{ note: Note }>()
+);
+
+export const updateNoteFailure = createAction(
+  '[Note] Update Note Failure',
+  props<{ error: any }>()
 );

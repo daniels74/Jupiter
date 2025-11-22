@@ -85,4 +85,24 @@ export class UserPostService {
       error: (err) => console.error(err),
     });
   }
+
+  editPost(post: string | undefined, postId: number | undefined) {
+    this.http
+      .put(`${this.origin}/posting/${postId}`, { description: post })
+      .subscribe({
+        next: (updatedPost: any) => {
+          this.store.dispatch(
+            NoteActions.updateNote({
+              note: {
+                id: postId,
+                description: updatedPost.description,
+                createdAt: updatedPost.createdAt,
+                updatedAt: updatedPost.updatedAt,
+              },
+            }),
+          );
+        },
+        error: (err) => console.error('Failed to update post', err),
+      });
+  }
 }

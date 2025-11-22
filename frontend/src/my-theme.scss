@@ -597,7 +597,7 @@ $my-light-theme-opacity: mat.define-light-theme(
   @include four-zero-four.theme($my-light-theme);
   @include carouselElement.theme($my-light-theme);
   @include about.theme($my-light-theme);
-  --glow-accent: #{mat.get-color-from-palette($my-accent-light)};
+  // --glow-accent: #{mat.get-color-from-palette($my-accent-dark)};
 }
 
 .theme-dark {
@@ -624,11 +624,11 @@ $my-light-theme-opacity: mat.define-light-theme(
   @include four-zero-four.theme($my-dark-theme);
   @include carouselElement.theme($my-dark-theme);
   @include about.theme($my-dark-theme);
-  --glow-accent: #{mat.get-color-from-palette($my-accent-light)};
+  // --glow-accent: #{mat.get-color-from-palette($my-accent-dark)};
 }
 
 
-// :root {
-//   --glow-accent: #{mat.get-color-from-palette($my-accent-dark)};
-// }
+:root {
+  --glow-accent: #{mat.get-color-from-palette($my-accent-dark)};
+}
 // @include navbar.theme($my-dark-theme);
