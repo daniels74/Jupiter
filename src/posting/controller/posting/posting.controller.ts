@@ -1,8 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
+  Put,
+  Req,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -31,5 +35,23 @@ export class PostingController {
   getUserPosts(@Request() req): Observable<PostInterface[]> {
     const user: User = req.user;
     return this.postingService.getUserPosts(user.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  deletePost(@Param('id') postId: number, @Req() req) {
+    const userId = req.user.id;
+    return this.postingService.deletePost(+postId, userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put(':id')
+  updatePost(
+    @Param('id') postId: number,
+    @Body() updatedPost: PostInterface,
+    @Req() req,
+  ) {
+    const userId = req.user.id;
+    return this.postingService.updatePost(+postId, updatedPost, userId);
   }
 }

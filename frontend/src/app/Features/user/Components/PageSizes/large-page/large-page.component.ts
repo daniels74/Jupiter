@@ -27,6 +27,7 @@ import { CommonModule } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { FriendRequestsService } from '../../../../../Core/Services/friend-requests.service';
 import { SiteAdjustmentService } from '../../../../../Core/Services/UX/site-adjustment.service';
+import { selectAllNotes } from '../../../../../Shared/State/Selectors/note.selectors';
 export interface File {
   data: any;
   progress: number;
@@ -125,8 +126,8 @@ export class LargePageComponent implements OnInit {
       this.myfriends_dataSource.data = res;
     });
 
-    this.postService.userPostsSubject.subscribe((allPosts) => {
-      this.userPosts = allPosts;
+    this.store.select(selectAllNotes).subscribe((notes) => {
+      this.userPosts = notes;
     });
 
     // this.userService.findUserImage().subscribe((res) => {
@@ -163,10 +164,13 @@ export class LargePageComponent implements OnInit {
   savePost() {
     const currentPost = this.postForm.get('thePost')?.value;
     console.log('Note: ', currentPost);
-    this.postService.saveNewPost(currentPost).subscribe((jwtres) => {
-      this.authService.setPermissions(jwtres.jwt);
-    });
+    this.postService.saveNewPost(currentPost);
   }
+
+  // deleteNote(noteId: number) {
+  //   // optionally pass userId if your backend requires it
+  //   this.postService.deletePost(noteId);
+  // }
 
   // onFileInput() {
   //   const fileInput = this.fileUpload.nativeElement;
