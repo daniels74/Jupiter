@@ -2,8 +2,6 @@
 
 @use './app/Shared/navbar/navbar.component.scss' as navbar;
 @use './app/Features/home/home.component.scss' as home;
-@use './app/Features/home/Components/pageSizes/home-big/home-big.component.scss'
-  as home-big-page;
 @use './app/Features/home/Components/paginator/paginator.component.scss' as
   paginator;
 @use './app/Features/home/Components/card/card.component.scss' as home-card;
@@ -579,7 +577,6 @@ $my-light-theme-opacity: mat.define-light-theme(
   @include mat.button-theme($my-light-theme);
   @include navbar.theme($my-light-theme-opacity);
   @include home.theme($my-light-theme);
-  @include home-big-page.theme($my-light-theme);
   @include paginator.theme($my-light-theme);
   @include home-card.theme($my-light-theme);
   @include landing.theme($my-light-theme);
@@ -606,7 +603,6 @@ $my-light-theme-opacity: mat.define-light-theme(
   @include mat.button-theme($my-dark-theme);
   @include navbar.theme($my-dark-theme);
   @include home.theme($my-dark-theme);
-  @include home-big-page.theme($my-dark-theme);
   @include paginator.theme($my-dark-theme);
   @include home-card.theme($my-dark-theme);
   @include landing.theme($my-dark-theme);
