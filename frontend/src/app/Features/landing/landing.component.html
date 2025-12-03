@@ -24,15 +24,6 @@
       <owl-carousel-o [options]="customOptions">
         <ng-container *ngFor="let item of trending_cryptos">
           <ng-template carouselSlide>
-            <!-- <app-carousel-element
-              class="carousel-cell"
-              (click)="keepActive()"
-              (mouseenter)="toggleChart(true); setName(item.item)"
-              (mouseleave)="toggleChart(false)"
-              [Item]="item"
-              [name]="item.name"
-              [cryptoImg]="item.item.large"
-            /> -->
             <app-carousel-element
               class="carousel-cell"
               (click)="keepActive()"

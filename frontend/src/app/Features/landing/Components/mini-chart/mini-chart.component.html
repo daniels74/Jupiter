@@ -1,17 +1,39 @@
-<div class="crypto-overlay-container">
-  <div class="crypto-overlay-blur"></div>
+<div class="overlay-container-left">
   <div class="crypto-overlay-foreground">
     <div class="crypto-image-container">
       <img [src]="cryptoimg" alt="" class="crypto-image" />
     </div>
     <div class="crypto-name-container">
-      <h1 class="crypto-name">{{ cryptoName }}</h1>
+      <h1 class="crypto-name">{{ cryptoName.length > 9 ? (cryptoName | slice:0:9) + '...' : cryptoName }}</h1>
+    </div>
+  </div>
+  <div class="chart-overlay">
+    <div class="chart-container">
+      <div class="chart-blur-background"></div>
+      <app-chart class="app-chart"></app-chart>
     </div>
   </div>
 </div>
-<div class="chart-overlay">
-  <div class="chart-container">
-    <div class="chart-blur-background"></div>
-    <app-chart class="app-chart"></app-chart>
+
+<div class="cube-container">
+  <div class="cube">
+    <div class="face top">
+      <img class="img-ele" [src]="cryptoimg" cross-origin="" alt="" />
+    </div>
+    <div class="face bottom">
+      <img class="img-ele" [src]="cryptoimg" cross-origin="" alt="" />
+    </div>
+    <div class="face left">
+      <img class="img-ele" [src]="cryptoimg" cross-origin="" alt="" />
+    </div>
+    <div class="face right">
+      <img class="img-ele" [src]="cryptoimg" cross-origin="" alt="" />
+    </div>
+    <div class="face front">
+      <img class="img-ele" [src]="cryptoimg" cross-origin="" alt="" />
+    </div>
+    <div class="face back">
+      <img class="img-ele" [src]="cryptoimg" cross-origin="" alt="" />
+    </div>
   </div>
 </div>
