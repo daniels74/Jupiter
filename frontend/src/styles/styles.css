@@ -22,9 +22,10 @@ body {
 }
 
 body.light-cover {
-  background-image: url('/assets/daylight.png');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)),
+    url('/assets/daylight.png');
 }
 
 body.dark-cover {
-  background-image: url('/assets/darkmode.webp');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('/assets/darkmode.webp');
 }

@@ -78,7 +78,7 @@ owl-carousel-o {
 
 @mixin color($theme) {
   .text-container {
-    color: mat.get-theme-color($theme, primary, text);
+    color: mat.get-theme-color($theme, accent, text);
     width: auto;
     // background-color:red;
   }
@@ -89,7 +89,7 @@ owl-carousel-o {
   }
 
   .usage-info-container {
-    color: mat.get-theme-color($theme, primary, text);
+    color: mat.get-theme-color($theme, accent, text);
     scrollbar-color: mat.get-theme-color($theme, accent)
       mat.get-theme-color($theme, primary);
   }

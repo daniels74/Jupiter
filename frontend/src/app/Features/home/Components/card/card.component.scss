@@ -4,6 +4,7 @@
 
 .card {
   // margin-right: 3rem;
+  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -79,11 +80,20 @@
 
 @mixin color($theme) {
   .card {
+    // background-color: mat.get-theme-color($theme, primary, darker);
+    // opacity: 0.2;
+  }
+
+  .card-background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
     background-color: mat.get-theme-color($theme, primary, lighter);
+    opacity: 0.1;
   }
 
   .coin-info-container {
-    background-color: mat.get-theme-color($theme, primary, lighter);
+    // background-color: mat.get-theme-color($theme, primary, lighter);
     color: mat.get-theme-color($theme, accent, text);
   }
 }

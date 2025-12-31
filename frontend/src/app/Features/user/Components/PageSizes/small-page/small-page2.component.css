@@ -62,12 +62,17 @@
   gap: 0.5rem;
 }
 
-.name-form-element {
+.editor-container {
+  position: absolute;
+  height: 90vh;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 999999;
+  background-color: rgba(0, 0, 0, 0.95);
 }
 
 .user-name-sub {
@@ -82,7 +87,7 @@
   overflow-y: hidden;
 }
 
-.user-name-sub > h2 {
+.user-name-sub > h4, h5 {
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.278);
@@ -115,14 +120,14 @@
   border-radius: 0.5rem;
 }
 
-.name-edit-form-container {
+/* .name-edit-form-container {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-}
+} */
 
 .name-input {
   height: 2rem;
@@ -130,8 +135,9 @@
 }
 
 .settings-button-options {
+  height: 5%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1rem;
 }
 
@@ -143,6 +149,10 @@
   padding-right: 5%;
   padding-top: 2%;
   overflow-y: scroll;
+}
+
+.user-data > p {
+  font-size: 12px;
 }
 
 /* PARENT */
