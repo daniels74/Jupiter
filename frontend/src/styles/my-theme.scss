@@ -1,0 +1,197 @@
+@use '@angular/material' as mat;
+
+@use './themes' as themes;
+
+@use '../app/Shared/navbar/navbar.component.scss' as navbar;
+@use '../app/Features/home/home.component.scss' as home;
+@use '../app/Features/home/Components/paginator/paginator.component.scss' as
+  paginator;
+@use '../app/Features/home/Components/card/card.component.scss' as home-card;
+@use '../app/Features/landing/landing.component.scss' as landing;
+@use '../app/Features/user/user.component.scss' as user;
+@use '../app/Features/user/Components/PageSizes/large-page/large-page.component.scss'
+  as largeUserPage;
+@use '../app/Features/user/Components/crypto-card/crypto-card.component.scss' as
+  dataCard;
+@use '../app/Features/user/Components/PageSizes/large-page/components/note-card/note-card.component.scss'
+  as userNoteCard;
+@use '../app/Features/login/login.component.scss' as login;
+@use '../app/Features/register/register.component.scss' as register;
+@use '../app/Features/surfer/surfer.component.scss' as surfer;
+@use '../app/Features/surfer/Components/data-card/data-card.component.scss' as
+  Surfer-DataCard;
+@use '../app/Features/surfer/Components/surfer-crypto/surfer-crypto.component.scss'
+  as surfer-cryptoCollection;
+@use '../app/Features/surfer/Components/PageSizes/small-page/small-page.component.scss'
+  as surfer-small;
+@use '../app/Features/surfer/Components/PageSizes/large-page/large-page.component.scss'
+  as surfer-large;
+@use '../app/Features/fourzerofour/fourzerofour.component.scss' as four-zero-four;
+@use '../app/Features/landing/Components/carousel-element/carousel-element.component.scss'
+  as carouselElement;
+
+@use '../app/Features/landing/Components/about/about.component.scss' as about;
+
+@include mat.core();
+
+// // ? Light Palletes
+// // $my-primary-light: mat.define-palette(mat.$indigo-palette, 400, 700, 900);
+// // $my-primary-light: mat.define-palette($md-ghostwhite, 500, 200, 800, 900);
+// $my-primary-light: mat.define-palette(palettes.$prime, 500, 200, 600, 900);
+// $my-accent-light: mat.define-palette(palettes.$prime, 500, 200, 600, 900);
+// // The "warn" palette is optional and defaults to red if not specified.
+// $my-warn-light: mat.define-palette(palettes.$prime, 500, 200, 600, 900);
+
+// // ? Light theme
+// $my-light-theme: mat.define-light-theme(
+//   (
+//     color: (
+//       primary: $my-primary-light,
+//       accent: $my-accent-light,
+//       warn: $my-warn-light,
+//       // background: red
+//     ),
+//     typography: mat.define-typography-config(),
+//     density: 0,
+//   )
+// );
+
+// // ? Dark Palette
+// // $my-primary-dark: mat.define-palette(mat.$gray-palette, 900);
+// // HUE Order -> (default, lighter, darker, text)
+// $my-primary-dark: mat.define-palette(palettes.$second, 500, 200, 600, 50);
+// $my-accent-dark: mat.define-palette(palettes.$second, 500, 200, 600, 50);
+// // The "warn" palette is optional and defaults to red if not specified.
+// $my-warn-dark: mat.define-palette(palettes.$second, 500, 200, 600, 900);
+// // $background-color-dark: mat.define-palette($blue-dark-palette, 900, 300, 600, 100);
+
+// // ? Dark theme
+// $my-dark-theme: mat.define-dark-theme(
+//   (
+//     color: (
+//       primary: $my-primary-dark,
+//       accent: $my-accent-dark,
+//       warn: $my-warn-dark,
+//     ),
+//     // background-color: $background-color-dark,
+//     typography: mat.define-typography-config(),
+//     density: 0,
+//   )
+// );
+
+// // ? Light Opacity Palette
+// $my-primary-light-opacity: mat.define-palette(
+//   palettes.$ocean,
+//   500,
+//   200,
+//   800,
+//   50
+// );
+// $my-accent-light-opacity: mat.define-palette(
+//   palettes.$ocean,
+//   500,
+//   200,
+//   800,
+//   50
+// );
+// // The "warn" palette is optional and defaults to red if not specified.
+// $my-warn-light-opacity: mat.define-palette(
+//   palettes.$ocean,
+//   500,
+//   200,
+//   800,
+//   900
+// );
+
+// // ? Light Opacity theme
+// $my-light-theme-opacity: mat.define-light-theme(
+//   (
+//     color: (
+//       primary: $my-primary-light,
+//       accent: $my-accent-light,
+//       warn: $my-warn-light,
+//       // background: red
+//     ),
+//     typography: mat.define-typography-config(),
+//     density: 1,
+//   )
+// );
+
+// Insert custom background color
+// $background: map-get($my-dark-theme, background);
+// $background: map_merge($background, (background: $background-color));
+// $my-dark-theme: map_merge($my-dark-theme, (background: $background));
+
+// Emit theme-dependent styles for common features used across multiple components.
+@include mat.core-theme(themes.$light-theme);
+
+// Emit styles for MatButton based on `$my-theme`. Because the configuration
+// passed to `define-light-theme` omits typography, `button-theme` will not
+// emit any typography styles.
+@include mat.button-theme(themes.$light-theme);
+
+//! Include the theme mixins for other components you use here.
+//// @include mat.form-field-theme($my-theme);
+
+//// @include mat.paginator-theme($my-theme);
+
+//! Include all theme styles for the components.
+.theme-light {
+  @include mat.all-component-themes(themes.$light-theme);
+  // ? In this way we make availbale the theme colors for access from specific components
+  // Otherwise we cant use the colors
+  @include mat.input-theme(themes.$light-theme);
+  @include mat.button-theme(themes.$light-theme);
+  @include navbar.theme(themes.$light-theme);
+  @include home.theme(themes.$light-theme);
+  @include paginator.theme(themes.$light-theme);
+  @include home-card.theme(themes.$light-theme);
+  @include landing.theme(themes.$light-theme);
+  @include user.theme(themes.$light-theme);
+  @include largeUserPage.theme(themes.$light-theme);
+  @include dataCard.theme(themes.$light-theme);
+  @include userNoteCard.theme(themes.$light-theme);
+  @include login.theme(themes.$light-theme);
+  @include register.theme(themes.$light-theme);
+  @include surfer.theme(themes.$light-theme);
+  @include surfer-cryptoCollection.theme(themes.$light-theme);
+  @include Surfer-DataCard.theme(themes.$light-theme);
+  @include surfer-small.theme(themes.$light-theme);
+  @include surfer-large.theme(themes.$light-theme);
+  @include four-zero-four.theme(themes.$light-theme);
+  @include carouselElement.theme(themes.$light-theme);
+  @include about.theme(themes.$light-theme);
+  // --glow-accent: #{mat.get-color-from-palette($my-accent-dark)};
+}
+
+.theme-dark {
+  @include mat.all-component-themes(themes.$dark-theme);
+  @include mat.input-theme(themes.$dark-theme);
+  @include mat.button-theme(themes.$dark-theme);
+  @include navbar.theme(themes.$dark-theme);
+  @include home.theme(themes.$dark-theme);
+  @include paginator.theme(themes.$dark-theme);
+  @include home-card.theme(themes.$dark-theme);
+  @include landing.theme(themes.$dark-theme);
+  @include user.theme(themes.$dark-theme);
+  @include largeUserPage.theme(themes.$dark-theme);
+  @include dataCard.theme(themes.$dark-theme);
+  @include userNoteCard.theme(themes.$dark-theme);
+  @include login.theme(themes.$dark-theme);
+  @include register.theme(themes.$dark-theme);
+  @include surfer.theme(themes.$dark-theme);
+  @include surfer-cryptoCollection.theme(themes.$dark-theme);
+  @include Surfer-DataCard.theme(themes.$dark-theme);
+  @include surfer-small.theme(themes.$dark-theme);
+  @include surfer-large.theme(themes.$dark-theme);
+  @include four-zero-four.theme(themes.$dark-theme);
+  @include carouselElement.theme(themes.$dark-theme);
+  @include about.theme(themes.$dark-theme);
+  // --glow-accent: #{mat.get-color-from-palette($my-accent-dark)};
+}
+
+
+:root {
+  --glow-accent: #{mat.get-color-from-palette(themes.$dark-theme)};
+}
+// @include navbar.theme(themes.$light-theme);

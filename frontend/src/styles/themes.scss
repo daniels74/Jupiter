@@ -1,0 +1,36 @@
+@use '@angular/material' as mat;
+@use './palletes' as palettes;
+
+/* Convert palettes to Material palettes using available palette variables */
+$primary-light: mat.define-palette(palettes.$md-dream, 500, 600, 400, 50);
+$accent-light: mat.define-palette(palettes.$md-lake, 500, 600, 400, 50);
+$warn-light: mat.define-palette(palettes.$md-primary, 400, 300, 400, 50);
+
+// $primary-dark: mat.define-palette(palettes.$md-dream, 500, 800, 900, 50);
+// $accent-dark: mat.define-palette(palettes.$md-lake, 500, 800, 900, 50);
+// $warn-dark: mat.define-palette(palettes.$md-lake, 700, 800, 900, 50);
+
+$primary-dark: mat.define-palette(palettes.$md-primary, 700, 800, 900, 50);
+$accent-dark: mat.define-palette(palettes.$md-secondary, 700, 800, 900, 50);
+$warn-dark: mat.define-palette(palettes.$md-primary, 700, 800, 900, 50);
+
+/* Create theme */
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: $primary-light,
+    accent: $accent-light,
+    warn: $warn-light,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $primary-dark,
+    accent: $accent-dark,
+    warn: $warn-dark,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));

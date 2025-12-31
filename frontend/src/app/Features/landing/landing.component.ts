@@ -13,16 +13,18 @@ import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.se
 export class LandingComponent implements OnInit {
   customOptions: OwlOptions = {
     autoplay: true,
-    smartSpeed: 200,
+    smartSpeed: 3000,
     autoplayHoverPause: true,
-    autoplaySpeed: 1200,
+    autoplaySpeed: 3000,
+    slideTransition: 'linear',
     loop: true,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
     dots: false,
+    nav: true,
     navSpeed: 700,
-    navText: ['', ''],
+    navText: ['Prev', 'Next'],
     responsive: {
       0: {
         items: 1,
@@ -37,7 +39,6 @@ export class LandingComponent implements OnInit {
         items: 4,
       },
     },
-    nav: true,
   };
   trending_cryptos: any = [];
   title_container_width = window.innerWidth <= 700 ? '100%' : '50%';

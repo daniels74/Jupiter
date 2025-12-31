@@ -41,64 +41,44 @@
           </mat-card-actions>
         </div>
         <div class="user-name-container">
+          <!-- USERs Name -->
           <div class="user-name-sub">
-            <h2 *ngIf="!nameSetting_State && user.name" (click)="togggleName_Setting()">
+            <h4
+              *ngIf="!nameSetting_State && user.name"
+              (click)="togggleName_Setting()"
+            >
               {{ user.name }}
-            </h2>
-             <h2 *ngIf="!nameSetting_State && !user.name" (click)="togggleName_Setting()">
+            </h4>
+            <h2
+              *ngIf="!nameSetting_State && !user.name"
+              (click)="togggleName_Setting()"
+            >
               Anonymous Anonymous
             </h2>
+          </div>
+          <!-- USERs Username -->
+          <div class="user-name-sub">
+            <h5
+              *ngIf="!usernameSetting_State && user.username"
+              (click)="togggleUsername_Setting()"
+            >
+              {{ user.username }}
+            </h5>
+            <h5 *ngIf="!usernameSetting_State && !user.username">Anon</h5>
             <form
-              class="name-form-element"
-              *ngIf="nameSetting_State"
+              class="username-form-element"
+              *ngIf="usernameSetting_State"
               action=""
               [formGroup]="updateUserForm"
               (ngSubmit)="updateAndToggle()"
-              class="name-edit-form-container"
             >
               <input
                 class="name-input"
-                [formControlName]="'name'"
-                placeholder="Name"
+                [formControlName]="'username'"
+                placeholder="username"
                 type="text"
               />
-              <div class="settings-button-options">
-                <button
-                  class="name-update-btn"
-                  type="submit"
-                  mat-raised-button
-                  color="primary"
-                >
-                  Submit
-                </button>
-                <button
-                  class="name-update-btn"
-                  mat-raised-button
-                  color="warn"
-                  (click)="cancelEdit()"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-          <!-- <div class="user-name-sub" *ngIf="!user.name">
-            <h2 *ngIf="!nameSetting_State" (click)="togggleName_Setting()">
-              Anonymous Anonymous
-            </h2>
-            <form
-              class="name-form-element"
-              *ngIf="nameSetting_State"
-              action=""
-              [formGroup]="updateUserForm"
-              (ngSubmit)="updateAndToggle()"
-            >
-              <input
-                [formControlName]="'name'"
-                placeholder="Name"
-                type="text"
-              />
-              
+
               <div class="img-name-container">
                 <button
                   class="name-update-btn"
@@ -118,9 +98,6 @@
                 </button>
               </div>
             </form>
-          </div> -->
-          <div class="user-username-sub">
-            <p>UserUsername</p>
           </div>
         </div>
         <div
@@ -162,15 +139,19 @@
         </div>
       </div>
     </div>
-    <div class="user-data" [style.height]="this.aboutIsActive ? '17vh' : '8vh'" (click)="this.aboutIsActive = !this.aboutIsActive">
-        <h3>World Idenitity: Coming Soon</h3>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda
-          sit repellat maiores voluptate numquam aperiam harum unde similique
-          cumque. Sequi repudiandae rem quisquam aperiam ut quae dolorum cumque
-          assumenda odit.
-        </p>
-      </div>
+    <div
+      class="user-data"
+      [style.height]="this.aboutIsActive ? '17vh' : '8vh'"
+      (click)="this.aboutIsActive = !this.aboutIsActive"
+    >
+      <h6>World Idenitity: Coming Soon</h6>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda sit
+        repellat maiores voluptate numquam aperiam harum unde similique cumque.
+        Sequi repudiandae rem quisquam aperiam ut quae dolorum cumque assumenda
+        odit.
+      </p>
+    </div>
     <div class="profile-options">
       <button
         appGlowify
@@ -197,7 +178,10 @@
         Posts
       </button>
     </div>
-    <div class="profile-content-container" [style.height]="this.aboutIsActive ? '55%': '65%'">
+    <div
+      class="profile-content-container"
+      [style.height]="this.aboutIsActive ? '55%' : '65%'"
+    >
       <div *ngIf="selectedDataState === 'crypto'" class="data-slider">
         <div *ngFor="let crypto of cryptoCollection">
           <mobile-data-card
@@ -235,4 +219,37 @@
       </div>
     </div>
   </div>
+  <!-- ! Name Edit Mode -->
+  <form
+    class="editor-container"
+    *ngIf="nameSetting_State"
+    action=""
+    [formGroup]="updateUserForm"
+    (ngSubmit)="updateAndToggle()"
+  >
+    <input
+      class="name-input"
+      [formControlName]="'name'"
+      placeholder="Name"
+      type="text"
+    />
+    <div class="settings-button-options">
+      <button
+        class="name-update-btn"
+        type="submit"
+        mat-raised-button
+        color="primary"
+      >
+        Submit
+      </button>
+      <button
+        class="name-update-btn"
+        mat-raised-button
+        color="warn"
+        (click)="cancelEdit()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
 </div>

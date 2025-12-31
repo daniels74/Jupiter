@@ -6,7 +6,7 @@
   height: 8rem;
   width: 8rem;
   position: relative;
-  border-radius: 50%;
+  border-radius: 1rem;
   border-style: none;
   border-width: thin;
   display: flex;
@@ -15,133 +15,132 @@
   justify-content: center;
 }
 
-.carousel-cell {
-  width: 250px;
+/* ───── Images ───── */
+.crypto-box-container {
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.carousel-wrapper {
-  display: flex;
-  justify-content: center;
   width: 100%;
-}
-
-.container {
-  width: 4rem;
-  height: 4rem;
-  margin: 4rem;
-  border-radius: 50%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 
-/* ───── Images ───── */
-.img-container {
-  border-radius: 50%;
-  height: 4rem;
-  width: 4rem;
+.crypto-image-wrapper {
   position: relative;
-  // z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
+  height: 50%;
+  width: auto;
 }
 
 .img-ele {
   border-radius: 50%;
-  position: absolute;
-  height: 4rem;
-  width: 4rem;
+  position: relative;
+  height: 100%;
+  width: 100%;
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ───── Crypto Info ───── */
+.crypto-info {
+  position: relative;
+  height: 25%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
 /* ───── 3D Cube ───── */
-.cube {
-  position: relative;
-  width: 4rem;
-  height: 4rem;
-  transform-style: preserve-3d;
-  animation: turn 15s linear infinite;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 
-.face {
-  width: 4rem;
-  height: 4rem;
-  border: 2px solid black;
-  position: absolute;
-  opacity: 0.6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Arial, sans-serif;
-  font-size: 2rem;
-  border-radius: 50%;
-}
+// .container {
+//   width: 4rem;
+//   height: 4rem;
+//   margin: 4rem;
+//   border-radius: 50%;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: whitesmoke;
+// }
 
-/* ───── Face Positions ───── */
-.front {
-  transform: translateZ(75px);
-}
-.back {
-  transform: translateZ(-75px) rotateY(180deg);
-}
-.left {
-  transform: translateX(-75px) rotateY(-90deg);
-}
-.right {
-  transform: translateX(75px) rotateY(90deg);
-}
-.top {
-  transform: translateY(-75px) rotateX(90deg);
-}
-.bottom {
-  transform: translateY(75px) rotateX(-90deg);
-}
+// .cube {
+//   position: relative;
+//   width: 4rem;
+//   height: 4rem;
+//   transform-style: preserve-3d;
+//   animation: turn 15s linear infinite;
+//   border-radius: 50%;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: blue;
+// }
 
-/* ───── Crypto Info ───── */
-.crypto-info {
-  position: absolute;
-  height: 50%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 25%;
-}
+// .face {
+//   width: 4rem;
+//   height: 4rem;
+//   border: 2px solid black;
+//   position: absolute;
+//   opacity: 0.6;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-family: Arial, sans-serif;
+//   font-size: 2rem;
+//   border-radius: 50%;
+// }
 
-/* ───── Animations ───── */
-@keyframes turn {
-  0% {
-    transform: rotate3d(0, 0, 0, 0);
-  }
-  75% {
-    transform: rotate3d(1, 1, 1, 360deg);
-  }
-  100% {
-    transform: rotate3d(1, 0, 0, 90deg);
-  }
-}
+// /* ───── Face Positions ───── */
+// .front {
+//   transform: translateZ(75px);
+// }
 
-@media (prefers-reduced-motion: reduce) {
-  .cube {
-    animation: none;
-    transform: rotate3d(1, 1, 0, 45deg);
-  }
-}
+// .back {
+//   transform: translateZ(-75px) rotateY(180deg);
+// }
+
+// .left {
+//   transform: translateX(-75px) rotateY(-90deg);
+// }
+
+// .right {
+//   transform: translateX(75px) rotateY(90deg);
+// }
+
+// .top {
+//   transform: translateY(-75px) rotateX(90deg);
+// }
+
+// .bottom {
+//   transform: translateY(75px) rotateX(-90deg);
+// }
+
+// /* ───── Animations ───── */
+// @keyframes turn {
+//   0% {
+//     transform: rotate3d(0, 0, 0, 0);
+//   }
+
+//   75% {
+//     transform: rotate3d(1, 1, 1, 360deg);
+//   }
+
+//   100% {
+//     transform: rotate3d(1, 0, 0, 90deg);
+//   }
+// }
+
+// @media (prefers-reduced-motion: reduce) {
+//   .cube {
+//     animation: none;
+//     transform: rotate3d(1, 1, 0, 45deg);
+//   }
+// }
 
 /* ───── Material Theme Glow ───── */
 @mixin color($theme) {

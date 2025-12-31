@@ -22,6 +22,7 @@ export class SmallPageComponent {
   // Setting States
   imgSetting_State = false;
   nameSetting_State = false;
+  usernameSetting_State = false;
 
   // Img Compressor
   @Output() useCopresserOnImage: EventEmitter<any> = new EventEmitter<any>();
@@ -55,14 +56,20 @@ export class SmallPageComponent {
     this.nameSetting_State = !this.nameSetting_State;
   }
 
+  togggleUsername_Setting() {
+    this.usernameSetting_State = !this.usernameSetting_State;
+  }
+
   updateAndToggle() {
     this.updateUser.emit();
     this.imgSetting_State = false;
     this.nameSetting_State = false;
+    this.usernameSetting_State = false;
   }
 
   cancelEdit() {
     this.imgSetting_State = false;
     this.nameSetting_State = false;
+    this.usernameSetting_State = false;
   }
 }

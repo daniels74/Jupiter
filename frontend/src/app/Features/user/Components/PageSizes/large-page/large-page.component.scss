@@ -314,7 +314,7 @@
     width: 100vw;
     background-color: mat.get-theme-color($theme, primary, lighter);
     z-index: -1;
-    opacity: 0.3;
+    opacity: 0.05;
   }
 
   .title-container {
@@ -327,12 +327,12 @@
   }
 
   .title-container > h2 {
-    color: mat.get-theme-color($theme, primary, text);
+    color: mat.get-theme-color($theme, accent, text);
   }
 
   .primary-component-theme {
     position: absolute;
-    background-color: mat.get-theme-color($theme, primary, lighter);
+    background-color: mat.get-theme-color($theme, accent);
     opacity: 0.2;
     height: 100%;
     width: 100%;

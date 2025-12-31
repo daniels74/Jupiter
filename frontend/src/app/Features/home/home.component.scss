@@ -6,46 +6,30 @@
   height: 90vh;
   width: 100%;
   top: 10vh;
-  // background-color: rgb(200, 227, 21);
 }
 
-/* // -------------------------------------- BIG SCREEN */
-// .big-screen {
-//   height: 90vh;
-//   width: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: space-around;
-//   background-color: red;
-// }
-
-// ! Beginning of replacment
-
 .list-outer-container {
-  height: 40vh;
+  position: relative;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  // background-color: blue;
+  align-items: space-around;
+  justify-content: space-around;
 }
 
 .list-inner-container {
-  height: 35vh;
+  height: 40%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  // background-color: red;
 }
 
 .header-container {
   height: 20%;
   width: 100%;
-  // background-color: yellowgreen;
 }
 
 .listt-container {
@@ -59,7 +43,6 @@
   overflow-y: hidden;
   gap: 8rem;
   scroll-snap-type: x mandatory;
-  // background-color: orange;
 }
 
 .listt-container::-webkit-scrollbar {
@@ -98,7 +81,7 @@
 
 .paginator-container {
   position: relative;
-  height: 50vh;
+  height: 40%;
   /* min-height: 60vh; */
   width: 100%;
   /* min-width: 100vw; */
