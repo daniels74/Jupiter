@@ -2,11 +2,19 @@
 </div> -->
 <div class="nav-page">
   <div class="logo-container">
-    <div (click)="goToLanding()" class="logo">
+    <div *ngIf="logoLightTheme" (click)="goToLanding()" class="logo">
       <img
-        [src]="'../../../assets/cryptozapp.png'"
-        [style.width]="'90%'"
-        [style.height]="'70%'"
+        [src]="'../../../assets/dark-zapp.png'"
+        [style.height]="'auto'"
+        [style.width]="'100%'"
+        alt=""
+      />
+    </div>
+    <div *ngIf="!logoLightTheme" (click)="goToLanding()" class="logo">
+      <img
+        [src]="'../../../assets/transparent-cryptozapp.png'"
+        [style.height]="'auto'"
+        [style.width]="'100%'"
         alt=""
       />
     </div>

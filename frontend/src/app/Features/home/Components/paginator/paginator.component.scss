@@ -10,8 +10,8 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* soft shadow */
-  border-radius: 1rem; /* optional: smooth corners */
-  // background-color: rgb(255, 255, 255); /* helps shadow contrast */
+  //border-radius: 1rem; /* optional: smooth corners */
+  //background-color: rgb(255, 255, 255); /* helps shadow contrast */
 }
 
 .input-container {
@@ -94,10 +94,9 @@
   position: relative;
   height: 100%;
   width: 100%;
-  border-radius: 1rem;
-  border-bottom-left-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-  /* background-color: lightblue; */
+  border-bottom-left-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+  // background-color: lightblue;
 }
 
 @mixin color($theme) {
@@ -105,21 +104,41 @@
   //   background-color: mat.get-theme-color($theme, primary, darker);
   // }
   .input-container {
-    background-color: mat.get-theme-color($theme, accent);
+    position: relative;
+    //background-color: rgba(mat.get-theme-color($theme, primary, darker), 0.2);
+  }
+  .input-container-background {
+    // height: 100%;
+    // width: 100%;
+    // position: absolute;
+    // background-color: mat.get-theme-color($theme, primary);
+    // opacity: 0.5;
+    // border-top-left-radius: 0.5rem;
+    // border-top-right-radius: 0.5rem;
   }
   // .crypto-table {
-  //   background-color: mat.get-theme-color($theme, primary);
+     background-color: mat.get-theme-color($theme, primary);
   //   color: mat.get-theme-color($theme, accent, text);
   // }
   .table {
-    // background-color: mat.get-theme-color($theme, primary, lighter);
-    background-color: transparent;
-    color: mat.get-theme-color($theme, accent, text);
-    border-radius: 1rem;
+    background-color: mat.get-theme-color($theme, primary, darker);
+    // // background-color: transparent;
+    // color: mat.get-theme-color($theme, accent, text);
+    // border-radius: 1rem;
+    // position: relative;
   }
+
+  // .table-wallpaper-layer {
+  //   position: absolute;
+  //   background-color: mat.get-theme-color($theme, primary, darker);
+  //   opacity: 0.2;
+  // }
   .paginator {
+    position: relative;
     // background-color: rgb(126, 159, 225);
-    background-color: mat.get-theme-color($theme, accent);
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+   background-color: mat.get-theme-color($theme, primary, lighter);
   }
 }
 

@@ -41,6 +41,8 @@ export class SiteAdjustmentService {
       }
     }
     this.applyTheme(this.currentTheme);
+    // emit current theme value (true = light, false = dark)
+    this.updateValue(this.currentTheme.palette === 'theme-light');
   }
 
   toggleTheme() {
@@ -51,6 +53,8 @@ export class SiteAdjustmentService {
 
     localStorage.setItem('theme', JSON.stringify(this.currentTheme));
     this.applyTheme(this.currentTheme);
+    // notify subscribers about the change
+    this.updateValue(this.currentTheme.palette === 'theme-light');
   }
 
   private applyTheme(theme: Theme) {

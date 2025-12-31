@@ -1,10 +1,18 @@
-<div *ngIf="PopUpState === false && NFTPopUpState === false" gloww class="card" [ngStyle]="cardClass">
+<div
+  *ngIf="PopUpState === false && NFTPopUpState === false"
+  gloww
+  class="card"
+  [ngStyle]="cardClass"
+>
+  <div class="card-background"></div>
   <div class="coin-img-container">
     <img class="img-item" src="{{ dataImage }}" alt="" />
   </div>
   <div class="coin-info-container">
     <div class="coin-info">
-      <h3 [ngStyle]="{ 'position': 'absolute','text-align': 'left'}">{{ dataName }}</h3>
+      <h3 [ngStyle]="{ position: 'absolute', 'text-align': 'left' }">
+        {{ dataName }}
+      </h3>
 
       <!-- <h3>{{ dataMarketCapRank }}</h3> -->
 
@@ -27,5 +35,5 @@
   <h2>Capacity Reached {{ this.cryptosCollection.length }}</h2>
 </div>
 <div *ngIf="NFTPopUpState === true" gloww class="card" [ngStyle]="cardClass">
-    <h2>Capacity Reached {{ this.nftCollection.length }}</h2>
-  </div>
+  <h2>Capacity Reached {{ this.nftCollection.length }}</h2>
+</div>

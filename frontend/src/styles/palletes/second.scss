@@ -1,0 +1,25 @@
+// src/styles/palettes/_secondary.palette.scss
+$md-secondary: (
+  50:  #e2f2fe,
+  100: #badefd,
+  200: #8dc9fd,
+  300: #5db4fc,
+  400: #36a4fc,
+  500: #0094fb,
+  600: #0086ec,
+  700: #0174d9, // base
+  800: #0263c7,
+  900: #0044a8,
+  contrast: (
+    50:  #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #000,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  )
+);
