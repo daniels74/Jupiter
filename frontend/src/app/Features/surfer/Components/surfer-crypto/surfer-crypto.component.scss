@@ -3,6 +3,7 @@
 
 @mixin color($theme) {
   .content-container {
+    position: relative;
     height: 100%;
     width: 100%;
     overflow-y: scroll;
@@ -11,7 +12,12 @@
     gap: 1rem;
     border-radius: .5rem;
     scrollbar-color: mat.get-theme-color($theme, primary) mat.get-theme-color($theme, primary, lighter);
-    background-color: mat.get-theme-color($theme, primary, lighter);
+    //background-color: mat.get-theme-color($theme, primary, lighter);
+  }
+
+  .card-container {
+    height: 10vh;
+    width: 100%;
   }
 }
 

@@ -1,6 +1,5 @@
-<div class="content-container" [ngStyle]="{scrollbarColor: 'dark'}">
-  <div *ngFor="let Crypto of cryptoCollection_unfiltered" [ngStyle]="{scrollbarColor: 'dark'}">
-    <!-- <h3>{{ Crypto.cryptoid }}</h3> -->
-    <data-card [data]="Crypto" />
+<div class="content-container">
+  <div *ngFor="let Crypto of cryptoCollection_unfiltered">
+    <data-card [data]="Crypto" class="card-container"/>
   </div>
 </div>
