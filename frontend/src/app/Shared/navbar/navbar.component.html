@@ -100,34 +100,34 @@
   }"
 >
   <div *ngIf="!loader" class="settingsTab" [style.width]="'100%'">
-    <h2 (click)="goHome()" routerLink="/home" routerLinkActive="active-link">
+    <h4 (click)="goHome()" routerLink="/home" routerLinkActive="active-link">
       Home
-    </h2>
-    <h2
+    </h4>
+    <h4
       *ngIf="authState"
       (click)="goToUserProfile()"
       [routerLink]="['/user', id]"
       routerLinkActive="active-link"
     >
       {{ userName }}
-    </h2>
-    <h2 *ngIf="authState" (click)="toggleSettings()">Settings</h2>
-    <h2
+    </h4>
+    <h4 *ngIf="authState" (click)="toggleSettings()">Settings</h4>
+    <h4
       *ngIf="!authState"
       (click)="login()"
       routerLink="/login"
       routerLinkActive="active-link"
     >
       Login
-    </h2>
-    <h2
+    </h4>
+    <h4
       *ngIf="!authState"
       (click)="register()"
       routerLink="/register"
       routerLinkActive="active-link"
     >
       Register
-    </h2>
+    </h4>
     <mat-slide-toggle (change)="switchMode($event)" />
   </div>
   <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium"

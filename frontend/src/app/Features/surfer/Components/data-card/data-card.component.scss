@@ -1,28 +1,3 @@
-/* .card-container {
-    height: 10vh;
-    width: 100%;
-    background-color: red;
-    display: flex;
-    flex-direction: row;
-    align-items: space-around;
-}
-
-.img-container {
-    height: 100%;
-    width: 25%;
-}
-
-.data-img {
-    height: 100%;
-    width: auto;
-}
-
-.coin-info {
-    height: 100%;
-    width: 75%;
-    background-color: blue;
-} */
-
 @use 'sass:map';
 @use '@angular/material' as mat;
 
@@ -31,32 +6,31 @@
     position: relative;
     height: 10vh;
     width: 100%;
-    background-color: mat.get-theme-color($theme, primary, lighter);
-    color: mat.get-theme-color($theme, primary, text);;
+    // background-color: mat.get-theme-color($theme, primary, lighter);
+    color: mat.get-theme-color($theme, primary, text);
     display: flex;
     flex-direction: row;
-    align-items: space-around;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-around;
   }
 
   .img-container {
     position: relative;
     height: 100%;
     width: 25%;
-    background-color: mat.get-theme-color($theme, primary, lighter);
   }
 
   .data-img {
     position: relative;
     height: 100%;
     width: auto;
+    border-radius: 50%;
   }
 
   .coin-info {
     position: relative;
     height: 100%;
     width: 75%;
-    // background-color: blue;
   }
 }
 

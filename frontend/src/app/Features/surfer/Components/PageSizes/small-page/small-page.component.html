@@ -4,7 +4,7 @@
       <img class="img-element" [src]="surfer.profileImage" alt="" />
     </div>
     <div class="surfer-name-container">
-      <h1>{{ surfer.name }}</h1>
+      <h4>{{ surfer.name }}</h4>
     </div>
   </div>
   <div class="options-container">
@@ -20,14 +20,16 @@
   </div>
   <div *ngIf="currentMode === 'crypto'" class="current-mode-container">
     <div *ngIf="surferCryptoStatus === true">
-        <surfer-crypto [surfer]="surfer" />
+      <surfer-crypto [surfer]="surfer"/> 
     </div>
     <div *ngIf="surferCryptoStatus === false">
-        <h1>No Crypto</h1>
+      <h1>No Crypto</h1>
     </div>
   </div>
   <div *ngIf="currentMode === 'nfts'" class="current-mode-container">
     <surfer-nfts [surfer]="surfer" />
   </div>
-  <div *ngIf="currentMode === 'notes'" class="current-mode-container">Notes</div>
+  <div *ngIf="currentMode === 'notes'" class="current-mode-container">
+    Notes
+  </div>
 </div>
