@@ -1,7 +1,10 @@
 <div appGlowify (mouseenter)="toggleChart()" class="carousel-element">
   <div class="crypto-box-container">
-    <div class="crypto-image-wrapper">
-      <img class="img-ele" [src]="Item.item.large" alt="" />
+    <div class="crypto-image-container">
+      <div class="crypto-icon-frame">
+        <img class="crypto-img-ele" [src]="Item.item.large" alt="" />
+      </div>
+      <!-- <img class="crypto-img-ele" [src]="Item.item.large" alt="" /> -->
     </div>
     <div class="crypto-info">
       <h5>
