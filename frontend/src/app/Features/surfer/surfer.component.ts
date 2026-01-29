@@ -52,6 +52,7 @@ export class SurferComponent implements OnInit {
   }
 
   toggleNotes() {
+    this.surferCryptoStatus = !this.surferCryptoStatus;
     this.noteDisplayState = !this.noteDisplayState;
   }
 }

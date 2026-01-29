@@ -7,8 +7,7 @@
     top: 10vh;
     height: 90vh;
     width: 100%;
-    background-color: black;
-    color: white;
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,20 +15,33 @@
   }
 
   .primary-content-container {
+    z-index: 1;
     position: relative;
     height: 35%;
-    width: 100%;
-    background-color: mat.get-theme-color($theme, primary, lighter);
+    width: 75%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    background-color: transparent;
+  }
+
+  .primary-liquid {
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: mat.get-theme-color($theme, primary, lighter);
+    filter: blur(10px);
+    opacity: 0.8;
+
   }
 
   .surfer-general-data {
     color: mat.get-theme-color($theme, primary, text);
     position: relative;
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,9 +66,9 @@
   }
 
   .secondary-content-container {
-    height: 65%;
-    width: 100%;
-    background-color: mat.get-theme-color($theme, primary, darker);
+    height: 50%;
+    width: 85%;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
