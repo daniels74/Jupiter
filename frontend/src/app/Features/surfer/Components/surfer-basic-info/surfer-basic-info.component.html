@@ -7,15 +7,36 @@
       alt=""
     />
   </div>
-  <div class="surfer-name-container">
-    <h2>{{ surfer.username }}</h2>
-    <h4>{{ surfer.name }}</h4>
+  <div class="surfer-identity">
+    <div class="surfer-name-container">
+      <h4>{{ surfer.name }}</h4>
+      <p>&#64;{{ surfer.username }}</p>
+    </div>
+    <div class="surfer-description">
+      <p>Age: 25</p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis ducimus
+        repellendus laboriosam incidunt tempore quaerat ullam adipisci dolorum
+        facere ipsam praesentium maiores eaque, animi officia laborum at nobis
+        fuga? Dolore?
+      </p>
+    </div>
   </div>
-  <div class="options">
-    <button *ngIf="authState" color="accent" mat-raised-button>Friend Request</button>
-    <button *ngIf="authState" color="accent" mat-raised-button>Message</button>
-  </div>
-  <div class="note-toggle-btn-container">
-    <button mat-raised-button color="primary" (click)="toggleNotes.emit()">Notes</button>
+  <div class="surfer-crypto-address">
+    <div class="addresses">
+      <div class="surfer-socials">Surfer Socials</div>
+      <div class="surfer-address"><p>Solana Addresses</p></div>
+    </div>
+    <div class="options">
+      <button *ngIf="authState" color="accent" mat-raised-button>
+        Friend Request
+      </button>
+      <button *ngIf="authState" color="accent" mat-raised-button>
+        Message
+      </button>
+      <button mat-raised-button color="primary" (click)="toggleNotes.emit()">
+        Notes
+      </button>
+    </div>
   </div>
 </div>
