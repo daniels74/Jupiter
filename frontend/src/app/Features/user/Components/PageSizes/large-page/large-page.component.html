@@ -23,6 +23,7 @@
           [user]="user"
           (useCopresserOnImage)="useCopresserOnImage.emit()"
           (toggleSettings)="toggleSettings.emit()"
+          (imageUploaded)="imageUploaded.emit($event)"
         >
         </app-settings-view>
       </div>
