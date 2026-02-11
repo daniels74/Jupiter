@@ -61,6 +61,7 @@ export class LargePageComponent implements OnInit {
 
   // User things
   @Output() toggleSettings: EventEmitter<any> = new EventEmitter<any>();
+  @Output() imageUploaded: EventEmitter<string> = new EventEmitter<string>();
   @Input() settingState!: boolean;
   @Output() toggleFriendRequestList: EventEmitter<any> =
     new EventEmitter<any>();

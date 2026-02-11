@@ -51,6 +51,7 @@ export class SettingsViewComponent {
   @Input() user!: User;
   @Output() useCopresserOnImage: EventEmitter<any> = new EventEmitter<any>();
   @Output() toggleSettings: EventEmitter<any> = new EventEmitter<any>();
+  @Output() imageUploaded: EventEmitter<string> = new EventEmitter<string>();
   // @Output() onFileInput: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild('fileUpload', { static: false }) fileUpload!: ElementRef;
@@ -63,6 +64,7 @@ export class SettingsViewComponent {
 
   uploadProgress = 0; // Progress percentage
   uploadInProgress = false; // To show/hide progress bar
+  imagePreviewUrl: string | null = null;
 
   constructor(
     private ngx: NgxImageCompressService,
@@ -98,6 +100,7 @@ export class SettingsViewComponent {
         this.ngx
           .compressFile(base64Image, -1, 50, 50)
           .then((compressedImage: string) => {
+            this.imagePreviewUrl = compressedImage;
             console.log(
               'Compressed Image Size:',
               this.getImageSize(compressedImage),
@@ -151,6 +154,10 @@ export class SettingsViewComponent {
             // Handle successful upload
             console.log('Upload complete:', event.body);
             this.uploadInProgress = false;
+            if (this.imagePreviewUrl) {
+              this.imageUploaded.emit(this.imagePreviewUrl);
+              this.toggleSettings.emit();
+            }
           }
         },
         error: (err) => {
