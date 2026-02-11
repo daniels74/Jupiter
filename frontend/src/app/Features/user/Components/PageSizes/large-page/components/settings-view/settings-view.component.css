@@ -21,6 +21,14 @@
   /* background-color: chartreuse; */
 }
 
+.image-preview {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+}
+
 .form-container {
   height: 100%;
   width: 80%;

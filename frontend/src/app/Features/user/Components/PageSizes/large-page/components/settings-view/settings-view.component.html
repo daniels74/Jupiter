@@ -1,28 +1,16 @@
 <div class="settings-container">
-  <!-- <mat-progress-bar [value]="file.progress"></mat-progress-bar> -->
-  <!-- <mat-progress-bar
-    *ngIf="uploadInProgress"
-    mode="determinate"
-    [value]="uploadProgress"
-  ></mat-progress-bar> -->
-  <!-- <div> -->
-  <!-- <button (click)="useCopresserOnImage.emit()" mat-button color="warn">
-      <mat-icon>cloud_upload</mat-icon>
-    </button> -->
-  <!-- <input
-      #fileUpload
-      (change)="onFileSelected($event)"
-      type="file"
-      accept="image/*"
-      style="display: flex"
-    /> -->
-  <!-- </div> -->
   <div class="image-update-container">
     <mat-progress-bar
       *ngIf="uploadInProgress"
       mode="determinate"
       [value]="uploadProgress"
     ></mat-progress-bar>
+    <img
+      *ngIf="imagePreviewUrl"
+      [src]="imagePreviewUrl"
+      alt="Selected profile image preview"
+      class="image-preview"
+    />
     <input
       #fileUpload
       (change)="onFileSelected($event)"
@@ -68,7 +56,7 @@
         mat-raised-button
         color="danger"
       >
-        Exit
+        Done
       </button>
       <button type="submit" mat-raised-button color="primary">Submit</button>
     </div>

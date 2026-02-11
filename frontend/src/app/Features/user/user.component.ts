@@ -173,6 +173,13 @@ export class UserComponent implements OnInit {
     this.settingState = !this.settingState;
   }
 
+  onProfileImageUploaded(newImage: string) {
+    this.profilePic = newImage;
+    if (this.user) {
+      this.user = { ...this.user, profileImage: newImage };
+    }
+  }
+
   toggleFriendsList() {
     this.friendsListState = !this.friendsListState;
   }
