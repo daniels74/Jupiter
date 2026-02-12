@@ -16,10 +16,11 @@ import {
   UploadedFile,
   // Res,
   // Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './model/user.interface';
-import { Observable, catchError, from, map, of, tap } from 'rxjs';
+import { Observable, catchError, from, map, of, tap, throwError } from 'rxjs';
 import { hasRoles } from 'src/auth/decorator/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles-guard';
@@ -67,6 +68,14 @@ export class UserController {
         return {
           jwt: jwt,
         };
+      }),
+      catchError((err) => {
+        if (err instanceof UnauthorizedException || err?.status === 401) {
+          return throwError(
+            () => new UnauthorizedException('Invalid credentials'),
+          );
+        }
+        return throwError(() => err);
       }),
     );
   }
