@@ -17,8 +17,8 @@
     </div>
 </div> -->
 <div class="login-page">
+  <!-- *ngIf="!loadingState" -->
   <form
-    *ngIf="!loadingState"
     action=""
     [formGroup]="loginForm"
     class="login-form"
@@ -38,8 +38,11 @@
     >
       <mat-label>Email</mat-label>
       <input matInput [formControl]="emailInput" type="text" required />
-      @if (emailInput.invalid) {
-      <mat-error>{{ emailErrorMessage() }}</mat-error>
+      @if (emailInput.hasError('required') && (emailInput.touched || emailInput.dirty)) {
+      <mat-error>You must enter a value</mat-error>
+      }
+      @if (emailInput.hasError('email') && (emailInput.touched || emailInput.dirty)) {
+      <mat-error>Not a valid email</mat-error>
       }
     </mat-form-field>
     <mat-form-field
@@ -50,9 +53,11 @@
       color="accent"
     >
       <mat-label>Password</mat-label>
-      <input matInput [formControl]="passwordInput" type="text" required />
-      @if (passwordInput.invalid) {
-      <mat-error>{{ passwordErrorMessage() }}</mat-error>
+      <input matInput [formControl]="passwordInput" type="password" required />
+      @if (passwordInput.hasError('invalidCredentials') && (passwordInput.touched || passwordInput.dirty)) {
+      <mat-error>Password or Email Incorrect!</mat-error>
+      } @else if (passwordInput.hasError('required') && (passwordInput.touched || passwordInput.dirty)) {
+      <mat-error>You must enter a value</mat-error>
       }
     </mat-form-field>
     <div class="btn-container">
@@ -66,6 +71,7 @@
   <div
     *ngIf="loadingState"
     class="login-form"
+    [style.position]="'absolute'"
     [style.width]="container_width"
     [style.height]="container_height"
   >

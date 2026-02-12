@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './model/user.entity';
 import { Like, Repository } from 'typeorm';
@@ -65,28 +65,25 @@ export class UserService {
   // Attepts login and returns user encoded through JWT string
   login(user: User): Observable<string> {
     return this.validateUser(user.email, user.password).pipe(
-      switchMap((user) => {
-        if (user) {
-          const {
-            name,
-            username,
-            email,
-            password,
-            role,
-            cryptos,
-            nfts,
-            posts,
-            sentFriendRequests,
-            recievedFriendRequests,
-            profileImage,
-            ...shortUser
-          } = user;
-          return this.AuthServ.generateJWT(shortUser).pipe(
-            map((jwt: string) => jwt),
-          );
-        } else {
-          return of('Wrong Credentials', user);
-        }
+      switchMap((validatedUser) => {
+        const {
+          name,
+          username,
+          email,
+          password,
+          role,
+          cryptos,
+          nfts,
+          posts,
+          sentFriendRequests,
+          recievedFriendRequests,
+          profileImage,
+          ...shortUser
+        } = validatedUser;
+
+        return this.AuthServ.generateJWT(shortUser).pipe(
+          map((jwt: string) => jwt),
+        );
       }),
     );
   }
@@ -95,31 +92,42 @@ export class UserService {
   // Excludes senstive and large data
   validateUser(email: string, password: string): Observable<any> {
     return this.findByMail(email).pipe(
-      switchMap((user: User) =>
-        this.AuthServ.comparePasswords(password, user.password).pipe(
-          map((match: boolean) => {
-            if (match) {
-              const {
-                email,
-                password,
-                cryptos,
-                nfts,
-                posts,
-                sentFriendRequests,
-                recievedFriendRequests,
-                profileImage,
-                ...result
-              } = user;
-              return result;
+      switchMap((foundUser: User | null) => {
+        if (!foundUser) {
+          return throwError(
+            () => new UnauthorizedException('Invalid credentials'),
+          );
+        }
+
+        return this.AuthServ.comparePasswords(password, foundUser.password).pipe(
+          switchMap((match: boolean) => {
+            if (!match) {
+              return throwError(
+                () => new UnauthorizedException('Invalid credentials'),
+              );
             }
-            // else {
-            //   throw Error;
-            // }
+
+            const {
+              email,
+              password,
+              cryptos,
+              nfts,
+              posts,
+              sentFriendRequests,
+              recievedFriendRequests,
+              profileImage,
+              ...result
+            } = foundUser;
+
+            return of(result);
           }),
-        ),
-      ),
+        );
+      }),
       catchError((err) => {
-        return throwError(() => new Error('Password incorrect: ' + err));
+        if (err instanceof UnauthorizedException) {
+          return throwError(() => err);
+        }
+        return throwError(() => new UnauthorizedException('Invalid credentials'));
       }),
     );
   }
