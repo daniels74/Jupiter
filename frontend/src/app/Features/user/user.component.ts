@@ -159,6 +159,11 @@ export class UserComponent implements OnInit {
     this.siteAdjustments.myValue$.subscribe((val) => {
       this.lightTheme = val;
     });
+
+    // Settings open state (from navbar or other controls)
+    this.siteAdjustments.settingsOpen$.subscribe((val) => {
+      this.settingState = val;
+    });
   }
   // Declare user update form, this form will be passed to child components and changed.
   // Update Function will take values from this form to be submitted to database.
@@ -170,7 +175,8 @@ export class UserComponent implements OnInit {
   });
 
   toggleSettings() {
-    this.settingState = !this.settingState;
+    // Use the shared service so all interested components stay in sync
+    this.siteAdjustments.toggleSettingsOpen();
   }
 
   onProfileImageUploaded(newImage: string) {

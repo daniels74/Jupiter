@@ -11,6 +11,21 @@
   flex-direction: row;
 }
 
+/* Overlay used to dim page when settings are open */
+.dim-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Ensure settings panel sits above the dim overlay */
+.settings-panel {
+  position: relative;
+  z-index: 10;
+}
+
 .vertical-line {
   border-left: 1px solid lightblue;
   height: 100%;

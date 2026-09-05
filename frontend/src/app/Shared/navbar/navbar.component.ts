@@ -92,6 +92,8 @@ export class NavbarComponent implements OnDestroy, OnInit {
   toggleSettings() {
     this.settingsToggle = !this.settingsToggle;
     this.menuToggler = false;
+    // Notify global service so other components (like the large page) can react
+    this.siteAdjustments.setSettingsOpen(this.settingsToggle);
   }
 
   deleteAccount() {

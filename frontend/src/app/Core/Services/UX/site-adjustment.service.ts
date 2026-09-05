@@ -14,6 +14,11 @@ type Theme = {
 export class SiteAdjustmentService {
   private myValueSource = new BehaviorSubject<boolean>(true);
   myValue$ = this.myValueSource.asObservable();
+
+  // Settings overlay open state (used to dim other parts of the UI when settings are shown)
+  private settingsOpenSource = new BehaviorSubject<boolean>(false);
+  settingsOpen$ = this.settingsOpenSource.asObservable();
+
   private renderer: Renderer2;
 
   private currentTheme: Theme = {
@@ -70,5 +75,16 @@ export class SiteAdjustmentService {
 
   updateValue(newValue: boolean) {
     this.myValueSource.next(newValue);
+  }
+
+  /**
+   * Settings overlay controls
+   */
+  setSettingsOpen(isOpen: boolean) {
+    this.settingsOpenSource.next(isOpen);
+  }
+
+  toggleSettingsOpen() {
+    this.settingsOpenSource.next(!this.settingsOpenSource.getValue());
   }
 }
