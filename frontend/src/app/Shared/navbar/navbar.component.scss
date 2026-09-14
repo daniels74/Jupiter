@@ -21,7 +21,7 @@
     // background-color: mat.get-theme-color($theme, primary);
     height: 10vh;
     width: 100%;
-    background-color: mat.get-theme-color($theme, primary, lighter);
+    background-color: mat.get-theme-color($theme, accent);
     color: mat.get-theme-color($theme, accent, text);
   }
   .menu > a {
@@ -109,17 +109,19 @@
 
 .settingsTab {
   position: absolute;
-  height: 100%;
-  right: 0;
+  right: 50vh;
+  top: 10vh;
+  height: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  border-radius: 10px;
   // gap: 6rem;
   // padding-top: 8rem;
 }
 
-.settingsTab > h4 {
+.settingsTab > h3 {
   font-weight: bold;
 }
 

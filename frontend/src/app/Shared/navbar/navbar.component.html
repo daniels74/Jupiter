@@ -158,16 +158,16 @@
   *ngIf="settingsToggle"
   class="settingsTab nav-page-component-theme"
   [ngStyle]="{
-    width: !screenSizeCheck ? '100%' : '100%',
+    width: !screenSizeCheck ? '100%' : '50%',
     zIndex: '1000000'
   }"
 >
   <div
     [ngStyle]="{
       position: 'absolute',
-      height: '5%',
+      height: '7%',
       width: 'auto%',
-      top: '.5rem',
+      top: '.4rem',
       right: '.5rem'
     }"
     (click)="toggleSettings()"
@@ -193,6 +193,6 @@
     </select>
     <button type="submit">Submit</button>
   </form> -->
-  <h3 (click)="deleteAccount()">Delete Account</h3>
-  <h3 *ngIf="authState" routerLink="" (click)="logout()">Logout</h3>
+  <h3 (click)="deleteAccount()" class="nav-link">Delete Account</h3>
+  <h3 *ngIf="authState" routerLink="" (click)="logout()" class="nav-link">Logout</h3>
 </div>
