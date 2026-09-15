@@ -46,11 +46,17 @@ export class HomeComponent {
 
   lightTheme = true;
 
+  settingState = false;
+
   title = [];
 
   ngOnInit() {
     this.siteAdjustments.myValue$.subscribe((val) => {
       this.lightTheme = val;
+    });
+
+    this.siteAdjustments.settingsOpen$.subscribe((val) => {
+      this.settingState = val;
     });
 
     this.cryptoService.cryptoCollection_O.subscribe((res) => {
