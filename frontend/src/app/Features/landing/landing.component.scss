@@ -7,6 +7,14 @@
   width: 100%;
 }
 
+.dim-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  z-index: 5;
+  pointer-events: none;
+}
+
 .landing-container {
   position: relative;
   height: 90%;
