@@ -19,8 +19,8 @@
   .nav-page-component-theme {
     // background-color: rgb(126, 159, 225);
     // background-color: mat.get-theme-color($theme, primary);
-    height: 10vh;
-    width: 100%;
+    // height: 10vh;
+    // width: 100%;
     background-color: mat.get-theme-color($theme, accent);
     color: mat.get-theme-color($theme, accent, text);
   }
