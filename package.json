@@ -11,7 +11,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "build:prod": "cd frontend && ng build --output-path ../front && cd ../ && nest build",
+    "build:prod": "cd frontend && npm ci && npx ng build --output-path ../front && cd ../ && nest build",
+    "heroku-postbuild": "npm run build:prod",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "cd frontend && ng build --output-path ../front && cd ../ && nest start --watch | (sleep 10 ; open 'http://localhost:3000' )",
