@@ -56,6 +56,8 @@ export class LandingComponent implements OnInit {
 
   siteInfo = false;
 
+  settingState = false;
+
   daylightMode = true;
 
   @HostListener('window:resize', ['$event'])
@@ -95,6 +97,10 @@ export class LandingComponent implements OnInit {
 
     this.siteAdjustments.myValue$.subscribe((val) => {
       this.daylightMode = val;
+    });
+
+    this.siteAdjustments.settingsOpen$.subscribe((val) => {
+      this.settingState = val;
     });
   }
 
