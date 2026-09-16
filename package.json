@@ -11,10 +11,10 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "build:prod": "cd frontend && ng build --output-path ../front && cd ../ && nest build",
+    "build:prod": "npm --prefix frontend run build -- --output-path ../front && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "cd frontend && ng build --output-path ../front && cd ../ && nest start --watch | (sleep 10 ; open 'http://localhost:3000' )",
+    "start:dev": "npm --prefix frontend run build -- --output-path ../front && nest start --watch | (sleep 10 ; open 'http://localhost:3000' )",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
