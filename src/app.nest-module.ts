@@ -17,7 +17,7 @@ import { FriendRequestsModule } from './friend-requests/friend-requests.module';
   imports: [
     // ! if running locally, Make sure you comment this out.
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../', 'front'),
+      rootPath: join(process.cwd(), 'front'),
     }),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
