@@ -1,198 +1,91 @@
-<!-- <div class="nav-page-component-theme">
-</div> -->
-<div class="nav-page">
-  <div class="logo-container">
-    <div *ngIf="logoLightTheme" (click)="goToLanding()" class="logo">
-      <img
-        [src]="'../../../assets/dark-zapp.png'"
-        [style.height]="'100%'"
-        [style.width]="'70%'"
-        alt=""
-      />
-    </div>
-    <div *ngIf="!logoLightTheme" (click)="goToLanding()" class="logo">
-      <img
-        [src]="'../../../assets/transparent-cryptozapp.png'"
-        [style.height]="'100%'"
-        [style.width]="'70%'"
-        alt=""
-      />
-    </div>
-  </div>
-  <div class="search-container">
+<nav class="navbar-shell" aria-label="Main navigation">
+  <a class="navbar-logo" (click)="goToLanding()" routerLink="/">
+    <img
+      [src]="logoLightTheme ? '../../../assets/dark-zapp.png' : '../../../assets/transparent-cryptozapp.png'"
+      alt="CryptoZapp home"
+    />
+  </a>
+
+  <div class="navbar-search">
     <app-usersearch></app-usersearch>
   </div>
-  <!--! Big Screen Menu -->
-  <ul *ngIf="screenSizeCheck" class="menu">
-    <mat-slide-toggle (change)="switchMode($event)" />
-    <a (click)="goHome()" routerLink="/home" routerLinkActive="active-link"
-      >Home</a
-    >
+
+  <div *ngIf="screenSizeCheck" class="navbar-menu">
+    <mat-slide-toggle
+      class="theme-toggle"
+      aria-label="Toggle color theme"
+      (change)="switchMode($event)"
+    ></mat-slide-toggle>
+    <a class="navbar-link" (click)="goHome()" routerLink="/home" routerLinkActive="active-link">Home</a>
     <a
+      class="navbar-link"
       *ngIf="authState"
-      routerLink="/user/{{ id }}"
+      [routerLink]="['/user', id]"
       routerLinkActive="active-link"
-      >{{ userName }}</a
-    >
+    >{{ userName }}</a>
     <a
+      class="navbar-link"
       *ngIf="authState"
       (click)="toggleSettings()"
-      routerLinkActive="active-link"
-      >Settings</a
-    >
+    >Settings</a>
     <a
+      class="navbar-link"
       *ngIf="!authState"
       (click)="login()"
       routerLink="/login"
       routerLinkActive="active-link"
-      >Login</a
-    >
+    >Login</a>
     <a
+      class="navbar-link"
       *ngIf="!authState"
       (click)="register()"
       routerLink="/register"
       routerLinkActive="active-link"
-      >Register</a
-    >
-  </ul>
-  <div
+    >Register</a>
+  </div>
+
+  <button
     *ngIf="!screenSizeCheck"
-    class="menu-icon-container"
+    class="navbar-menu-toggle"
+    type="button"
+    aria-label="Toggle navigation menu"
+    [attr.aria-expanded]="menuToggler"
     (click)="toggleMenu()"
   >
-    <img
-      src="../../../assets/menu.png"
-      alt=""
-      [style.height]="'50%'"
-      [style.width]="'auto'"
-    />
-  </div>
-</div>
-<div class="glow-line"></div>
-<div
-  *ngIf="loader"
-  [ngStyle]="{
-    position: 'absolute',
-    bottom: '0',
-    height: '90vh',
-    width: '100%',
-    backgroundColor: 'rgb(3, 3, 36)',
-    zIndex: '1000000',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }"
->
-  <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium" template="<img src='../../../assets/bluedots-transparent.gif' />"
-        [fullScreen]="true" bdColor="transparent"></ngx-spinner> -->
-  <!-- <span class="loader"></span> -->
+    <img src="../../../assets/menu.png" alt="" />
+  </button>
+</nav>
+<div class="navbar-accent-line"></div>
+
+<div *ngIf="loader" class="navbar-overlay" role="status" aria-label="Loading">
   <img src="assets/dragonspin.gif" alt="" />
 </div>
-<!-- ! Small Screen Nav -->
-<div
-  *ngIf="menuToggler"
-  class="settingsTab-container nav-page-component-theme"
-  [ngStyle]="{
-    position: 'absolute',
-    top: '10vh',
-    width: !screenSizeCheck ? '100%' : '50%',
-  }"
->
-  <div *ngIf="!loader" class="settingsTab" [style.width]="'100%'">
-    <h4 (click)="goHome()" routerLink="/home" routerLinkActive="active-link">
-      Home
-    </h4>
-    <h4
+
+<div *ngIf="menuToggler" class="navbar-panel mobile-menu">
+  <div *ngIf="!loader" class="mobile-menu__links">
+    <a class="navbar-link" (click)="goHome()" routerLink="/home" routerLinkActive="active-link">Home</a>
+    <a
+      class="navbar-link"
       *ngIf="authState"
       (click)="goToUserProfile()"
       [routerLink]="['/user', id]"
       routerLinkActive="active-link"
-    >
-      {{ userName }}
-    </h4>
-    <h4 *ngIf="authState" (click)="toggleSettings()">Settings</h4>
-    <h4
-      *ngIf="!authState"
-      (click)="login()"
-      routerLink="/login"
-      routerLinkActive="active-link"
-    >
-      Login
-    </h4>
-    <h4
-      *ngIf="!authState"
-      (click)="register()"
-      routerLink="/register"
-      routerLinkActive="active-link"
-    >
-      Register
-    </h4>
-    <mat-slide-toggle (change)="switchMode($event)" />
-  </div>
-  <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium"
-        template="<img src='../../../assets/bluedots-transparent.gif' />" [fullScreen]="false"
-        bdColor="transparent"></ngx-spinner> -->
-  <div
-    *ngIf="loader"
-    [ngStyle]="{
-      position: 'absolute',
-      height: '90vh',
-      width: '100%',
-      backgroundColor: 'rgb(3, 3, 36)',
-      zIndex: '1000000',
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }"
-  >
-    <!-- <ngx-spinner *ngIf="loader" class="spinner" size="medium" template="<img src='../../../assets/bluedots-transparent.gif' />"
-        [fullScreen]="true" bdColor="transparent"></ngx-spinner> -->
-    <!-- <span class="loader"></span> -->
-    <img src="assets/dragonspin.gif" alt="" />
+    >{{ userName }}</a>
+    <a class="navbar-link" *ngIf="authState" (click)="toggleSettings()">Settings</a>
+    <a class="navbar-link" *ngIf="!authState" (click)="login()" routerLink="/login" routerLinkActive="active-link">Login</a>
+    <a class="navbar-link" *ngIf="!authState" (click)="register()" routerLink="/register" routerLinkActive="active-link">Register</a>
+    <mat-slide-toggle
+      class="theme-toggle"
+      aria-label="Toggle color theme"
+      (change)="switchMode($event)"
+    ></mat-slide-toggle>
   </div>
 </div>
-<!-- !Settings options -->
-<div
-  *ngIf="settingsToggle"
-  class="settingsTab nav-page-component-theme"
-  [ngStyle]="{
-    width: !screenSizeCheck ? '100%' : '50%',
-    zIndex: '1000000'
-  }"
->
-  <div
-    [ngStyle]="{
-      position: 'absolute',
-      height: '7%',
-      width: 'auto%',
-      top: '.4rem',
-      right: '.5rem'
-    }"
-    (click)="toggleSettings()"
-  >
-    <img
-      src="../../../assets/cross.png"
-      alt=""
-      [ngStyle]="{
-        height: '100%',
-        width: '100%'
-      }"
-    />
-  </div>
-  <!-- <form
-    *ngIf="userRole === 'admin' || 'user'"
-    [formGroup]="roleSelectionForm"
-    (ngSubmit)="changeRole()"
-    action=""
-  >
-    <select formControlName="role">
-      <option value="admin">Admin</option>
-      <option value="user">User</option>
-    </select>
-    <button type="submit">Submit</button>
-  </form> -->
-  <h3 (click)="deleteAccount()" class="nav-link">Delete Account</h3>
-  <h3 *ngIf="authState" routerLink="" (click)="logout()" class="nav-link">Logout</h3>
+
+<div *ngIf="settingsToggle" class="navbar-panel settings-panel">
+  <button class="settings-panel__close" type="button" aria-label="Close settings" (click)="toggleSettings()">
+    <img src="../../../assets/cross.png" alt="" />
+  </button>
+  <button type="button" (click)="deleteAccount()" class="navbar-action">Delete Account</button>
+  <button *ngIf="authState" type="button" (click)="logout()" class="navbar-action">Logout</button>
 </div>
