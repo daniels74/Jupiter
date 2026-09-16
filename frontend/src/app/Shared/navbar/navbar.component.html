@@ -73,6 +73,12 @@
     >{{ userName }}</a>
     <a class="navbar-link" *ngIf="authState" (click)="toggleSettings()">Settings</a>
     <a class="navbar-link" *ngIf="!authState" (click)="login()" routerLink="/login" routerLinkActive="active-link">Login</a>
+    <h4
+      *ngIf="!authState"
+      (click)="login()"
+      routerLink="/login"
+      routerLinkActive="active-link"
+    ></h4>
     <a class="navbar-link" *ngIf="!authState" (click)="register()" routerLink="/register" routerLinkActive="active-link">Register</a>
     <mat-slide-toggle
       class="theme-toggle"
@@ -82,7 +88,7 @@
   </div>
 </div>
 
-<div *ngIf="settingsToggle" class="navbar-panel">
+<div *ngIf="settingsToggle" class="settings-panel">
   <button class="settings-panel__close" type="button" aria-label="Close settings" (click)="toggleSettings()">
     <img src="../../../assets/cross.png" alt="" />
   </button>
