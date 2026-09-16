@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 
-$navbar-height: clamp(4rem, 10vh, 6rem);
+$navbar-height: 10vh;
 
 @mixin color($theme) {
   .navbar-shell,
