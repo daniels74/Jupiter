@@ -1,8 +1,7 @@
 @use '@angular/material' as mat;
 
-$navbar-height: 10vh;
-
 @mixin color($theme) {
+
   .navbar-shell,
   .navbar-panel {
     background-color: mat.get-theme-color($theme, accent);
@@ -39,7 +38,7 @@ $navbar-height: 10vh;
   display: flex;
   align-items: center;
   gap: clamp(0.75rem, 2vw, 2rem);
-  min-height: $navbar-height;
+  max-height: 10vh;
   padding: 0 clamp(0.75rem, 3vw, 3rem);
   box-sizing: border-box;
 }
@@ -121,7 +120,7 @@ $navbar-height: 10vh;
 
 .navbar-accent-line {
   position: absolute;
-  top: $navbar-height;
+  top: 10vh;
   z-index: 1001;
   width: 100%;
   border-bottom: 0.2rem solid;
@@ -129,7 +128,7 @@ $navbar-height: 10vh;
 
 .navbar-panel {
   position: absolute;
-  top: $navbar-height;
+  top: 10vh;
   z-index: 1000;
   box-sizing: border-box;
   width: min(calc(100% - 2rem), 28rem);
@@ -190,7 +189,7 @@ $navbar-height: 10vh;
 
 .navbar-overlay {
   position: fixed;
-  inset: $navbar-height 0 0;
+  inset: 5vh 0 0;
   z-index: 2000;
   display: flex;
   align-items: center;
