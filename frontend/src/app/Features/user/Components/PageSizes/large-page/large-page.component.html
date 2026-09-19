@@ -12,9 +12,16 @@
   <!-- ! User Info and Posts -->
   <div *ngIf="!chartState" class="left-section">
     <!-- ? PROFILE -->
-    <div class="user-general-data-container">
+    <div
+      class="user-general-data-container"
+      [class.settings-open]="settingState"
+    >
       <div class="primary-component-theme"></div>
-      <div *ngIf="settingState" class="settings-panel settings-wrapper" [ngStyle]="{ position: 'relative', height: '100%', width: '100%' }">
+      <div
+        *ngIf="settingState"
+        class="settings-panel settings-wrapper"
+        [ngStyle]="{ position: 'relative', height: '100%', width: '100%' }"
+      >
         <app-settings-view
           (updateUser)="updateUser.emit()"
           [updateUserForm]="updateUserForm"
