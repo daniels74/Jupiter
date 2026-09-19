@@ -188,8 +188,9 @@
 }
 
 .navbar-overlay {
-  position: fixed;
-  inset: 5vh 0 0;
+  position: absolute;
+  // inset: 10vh 0 0;
+  top: 20vh;
   z-index: 2000;
   display: flex;
   align-items: center;
