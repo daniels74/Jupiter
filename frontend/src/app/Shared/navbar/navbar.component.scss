@@ -14,9 +14,12 @@
   }
 
   .navbar-link.active-link {
-    background-color: mat.get-theme-color($theme, primary, lighter);
-    box-shadow: 0 0 0.75rem mat.get-theme-color($theme, primary, lighter);
+    background-color: mat.get-theme-color($theme, accent, darker);
+    box-shadow:
+      inset 0 0 0.5rem rgb(255 255 255 / 35%),
+      0 0 1rem rgb(100 200 255 / 60%);
     color: mat.get-theme-color($theme, primary, text);
+    border-radius: 1rem;
   }
 
   .navbar-accent-line {
@@ -87,7 +90,7 @@
 .navbar-link {
   display: inline-flex;
   align-items: center;
-  min-height: 2.5rem;
+  height: 100%;
   padding: 0.5rem 0.75rem;
   border-radius: 0.35rem;
   white-space: nowrap;
@@ -189,7 +192,7 @@
 
 .navbar-overlay {
   position: fixed;
-  inset: 5vh 0 0;
+  inset: 10vh 0 0;
   z-index: 2000;
   display: flex;
   align-items: center;

@@ -8,7 +8,13 @@ import { selectAuth } from '../State/Selectors/auth.selector';
 import { authAction } from '../State/Actions/auth.actions';
 import { selectUser } from '../State/Selectors/users.selector';
 import { User } from '../../Core/Interfaces/User.interface';
-import { Router } from '@angular/router';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DOCUMENT } from '@angular/common';
 import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.service';
@@ -21,6 +27,7 @@ import { set } from 'lodash';
 })
 export class NavbarComponent implements OnDestroy, OnInit {
   authSub!: Subscription;
+  routerSub!: Subscription;
   authState: any = false;
   id!: number;
   userName = 'Profile';
@@ -71,10 +78,23 @@ export class NavbarComponent implements OnDestroy, OnInit {
     this.authSub = this.store.select(selectAuth).subscribe((state) => {
       this.authState = state;
     });
+
+    this.routerSub = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.loader = true;
+      } else if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError
+      ) {
+        this.loader = false;
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this.authSub.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   switchMode(isDarkMode: any) {
@@ -84,8 +104,6 @@ export class NavbarComponent implements OnDestroy, OnInit {
   toggleSettings() {
     this.settingsToggle = !this.settingsToggle;
     this.menuToggler = false;
-    // Notify global service so other components (like the large page) can react
-    this.siteAdjustments.setSettingsOpen(this.settingsToggle);
   }
 
   deleteAccount() {
@@ -109,57 +127,29 @@ export class NavbarComponent implements OnDestroy, OnInit {
   }
 
   login() {
-    this.loader = true;
-    setTimeout(() => {
-      this.menuToggler = false;
-      this.settingsToggle = false;
-      this.loader = false;
-      // this.router.navigate(['/login']);
-    }, 300);
+    this.menuToggler = false;
+    this.settingsToggle = false;
   }
 
   register() {
-    this.loader = true;
-    setTimeout(() => {
-      this.menuToggler = false;
-      this.settingsToggle = false;
-      this.loader = false;
-      // this.router.navigate(['/register']);
-    }, 300);
+    this.menuToggler = false;
+    this.settingsToggle = false;
   }
 
   goToLanding() {
-    this.loader = true;
-    // this.spinner.show('primary');
-    setTimeout(() => {
-      this.settingsToggle = false;
-      this.loader = false;
-      this.menuToggler = false;
-      // this.spinner.hide();
-      this.router.navigate(['']);
-    }, 300);
+    this.settingsToggle = false;
+    this.menuToggler = false;
+    this.router.navigate(['']);
   }
 
   goToUserProfile() {
-    this.loader = true;
-    setTimeout(() => {
-      this.settingsToggle = false;
-      this.loader = false;
-      this.menuToggler = false;
-      this.router.navigate(['/user', this.user.id]);
-    }, 300);
+    this.settingsToggle = false;
+    this.menuToggler = false;
+    this.router.navigate(['/user', this.user.id]);
   }
 
   goHome() {
-    this.loader = true;
-    // this.spinner.show('primary');
-    // this.router.navigate(['home']);
-    setTimeout(() => {
-      this.loader = false;
-      this.menuToggler = false;
-      // this.spinner.hide();
-      // this.router.navigate(['home']);
-    }, 300);
+    this.menuToggler = false;
   }
 
   roleSelectionForm: FormGroup = this.fb.group({

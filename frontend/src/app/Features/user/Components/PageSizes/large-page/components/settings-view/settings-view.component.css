@@ -1,60 +1,101 @@
 .settings-container {
   position: relative;
   z-index: 1;
-  /* background-color: blueviolet; */
+  box-sizing: border-box;
+  min-height: 0;
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: stretch;
+  gap: 0;
+  padding: clamp(1rem, 2vw, 2rem);
   border-radius: 1rem;
+  overflow: auto;
 }
 
 .image-update-container {
+  box-sizing: border-box;
+  flex: 0 0 20%;
+  min-width: 0;
+  max-width: none;
   height: 100%;
-  width: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  /* background-color: chartreuse; */
+  justify-content: center;
+  gap: 1rem;
+}
+
+.image-update-container mat-progress-bar {
+  width: 100%;
 }
 
 .image-preview {
-  width: 140px;
-  height: 140px;
+  width: clamp(90px, 10vw, 140px);
+  height: clamp(90px, 10vw, 140px);
+  max-width: 100%;
   object-fit: cover;
   border-radius: 50%;
   border: 2px solid #e0e0e0;
 }
 
 .form-container {
+  box-sizing: border-box;
+  flex: 0 0 80%;
+  min-width: 0;
   height: 100%;
-  width: 80%;
-  /* background-color: red; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .form-fields {
-  height: 65%;
+  box-sizing: border-box;
   width: 100%;
-  /* background-color: aqua; */
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
   align-items: center;
-  justify-content: space-around;
+}
+
+.form-fields mat-form-field {
+  width: 100%;
+  min-width: 0;
 }
 
 .submit-btn-container {
-height: 35%;
   width: 100%;
-  /* background-color: aqua; */
   display: flex;
   flex-direction: row;
-  align-items: top;
+  align-items: center;
   justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+  .settings-container {
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+  }
+
+  .image-update-container,
+  .form-container {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+  }
+
+  .image-update-container {
+    min-width: 0;
+  }
+
+  .form-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

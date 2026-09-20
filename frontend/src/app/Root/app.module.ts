@@ -65,11 +65,7 @@ export const BaseUrl = new InjectionToken<string>('');
     WINDOW_PROVIDERS,
     {
       provide: BaseUrl,
-<<<<<<< HEAD
-      useValue: null, // 'http://localhost:3000',
-=======
-      useValue: null, //'http://localhost:3000', // null,
->>>>>>> hotfix/settingsTab4
+      useValue: null, //'http://localhost:3000',
     },
   ],
   bootstrap: [AppComponent],
