@@ -101,6 +101,11 @@ export class UserController {
     return this.userService.getUserImage(user.id);
   }
 
+  @Get('unames/:id')
+  getUserNames(@Param('id') id: number): Observable<any> {
+    return this.userService.getUserNames(id);
+  }
+
   //! Upload user Img
   // @UseGuards(JwtAuthGuard)
   // @Post('uploadImage')
