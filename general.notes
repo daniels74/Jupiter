@@ -1,0 +1,7 @@
+[ ] Fix username updates so that an update gets displayed instantly without needing to refresh the page.
+[ ] Fix same user friend request issue where a user cannot send a friend request to themselves.
+[ ] Implement real-time notifications for friend requests and messages.
+[ ] Optimize database queries for better performance on the user profile page.
+[ ] Add validation for username changes to prevent duplicates and invalid characters.
+[ ] Create a feature to allow users to block or report other users.
+[ ] Improve the UI/UX of the friend request system for better user experience.
