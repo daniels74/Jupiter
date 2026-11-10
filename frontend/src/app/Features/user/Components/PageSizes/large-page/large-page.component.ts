@@ -21,7 +21,6 @@ import { UserService } from '../../../../../Core/Services/user.service';
 import { catchError, map, of } from 'rxjs';
 import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { selectUser } from '../../../../../Shared/State/Selectors/users.selector';
 import { NoteCardComponent } from './components/note-card/note-card.component';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
@@ -72,9 +71,15 @@ export class LargePageComponent implements OnInit {
   @Input() user!: User;
   @Input() profilePic: any;
   @Input() updateUserForm!: FormGroup;
-  @Input() name!: FormControl;
-  @Input() username!: FormControl;
   @Output() updateUser: EventEmitter<any> = new EventEmitter<any>();
+
+  get name(): string {
+    return this.user?.name ?? '';
+  }
+
+  get username(): string {
+    return this.user?.username ?? '';
+  }
 
   // Collection things
   @Input() collectionTypeToggle!: boolean;
