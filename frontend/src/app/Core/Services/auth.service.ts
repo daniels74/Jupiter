@@ -23,6 +23,7 @@ import { UserPostService } from './UserPost/user-post.service';
 export class AuthService {
   constructor(
     private userPostService: UserPostService,
+    private userService: UserService,
     private store: Store,
     private http: HttpClient,
     private router: Router,
@@ -62,10 +63,21 @@ export class AuthService {
   }
 
   //! Sets authentication state, User general data, notes, crypto, and nfts
-  setPermissions(token: string): void {
+  setPermissions(token: string): number {
     localStorage.setItem('blog-token', token);
 
-    const user: any = jwtDecode(token);
+    const user = jwtDecode<{ user: User }>(token);
+    console.log('🚀 ~ AuthService ~ setPermissions ~ user:', user);
+
+    this.userService.getUserNames(user.user.id).subscribe((userNames) => {
+      const userState_ngrx: User = {
+        ...user.user,
+        id: user.user.id,
+        name: userNames.name,
+        username: userNames.username,
+      };
+      this.store.dispatch(usersAction.setCurrentUserState({ userState_ngrx }));
+    });
 
     //// Set 1 hour timer for JWT
     const timer = 60000 * 60;
@@ -77,10 +89,6 @@ export class AuthService {
     this.authStateBehaviorSub$.next(true);
     const authState_ngrx = true;
     this.store.dispatch(authAction.setAuthenticationState({ authState_ngrx }));
-
-    //// Set user data State
-    const userState_ngrx: User = user.user;
-    this.store.dispatch(usersAction.setCurrentUserState({ userState_ngrx }));
 
     //// Set user's crypto collection NGRX
     this.CryptoService.getUserCryptoIds(user.user.id).subscribe((cryptoIds) => {
@@ -104,6 +112,8 @@ export class AuthService {
     // ! must remove posts from jwt token too
     //this.userPostService.userPostsBehaviorSubject.next(user.user.posts);
     this.userPostService.fetchUserNotes();
+
+    return user.user.id;
   }
 
   setSessionToken(token: string) {

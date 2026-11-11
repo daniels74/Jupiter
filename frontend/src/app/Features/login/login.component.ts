@@ -8,10 +8,7 @@ import {
 import { AuthService } from '../../Core/Services/auth.service';
 import { finalize, take } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { selectUser } from '../../Shared/State/Selectors/users.selector';
-import { User } from '../../Core/Interfaces/User.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.service';
 
@@ -22,7 +19,6 @@ import { SiteAdjustmentService } from '../../Core/Services/UX/site-adjustment.se
 })
 export class LoginComponent implements OnInit {
   loadingState = false;
-  user!: User;
 
   // ? Access width and height properties using "window."
   container_width = window.innerWidth <= 700 ? '95%' : '50%';
@@ -37,7 +33,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private store: Store,
     public spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
     private authServ: AuthService,
@@ -45,10 +40,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.select(selectUser).subscribe((theuser) => {
-      this.user = theuser;
-    });
-
     this.siteAdjustments.myValue$.subscribe((val) => {
       this.lightTheme = val;
     });
@@ -91,8 +82,8 @@ export class LoginComponent implements OnInit {
             this.setInvalidCredentialsError();
             return;
           }
-          this.authServ.setPermissions(ele.jwt);
-          this.router.navigate(['/user', this.user.id]);
+          const userId = this.authServ.setPermissions(ele.jwt);
+          this.router.navigate(['/user', userId]);
         },
         error: (error: HttpErrorResponse) => {
           this.handleError(error);

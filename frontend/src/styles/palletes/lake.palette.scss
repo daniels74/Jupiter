@@ -13,6 +13,8 @@ $md-lake: (
   A200: #6fc4dc,  // mid accent
   A400: #5cb8d7,  // darker accent
   A700: #397a9e,  // darkest accent
+  black: #000000,
+  white: #ffffff,
   lighter: 200,
   darker: 800,
   default: 800,
@@ -31,5 +33,7 @@ $md-lake: (
     A200: rgba(255,255,255,1),
     A400: rgba(255,255,255,1),
     A700: rgba(255,255,255,1),
+    black: rgba(255,255,255,1),
+    white: rgba(0,0,0,0.87),
   )
 );

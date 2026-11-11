@@ -6,6 +6,9 @@ import { FriendRequestsService } from '../../../../../../Core/Services/friend-re
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../../../../../../Core/Services/auth.service';
 import { MatButtonModule } from '@angular/material/button';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectUser } from '../../../../../State/Selectors/users.selector';
 
 @Component({
   selector: 'app-user-card',
@@ -24,6 +27,7 @@ export class UserCardComponent implements OnInit {
 
   loadingState = false;
   authState = false;
+  currentUser$: Observable<User>;
 
   constructor(
     private router: Router,
@@ -31,7 +35,10 @@ export class UserCardComponent implements OnInit {
     private SurferService: SurferService,
     private friendRequestService: FriendRequestsService,
     private authService: AuthService,
-  ) {}
+    private store: Store,
+  ) {
+    this.currentUser$ = this.store.select(selectUser);
+  }
 
   ngOnInit(): void {
     console.log('Profile img and name: ', this.name, this.profilePic);
