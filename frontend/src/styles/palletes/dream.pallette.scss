@@ -15,6 +15,8 @@ $md-dream: (
   A200: #7686cd,  // mid accent
   A400: #576cc2,  // darker accent
   A700: #314aad,  // darkest accent
+  black: #000000,
+  white: #ffffff,
   lighter: 400,
   darker: 800,
   default: 500,
@@ -33,5 +35,7 @@ $md-dream: (
     A200: rgba(255,255,255,1),
     A400: rgba(255,255,255,1),
     A700: rgba(255,255,255,1),
+    black: rgba(255,255,255,1),
+    white: rgba(0,0,0,0.87),
   )
 );

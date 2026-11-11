@@ -102,6 +102,12 @@ export class UserService implements OnInit, OnDestroy {
       );
   }
 
+  getUserNames(id: number): Observable<Pick<User, 'name' | 'username'>> {
+    return this.http.get<Pick<User, 'name' | 'username'>>(
+      this.origin + '/api/user/unames/' + id,
+    );
+  }
+
   getFriendRequests(): Observable<any> {
     return this.http.get(this.origin + '/friendrequest/myfriendrequests');
   }

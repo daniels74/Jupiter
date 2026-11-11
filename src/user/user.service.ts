@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './model/user.entity';
 import { Like, Repository } from 'typeorm';
@@ -82,7 +86,9 @@ export class UserService {
         } = validatedUser;
 
         return this.AuthServ.generateJWT(shortUser).pipe(
-          map((jwt: string) => jwt),
+          map((jwt: string) => {
+            return jwt;
+          }),
         );
       }),
     );
@@ -99,7 +105,10 @@ export class UserService {
           );
         }
 
-        return this.AuthServ.comparePasswords(password, foundUser.password).pipe(
+        return this.AuthServ.comparePasswords(
+          password,
+          foundUser.password,
+        ).pipe(
           switchMap((match: boolean) => {
             if (!match) {
               return throwError(
@@ -108,6 +117,8 @@ export class UserService {
             }
 
             const {
+              name,
+              username,
               email,
               password,
               cryptos,
@@ -127,7 +138,9 @@ export class UserService {
         if (err instanceof UnauthorizedException) {
           return throwError(() => err);
         }
-        return throwError(() => new UnauthorizedException('Invalid credentials'));
+        return throwError(
+          () => new UnauthorizedException('Invalid credentials'),
+        );
       }),
     );
   }
@@ -198,6 +211,21 @@ export class UserService {
       map((user: any) => {
         const { profileImage, ...result } = user;
         return { profileImage: profileImage };
+      }),
+    );
+  }
+
+  getUserNames(id: number): Observable<{ name: string; username: string }> {
+    return from(this.userRepository.findOne({ where: { id } })).pipe(
+      switchMap((user) => {
+        if (!user) {
+          return throwError(() => new NotFoundException('User not found'));
+        }
+
+        return of({
+          name: user.name ?? '',
+          username: user.username ?? '',
+        });
       }),
     );
   }

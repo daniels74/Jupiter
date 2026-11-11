@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
+  ParseIntPipe,
   Post,
   Request,
   UseGuards,
@@ -43,13 +46,13 @@ export class FriendRequestController {
 
   @UseGuards(JwtAuthGuard)
   @Post('denyFriend')
-  denyFriendRequest(@Body() requestId: number) {
+  denyFriendRequest(@Body() requestId: number): any {
     return this.friendReqService.denyFriendRequest(requestId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('cancelfriendrequest')
-  cancelFriendRequest(@Request() req, @Body() otherUser: User) {
+  cancelFriendRequest(@Request() req, @Body() otherUser: User): any {
     const currentUser = req.user;
     return this.friendReqService.cancelFriendRequest(currentUser, otherUser);
   }
@@ -59,5 +62,14 @@ export class FriendRequestController {
   getAllFriends(@Request() req) {
     const currentUser = req.user.id;
     return this.friendReqService.getAllFriends(currentUser);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('friends/:friendId')
+  removeFriend(
+    @Request() req,
+    @Param('friendId', ParseIntPipe) friendId: number,
+  ) {
+    return this.friendReqService.removeFriend(req.user, friendId);
   }
 }

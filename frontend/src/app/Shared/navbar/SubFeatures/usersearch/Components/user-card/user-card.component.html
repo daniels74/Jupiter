@@ -18,9 +18,11 @@
             <button (click)="this.goToSurferProfile()" mat-raised-button color="primary" [ngStyle]="{position: 'relative', height: '35%', width: '2rem'}">
             <!-- <h6>Profile</h6> -->Profile
         </button>
-        <button *ngIf="authState" (click)="sendFriendRequest(user.id)" mat-raised-button color="primary" [ngStyle]="{position: 'relative', height: '35%', width: '2rem'}" >
-            <!-- <h6>Add User</h6> -->Add User
-        </button>
+        <ng-container *ngIf="currentUser$ | async as currentUser">
+            <button *ngIf="authState && currentUser.id !== undefined && currentUser.id !== user.id" (click)="sendFriendRequest(user.id)" mat-raised-button color="primary" [ngStyle]="{position: 'relative', height: '35%', width: '2rem'}" >
+                <!-- <h6>Add User</h6> -->Add User
+            </button>
+        </ng-container>
     </div>
 </div>
 <div *ngIf="!isLast" class="glowingLine"></div>
