@@ -145,6 +145,9 @@ export class LargePageComponent implements OnInit {
     // });
     this.getFriendRequests();
     this.getSentFriendRequests();
+    this.FriendRequestService.sentFriendRequestsChanged$.subscribe(() => {
+      this.getSentFriendRequests();
+    });
 
     this.siteAdjustments.myValue$.subscribe((val) => {
       this.lightTheme = val;
@@ -154,16 +157,22 @@ export class LargePageComponent implements OnInit {
   getFriendRequests() {
     this.userService.getFriendRequests().subscribe((res) => {
       console.log('MY RECIEVED friend requests: ', res);
-      this.friendsList = res;
-      this.dataSource.data = res;
+      const pendingRequests = res.filter(
+        (request: { status: string }) => request.status === 'pending',
+      );
+      this.friendsList = pendingRequests;
+      this.dataSource.data = pendingRequests;
     });
   }
 
   getSentFriendRequests() {
     this.userService.getSentFriendRequests().subscribe((res) => {
       console.log('MY SENT friend requests: ', res);
-      this.sentFriendRequests = res;
-      this.sentFriendRequests_dataSource.data = res;
+      const pendingRequests = res.filter(
+        (request: { status: string }) => request.status === 'pending',
+      );
+      this.sentFriendRequests = pendingRequests;
+      this.sentFriendRequests_dataSource.data = pendingRequests;
     });
   }
 
@@ -245,10 +254,28 @@ export class LargePageComponent implements OnInit {
     });
   }
 
+  removeFriend(friendId: number) {
+    return this.FriendRequestService.removeFriend(friendId).subscribe({
+      next: () => {
+        this.FriendRequestService.getFriendsList().subscribe({
+          next: (friends) => {
+            this.myfriendsList = friends;
+            this.myfriends_dataSource.data = friends;
+          },
+          error: (error: HttpErrorResponse) => {
+            console.error('Failed to refresh friends list:', error);
+          },
+        });
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Failed to remove friend:', error);
+      },
+    });
+  }
+
   cancelFriendRequest(id: number) {
     return this.FriendRequestService.cancelFriendRequest(id).subscribe(
       (res) => {
-        this.getSentFriendRequests();
         console.log(res);
       },
     );

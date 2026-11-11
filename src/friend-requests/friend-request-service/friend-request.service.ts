@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { from, map, take } from 'rxjs';
+import { from, map, of, switchMap } from 'rxjs';
 import { FriendRequestEntity } from '../Model/friendRequest.entity';
 import { Repository } from 'typeorm';
-import { FriendRequest } from '../Model/friendRequest.interface';
 import { User } from 'src/user/model/user.interface';
 
 @Injectable()
@@ -45,8 +44,7 @@ export class FriendRequestService {
     );
   }
 
-  cancelFriendRequest(currentUser: User, otherUser: User) {
-    console.log(currentUser.id, otherUser.id);
+  cancelFriendRequest(currentUser: User, otherUser: User): any {
     return from(
       this.friendRequestRepository.find({
         where: {
@@ -55,15 +53,47 @@ export class FriendRequestService {
         },
       }),
     ).pipe(
-      map((res) => {
-        console.log('Entry found:', res[0]);
-        if (!res[0]) {
-          return res[0];
-        } else {
-          res.map((entry) => {
-            return this.friendRequestRepository.delete(entry.id);
-          });
+      switchMap((requests) => {
+        if (requests.length === 0) {
+          return of(null);
         }
+
+        return from(
+          this.friendRequestRepository.delete(
+            requests.map((request) => request.id),
+          ),
+        );
+      }),
+    );
+  }
+
+  removeFriend(currentUser: User, friendId: number) {
+    return from(
+      this.friendRequestRepository.find({
+        where: [
+          {
+            creator: { id: currentUser.id },
+            reciever: { id: friendId },
+            status: 'accepted',
+          },
+          {
+            creator: { id: friendId },
+            reciever: { id: currentUser.id },
+            status: 'accepted',
+          },
+        ],
+      }),
+    ).pipe(
+      switchMap((friendships) => {
+        if (friendships.length === 0) {
+          return of(null);
+        }
+
+        return from(
+          this.friendRequestRepository.delete(
+            friendships.map((friendship) => friendship.id),
+          ),
+        );
       }),
     );
   }
@@ -125,14 +155,15 @@ export class FriendRequestService {
             },
             { reciever: { id: userID }, status: 'accepted' },
           ],
-          relations: { reciever: true },
+          relations: { creator: true, reciever: true },
         })
         .then((res) => {
           return res.map((friendRequestBlock) => {
-            const { reciever, ...block } = friendRequestBlock;
-            const { password, role, ...restOfUser } =
-              friendRequestBlock.reciever;
-            const filteredSenstiveData = { ...block, restOfUser };
+            const { creator, reciever, ...friendship } =
+              friendRequestBlock;
+            const friend = creator.id === userID ? reciever : creator;
+            const { password, role, ...restOfUser } = friend;
+            const filteredSenstiveData = { ...friendship, restOfUser };
             console.log(filteredSenstiveData);
             return filteredSenstiveData;
           });

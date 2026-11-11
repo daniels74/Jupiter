@@ -63,10 +63,10 @@ export class AuthService {
   }
 
   //! Sets authentication state, User general data, notes, crypto, and nfts
-  setPermissions(token: string): void {
+  setPermissions(token: string): number {
     localStorage.setItem('blog-token', token);
 
-    const user: any = jwtDecode(token);
+    const user = jwtDecode<{ user: User }>(token);
     console.log('🚀 ~ AuthService ~ setPermissions ~ user:', user);
 
     this.userService.getUserNames(user.user.id).subscribe((userNames) => {
@@ -112,6 +112,8 @@ export class AuthService {
     // ! must remove posts from jwt token too
     //this.userPostService.userPostsBehaviorSubject.next(user.user.posts);
     this.userPostService.fetchUserNotes();
+
+    return user.user.id;
   }
 
   setSessionToken(token: string) {

@@ -28,9 +28,19 @@
       <div class="surfer-address"><p>Solana Addresses</p></div>
     </div>
     <div class="options">
-      <button *ngIf="authState" color="accent" mat-raised-button>
-        Friend Request
-      </button>
+      <ng-container *ngIf="currentUser$ | async as currentUser">
+        <button
+          *ngIf="
+            authState &&
+            currentUser.id !== undefined &&
+            currentUser.id !== surfer.id
+          "
+          color="accent"
+          mat-raised-button
+        >
+          Friend Request
+        </button>
+      </ng-container>
       <button *ngIf="authState" color="accent" mat-raised-button>
         Message
       </button>
